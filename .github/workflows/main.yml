@@ -16,10 +16,17 @@ jobs:
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
       with:
-        ruby-version: 2.6
+        ruby-version: 3.0.2  # Aquí especificas la versión de Ruby que quieres usar
 
-    - name: Install dependencies
-      run: gem install theme-check
+    - name: Instalar dependencias
+      run: |
+        gem install bundler
+        bundle install --jobs 4 --retry 3
 
-    - name: Run theme check
-      run: theme-check .
+    - name: Ejecutar theme-check
+      run: |
+        gem install theme-check
+        theme-check
+
+    - name: Ejecutar pruebas
+      run: bundle exec rake
