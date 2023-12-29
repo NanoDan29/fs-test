@@ -14,14 +14,7 @@ jobs:
         with:
           ruby-version: '3.3'
           bundler-cache: true
-      - name: Install Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: 14
-      - name: Install Dependencies
-        run: |
-          npm install
-          bundle install
+      - run: bundle exec rake
       - name: Install Shopify CLI
         run: |
           gem install shopify-cli
