@@ -1,0 +1,99 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-list-collections",
+      "blocks": {
+        "a227fdce-867c-4733-a957-ffaf5776a834": {
+          "type": "collection",
+          "settings": {
+            "title_collection": "",
+            "collection": "mattress",
+            "image": "shopify:\/\/shop_images\/Four-Seasons-Signature-Sleep-Collection_Bed-RenderingUPDATED_002c5da6-0ab5-44dd-9165-ba841cb73eb8.jpg"
+          }
+        },
+        "ea085fc8-6a0f-4823-bcb2-7a4499c86a3e": {
+          "type": "collection",
+          "settings": {
+            "title_collection": "",
+            "collection": "bedding",
+            "image": "shopify:\/\/shop_images\/1P0A1469_wide_46b37d85-dcd7-4aa2-9710-97883f24a8c4.jpg"
+          }
+        },
+        "351de355-2d9a-4419-bbbe-d66a42cc221d": {
+          "type": "collection",
+          "settings": {
+            "title_collection": "",
+            "collection": "candles",
+            "image": "shopify:\/\/shop_images\/Candle1600x800_01.jpg"
+          }
+        },
+        "2a798250-3b81-49bf-9de6-e1f903decdfa": {
+          "type": "collection",
+          "settings": {
+            "title_collection": "",
+            "collection": "decor-lifestyle",
+            "image": "shopify:\/\/shop_images\/BATH_TERRY_C_UNBOXING_900x1200_0790c4ca-e239-49a5-ac2a-e7fe12099e1b.jpg"
+          }
+        },
+        "8577aa4b-476d-46ef-9217-f7083df3d4dc": {
+          "type": "collection",
+          "settings": {
+            "title_collection": "",
+            "collection": "linens",
+            "image": "shopify:\/\/shop_images\/Egyptian-Camel-Priority-Stack_499543d1-3283-401a-a089-0e1951f2ac44.jpg"
+          }
+        },
+        "0ccdcafb-5062-42a8-a2b3-4c98c62c1be4": {
+          "type": "collection",
+          "settings": {
+            "title_collection": "",
+            "collection": "pillows",
+            "image": "shopify:\/\/shop_images\/EURO_SHAM_TS_LOGO_V1_2d42b5e3-b31a-424c-87be-e52067e6d171.jpg"
+          }
+        },
+        "c5da3331-aa2c-4eef-b5af-63ad326a1754": {
+          "type": "collection",
+          "settings": {
+            "title_collection": "",
+            "collection": "spa-bath",
+            "image": "shopify:\/\/shop_images\/COLOUR_1_3d70de5c-b9bc-454d-885f-e60e65153ba5.jpg"
+          }
+        }
+      },
+      "block_order": [
+        "a227fdce-867c-4733-a957-ffaf5776a834",
+        "ea085fc8-6a0f-4823-bcb2-7a4499c86a3e",
+        "351de355-2d9a-4419-bbbe-d66a42cc221d",
+        "2a798250-3b81-49bf-9de6-e1f903decdfa",
+        "8577aa4b-476d-46ef-9217-f7083df3d4dc",
+        "0ccdcafb-5062-42a8-a2b3-4c98c62c1be4",
+        "c5da3331-aa2c-4eef-b5af-63ad326a1754"
+      ],
+      "settings": {
+        "container": "container-fluid",
+        "title": "All collections",
+        "des_collection": "",
+        "type": "custom",
+        "sort": "alphabetical",
+        "layout": "layout-2",
+        "hover_effect": "zoom",
+        "images_style": "radius",
+        "image_ratio": "4\/3",
+        "custom_ratio": "377:464",
+        "show_count_product": true,
+        "columns_desktop": 3,
+        "show_button": true,
+        "btn_text": "Shop now",
+        "show_description": true,
+        "limit_content_des": 23,
+        "column_gap": 20,
+        "collection_infinite_scroll": true,
+        "collection_limit": 9,
+        "button_show_more": "Show more collections"
+      }
+    }
+  },
+  "order": [
+    "main"
+  ]
+}

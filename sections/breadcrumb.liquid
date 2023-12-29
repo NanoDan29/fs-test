@@ -1,0 +1,60 @@
+{%- liquid
+  assign st = section.settings
+-%}
+  <section class="breadcrumbs color-{{ section.settings.color_scheme }} gradient {{ st.postion }} py-25 fs-small">
+    <div class="{{ st.layout }}">
+      {% render 'breadcrumbs' %}
+    </div>
+  </section>
+{% schema %}
+{
+  "name": "Breadcrumbs",
+  "settings": [
+    {
+      "type": "select",
+      "id": "layout",
+      "label": "Layout",
+      "default": "container", 
+      "options": [
+        {
+          "value": "container",
+          "label": "Default"
+        },
+        {
+          "value": "container-fluid",
+          "label": "Fluid container"
+        },
+        {
+          "value": "full-width",
+          "label": "Full width"
+        }
+      ]
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color schema"
+    },
+    {
+      "type": "select",
+      "id": "postion",
+      "label": "Text alignment",
+      "default": "text-left",
+      "options": [
+        {
+          "label": "Center",
+          "value": "text-center"
+        },
+        {
+          "label": "Left",
+          "value": "text-left"
+        },
+        {
+          "label": "Right",
+          "value": "text-right"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
