@@ -14,7 +14,6 @@ jobs:
         with:
           ruby-version: '3.3'
           bundler-cache: true
-      - run: bundle exec rake
       - name: Install Shopify CLI
         run: |
           gem install shopify-cli
