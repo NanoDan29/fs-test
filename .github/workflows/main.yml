@@ -10,9 +10,10 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
       - name: Set Up Ruby
-        uses: actions/setup-ruby@v1
+        uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.2'
+          ruby-version: '3.3'
+          bundler-cache: true
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
