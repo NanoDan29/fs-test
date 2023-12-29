@@ -12,11 +12,11 @@ jobs:
       - name: Set Up Ruby
         uses: actions/setup-ruby@v1
         with:
-          ruby-version: 3.2.2 # Use the version compatible with your theme
+          ruby-version: '3.2.2'
       - name: Install Node.js
         uses: actions/setup-node@v2
         with:
-          node-version: 14 # Use the version compatible with your theme
+          node-version: 14
       - name: Install Dependencies
         run: |
           npm install
