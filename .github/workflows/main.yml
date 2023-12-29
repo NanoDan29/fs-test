@@ -1,32 +1,31 @@
 name: CI
-
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
+    branches:
+      - master
+      - staging
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 3.0.2  # Aquí especificas la versión de Ruby que quieres usar
-
-    - name: Instalar dependencias
-      run: |
-        gem install bundler
-        bundle install --jobs 4 --retry 3
-
-    - name: Ejecutar theme-check
-      run: |
-        gem install theme-check
-        theme-check
-
-    - name: Ejecutar pruebas
-      run: bundle exec rake
+      - name: Checkout Code
+        uses: actions/checkout@v2
+      - name: Set Up Ruby
+        uses: actions/setup-ruby@v1
+        with:
+          ruby-version: 2.x # Use the version compatible with your theme
+      - name: Install Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14 # Use the version compatible with your theme
+      - name: Install Dependencies
+        run: |
+          npm install
+          bundle install
+      - name: Install Shopify CLI
+        run: |
+          gem install shopify-cli
+      - name: Lint with Shopify Theme Check
+        run: |
+          shopify theme check
+      
