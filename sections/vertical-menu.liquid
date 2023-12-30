@@ -5,6 +5,7 @@
     assign ver_title_text_color = section.settings.ver_title_text_color
     assign limit_show_item = section.settings.limit_show_item
     assign animation = section.settings.animation
+    assign menu_title = section.settings.menu_title | default: "Menu"
 -%}
 {%- capture style -%}
 --vertical-title-bg: {{ ver_title_background_color }};

@@ -12,7 +12,6 @@
   assign item_desktop_grid = st.images_per_row_grid_d
   assign carousel_autoplay = st.carousel_autoplay
   assign carousel_loop = st.carousel_loop
-  assign carousel_arrows = st.carousel_arrows
   assign carousel_pagination = st.carousel_pagination
   assign column_gap = st.column_gap
   assign items_to_show = st.ig_num_imgs
@@ -53,9 +52,11 @@
   endif
 
   assign has_bg = ''
+  assign bg_color = bg_color | default: "transparent"
   if bg_color != blank
     assign has_bg = ' has-bg'
   endif
+  assign show_arrow = show_arrow | default: false
 -%}
 
 {%- capture style -%}

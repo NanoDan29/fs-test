@@ -43,6 +43,7 @@
   if bg_color != blank
     assign has_bg = ' has-bg'
   endif
+  assign bg_color = section.settings.bg_color | default: "#FFFFFF"
 -%}
 {%- capture style -%}
   {%- if bg_color != blank -%}

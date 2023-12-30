@@ -10,7 +10,6 @@
     assign container = st.container
     assign bg_color = st.slideshow_background_color
     assign color_scheme = st.color_scheme
-    assign reset_color_mb = st.reset_color_mb
     assign slide_height = st.slide_height
     assign height_dk = st.height_dk
     assign height_tb = st.height_tb
@@ -52,9 +51,7 @@
       assign arrow_show_class = 'show-on-desktop'
     endif
 
-    assign bullet_show_class = ''
     if st.show_bullet_desktop and st.show_bullet_mobile
-      assign bullet_show_class = ''
     elsif st.show_bullet_mobile
       assign arrow_bullet_class = 'show-on-mobile'
     else

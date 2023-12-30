@@ -1,8 +1,8 @@
 {
   "current": {
-    "favicon": "shopify:\/\/shop_images\/unnamed-removebg-preview_100a7958-3393-4d46-8c99-a13a0a050eec.png",
-    "logo_image_desktop": "shopify:\/\/shop_images\/image_1.png",
-    "logo_transparent_image": "shopify:\/\/shop_images\/Logo_0883908e-c667-42db-a16d-ff8299d0da8e.png",
+    "favicon": "shopify://shop_images/unnamed-removebg-preview_100a7958-3393-4d46-8c99-a13a0a050eec.png",
+    "logo_image_desktop": "shopify://shop_images/image_1.png",
+    "logo_transparent_image": "shopify://shop_images/Logo_0883908e-c667-42db-a16d-ff8299d0da8e.png",
     "logo_width_desktop": 90,
     "logo_width_mobile": 90,
     "first_notification": "👉 Come back!",
@@ -89,9 +89,9 @@
     "show_qv_product_review": true,
     "show_fake_order": true,
     "fake_product": [
-      "copy-of-wave-sideboard-anthracite",
-      "copy-of-bottle-grinder-of-pepper",
-      "copy-of-tivoli-emperor-lamp"
+      "al-fresco-blanket",
+      "dream-set",
+      "hooded-robe"
     ],
     "newsletter_width": 530,
     "show_promotion": false,
@@ -99,27 +99,28 @@
     "promotion_code": "fs50",
     "show_promotion_code": true,
     "promotion_width": 500,
-    "promotion_banner": "shopify:\/\/shop_images\/promotion.jpg",
+    "promotion_banner": "shopify://shop_images/promotion.jpg",
     "promotion_title": "Cyber Monday",
-    "promotion_sub_title": "<p>Special Offer<\/p>",
-    "promotion_content": "Up to <span>50% Off<\/span>\nwhen using code \"[promotion_code]\"",
+    "promotion_sub_title": "<p>Special Offer</p>",
+    "promotion_content": "Up to <span>50% Off</span>\nwhen using code \"[promotion_code]\"",
     "show_before": true,
-    "bf_logo": "shopify:\/\/shop_images\/icon_box2.webp",
-    "bf_banner": "shopify:\/\/shop_images\/banner.png",
+    "bf_logo": "shopify://shop_images/icon_box2.webp",
+    "bf_banner": "shopify://shop_images/banner.png",
     "bf_collection": "spa-bath",
     "bf_heading": "Top sale!",
     "bf_sub_heading": "",
-    "bf_desc": "<p>Enter the code below at checkout to get 20% off your first order.<\/p><p><strong> \"[discount_code]\"<\/strong><\/p>",
+    "bf_desc": "<p>Enter the code below at checkout to get 20% off your first order.</p><p><strong> \"[discount_code]\"</strong></p>",
     "bf_label_bb": "Continue Shopping",
-    "bf_link_bb": "shopify:\/\/collections\/all",
+    "bf_link_bb": "shopify://collections/all",
     "enable_cart_terms_conditions": true,
     "enable_product_terms_conditions": true,
     "enable_quickview_terms_conditions": true,
-    "content_terms_conditions": "<p> I agree with <a href=\"\/pages\/term-condition\" title=\"Term & Condition\">Terms & Conditions <\/a><\/p>",
+    "content_terms_conditions": "<p> I agree with <a href=\"/pages/term-condition\" title=\"Term & Condition\">Terms & Conditions </a></p>",
     "page_terms_conditions": "term-condition",
-    "message_cookie": "<p>We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking <strong>\"Allow cookies\"<\/strong>, you consent to our use of cookies. <a href=\"\/pages\/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\"><strong>More infor<\/strong><\/a><\/p>",
+    "message_cookie": "<p>We use cookies to enhance your browsing experience, serve personalized ads or content, and analyze our traffic. By clicking <strong>\"Allow cookies\"</strong>, you consent to our use of cookies. <a href=\"/pages/privacy-policy\" target=\"_blank\" title=\"Privacy Policy\"><strong>More infor</strong></a></p>",
     "cookie_button_text": "Allow cookies",
-    "checkout_logo_image": "shopify:\/\/shop_images\/logo_checkout.png",
+    "loading_img": "shopify://shop_images/unnamed-removebg-preview_100a7958-3393-4d46-8c99-a13a0a050eec.png",
+    "checkout_logo_image": "shopify://shop_images/logo_checkout.png",
     "checkout_logo_size": "small",
     "checkout_accent_color": "#111111",
     "checkout_button_color": "#111111",
@@ -130,10 +131,10 @@
     "header_transparent_text_color": "#ffffff",
     "cart_discount_codes": true,
     "header_full_width": true,
-    "cookie_url": "shopify:\/\/pages\/term-condition",
+    "cookie_url": "shopify://pages/term-condition",
     "cookie_link_text": "Read more",
     "bf_label": "Continue Shopping",
-    "bf_link": "shopify:\/\/products\/knotted-short-skirt",
+    "bf_link": "shopify://products/knotted-short-skirt",
     "colors_solid_button_labels": "#ffffff",
     "colors_accent_1": "#121212",
     "gradient_accent_1": "",
@@ -249,7 +250,7 @@
           "fd8c507a-a402-4ccc-b440-8e60e259f0f1": {
             "type": "announcement",
             "settings": {
-              "text": "<p>Final Hours! 50% Off! No code needed:<\/p>",
+              "text": "<p>Final Hours! 50% Off! No code needed:</p>",
               "countdown_deadline": "12-20-2024"
             }
           }
@@ -289,7 +290,7 @@
           "show_language": false,
           "show_store_page": false,
           "show_message": false,
-          "message": "<p>Sign up for 10% off your first order: <a href=\"\/account\/\" title=\"\/account\/\"><span style=\"text-decoration:underline\"><strong>Sign Up<\/strong><\/span><\/a><\/p>"
+          "message": "<p>Sign up for 10% off your first order: <a href=\"/account/\" title=\"/account/\"><span style=\"text-decoration:underline\"><strong>Sign Up</strong></span></a></p>"
         }
       },
       "horizontal-menu": {
@@ -322,7 +323,7 @@
             "type": "collection",
             "settings": {
               "collection": "mattress",
-              "image": "shopify:\/\/shop_images\/Four-Seasons-Signature-Sleep-Collection_Bed-RenderingUPDATED_002c5da6-0ab5-44dd-9165-ba841cb73eb8.jpg",
+              "image": "shopify://shop_images/Four-Seasons-Signature-Sleep-Collection_Bed-RenderingUPDATED_002c5da6-0ab5-44dd-9165-ba841cb73eb8.jpg",
               "show_count": false,
               "open_link": false,
               "col": "4"
@@ -355,7 +356,7 @@
             "type": "collection",
             "settings": {
               "collection": "bedding",
-              "image": "shopify:\/\/shop_images\/DUVET_SET_C_900x1200_91daa81b-c38d-41a0-bfbe-addb60356c66.jpg",
+              "image": "shopify://shop_images/DUVET_SET_C_900x1200_91daa81b-c38d-41a0-bfbe-addb60356c66.jpg",
               "show_count": false,
               "open_link": false,
               "col": "4"
@@ -388,7 +389,7 @@
             "type": "collection",
             "settings": {
               "collection": "spa-bath",
-              "image": "shopify:\/\/shop_images\/COLOUR_1_99a9d81d-c263-4607-b758-e966715de645.jpg",
+              "image": "shopify://shop_images/COLOUR_1_99a9d81d-c263-4607-b758-e966715de645.jpg",
               "show_count": false,
               "open_link": false,
               "col": "4"
@@ -421,7 +422,7 @@
             "type": "collection",
             "settings": {
               "collection": "decor-lifestyle",
-              "image": "shopify:\/\/shop_images\/2020_09_fs-home-product0086-v2_46519fa9-6567-4cdf-b233-adb9e8f4552e.jpg",
+              "image": "shopify://shop_images/2020_09_fs-home-product0086-v2_46519fa9-6567-4cdf-b233-adb9e8f4552e.jpg",
               "show_count": false,
               "open_link": false,
               "col": "4"
@@ -431,7 +432,7 @@
             "type": "single_link",
             "settings": {
               "title": "Gifts",
-              "url": "shopify:\/\/pages\/sales",
+              "url": "shopify://pages/sales",
               "open_link": false,
               "label": "label3",
               "icon_font": "",
@@ -497,7 +498,7 @@
             "settings": {
               "sub_title": "",
               "title": "SIGN UP TO NEWSLETTER",
-              "description": "<p>Enter your email address to get $10 off your first order and free shipping.Updates information on Sales and Offers.<\/p>",
+              "description": "<p>Enter your email address to get $10 off your first order and free shipping.Updates information on Sales and Offers.</p>",
               "email_placeholder": "Enter your email...",
               "email_btn_label": "subscribe",
               "design_newletter": "default",
@@ -524,7 +525,7 @@
           "has_bg": false,
           "remove_on_homepage": false,
           "remove_on_inner_page": false,
-          "copyright": "<p>© 2022 Four Seasons Store. All Rights Reserved<\/p>",
+          "copyright": "<p>© 2022 Four Seasons Store. All Rights Reserved</p>",
           "show_country": true,
           "show_language": true,
           "payment_icons_width": 331,
@@ -565,7 +566,7 @@
             "settings": {
               "title": "Heading",
               "button_title": "Button Text",
-              "banner_link": "shopify:\/\/collections\/collections1",
+              "banner_link": "shopify://collections/collections1",
               "open_link": false,
               "col": "4"
             }
@@ -715,7 +716,7 @@
             "settings": {
               "title": "",
               "description": "",
-              "logo_about_us": "shopify:\/\/shop_images\/Logo.png",
+              "logo_about_us": "shopify://shop_images/Logo.png",
               "logo_width": 84,
               "show_address": true,
               "show_phone": true,
@@ -744,7 +745,7 @@
             "type": "newsletter",
             "settings": {
               "title": "Subscribe",
-              "description": "<p>Newsletter description<\/p>",
+              "description": "<p>Newsletter description</p>",
               "email_placeholder": "Enter your email",
               "show_social": false,
               "width": "33%"
@@ -760,7 +761,7 @@
         "settings": {
           "container": "container-fluid",
           "back_to_top": true,
-          "copyright": "<p>Copyright © Four Seasons all rights reserved. Powered by Sobel Westex.<\/p>",
+          "copyright": "<p>Copyright © Four Seasons all rights reserved. Powered by Sobel Westex.</p>",
           "show_country": true,
           "show_language": true,
           "payment_icons_width": 300,
@@ -773,7 +774,7 @@
     ],
     "blocks": {
       "14060646107696862457": {
-        "type": "shopify:\/\/apps\/judge-me-reviews\/blocks\/judgeme_core\/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
+        "type": "shopify://apps/judge-me-reviews/blocks/judgeme_core/61ccd3b1-a9f2-4160-9fe9-4fec8413e5d8",
         "disabled": false,
         "settings": {
         }

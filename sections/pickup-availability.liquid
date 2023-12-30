@@ -103,7 +103,7 @@
       {%- for availability in pick_up_availabilities -%}
         <li class="pickup-availability-list__item pb-25 mb-25 border-bottom last-0">
           <h4 class="fs-16 capitalize">{{ availability.location.name | escape }}</h4>
-          {{availability|json }}
+          {{ availability | json }}
             {%- if availability.available -%}
           <p class="pickup-availability-preview caption-large flex align-items-center">
 

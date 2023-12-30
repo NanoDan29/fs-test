@@ -2,9 +2,7 @@
 {{ 'blog-item.css' | asset_url | stylesheet_tag }}
 {%- liquid
   assign st = section.settings
-  assign show_author = st.post_show_author
   assign show_tag = st.post_show_tags
-  assign show_date = st.post_show_date
   assign show_share = st.post_show_share
   assign aspect_ratio = st.aspect_ratio
   assign custom_ratio = st.custom_ratio

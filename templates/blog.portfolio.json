@@ -6,7 +6,7 @@
         "ff32fbca-2006-4bd9-a2cd-2c4eb470cdea": {
           "type": "image",
           "settings": {
-            "image": "shopify:\/\/shop_images\/icon.jpg",
+            "image": "shopify://shop_images/icon.jpg",
             "text_circle": "BUILD NEXT GENERATION SHOPIFY 2.0 STORE",
             "image_mt": 0,
             "image_mb": 30
@@ -26,7 +26,7 @@
         "adb6be51-9d94-41c1-b195-08b349255473": {
           "type": "desc",
           "settings": {
-            "desc": "<p>We help our client suceed by creating identities, digital experiences and printmaterials that communicate clearly, achieve marketing goals and look fantastic.<\/p>",
+            "desc": "<p>We help our client suceed by creating identities, digital experiences and printmaterials that communicate clearly, achieve marketing goals and look fantastic.</p>",
             "desc_fs": 18,
             "desc_fw": "400",
             "content_width": 68,

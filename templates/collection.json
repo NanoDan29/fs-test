@@ -23,7 +23,7 @@
           "settings": {
             "title_collection": "",
             "collection": "mattress",
-            "image": "shopify:\/\/shop_images\/Four-Seasons-Signature-Sleep-Collection_Bed-RenderingUPDATED_002c5da6-0ab5-44dd-9165-ba841cb73eb8.jpg"
+            "image": "shopify://shop_images/Four-Seasons-Signature-Sleep-Collection_Bed-RenderingUPDATED_002c5da6-0ab5-44dd-9165-ba841cb73eb8.jpg"
           }
         },
         "template--16567751475447__8498460c-0376-40d1-bafc-199edbe0edfc-16665857567f9937b1-1": {
@@ -31,7 +31,7 @@
           "settings": {
             "title_collection": "",
             "collection": "bedding",
-            "image": "shopify:\/\/shop_images\/FourSeasonsHome_Mattress-Glam-min_5749add6-5b5a-4db5-947b-1a478efbe7a1.jpg"
+            "image": "shopify://shop_images/FourSeasonsHome_Mattress-Glam-min_5749add6-5b5a-4db5-947b-1a478efbe7a1.jpg"
           }
         },
         "template--16567751475447__8498460c-0376-40d1-bafc-199edbe0edfc-16665857567f9937b1-2": {
@@ -39,7 +39,7 @@
           "settings": {
             "title_collection": "",
             "collection": "spa-bath",
-            "image": "shopify:\/\/shop_images\/HOODED_ROBE_LIFESTYLE_2_900x1200_d7462586-e4df-4f05-936a-2ae27a5d1248.jpg"
+            "image": "shopify://shop_images/HOODED_ROBE_LIFESTYLE_2_900x1200_d7462586-e4df-4f05-936a-2ae27a5d1248.jpg"
           }
         },
         "template--16567751475447__8498460c-0376-40d1-bafc-199edbe0edfc-16665857567f9937b1-3": {
@@ -47,7 +47,7 @@
           "settings": {
             "title_collection": "",
             "collection": "candles",
-            "image": "shopify:\/\/shop_images\/Candle1600x800_01.jpg"
+            "image": "shopify://shop_images/Candle1600x800_01.jpg"
           }
         },
         "616f3472-abe6-41ef-8d49-4e190d1fc5cc": {
@@ -55,7 +55,7 @@
           "settings": {
             "title_collection": "",
             "collection": "decor-lifestyle",
-            "image": "shopify:\/\/shop_images\/ALFRESCO_BLANKET_LIFESTYLE2_900x1200_ea6c0cef-3745-4b6a-8b9f-bfcb4b55c575.jpg"
+            "image": "shopify://shop_images/ALFRESCO_BLANKET_LIFESTYLE2_900x1200_ea6c0cef-3745-4b6a-8b9f-bfcb4b55c575.jpg"
           }
         }
       },
@@ -80,7 +80,7 @@
         "custom_width_images": false,
         "width_image": 200,
         "images_style": "radius",
-        "image_ratio": "4\/3",
+        "image_ratio": "4/3",
         "custom_ratio": "21:9",
         "custom_column": 5,
         "column_gap": 15,
@@ -133,8 +133,8 @@
         "8fe431f8-91f7-4b21-a605-4b55df7293e1": {
           "type": "image_banner",
           "settings": {
-            "image": "shopify:\/\/shop_images\/banner.png",
-            "url": "shopify:\/\/products\/colorful-wind-coats",
+            "image": "shopify://shop_images/banner.png",
+            "url": "shopify://products/colorful-wind-coats",
             "open_link": false
           }
         }
@@ -166,7 +166,7 @@
       "type": "sub-collection",
       "settings": {
         "heading": "",
-        "description": "<p><\/p>",
+        "description": "<p></p>",
         "text_alignment": "text-center",
         "container": "container",
         "color_scheme": "",
@@ -179,7 +179,7 @@
         "custom_width_images": false,
         "width_image": 200,
         "images_style": "square",
-        "image_ratio": "3\/4",
+        "image_ratio": "3/4",
         "custom_ratio": "21:9",
         "custom_column": 6,
         "column_gap": 30,

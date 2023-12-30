@@ -56,6 +56,7 @@
   endif
 
   assign has_bg = ''
+  assign bg_color = section.settings.bg_color | default: 'transparent'
   if bg_color != blank
     assign has_bg = ' has-bg'
   endif
@@ -425,7 +426,10 @@
       "id": "video_url",
       "type": "video_url",
       "label": "Video url",
-      "accept": ["youtube", "vimeo"],
+      "accept": [
+        "youtube",
+        "vimeo"
+      ],
       "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
     },
     {

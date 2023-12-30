@@ -12,18 +12,13 @@
   assign loop = st.loop
   assign heading_logo = st.heading_logo
   assign heading_logo_svg = st.heading_logo_svg
-  assign view_all_enable = st.view_all_enable
-  assign text_view_all = st.text_view_all
   assign autoplay = st.autoplay
   assign carousel_pagination = st.carousel_pagination
   assign show_arrow = st.show_arrow
   assign column_gap = st.column_gap
   assign image_width = st.image_width
-  assign media_aspect_ratio = st.image_ratio
-  assign custom_ratio = st.custom_ratio
   assign enabled_animations = settings.animations_enabled
   assign custom_width_images = st.custom_width_images
-  assign width_image = st.width_image
   assign images_style = st.images_style
 
   assign categories_item = ''
@@ -65,6 +60,7 @@
     assign responsive_column = 'col-sm-6'
   endif
   assign has_bg = ''
+  assign bg_color = bg_color | default: "tranparent"
   if bg_color != blank
     assign has_bg = ' has-bg'
   endif

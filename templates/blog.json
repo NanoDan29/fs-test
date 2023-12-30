@@ -17,7 +17,7 @@
         "layout": "full-width",
         "color_scheme": "scheme-b808185a-cae7-47ba-9fe9-7d81ddf7e485",
         "show_banner": true,
-        "image": "shopify:\/\/shop_images\/blog-banner_4f9fcd1e-b46b-48f2-9c99-c56e3bbc73bb.jpg",
+        "image": "shopify://shop_images/blog-banner_4f9fcd1e-b46b-48f2-9c99-c56e3bbc73bb.jpg",
         "min_height": 200,
         "parallax": false,
         "show_overlay": false,
@@ -34,7 +34,7 @@
           "settings": {
             "title": "Popular posts",
             "maximum": 5,
-            "aspect_ratio": "1\/1",
+            "aspect_ratio": "1/1",
             "custom_ratio": "21:9"
           }
         },
@@ -54,7 +54,7 @@
         "afbeb768-1663-4898-a8f8-392e0694c68f": {
           "type": "image_banner",
           "settings": {
-            "image": "shopify:\/\/shop_images\/banner.png",
+            "image": "shopify://shop_images/banner.png",
             "url": "",
             "open_link": false
           }

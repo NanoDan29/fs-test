@@ -1,4 +1,5 @@
 {%- liquid
+  assign st = section.settings
   assign th_st = settings
   assign option_name = 'Color'
   if th_st.option_name_color != blank
@@ -16,8 +17,6 @@
   assign enable_product_description = th_st.show_qv_product_description
   assign enable_product_collection = th_st.show_qv_product_collection
   assign enable_product_review = th_st.show_qv_product_review
-  assign color_swatches_size = th_st.color_swatches_size
-  assign color_swatches_style = th_st.color_swatches_style
   assign show_qv_sold_product = th_st.show_qv_sold_product
   assign sold_qv_product = th_st.sold_qv_product
   assign hours_qv_product = th_st.hours_qv_product
@@ -36,6 +35,7 @@
   assign variants_option1_arr = product.variants | map: 'option1'
   assign variants_option2_arr = product.variants | map: 'option2'
   assign variants_option3_arr = product.variants | map: 'option3'
+  assign jm_style = jm_style | default: "valor por defecto"
 -%}
 <div class="bls__product-quickview bls__product-single bls__lm-product-js bg-white overflow-hidden bls__product-preload-js">
   <div class="{{ product_label_style }} row g-0">
@@ -375,7 +375,7 @@
                             endfor
                           -%}
                           <div
-                            class="bls__product-color-swatches bls__option-swatch bls_tooltip relative ml-1 mr-10 {{ st.swatch_size }} {{ th_st.color_swatches_style }} {%if color %}bls__{{ value | downcase | replace: ' ', '-' }}{% endif %}{% if option.selected_value == value %} active{% endif %}"
+                            class="bls__product-color-swatches bls__option-swatch bls_tooltip relative ml-1 mr-10 {{ st.swatch_size }} {{ th_st.color_swatches_style }} {% if color %}bls__{{ value | downcase | replace: ' ', '-' }}{% endif %}{% if option.selected_value == value %} active{% endif %}"
                             data-value="{{ value }}"
                             {% if option_disabled %}data-disabled{% endif %} 
                             data-color="{{ value | downcase }}"
@@ -388,7 +388,7 @@
                         {%- endfor -%}
                       {% endif %}
                     {% else %}
-                      {% if selector_type != 'dropdown'%}
+                      {% if selector_type != 'dropdown' %}
                         {%- for value in option.values -%}
                           {%- liquid
                             assign option_disabled = true

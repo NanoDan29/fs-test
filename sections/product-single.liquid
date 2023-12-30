@@ -35,8 +35,6 @@
   assign product_name_line = th_st.product_name_line
   assign product_label_style = th_st.product_label_style
   assign enable_catalog_mode = th_st.enable_catalog_mode
-  assign color_swatches_size = th_st.color_swatches_size
-  assign color_swatches_style = th_st.color_swatches_style
   assign current_variant = product.selected_or_first_available_variant
   assign compare_at_price = current_variant.compare_at_price
   assign products_group = product.metafields.bls.product_grouped | split: ',' | uniq
@@ -97,6 +95,8 @@
   assign variants_option1_arr = product.variants | map: 'option1'
   assign variants_option2_arr = product.variants | map: 'option2'
   assign variants_option3_arr = product.variants | map: 'option3'
+  assign jm_style = jm_style | default: "valor por defecto"
+  assign bg_color = bg_color | default: "transparent" 
 -%}
 {%- capture style -%}
   {%- if bg_color != blank -%}
@@ -539,7 +539,7 @@
                                     endfor
                                   -%}
                                   <div
-                                    class="bls__product-color-swatches bls__option-swatch bls_tooltip relative ml-1 mr-10 {{ st.swatch_size }} {{ th_st.color_swatches_style }} {%if color %}bls__{{ value | downcase | replace: ' ', '-' }}{% endif %}{% if option.selected_value == value %} active{% endif %}"
+                                    class="bls__product-color-swatches bls__option-swatch bls_tooltip relative ml-1 mr-10 {{ st.swatch_size }} {{ th_st.color_swatches_style }} {% if color %}bls__{{ value | downcase | replace: ' ', '-' }}{% endif %}{% if option.selected_value == value %} active{% endif %}"
                                     data-value="{{ value }}"
                                     {% if option_disabled %}data-disabled{% endif %}
                                     data-color="{{ value | downcase }}"

@@ -107,7 +107,7 @@
           class="{% if block_st.box_shadow %}box-shadow-menu-item{% endif %} bls-menu-item {% if block_st.overlap_top %} {% if block_st.space_banner <= 0 %}space-banner{% endif %}{% endif %} {% if block_st.column_reverse %}flex-column-reverse{% else %}flex-column{% endif %}  type_banner"
           style="--space-banner:{{ block_st.space_banner }}px"
         >
-          {% if block_st.title != blank%}
+          {% if block_st.title != blank %}
           <a
             class="{{ block_st.heading_text_align }}"
             {% if block_st.banner_link != blank %}
@@ -123,7 +123,7 @@
               {{ block_st.title }}
             </div>
           {% endif %}
-          {% if block_st.description != blank%}
+          {% if block_st.description != blank %}
             <div class="d-none-mb  grey-color">
               {{ block_st.description }}
             </div>

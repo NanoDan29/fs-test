@@ -58,6 +58,7 @@
   endif
 
   assign has_bg = ''
+  assign background_color = background_color | default: "transparent" 
   if background_color != blank
     assign has_bg = ' has-bg'
   endif
@@ -397,7 +398,10 @@
       "id": "video_url",
       "type": "video_url",
       "label": "Video url",
-      "accept": ["youtube", "vimeo"],
+      "accept": [
+        "youtube",
+        "vimeo"
+      ],
       "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
     },
     {
@@ -427,7 +431,6 @@
       "label": "Button open link in",
       "default": "_blank"
     },
-
     {
       "type": "header",
       "content": "Content setting"

@@ -4,7 +4,7 @@
       "type": "main-cart-items",
       "settings": {
         "container": "container",
-        "cart_security_image": "shopify:\/\/shop_images\/Secure.jpg",
+        "cart_security_image": "shopify://shop_images/Secure.jpg",
         "image_width": 300
       }
     }

@@ -5,7 +5,6 @@
   assign heading = st.heading
   assign description = st.description
   assign color_scheme = st.color_scheme
-  assign text_color = st.text_color
   assign img_view = st.ib_img_view
   assign custom_column = st.custom_column
   assign blocks = section.blocks
@@ -58,8 +57,9 @@
     assign has_bg = ' has-bg'
   endif
   assign carousel_autoplay = st.carousel_autoplay
-  assign carousel_arrows = st.carousel_arrows
   assign carousel_pagination = st.carousel_pagination
+  assign show_arrow = section.settings.show_arrow | default: false
+  assign bg_color = section.settings.bg_color | default: "#FFFFFF"
 -%}
 
 {%- capture style -%}

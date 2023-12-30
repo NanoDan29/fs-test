@@ -7,6 +7,7 @@
   assign reset_spacing = ''
   assign enabled_animations = settings.animations_enabled
   assign custom_class = st.custom_class
+  assign container_width = container_width | default: "100"
 
   if st.reset_spacing
     assign reset_spacing = ' remove_spacing'
@@ -31,6 +32,8 @@
   if background_color != blank
     assign has_bg = ' has-bg'
   endif
+  assign width_default = width_default | default: "100"
+  assign background_color = background_color | default: "transparent"
 -%}
 
 {%- capture style -%}

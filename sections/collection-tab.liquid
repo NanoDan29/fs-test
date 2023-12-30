@@ -55,6 +55,7 @@
     assign grid_class = 'bls__grid {{ product_style }}'
   endif
   assign has_bg = ''
+  assign bg_color = bg_color | default: "transparent"
   if bg_color != blank
     assign has_bg = ' has-bg'
   endif
@@ -115,7 +116,7 @@
         {%- if tab_design == 'horizontal' -%}
           {% if tab_style == 'tab_desgin_4' %}
             <div class="tab-design-with-heading d-flex align-items-center flex-wrap">
-              {%- if heading != blank-%}
+              {%- if heading != blank -%}
                 <div class="bls__section-header {{ text_align }} mr-30">
                   {%- if heading != blank -%}
                     <h2 class="bls__section-heading mb-5 {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}">
@@ -533,11 +534,13 @@
       "blocks": [
         {
           "type": "collection",
-          "settings": {}
+          "settings": {
+          }
         },
         {
           "type": "collection",
-          "settings": {}
+          "settings": {
+          }
         }
       ]
     }

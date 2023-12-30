@@ -28,10 +28,8 @@
             assign op = 'option' | append: option.position
             assign variant = product.variants | where: op, value
             assign img = ''
-            assign color = false
             for i in variant
               if i.featured_image.src
-                assign color = true
                 assign img = i.featured_image.src
                 break
               endif
@@ -42,7 +40,7 @@
             data-value="{{ value }}"
             data-color="{{ value | downcase }}"
             data-position="{{ option.position }}"
-            data-image="{{ img | img_url }}"
+            data-image="{{ img | image_url }}"
           >
             <span class="bls_tooltip-content">{{ value }}</span>
           </div>

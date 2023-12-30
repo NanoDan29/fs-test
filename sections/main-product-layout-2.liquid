@@ -27,7 +27,6 @@
   endif
   assign color_type = th_st.swatch_type
   assign selector_type = th_st.swatch_selector_type
-  assign bg_color = st.color_scheme
   assign show_wishlist = th_st.show_wishlist
   assign show_compare = th_st.show_compare
   assign product_label_style = th_st.product_label_style
@@ -117,10 +116,9 @@
   assign variants_option2_arr = product.variants | map: 'option2'
   assign variants_option3_arr = product.variants | map: 'option3'
 
-  assign class_no_image = ''
   if product.media.size <= 0
-    assign class_no_image = 'justify-content-center'
   endif
+  assign pick_up_availabilities = pick_up_availabilities | default: array
 -%}
 {%- if enable_catalog_mode == true -%}
   <style>
@@ -434,7 +432,7 @@
                                   {%- endfor -%}
                                 {% endif %}
                               {% else %}
-                                {% if selector_type != 'dropdown'%}
+                                {% if selector_type != 'dropdown' %}
                                   {%- for value in option.values -%}
                                     {%- liquid
                                       assign option_disabled = true

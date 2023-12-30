@@ -30,6 +30,7 @@
     assign reset_spacing = ' remove_spacing'
   endif
   assign has_bg = ''
+  assign bg_color = bg_color | default: "valor por defecto"
   if bg_color != blank
     assign has_bg = ' has-bg'
   endif

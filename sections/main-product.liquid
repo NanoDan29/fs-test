@@ -430,7 +430,7 @@
                                   {%- endfor -%}
                                 {% endif %}
                               {% else %}
-                                {% if selector_type != 'dropdown'%}
+                                {% if selector_type != 'dropdown' %}
                                   {%- for value in option.values -%}
                                     {%- liquid
                                       assign option_disabled = true

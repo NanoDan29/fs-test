@@ -4,6 +4,7 @@
   assign product_style = th_st.product_style
   assign st = section.settings
   assign cls = st.collection
+  assign bl = section.settings.bl | default: ""
   if bl != blank
     assign cls = bl
   endif
@@ -89,6 +90,8 @@
   endif
 
   assign collection = collections[cls]
+  assign banner_type = section.settings.banner_type | default: "default_type"
+  assign bg_color = section.settings.bg_color | default: ""
 -%}
 
 {%- capture style -%}
@@ -382,7 +385,10 @@
       "id": "video_url",
       "type": "video_url",
       "label": "Video url",
-      "accept": ["youtube", "vimeo"],
+      "accept": [
+        "youtube",
+        "vimeo"
+      ],
       "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
     },
     {

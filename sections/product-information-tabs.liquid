@@ -18,7 +18,6 @@
 {%- liquid
   assign st = section.settings
   assign design = st.design
-  assign bg_color = st.bg_color
   assign custom_class = st.custom_class
   if pageQuerystring contains 'tab_info='
     assign tab = pageQuerystring | split: 'tab_info=' | last | split: '&' | first

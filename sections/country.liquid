@@ -1,11 +1,9 @@
 {%- liquid
   assign th_st = settings
-  assign show_my_account = th_st.show_my_account
-  assign recently_viewed = th_st.show_recently_viewed
-  assign wishlist = th_st.show_wishlist_icon
   assign product_style = th_st.product_style
   assign show_country = th_st.show_country
   assign show_language = th_st.show_language
+  assign menu_title = menu_title | default: "Menu"
 -%}
 {%- if section.blocks.size > 0 -%}
   <nav

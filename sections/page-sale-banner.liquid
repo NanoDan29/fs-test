@@ -35,6 +35,11 @@
     if st.reset_spacing
       assign reset_spacing = ' remove_spacing'
     endif
+    assign enabled_animations = enabled_animations | default: false
+    assign spb_mobile = spb_mobile | default: "default"
+    assign spt_mobile = spb_mobile | default: "default"
+    assign spb_tablet = spb_mobile | default: "default"
+    assign spt_tablet = spb_mobile | default: "default"
 %}
 
 {%- capture style -%}
@@ -61,7 +66,7 @@
     <div class="row" style="--bs-gutter-x: 30px;">
       {% for block in section.blocks %}
           <div class="banner-sale-items col-md-{{ block.settings.banner_width }} col-sm-6 col-12 text-center">
-            {% if block.settings.sale_label != blank or block.settings.sale_title != blank or block.settings.sale_desc != blank  %}
+            {% if block.settings.sale_label != blank or block.settings.sale_title != blank or block.settings.sale_desc != blank %}
               <div class="banner-sale-content relative">
                 {% if block.settings.sale_label != blank %}
                   <span class="banner-sale-label {% if block.settings.eb_animation_label %}sale-blink{% endif %}">{{ block.settings.sale_label }}</span>
@@ -87,221 +92,221 @@
 </div>
 
 {% schema %}
-	{
-		"name": "Sales banner page",
-        "class": "bls-sales-banner-page",
-        "tag": "section",
-        "settings": [
+{
+  "name": "Sales banner page",
+  "class": "bls-sales-banner-page",
+  "tag": "section",
+  "settings": [
+    {
+      "type": "header",
+      "content": "General"
+    },
+    {
+      "type": "select",
+      "id": "container",
+      "label": "Layout",
+      "default": "container",
+      "options": [
+        {
+          "value": "container",
+          "label": "Default"
+        },
+        {
+          "value": "container-fluid",
+          "label": "Fluid container"
+        },
+        {
+          "value": "full-width",
+          "label": "Full width"
+        }
+      ]
+    },
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color schema"
+    },
+    {
+      "type": "textarea",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Our Timelines"
+    },
+    {
+      "type": "richtext",
+      "id": "description",
+      "label": "Description",
+      "default": "<p>Here’s some of our most popular products people are in love with.</p>"
+    },
+    {
+      "type": "select",
+      "id": "text_alignment",
+      "label": "Text alignment",
+      "default": "text-center",
+      "options": [
+        {
+          "value": "text-left",
+          "label": "Left"
+        },
+        {
+          "value": "text-center",
+          "label": "Center"
+        },
+        {
+          "value": "text-right",
+          "label": "Right"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "text_size",
+      "label": "Text size",
+      "default": "medium",
+      "options": [
+        {
+          "value": "small",
+          "label": "Small"
+        },
+        {
+          "value": "medium",
+          "label": "Medium"
+        },
+        {
+          "value": "large",
+          "label": "Large"
+        }
+      ]
+    },
+    {
+      "type": "select",
+      "id": "text_transform",
+      "label": "Text heading transform",
+      "default": "default",
+      "options": [
+        {
+          "value": "default",
+          "label": "Default"
+        },
+        {
+          "value": "capitalize",
+          "label": "Capitalize"
+        },
+        {
+          "value": "uppercase",
+          "label": "Uppercase"
+        }
+      ]
+    },
+    {
+      "type": "range",
+      "id": "heading_fw",
+      "label": "Heading font weight",
+      "default": 600,
+      "min": 500,
+      "max": 800,
+      "step": 100
+    },
+    {
+      "type": "header",
+      "content": "Section padding"
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "label": "Padding top",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "label": "Padding bottom",
+      "default": 0,
+      "min": 0,
+      "max": 100,
+      "step": 1,
+      "unit": "px"
+    },
+    {
+      "type": "checkbox",
+      "id": "reset_spacing",
+      "label": "Remove default space between sections",
+      "default": false
+    }
+  ],
+  "blocks": [
+    {
+      "type": "item",
+      "name": "Banner Sale Item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "sale_label",
+          "label": "Sale label",
+          "default": "Sale off"
+        },
+        {
+          "type": "checkbox",
+          "id": "eb_animation_label",
+          "label": "Enable animation label",
+          "default": false
+        },
+        {
+          "type": "text",
+          "id": "sale_title",
+          "label": "Sale title",
+          "default": "Sale title"
+        },
+        {
+          "type": "textarea",
+          "id": "sale_desc",
+          "label": "Sale description",
+          "default": "Sale description"
+        },
+        {
+          "type": "text",
+          "id": "sale_code",
+          "label": "Sale code",
+          "default": "FSsale2023"
+        },
+        {
+          "type": "select",
+          "id": "banner_width",
+          "label": "Item width",
+          "default": "3",
+          "options": [
             {
-                "type": "header",
-                "content": "General"
+              "value": "3",
+              "label": "25%"
             },
             {
-                "type": "select",
-                "id": "container",
-                "label": "Layout",
-                "default": "container",
-                "options": [
-                    {
-                    "value": "container",
-                    "label": "Default"
-                    },
-                    {
-                    "value": "container-fluid",
-                    "label": "Fluid container"
-                    },
-                    {
-                    "value": "full-width",
-                    "label": "Full width"
-                    }
-                ]
+              "value": "4",
+              "label": "33%"
             },
             {
-              "type": "color_scheme",
-              "id": "color_scheme",
-              "label": "Color schema"
+              "value": "6",
+              "label": "50%"
             },
             {
-              "type": "textarea",
-              "id": "heading",
-              "label": "Heading",
-              "default": "Our Timelines"
+              "value": "8",
+              "label": "66%"
             },
             {
-              "type": "richtext",
-              "id": "description",
-              "label": "Description",
-              "default": "<p>Here’s some of our most popular products people are in love with.</p>"
+              "value": "9",
+              "label": "75%"
             },
             {
-              "type": "select",
-              "id": "text_alignment",
-              "label": "Text alignment",
-              "default": "text-center",
-              "options": [
-                {
-                  "value": "text-left",
-                  "label": "Left"
-                },
-                {
-                  "value": "text-center",
-                  "label": "Center"
-                },
-                {
-                  "value": "text-right",
-                  "label": "Right"
-                }
-              ]
-            },
-            {
-              "type": "select",
-              "id": "text_size",
-              "label": "Text size",
-              "default": "medium",
-              "options": [
-                {
-                  "value": "small",
-                  "label": "Small"
-                },
-                {
-                  "value": "medium",
-                  "label": "Medium"
-                },
-                {
-                  "value": "large",
-                  "label": "Large"
-                }
-              ]
-            },
-            {
-              "type": "select",
-              "id": "text_transform",
-              "label": "Text heading transform",
-              "default": "default",
-              "options": [
-                {
-                  "value": "default",
-                  "label": "Default"
-                },
-                {
-                  "value": "capitalize",
-                  "label": "Capitalize"
-                },
-                {
-                  "value": "uppercase",
-                  "label": "Uppercase"
-                }
-              ]
-            },
-            {
-              "type": "range",
-              "id": "heading_fw",
-              "label": "Heading font weight",
-              "default": 600,
-              "min": 500,
-              "max": 800,
-              "step": 100
-            },
-            {
-              "type": "header",
-              "content": "Section padding" 
-            },
-            {
-              "type": "range",
-              "id": "padding_top",
-              "label": "Padding top",
-              "default": 0,
-              "min": 0,
-              "max": 100,
-              "step": 1,
-              "unit": "px"
-            },
-            {
-              "type": "range",
-              "id": "padding_bottom",
-              "label": "Padding bottom",
-              "default": 0,
-              "min": 0,
-              "max": 100,
-              "step": 1,
-              "unit": "px"
-            },
-            {
-              "type": "checkbox",
-              "id": "reset_spacing",
-              "label": "Remove default space between sections",
-              "default": false
+              "value": "12",
+              "label": "100%"
             }
-        ],
-        "blocks": [
-          {
-            "type": "item",
-            "name": "Banner Sale Item",
-            "settings": [
-              {
-                "type": "text",
-                "id": "sale_label",
-                "label": "Sale label",
-                "default": "Sale off"
-              },
-              {
-                "type": "checkbox",
-                "id": "eb_animation_label",
-                "label": "Enable animation label",
-                "default": false
-              },
-              {
-                "type": "text",
-                "id": "sale_title",
-                "label": "Sale title",
-                "default": "Sale title"
-              },
-              {
-                "type": "textarea",
-                "id": "sale_desc",
-                "label": "Sale description",
-                "default": "Sale description"
-              },
-              {
-                "type": "text",
-                "id": "sale_code",
-                "label": "Sale code",
-                "default": "FSsale2023"
-              },
-              {
-                "type": "select",
-                "id": "banner_width",
-                "label": "Item width",
-                "default": "3",
-                "options": [
-                  {
-                    "value": "3",
-                    "label": "25%"
-                  },
-                  {
-                    "value": "4",
-                    "label": "33%"
-                  },
-                  {
-                    "value": "6",
-                    "label": "50%"
-                  },
-                  {
-                    "value": "8",
-                    "label": "66%"
-                  },
-                  {
-                    "value": "9",
-                    "label": "75%"
-                  },
-                  {
-                    "value": "12",
-                    "label": "100%"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-	}
+          ]
+        }
+      ]
+    }
+  ]
+}
 {% endschema %}

@@ -14,6 +14,7 @@
   assign view_all_enable = st.view_all_enable
   assign text_view_all = st.text_view_all
   assign cls = st.collection
+  assign bl = section.settings.bl | default: ""
   if bl != blank
     assign cls = bl
   endif
@@ -52,6 +53,8 @@
     assign has_bg = ' has-bg'
   endif
   assign collection = collections[cls]
+  assign jm_style = section.settings.jm_style | default: "default_style"
+  assign bg_color = section.settings.bg_color | default: "#FFFFFF"
 -%}
 
 {%- capture style -%}

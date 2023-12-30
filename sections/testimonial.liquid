@@ -95,6 +95,8 @@
     assign mb_svg = 'mb-30'
     assign size_svg = 'width="56" height="42"'
   endif
+  assign carousel_pagination_progress = section.settings.carousel_pagination_progress | default: false
+  assign background_color = section.settings.background_color | default: "#FFFFFF"
 -%}
 
 {%- capture style -%}

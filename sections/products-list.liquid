@@ -47,6 +47,7 @@
   if bg_color != blank
     assign has_bg = ' has-bg'
   endif
+  assign bg_color = section.settings.bg_color | default: "#FFFFFF"
 -%}
 {%- capture style -%}
 --section-padding-top: {{ st.padding_top }}px; --section-padding-bottom: {{ st.padding_bottom }}px;

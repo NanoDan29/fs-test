@@ -20,7 +20,7 @@
     assign fnt_body_sp = settings.fnt_body_sp
   -%}
   {%- unless fnt_body_sp.system? -%}
-    <link rel="preload" as="font" href="{{ fnt_body_sp | font_url }}" type="font/woff2" crossorigin>
+    {{ fnt_body_sp | font_url | preload_tag: 'font', crossorigin: 'anonymous' }}
   {%- endunless -%}
   {%- liquid
     assign fm_body_sp = fnt_body_sp.family
@@ -62,7 +62,7 @@
     assign fnt_heading_sp = settings.fnt_headings_sp
   -%}
   {%- unless fnt_heading_sp.system? -%}
-    <link rel="preload" as="font" href="{{ fnt_heading_sp | font_url }}" type="font/woff2" crossorigin>
+    {{ fnt_heading_sp | font_url | preload_tag: 'font', crossorigin: 'anonymous' }}
   {%- endunless -%}
   {%- liquid
     assign fm_heading_sp = fnt_heading_sp.family
@@ -104,7 +104,7 @@
     assign fnt_menu_sp = settings.fnt_menu_sp
   -%}
   {%- unless fnt_menu_sp.system? -%}
-    <link rel="preload" as="font" href="{{ fnt_menu_sp | font_url }}" type="font/woff2" crossorigin>
+    {{ fnt_menu_sp | font_url | preload_tag: 'font', crossorigin: 'anonymous' }}
   {%- endunless -%}
   {%- liquid
     assign fm_menu_sp = fnt_menu_sp.family

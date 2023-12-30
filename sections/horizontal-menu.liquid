@@ -6,6 +6,8 @@
   assign product_style = th_st.product_style
   assign show_country = th_st.show_country
   assign show_language = th_st.show_language
+  assign menu_title = menu_title | default: "Menu"
+  assign background_color = background_color | default: "transparent"
 -%}
 {%- if section.blocks.size > 0 -%}
   <nav

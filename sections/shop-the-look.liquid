@@ -39,6 +39,8 @@
   if bg_color != blank
     assign has_bg = ' has-bg'
   endif
+  assign carousel_pagination_progress = section.settings.carousel_pagination_progress | default: false
+  assign bg_color = section.settings.bg_color | default: "#FFFFFF"
 -%}
 <shop-the-look
   class="color-{{ color_scheme }} gradient bls__section {{ has_bg }} bls__shoplookbook {{ reset_spacing }}"
@@ -87,8 +89,6 @@
         assign product_style = settings.product_style
         assign item_desktop = st.slider_lookbook_items
         assign show_arrow = st.show_arrow
-        assign show_bullet = st.show_bullet
-        assign show_bullet_mobile = st.show_bullet_mobile
         assign column_gap = st.column_gap
       -%}
       <div
