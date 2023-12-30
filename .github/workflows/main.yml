@@ -1,25 +1,23 @@
 name: CI
-
 on:
   push:
-    branches: [ main ]
-  pull_request:
-    branches: [ main ]
-
+    branches:
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
-    - uses: actions/checkout@v2
-
-    - name: Set up Ruby
-      uses: ruby/setup-ruby@v1
-      with:
-        ruby-version: 2.6
-
-    - name: Install dependencies
-      run: gem install theme-check
-
-    - name: Run theme check
-      run: theme-check .
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      - name: Set Up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+      - name: Install Shopify CLI
+        run: |
+          gem install shopify-cli
+      - name: Lint with Shopify Theme Check
+        run: |
+          shopify theme check
+      
