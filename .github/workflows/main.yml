@@ -22,3 +22,7 @@ jobs:
       - name: Find Shopify CLI Installation Location
         run: |
           which shopify
+          
+      - name: Lint with Shopify Theme Check
+        run: |
+          /opt/hostedtoolcache/node/18.18.0/x64/bin/shopify theme check --skip-update
