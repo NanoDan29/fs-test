@@ -25,4 +25,4 @@ jobs:
           
       - name: Lint with Shopify Theme Check
         run: |
-          /opt/hostedtoolcache/node/18.18.0/x64/bin/shopify theme check --skip-update
+          /opt/hostedtoolcache/node/18.18.0/x64/bin/shopify theme check
