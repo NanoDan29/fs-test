@@ -4,12 +4,13 @@
       "type": "page-contact",
       "settings": {
         "container": "container-fluid",
-        "iframe": "<iframe src=\"https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3154.8939060848147!2d144.81158271584684!3d-37.74563313792195!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6ad65fa6debeb781%3A0xe1d23f5d1759961e!2s184%20Main%20Rd%20E%2C%20St%20Albans%20VIC%203021%2C%20%C3%9Ac!5e0!3m2!1svi!2s!4v1618277125252!5m2!1svi!2s\" width=\"100%\" height=\"500\" style=\"border:0;\" allowfullscreen=\"\" loading=\"lazy\"></iframe>",
-        "show_map": true,
+        "iframe": "",
+        "show_map": false,
         "contact_form_heading": "Get in Touch",
         "contact_form_sub_heading": "<p>We'd love to hear from you about our entire service. Your comments and suggestions will be highly appreciated. Please complete the form below.</p>",
         "contact_info_heading": "Here to Help",
         "contact_info_sub_heading": "<p>Have a question? You may find an answer in our FAQs. But you can also contact us:</p>",
+        "store_1": "United States",
         "contact_info_content": "<p>United States. info@fourseasons.com</p><p>(702) 479-4017</p>"
       }
     }

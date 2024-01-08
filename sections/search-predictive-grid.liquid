@@ -34,15 +34,17 @@
       <div id="search-results">
         <div class="bls__grid {{ product_style }}">
           <div id="search-results-list" class="search-results-list">
-            {%- if predictive_search_type == 'search_suggest' -%}
-              {%- for product in results -%}
-                {%- render 'product-item' | product: product -%}
-              {%- endfor -%}
-            {%- else -%}
-              {%- for product in results limit: 6 -%}
-                {%- render 'product-item' | product: product -%}
-              {%- endfor -%}
-            {%- endif -%}
+            {% liquid
+              if predictive_search_type == 'search_suggest'
+                for product in results
+                  render 'product-item' with product: product
+                endfor
+              else
+                for product in results limit: 6
+                  render 'product-item' with product: product
+                endfor
+              endif
+            %}
           </div>
         </div>
       </div>

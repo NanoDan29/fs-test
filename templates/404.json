@@ -3,10 +3,12 @@
     "6444a863-5ece-4b46-87e7-cfa83ed28286": {
       "type": "custom-html",
       "settings": {
+        "heading_logo_svg": "",
         "heading": "",
         "description": "",
         "text_alignment": "text-center",
         "container": "container",
+        "color_scheme": "",
         "content_html": "",
         "padding_top": 0,
         "padding_bottom": 0,
@@ -17,11 +19,12 @@
       "type": "page-404",
       "settings": {
         "container": "container",
-        "custom_width": "440",
+        "image": "shopify://shop_images/image_5.png",
+        "custom_width": "120",
         "heading": "Oops...That link is broken.",
         "sub_heading": "Sorry for the inconvenience. Go to our homepage or check out our latest collections.",
         "label": "Back to homepage",
-        "link": ""
+        "link": "shopify://collections"
       }
     }
   },

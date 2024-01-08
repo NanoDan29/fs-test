@@ -22,20 +22,20 @@
         {{ text }}
         {%- if show_button_1 == true or show_button_2 == true -%}
           <div class="btn-faqs">
-          {%- endif -%}
-          {%- if show_button_1 == true -%}
-            <a href="{{ link_1 }}" class="btn btn-faq btn-secondary w-full mb-10 text-center mt-10">
-              {{ icon_1 }}
-              {{ label_1 }}
-            </a>
-          {%- endif -%}
-          {%- if show_button_2 == true -%}
-            <a href="{{ link_2 }}" class="btn btn-faq btn-secondary w-full text-center">
-              {{ icon_2 }}
-              {{ label_2 }}
-            </a>
-          {%- endif -%}
-          {%- if show_button_1 == true or show_button_2 == true -%}
+        {%- endif -%}
+        {%- if show_button_1 == true -%}
+          <a href="{{ link_1 }}" class="btn btn-faq btn-secondary w-full mb-10 text-center mt-10">
+            {{ icon_1 }}
+            {{ label_1 }}
+          </a>
+        {%- endif -%}
+        {%- if show_button_2 == true -%}
+          <a href="{{ link_2 }}" class="btn btn-faq btn-secondary w-full text-center">
+            {{ icon_2 }}
+            {{ label_2 }}
+          </a>
+        {%- endif -%}
+        {%- if show_button_1 == true or show_button_2 == true -%}
           </div>
         {%- endif -%}
       </div>
@@ -56,7 +56,8 @@
                 <div class="bls__page-faq-items bls-toggle relative">
                   <h4 class="bls__page-faq-title fs-18 fw-500 border-bottom py-20 mb-0 pointer">
                     {% if show_number == true %}
-                      {{ i }}.{% endif %}
+                      {{ i }}.
+                    {%- endif %}
                     {{ question }}
                     <span class="open-children-toggle d-block-important"></span>
                   </h4>
@@ -77,26 +78,25 @@
     "@context": "https://schema.org",
     "@type": "FAQPage",
     "mainEntity": [
-      {%- for block in section.blocks -%}
-        {%- for i in (1..10) -%}
-          {%- assign question_ = 'question_' | append: i -%}
-          {%- assign question = block.settings[question_] -%}
-          {%- assign answer_ = 'answer_' | append: i -%}
-          {%- assign answer = block.settings[answer_] -%}
-          {%- if answer != blank or question != blank -%}
-          {%- unless forloop.first -%},{%- endunless -%}
-            {
-              "@type": "Question",
-              "name": "{{ question }}",
-              "acceptedAnswer": {
-                "@type": "Answer",
-                "text": "{{ answer | replace: '<p>', '' | replace: '</p>', '' }}"
-              }
-            }
-          {%- endif -%}
-        {%- endfor -%}
-        {%- unless forloop.last -%},{%- endunless -%}
-      {%- endfor -%}
+      {% liquid
+        for block in section.blocks
+          for i in (1..10)
+            assign question_ = 'question_' | append: i
+            assign question = block.settings[question_]
+            assign answer_ = 'answer_' | append: i
+            assign answer = block.settings[answer_]
+            if answer != blank or question != blank
+              unless forloop.first
+                echo ","
+              endunless
+              echo '{ "@type": "Question", "name": "' | append: question | append: '", "acceptedAnswer": { "@type": "Answer", "text": "' | append: answer | replace: '<p>', '' | replace: '</p>', '' | append: '" } }'
+            endif
+          endfor
+          unless forloop.last
+            echo ","
+          endunless
+        endfor
+      %}
     ]
   }
 </script>

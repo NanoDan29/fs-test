@@ -1,0 +1,24 @@
+{% if bk_st.image != blank %}
+  {% assign position = bk_st.position %}
+  {%- liquid
+    assign heading_position = ''
+    if block.settings.position == 'below'
+      assign heading_position = ' pt-20 pb-25'
+    elsif block.settings.position == 'above'
+      assign heading_position = ' pt-25 pb-20'
+    endif
+  -%}
+  <div class="bls__trust_badge mt-30 mb-25 rounded-5 relative border text-center {{ heading_position }}">
+    <div class="trust_badge-image m-auto" style="width: {{ block.settings.image_width }}px">
+      {% render 'responsive-image', image: bk_st.image %}
+    </div>
+    {% if bk_st.heading != blank %}
+      <div
+        class="h6 trust_badge-text mb-0 absolute bg-white px-20 limited-line text__position-{{ position | default: 'below' }}"
+        style="--line-clamp: 2"
+      >
+        {{ bk_st.heading }}
+      </div>
+    {% endif %}
+  </div>
+{% endif %}

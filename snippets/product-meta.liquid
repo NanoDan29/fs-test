@@ -1,0 +1,65 @@
+<ul class="bls__product-meta pl-0 list-none my-25 pt-25 border-top capitalize">
+  {% if bk_st.show_sku %}
+    <li>
+      <span class="bls__product-meta-label">{{ 'products.product.sku' | t }}:</span>
+      <span class="bls__product-meta-value heading-color prod__sku bls__product-sku-value">
+        {{- current_variant.sku | default: 'N/A' -}}
+      </span>
+    </li>
+  {% endif %}
+  {%- if bk_st.show_available -%}
+    <li>
+      {%- liquid
+        assign lable_stock = 'products.product.instock' | t
+        if current_variant.inventory_management != null
+          if current_variant.available and current_variant.inventory_quantity < 1
+            assign lable_stock = 'products.product.pre_order' | t
+          elsif current_variant.available
+            assign lable_stock = 'products.product.instock' | t
+          else
+            assign lable_stock = 'products.product.outstock' | t
+          endif
+        endif
+      -%}
+      <span class="bls__product-meta-label">{{ 'products.product.available' | t }}:</span>
+      <span class="bls__product-meta-value bls__availability-value heading-color">
+        {{- lable_stock -}}
+      </span>
+    </li>
+  {%- endif -%}
+  {% if bk_st.show_vendors and product.vendor != blank %}
+    <li>
+      <span class="bls__product-meta-label">{{ 'products.product.vendor' | t }}:</span>
+      <span class="bls__product-meta-value heading-color">
+        {{- product.vendor | link_to_vendor -}}
+      </span>
+    </li>
+  {% endif %}
+  {% if bk_st.show_type and product.type != blank %}
+    <li>
+      <span class="bls__product-meta-label">{{ 'products.product.type' | t }}:</span>
+      <span class="bls__product-meta-value heading-color">{{ product.type | link_to_type }}</span>
+    </li>
+  {% endif %}
+  {% if bk_st.show_barcode %}
+    <li>
+      <span class="bls__product-meta-label">{{ 'products.product.barcode' | t }}:</span>
+      <span class="bls__product-meta-value heading-color prod__sku bls__product-sku-value">
+        {{- current_variant.barcode | default: 'N/A' -}}
+      </span>
+    </li>
+  {% endif %}
+  {% if bk_st.show_collection and product.collections.size > 0 %}
+    <li class="bls__product-collections">
+      <span class="bls__product-meta-label">{{ 'products.product.collections' | t }}:</span>
+      <span class="bls__product-meta-value heading-color">
+        {% for collection in product.collections %}
+          <a href="{{ collection.url }}" class="hover:text-black">
+            {{ collection.title }}
+            {%- if forloop.last != true -%},{%- endif -%}
+          </a>
+        {% endfor %}
+      </span>
+    </li>
+  {% endif %}
+</ul>

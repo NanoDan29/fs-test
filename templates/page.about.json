@@ -33,29 +33,7 @@
         "template--16584037925111__507aafc1-1757-4f5b-a2e3-88035abcecf8-1665450078ece10545-1": {
           "type": "text",
           "settings": {
-            "txt_content": "<p>Over 20 years of experience, we have crafted thousands of strategic </p>",
-            "txt_fs": 16,
-            "txt_fw": "400",
-            "txt_tf": "unset",
-            "txt_mt": 1,
-            "txt_mb": 1
-          }
-        },
-        "a5653366-79b8-435f-a283-d9bb99e72391": {
-          "type": "text",
-          "settings": {
-            "txt_content": "<p>discovery process that enables us to peel back the layers which enable us to understand, connect</p>",
-            "txt_fs": 16,
-            "txt_fw": "400",
-            "txt_tf": "unset",
-            "txt_mt": 1,
-            "txt_mb": 1
-          }
-        },
-        "ede78487-3140-4172-acda-6cd6aef45f6d": {
-          "type": "text",
-          "settings": {
-            "txt_content": "<p>understand, connect.</p>",
+            "txt_content": "<p>Over 20 years of experience in excellence  </p>",
             "txt_fs": 16,
             "txt_fw": "400",
             "txt_tf": "unset",
@@ -67,16 +45,14 @@
       "block_order": [
         "4096cbca-6b77-4dcb-b60a-66290398b018",
         "7b5b40e5-4ea1-4974-acf9-71bebc1d86cf",
-        "template--16584037925111__507aafc1-1757-4f5b-a2e3-88035abcecf8-1665450078ece10545-1",
-        "a5653366-79b8-435f-a283-d9bb99e72391",
-        "ede78487-3140-4172-acda-6cd6aef45f6d"
+        "template--16584037925111__507aafc1-1757-4f5b-a2e3-88035abcecf8-1665450078ece10545-1"
       ],
       "settings": {
         "container": "full-width",
-        "color_scheme": "scheme-b808185a-cae7-47ba-9fe9-7d81ddf7e485",
+        "color_scheme": "scheme-013ccfbf-beb5-42e6-bc8f-8a36ab634ca7",
         "banner_type": "image",
-        "image": "shopify://shop_images/about-us.png",
-        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "image": "shopify://shop_images/FSAH_January-2022_Promo_Slide01.jpg",
+        "video_url": "",
         "link": "",
         "open_link": "_blank",
         "bn_design": "text_overlay",
@@ -131,7 +107,7 @@
         "template--16584037925111__ce9234d5-6cd4-465a-85fd-01377e10f037-1665563953d6e64dbe-1": {
           "type": "text",
           "settings": {
-            "txt_content": "<p>We have crafted thousands of manufacturing processes, strategy that allows us to understand our customers like never before. We are present up to this point due to the trust and appreciation of our customers. </p>",
+            "txt_content": "<p>Four Seasons commitment to excellence is in the heart of every product we offer to our clients so they can experience the same luxury at the comfort of their homes.</p>",
             "txt_fs": 16,
             "txt_fw": "400",
             "txt_tf": "unset",
@@ -142,7 +118,7 @@
         "53ab94f5-0edc-4a2f-9398-f7520031b381": {
           "type": "text",
           "settings": {
-            "txt_content": "<p>To help stem the flow of plastic into the ocean, we have committed to eliminating single-use plastic from th product range and food outlets by 2023.</p>",
+            "txt_content": "<p>Our signature mattress lines will give you the comfort and rest you and your family deserves. Give the your love ones the peace that only comes with Four Seasons.</p>",
             "txt_fs": 16,
             "txt_fw": "400",
             "txt_tf": "unset",
@@ -161,8 +137,8 @@
         "container": "container",
         "color_scheme": "scheme-013ccfbf-beb5-42e6-bc8f-8a36ab634ca7",
         "banner_type": "image",
-        "image": "shopify://shop_images/about-banner.png",
-        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "image": "shopify://shop_images/POOL_RESORT_ROBE_LIFESTYLE_1_900x1200_1f7d5767-fdaf-4a0c-81df-f47f656dc92b.jpg",
+        "video_url": "",
         "link": "",
         "open_link": "_blank",
         "bn_design": "text_column",
@@ -206,7 +182,7 @@
         "template--16584037925111__de27bbae-8b57-4758-bfe7-5ac9b1179505-1665713233cd3512b4-1": {
           "type": "heading",
           "settings": {
-            "heading": "Our Unique Things",
+            "heading": "Our Signature Line",
             "heading_fs": 40,
             "heading_fw": "400",
             "heading_tf": "unset",
@@ -217,19 +193,7 @@
         "template--16584037925111__de27bbae-8b57-4758-bfe7-5ac9b1179505-1665713233cd3512b4-2": {
           "type": "desc",
           "settings": {
-            "desc": "<p>Class aptent taciti sociosqu ad litora torquent per conubia nostra per inceptos vel pretium</p>",
-            "desc_fs": 16,
-            "desc_fw": "400",
-            "content_width": 100,
-            "desc_tf": "unset",
-            "desc_mt": 0,
-            "desc_mb": 0
-          }
-        },
-        "182f37f5-6a43-491b-96b0-b064a7a24418": {
-          "type": "desc",
-          "settings": {
-            "desc": "<p> lectus qua. Nunc id cursus metus ididunt ut labore metus episcing.</p>",
+            "desc": "<p>Choose from a variety of luxury products to fit your home.</p>",
             "desc_fs": 16,
             "desc_fw": "400",
             "content_width": 100,
@@ -242,8 +206,7 @@
       "block_order": [
         "template--16584037925111__de27bbae-8b57-4758-bfe7-5ac9b1179505-1665713233cd3512b4-0",
         "template--16584037925111__de27bbae-8b57-4758-bfe7-5ac9b1179505-1665713233cd3512b4-1",
-        "template--16584037925111__de27bbae-8b57-4758-bfe7-5ac9b1179505-1665713233cd3512b4-2",
-        "182f37f5-6a43-491b-96b0-b064a7a24418"
+        "template--16584037925111__de27bbae-8b57-4758-bfe7-5ac9b1179505-1665713233cd3512b4-2"
       ],
       "settings": {
         "container": "container",
@@ -263,13 +226,13 @@
           "settings": {
             "banner_width": "4",
             "banner_type": "image",
-            "image": "shopify://shop_images/banner-about.png",
-            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "image": "shopify://shop_images/DUVET_SET_W_900x1200_e1310206-0740-4e34-9891-6521fbaa6f27.jpg",
+            "video_url": "",
             "link": "",
             "open_link": "_blank",
-            "subtext": "Unique for Women’s",
+            "subtext": "Unique Beauty",
             "title": "",
-            "content": "<p>Our collections dress a unique and feminine woman. The pieces showcase a timeless style while keeping in mind fashion aesthetics and trends.</p>",
+            "content": "<p>Our collections are full of beauty and elegance. Featuring the latest in comfort and style.</p>",
             "btn_content": "",
             "button_type": "link"
           }
@@ -279,13 +242,13 @@
           "settings": {
             "banner_width": "4",
             "banner_type": "image",
-            "image": "shopify://shop_images/banner-about-2.png",
-            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "image": "shopify://shop_images/COLOUR_2_1f3a8ada-c799-43e6-9590-b3ea2481dac5.jpg",
+            "video_url": "",
             "link": "",
             "open_link": "_blank",
-            "subtext": "Elegant for Men’s",
+            "subtext": "Simple Elegance",
             "title": "",
-            "content": "<p>From traditional tailoring to the most informal pieces. Our collections feature the latest trends with the maximum comfort.</p>",
+            "content": "<p>Our collections are full of beauty and elegance. Featuring the latest in comfort and style.</p>",
             "btn_content": "",
             "button_type": "primary"
           }
@@ -295,13 +258,13 @@
           "settings": {
             "banner_width": "4",
             "banner_type": "image",
-            "image": "shopify://shop_images/banner-about.png",
-            "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+            "image": "shopify://shop_images/signaturesleepset_1.jpg",
+            "video_url": "",
             "link": "",
             "open_link": "_blank",
-            "subtext": "Freedom for Everyone",
+            "subtext": "Sleep like no other",
             "title": "",
-            "content": "<p>The designs have been created adopting the current trends, while leaving room for personal expression among young people.</p>",
+            "content": "<p>Our collections are full of beauty and elegance. Featuring the latest in comfort and style.</p>",
             "btn_content": "",
             "button_type": "primary"
           }
@@ -349,7 +312,7 @@
         "template--16584037925111__2dc0f1df-4f5b-4b3c-869a-2e69745ae766-16667479252899c4f1-2": {
           "type": "desc",
           "settings": {
-            "desc": "<p>“ Four Seasons will become an example of the responsible business model by doing business</p>",
+            "desc": "<p>“ Four Seasons has become and example of perfection and elegance.</p>",
             "desc_fs": 20,
             "desc_fw": "400",
             "content_width": 100,
@@ -361,7 +324,7 @@
         "a7729639-85be-4c47-a122-0a9b5481e9f2": {
           "type": "desc",
           "settings": {
-            "desc": "<p>with kindness, profit and bringing practical and long-term values to customers, employees,</p>",
+            "desc": "<p>our signature mattresses are design to provide the best sleep for your and your family</p>",
             "desc_fs": 20,
             "desc_fw": "400",
             "content_width": 100,
@@ -373,7 +336,7 @@
         "a1a3c57a-7dfe-4c13-bb19-d22d3166f94c": {
           "type": "desc",
           "settings": {
-            "desc": "<p> partners, the community for the environment and for shareholders ”</p>",
+            "desc": "<p>with the best products with the most high quality standards”</p>",
             "desc_fs": 20,
             "desc_fw": "400",
             "content_width": 100,
@@ -410,92 +373,6 @@
         "reset_spacing": false
       }
     },
-    "26c21a87-4e2f-4f70-a443-ad63d4341ac2": {
-      "type": "banner-with-text",
-      "blocks": {
-        "7037bd9d-7ccb-4b05-b7b9-0a3b718156b1": {
-          "type": "text",
-          "settings": {
-            "txt_content": "<p>OUR FACTORIES</p>",
-            "txt_fs": 12,
-            "txt_fw": "500",
-            "txt_tf": "unset",
-            "txt_mt": 1,
-            "txt_mb": 5
-          }
-        },
-        "template--16584037925111__26c21a87-4e2f-4f70-a443-ad63d4341ac2-16655668072faff6b4-0": {
-          "type": "heading",
-          "settings": {
-            "title": "The Best Product",
-            "heading_fs": 40,
-            "heading_fw": "400",
-            "heading_tf": "unset",
-            "heading_mt": 0,
-            "heading_mb": 15
-          }
-        },
-        "template--16584037925111__26c21a87-4e2f-4f70-a443-ad63d4341ac2-16655668072faff6b4-1": {
-          "type": "text",
-          "settings": {
-            "txt_content": "<p>We spend months finding the best factories around the world—the same ones that produce your favorite designer labels. We visit them often and build strong personal relationships with the owners. Each factory is given a compliance audit to evaluate factors like fair wages.</p>",
-            "txt_fs": 16,
-            "txt_fw": "400",
-            "txt_tf": "unset",
-            "txt_mt": 1,
-            "txt_mb": 15
-          }
-        },
-        "template--16584037925111__26c21a87-4e2f-4f70-a443-ad63d4341ac2-16655668072faff6b4-2": {
-          "type": "buttons",
-          "settings": {
-            "btn_content": "Learn More",
-            "button_type": "primary",
-            "button_link": "",
-            "button_target": false,
-            "b_mt": 0,
-            "b_mb": 15
-          }
-        }
-      },
-      "block_order": [
-        "7037bd9d-7ccb-4b05-b7b9-0a3b718156b1",
-        "template--16584037925111__26c21a87-4e2f-4f70-a443-ad63d4341ac2-16655668072faff6b4-0",
-        "template--16584037925111__26c21a87-4e2f-4f70-a443-ad63d4341ac2-16655668072faff6b4-1",
-        "template--16584037925111__26c21a87-4e2f-4f70-a443-ad63d4341ac2-16655668072faff6b4-2"
-      ],
-      "settings": {
-        "container": "container",
-        "color_scheme": "",
-        "banner_type": "image",
-        "image": "shopify://shop_images/about-1.png",
-        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-        "link": "shopify://pages/about-us",
-        "open_link": "_blank",
-        "bn_design": "text_column",
-        "text_align": "text-center",
-        "text_horizontal_position": "left",
-        "text_position": "center",
-        "image_style": "default",
-        "content_bg_color": "",
-        "content_width": 100,
-        "banner_height": "depend-image",
-        "height_dk": 800,
-        "height_tb": 600,
-        "height_mb": 360,
-        "height_full": false,
-        "content_box": "content_in_container",
-        "bg_opacity": 100,
-        "text_bellow_mobile": false,
-        "img_position": "left",
-        "banner_width": "col-md-6",
-        "column_gap": 50,
-        "hover_effect": "none",
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "reset_spacing": false
-      }
-    },
     "c3ebe82c-835b-4f82-b2f6-b38befcf6797": {
       "type": "banner-with-text",
       "blocks": {
@@ -524,7 +401,7 @@
         "template--16584037925111__c3ebe82c-835b-4f82-b2f6-b38befcf6797-16655668072faff6b4-1": {
           "type": "text",
           "settings": {
-            "txt_content": "<p>At Four Seasons, we’re not big on trends. We want you to wear our pieces for years, even decades, to come. That’s why we source the finest materials and factories for our timeless products— like our Grade-A cashmere sweaters, Italian shoes, and Peruvian Pima tees.</p>",
+            "txt_content": "<p>At Four Seasons, every product is design with you in mind. Your comfort and happiness is at the heart of every product and design. Start your journey today.</p>",
             "txt_fs": 16,
             "txt_fw": "400",
             "txt_tf": "unset",
@@ -537,7 +414,7 @@
           "settings": {
             "btn_content": "Learn More",
             "button_type": "primary",
-            "button_link": "",
+            "button_link": "shopify://products/signature-votive-champagne-wonderland",
             "button_target": false,
             "b_mt": 0,
             "b_mb": 15
@@ -554,8 +431,8 @@
         "container": "container",
         "color_scheme": "",
         "banner_type": "image",
-        "image": "shopify://shop_images/about-2.png",
-        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "image": "shopify://shop_images/2020_09_fs-home-product0086-v2_46519fa9-6567-4cdf-b233-adb9e8f4552e.jpg",
+        "video_url": "",
         "link": "shopify://pages/about-us",
         "open_link": "_blank",
         "bn_design": "text_column",
@@ -581,157 +458,6 @@
         "padding_bottom": 0,
         "reset_spacing": false
       }
-    },
-    "bade50e4-4785-43a3-b8a7-6104eaba6db6": {
-      "type": "banner-with-text",
-      "blocks": {
-        "814c06a1-ed35-4980-b197-4c0a87f623b7": {
-          "type": "text",
-          "settings": {
-            "txt_content": "<p>RULE THE WAVES</p>",
-            "txt_fs": 12,
-            "txt_fw": "500",
-            "txt_tf": "uppercase",
-            "txt_mt": 1,
-            "txt_mb": 5
-          }
-        },
-        "template--16584037925111__bade50e4-4785-43a3-b8a7-6104eaba6db6-16655668072faff6b4-0": {
-          "type": "heading",
-          "settings": {
-            "title": "Autumn Lookbook",
-            "heading_fs": 40,
-            "heading_fw": "600",
-            "heading_tf": "uppercase",
-            "heading_mt": 0,
-            "heading_mb": 15
-          }
-        },
-        "template--16584037925111__bade50e4-4785-43a3-b8a7-6104eaba6db6-16655668072faff6b4-1": {
-          "type": "text",
-          "settings": {
-            "txt_content": "<p>Our latest fall and winter collection.</p>",
-            "txt_fs": 16,
-            "txt_fw": "400",
-            "txt_tf": "unset",
-            "txt_mt": 1,
-            "txt_mb": 1
-          }
-        }
-      },
-      "block_order": [
-        "814c06a1-ed35-4980-b197-4c0a87f623b7",
-        "template--16584037925111__bade50e4-4785-43a3-b8a7-6104eaba6db6-16655668072faff6b4-0",
-        "template--16584037925111__bade50e4-4785-43a3-b8a7-6104eaba6db6-16655668072faff6b4-1"
-      ],
-      "settings": {
-        "container": "container",
-        "color_scheme": "scheme-b808185a-cae7-47ba-9fe9-7d81ddf7e485",
-        "banner_type": "image",
-        "image": "shopify://shop_images/about-banner-box-7.jpg",
-        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-        "link": "",
-        "open_link": "_blank",
-        "bn_design": "text_overlay",
-        "text_align": "text-center",
-        "text_horizontal_position": "left",
-        "text_position": "center",
-        "image_style": "default",
-        "content_bg_color": "",
-        "content_width": 100,
-        "banner_height": "depend-image",
-        "height_dk": 800,
-        "height_tb": 600,
-        "height_mb": 360,
-        "height_full": false,
-        "content_box": "content_in_container",
-        "bg_opacity": 100,
-        "text_bellow_mobile": false,
-        "img_position": "left",
-        "banner_width": "col-md-9",
-        "column_gap": 30,
-        "hover_effect": "none",
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "reset_spacing": false
-      }
-    },
-    "7a500f32-66ee-4636-930e-075ba6749c58": {
-      "type": "gallery",
-      "blocks": {
-        "template--16584037925111__7a500f32-66ee-4636-930e-075ba6749c58-16656668627386665d-0": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/brand1.png",
-            "link": ""
-          }
-        },
-        "template--16584037925111__7a500f32-66ee-4636-930e-075ba6749c58-16656668627386665d-1": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/brand2.png",
-            "link": ""
-          }
-        },
-        "template--16584037925111__7a500f32-66ee-4636-930e-075ba6749c58-16656668627386665d-2": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/brand3.png",
-            "link": ""
-          }
-        },
-        "template--16584037925111__7a500f32-66ee-4636-930e-075ba6749c58-16656668627386665d-3": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/brand4.png",
-            "link": ""
-          }
-        },
-        "template--16584037925111__7a500f32-66ee-4636-930e-075ba6749c58-16656668627386665d-4": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/brand5.png",
-            "link": ""
-          }
-        },
-        "template--16584037925111__7a500f32-66ee-4636-930e-075ba6749c58-16656668627386665d-5": {
-          "type": "image",
-          "settings": {
-            "image": "shopify://shop_images/brand6.png",
-            "link": ""
-          }
-        }
-      },
-      "block_order": [
-        "template--16584037925111__7a500f32-66ee-4636-930e-075ba6749c58-16656668627386665d-0",
-        "template--16584037925111__7a500f32-66ee-4636-930e-075ba6749c58-16656668627386665d-1",
-        "template--16584037925111__7a500f32-66ee-4636-930e-075ba6749c58-16656668627386665d-2",
-        "template--16584037925111__7a500f32-66ee-4636-930e-075ba6749c58-16656668627386665d-3",
-        "template--16584037925111__7a500f32-66ee-4636-930e-075ba6749c58-16656668627386665d-4",
-        "template--16584037925111__7a500f32-66ee-4636-930e-075ba6749c58-16656668627386665d-5"
-      ],
-      "settings": {
-        "heading_logo_svg": "",
-        "heading": "",
-        "description": "",
-        "text_align": "text-center",
-        "container": "container",
-        "color_scheme": "",
-        "layout_type": "carousel",
-        "column_gap": 0,
-        "aspect_ratio": "custom",
-        "custom_ratio": "35:10",
-        "actions_click": "unset",
-        "custom_column": 3,
-        "grid_image_desktop": 6,
-        "autoplay": false,
-        "loop": false,
-        "show_arrow": false,
-        "carousel_pagination": "carousel_none",
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "reset_spacing": true
-      }
     }
   },
   "order": [
@@ -741,9 +467,6 @@
     "de27bbae-8b57-4758-bfe7-5ac9b1179505",
     "75a2bab7-280b-45ab-bb79-213765e91dbc",
     "2dc0f1df-4f5b-4b3c-869a-2e69745ae766",
-    "26c21a87-4e2f-4f70-a443-ad63d4341ac2",
-    "c3ebe82c-835b-4f82-b2f6-b38befcf6797",
-    "bade50e4-4785-43a3-b8a7-6104eaba6db6",
-    "7a500f32-66ee-4636-930e-075ba6749c58"
+    "c3ebe82c-835b-4f82-b2f6-b38befcf6797"
   ]
 }

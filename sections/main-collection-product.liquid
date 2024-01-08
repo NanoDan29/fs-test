@@ -1,9 +1,12 @@
 {{ 'product.css' | asset_url | stylesheet_tag }}
 {{ 'collection.css' | asset_url | stylesheet_tag }}
-{% # theme-check-disable ContentForHeaderModification %}
-{%- capture contentForQuerystring -%}
-  {{ content_for_header }}{%- endcapture -%}
-{% # theme-check-enable ContentForHeaderModification %}
+{% liquid
+  # theme-check-disable ContentForHeaderModification
+  capture contentForQuerystring
+    echo content_for_header
+  endcapture
+  # theme-check-enable ContentForHeaderModification
+%}
 
 {%- assign pageUrl = contentForQuerystring
   | split: '"pageurl":"'

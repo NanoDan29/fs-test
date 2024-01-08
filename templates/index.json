@@ -495,6 +495,34 @@
         "padding_bottom": 0,
         "reset_spacing": false
       }
+    },
+    "f3c81ebf-1391-4395-bd1f-e18398564022": {
+      "type": "product-single",
+      "settings": {
+        "heading_logo_svg": "",
+        "heading": "Bestseller Product",
+        "description": "",
+        "text_alignment": "text-center",
+        "container": "container",
+        "color_scheme": "",
+        "single_product": "al-fresco-blanket",
+        "column_gap": 20,
+        "show_review": true,
+        "show_short_description": true,
+        "show_vendor": true,
+        "show_sku": true,
+        "show_barcode": false,
+        "show_type": true,
+        "show_available": true,
+        "show_collection": true,
+        "button_animation": "flash-move",
+        "show_buy_now": true,
+        "show_countdown": false,
+        "countdown_message": "Hurry up! Sale end in:",
+        "padding_top": 0,
+        "padding_bottom": 0,
+        "reset_spacing": false
+      }
     }
   },
   "order": [
@@ -505,6 +533,7 @@
     "4a721749-afc7-4b14-9677-f98da78b39c9",
     "73df9b61-4630-4729-a77d-5a9e9712bc69",
     "d7c2da9e-0de3-48cd-b11d-457fe7bfdc6d",
-    "ba9b5ec0-b509-4c89-bf86-59cf402e59c1"
+    "ba9b5ec0-b509-4c89-bf86-59cf402e59c1",
+    "f3c81ebf-1391-4395-bd1f-e18398564022"
   ]
 }

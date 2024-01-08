@@ -1,7 +1,11 @@
 {{ 'blog-template.css' | asset_url | stylesheet_tag }}
 {{ 'blog-item.css' | asset_url | stylesheet_tag }}
-{% # theme-check-disable ContentForHeaderModification %}
-{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
+{% liquid
+  # theme-check-disable ContentForHeaderModification
+  capture contentForQuerystring
+    echo content_for_header
+  endcapture
+%}
 {% # theme-check-enable ContentForHeaderModification %}
 
 {%- assign pageUrl = contentForQuerystring
