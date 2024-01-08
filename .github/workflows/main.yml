@@ -21,4 +21,4 @@ jobs:
           
       - name: Lint with Shopify Theme Check
         run: |
-          shopify theme check
+          shopify theme check --skip-update
