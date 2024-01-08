@@ -38,3 +38,8 @@ jobs:
       - name: Lint with Shopify Theme Check
         run: |
           shopify theme check
+
+      - name: Minify JavaScript
+        run: |
+          npm install terser -g
+          terser assets/animations.js -o assets/animations.min./js
