@@ -1,0 +1,25 @@
+name: develop
+on:
+  push:
+    branches:
+      - develop
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        
+      - name: Set Up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.3'
+          bundler-cache: true
+          
+      - name: Install Shopify CLI
+        run: |
+          gem install shopify-cli
+          
+      - name: Lint with Shopify Theme Check
+        run: |
+          shopify theme check
