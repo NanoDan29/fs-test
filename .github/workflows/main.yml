@@ -42,4 +42,4 @@ jobs:
       - name: Minify JavaScript
         run: |
           npm install terser -g
-          terser assets/animations.js -o assets/animations.min./js
+          terser assets/animations.js -o assets/animations.min.js
