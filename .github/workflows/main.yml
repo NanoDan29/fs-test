@@ -10,15 +10,14 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
         
-      - name: Set Up Ruby
-        uses: ruby/setup-ruby@v1
+      - name: Set Up Node.js
+        uses: actions/setup-node@v2
         with:
-          ruby-version: '3.2'
-          bundler-cache: true
+          node-version: '14'
           
       - name: Install Shopify CLI
         run: |
-          gem install shopify-cli
+          npm install -g @shopify/cli@3.53.0
           
       - name: Lint with Shopify Theme Check
         run: |
