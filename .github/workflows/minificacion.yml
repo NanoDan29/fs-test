@@ -17,7 +17,9 @@ jobs:
           # Verifica si el archivo de configuración existe
           if [ -f assets/javascriptFilesToMinify.json ]; then
             # Lee el archivo de configuración
-            filesToMinify=($(cat assets/javascriptFilesToMinify.json))
+            config=$(cat assets/javascriptFilesToMinify.json)
+            # Extrae la lista de archivos de entrada
+            filesToMinify=($(echo $config | jq -r '.javascriptFilesToMinify[]'))
 
             # Verifica si la lista de archivos a minificar está vacía
             if [ ${#filesToMinify[@]} -eq 0 ]; then
