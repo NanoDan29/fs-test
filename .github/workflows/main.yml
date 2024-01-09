@@ -48,6 +48,7 @@ jobs:
         run: |
           git config --global user.email "jowell29jm@gmail.com"
           git config --global user.name "NanoDan29"
+          git config credential.helper '!echo "password=${{ secrets.SHOPIFY_SECRET }}" | git-credential-store --file ~/.git-credentials store'
           git status
           git add .
           git status
