@@ -13,6 +13,10 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Run Jest Tests
+        run: |
+          npx jest --config assets/jest.config.js
+
       - name: Config
         run: |
           git config --global user.email "jowell29jm@gmail.com"
@@ -66,13 +70,6 @@ jobs:
       - name: Status
         run: |
           git status
-  
-      - name: Commit and Push Changes
-        run: |
-          # Añade y sube los archivos minificados
-          git add assets
-          git commit -m "Minify JavaScript"
-          git push origin main
 
       - name: Minify CSS
         run: |
@@ -101,7 +98,7 @@ jobs:
               fi
 
               # Realiza la minificación
-              css-minify -f $cssFile -o $cssFile.min.css
+              css-minify -f $cssFile -o assets
               git add $cssFile.min.css
             done
 
@@ -117,5 +114,6 @@ jobs:
         run: |
           # Añade y sube los archivos minificados
           git add .
-          git commit -m "Minify CSS"
+          git commit -m "Minify JS and CSS"
           git push origin main
+          
