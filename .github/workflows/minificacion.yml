@@ -22,40 +22,42 @@ jobs:
           cd assets
           # Verifica si el archivo de configuración existe
           if [ -f javascriptFilesToMinify.json ]; then
-          # Lee el archivo de configuración
-          filesToMinify=$(cat javascriptFilesToMinify.json)
+            # Lee el archivo de configuración
+            filesToMinify=$(cat javascriptFilesToMinify.json)
 
-          # Verifica si la lista de archivos a minificar está vacía
-          if [ -z "$filesToMinify" ]; then
-            echo "Error: La lista de archivos a minificar está vacía en assets/javascriptFilesToMinify.json."
-            exit 1
-          fi
+            # Verifica si la lista de archivos a minificar está vacía
+            if [ -z "$filesToMinify" ]; then
+              echo "Error: La lista de archivos a minificar está vacía en assets/javascriptFilesToMinify.json."
+              exit 1
+            fi
 
-          # Instala Terser
-          npm install terser -g
+            # Instala Terser
+            npm install terser -g
 
-          # Realiza la minificación de JavaScript
-          for file in $filesToMinify; do
-            # Obtiene el nombre del archivo de salida
-            filename=$(basename -- "$file")
-            extension="${filename##*.}"
-            filename="${filename%.*}"
-            # Realiza la minificación
-            terser $file -o $filename.min.$extension
-          done
+            # Realiza la minificación de JavaScript
+            for file in $filesToMinify; do
+              # Obtiene el nombre del archivo de salida
+              filename=$(basename -- "$file")
+              extension="${filename##*.}"
+              filename="${filename%.*}"
+              # Realiza la minificación
+              terser $file -o $filename.min.$extension
+            done
           else
             echo "Error: El archivo assets/javascriptFilesToMinify.json no existe."
           fi
-          
-      - name: Check Status
+
+      - name: Check Changes
         run: |
-          # Verifica el estado del repositorio después de realizar el commit y push
-          git status
-          
+          # Verifica los cambios realizados durante la acción
+          git diff --exit-code || (echo "Error: Se han realizado cambios no commitados." && exit 1)
+
+      - name: Commit Changes
+        run: |
+          # Añade los archivos minificados
+          git add minified
+
       - name: Commit and Push Changes
         run: |
-          # Añade y sube los archivos minificados
-          git add assets/minified
-          git commit -m "Minify JavaScript"
-          git push origin main
-        
+          # Realiza el commit y push solo si hay cambios
+          git diff --exit-code || git commit -m "Minify JavaScript" && git push origin main
