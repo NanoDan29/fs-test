@@ -44,11 +44,16 @@ jobs:
           git config --global user.email "jowell29jm@gmail.com"
           git config --global user.name "NanoDan29"
           git config credential.helper '!echo "password=${{ secrets.SHOPIFY_SECRET }}" | git-credential-store --file ~/.git-credentials store'
+
           
       - name: Minify JavaScript
         run: |
           npm install terser -g
           terser assets/animations.js -o assets/animations.min.js
+
+      - name: Git status
+        run: |
+          git status
 
       - name: Check for changes in JavaScript
         run: |
@@ -64,6 +69,10 @@ jobs:
         run: |
           npm install css-minify -g
           css-minify -f assets/compare.css -o assets
+
+      - name: Git status
+        run: |
+          git status
 
       - name: Check for changes in CSS
         run: |
