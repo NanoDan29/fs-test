@@ -1,4 +1,5 @@
-name: Minificación
+ame: Minificación
+
 on:
   push:
     branches:
@@ -17,12 +18,10 @@ jobs:
           # Verifica si el archivo de configuración existe
           if [ -f assets/javascriptFilesToMinify.json ]; then
             # Lee el archivo de configuración
-            config=$(cat assets/javascriptFilesToMinify.json)
-            # Extrae la lista de archivos de entrada
-            filesToMinify=($(echo $config | jq -r '.javascriptFilesToMinify[]'))
+            filesToMinify=$(cat assets/javascriptFilesToMinify.json)
 
             # Verifica si la lista de archivos a minificar está vacía
-            if [ ${#filesToMinify[@]} -eq 0 ]; then
+            if [ -z "$filesToMinify" ]; then
               echo "Error: La lista de archivos a minificar está vacía en assets/javascriptFilesToMinify.json."
               exit 1
             fi
@@ -37,7 +36,7 @@ jobs:
             cd assets
 
             # Realiza la minificación de JavaScript
-            for file in "${filesToMinify[@]}"; do
+            for file in $filesToMinify; do
               # Obtiene el nombre del archivo de salida
               filename=$(basename -- "$file")
               extension="${filename##*.}"
