@@ -1,0 +1,6 @@
+{
+    "cssFilesToMinify": [
+      "assets/cart.css",
+      "assets/faqs.css"
+    ]
+  }
