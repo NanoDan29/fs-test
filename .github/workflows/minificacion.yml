@@ -1,63 +1,68 @@
-name: minificacion
+name: Minificación
 on:
   push:
     branches:
       - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Config
-        run: |
-          git config --global user.email "jowell29jm@gmail.com"
-          git config --global user.name "NanoDan29"
-          git config credential.helper '!echo "password=${{ secrets.SHOPIFY_SECRET }}" | git-credential-store --file ~/.git-credentials store'
-
       - name: Minify JavaScript
         run: | 
-          # Cambia al directorio de assets para que Terser pueda encontrar los archivos
-          cd assets
           # Verifica si el archivo de configuración existe
-          if [ -f javascriptFilesToMinify.json ]; then
+          if [ -f assets/javascriptFilesToMinify.json ]; then
             # Lee el archivo de configuración
-            filesToMinify=$(cat javascriptFilesToMinify.json)
+            filesToMinify=($(cat assets/javascriptFilesToMinify.json))
 
             # Verifica si la lista de archivos a minificar está vacía
-            if [ -z "$filesToMinify" ]; then
+            if [ ${#filesToMinify[@]} -eq 0 ]; then
               echo "Error: La lista de archivos a minificar está vacía en assets/javascriptFilesToMinify.json."
               exit 1
             fi
 
+            # Crea el directorio de salida si no existe
+            mkdir -p assets/minified
+
             # Instala Terser
             npm install terser -g
 
+            # Cambia al directorio de assets para que Terser pueda encontrar los archivos
+            cd assets
+
             # Realiza la minificación de JavaScript
-            for file in $filesToMinify; do
+            for file in "${filesToMinify[@]}"; do
               # Obtiene el nombre del archivo de salida
               filename=$(basename -- "$file")
               extension="${filename##*.}"
               filename="${filename%.*}"
+
               # Realiza la minificación
-              terser $file -o $filename.min.$extension
+              terser $file -o minified/$filename.min.$extension
             done
+
+            # Vuelve al directorio raíz del repositorio
+            cd ..
           else
             echo "Error: El archivo assets/javascriptFilesToMinify.json no existe."
           fi
 
-      - name: Check Changes
-        run: |
-          # Verifica los cambios realizados durante la acción
-          git diff --exit-code || (echo "Error: Se han realizado cambios no commitados." && exit 1)
-
       - name: Commit Changes
         run: |
-          # Añade los archivos minificados
-          git add minified
+          # Añade y realiza un commit de los archivos minificados
+          git add assets/minified
+          git commit -m "Minify JavaScript"
 
-      - name: Commit and Push Changes
+      - name: Push Changes
         run: |
-          # Realiza el commit y push solo si hay cambios
-          git diff --exit-code || git commit -m "Minify JavaScript" && git push origin main
+          # Sube los cambios al repositorio
+          git push origin main
+
+      - name: Check Status
+        run: |
+          # Verifica el estado del repositorio después de realizar el commit y push
+          git status
