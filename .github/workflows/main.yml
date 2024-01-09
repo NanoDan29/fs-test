@@ -49,7 +49,7 @@ jobs:
           git status
           git add .
           git commit -m "Actualización automática"
-          git push
+          git push origin main
           
 
       
