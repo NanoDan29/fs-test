@@ -13,6 +13,12 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Config
+        run: |
+          git config --global user.email "jowell29jm@gmail.com"
+          git config --global user.name "NanoDan29"
+          git config credential.helper '!echo "password=${{ secrets.SHOPIFY_SECRET }}" | git-credential-store --file ~/.git-credentials store'
+
       - name: Minify JavaScript
         run: | 
           # Verifica si el archivo de configuración existe
