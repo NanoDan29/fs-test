@@ -55,7 +55,7 @@ jobs:
           if git diff --quiet; then
             echo "No changes in JavaScript files."
           else
-            git add assets/animations.min.js
+            git add .
             git commit -m "Minify JavaScript - Auto commit"
             git push origin main
           fi
@@ -70,7 +70,7 @@ jobs:
           if git diff --quiet; then
             echo "No changes in CSS files."
           else
-            git add assets/banner-text.min.css
+            git add .
             git commit -m "Minify CSS - Auto commit"
             git push origin main
           fi
