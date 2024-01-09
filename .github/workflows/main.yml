@@ -44,14 +44,8 @@ jobs:
           npm install terser -g
           terser assets/animations.js -o assets/animations.min.js
 
-      - name: Add files to staging and Commit changes
-        run: |
-          git config --global user.email "jowell29jm@gmail.com"
-          git config --global user.name "NanoDan29"
-          git add .
-          git commit -m "Minify and add files"
-          git push
-          env:
-            repo-token: ${{ secrets.SHOPIFY_SECRET }}
+      - name: Verificar la rama actual
+        run: git branch
+          
 
       
