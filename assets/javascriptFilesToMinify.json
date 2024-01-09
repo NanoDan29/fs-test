@@ -3,6 +3,11 @@
         {
             "input": "product_action.js",
             "output": "product_action.min.js"
+        },
+        {
+            "input": "pubsub.js",
+            "output": "pubsub.min.js"
         }
+
     ]
 }
