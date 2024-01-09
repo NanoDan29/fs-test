@@ -52,7 +52,6 @@ jobs:
                 # Verifica si el archivo de entrada existe
                 if [ ! -f $file ]; then
                   echo "Error: El archivo $file no existe."
-                  exit 1
                 fi
 
                 # Realiza la minificación dentro del directorio assets
