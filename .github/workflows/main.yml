@@ -52,3 +52,6 @@ jobs:
           git config --global user.email "jowell29jm@gmail.com"
           git config --global user.name "NanoDan29"
           git commit -m "Minify and add files"
+
+      - name: Push changes to remote repository
+        run: git push
