@@ -51,20 +51,6 @@ jobs:
           npm install terser -g
           terser assets/animations.js -o assets/animations.min.js
 
-      - name: Git status
-        run: |
-          git status
-
-      - name: Check for changes in JavaScript
-        run: |
-          if git diff --quiet; then
-            echo "No changes in JavaScript files."
-          else
-            git add .
-            git commit -m "Minify JavaScript - Auto commit"
-            git push origin main
-          fi
-
       - name: Minify CSS
         run: |
           npm install css-minify -g
@@ -74,14 +60,11 @@ jobs:
         run: |
           git status
 
-      - name: Check for changes in CSS
+      - name: Check for changes and upload code
         run: |
-          if git diff --quiet; then
-            echo "No changes in CSS files."
-          else
-            git add .
-            git commit -m "Minify CSS - Auto commit"
-            git push origin main
-          fi
+          git add .
+          git commit -m "Minify"
+          git push origin main
+
 
       
