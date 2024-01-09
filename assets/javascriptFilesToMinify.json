@@ -1,8 +1,8 @@
 {
     "javascriptFilesToMinify": [
         {
-            "input": "assets/product_action.js",
-            "output": "assets/minified/product_action.min.js"
+            "input": "product_action.js",
+            "output": "product_action.min.js"
         }
     ]
 }
