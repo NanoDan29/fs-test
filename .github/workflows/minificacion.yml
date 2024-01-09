@@ -1,0 +1,29 @@
+name: minificacion
+on:
+  push:
+    branches:
+      - main
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Check for changes and upload code
+        run: | 
+          config=$(cat assets/javascriptFilesToMinify.json)
+          filesToMinify=($(echo $config | jq -r '.filesToMinify[]'))
+          outputDirectory=$(echo $config | jq -r '.outputDirectory')
+    
+          npm install terser -g
+          for file in "${filesToMinify[@]}"; do
+            filename=$(basename -- "$file")
+            extension="${filename##*.}"
+            filename="${filename%.*}"
+            terser $file -o $outputDirectory/$filename.min.$extension
+          done
+
+          git add $outputDirectory
+          git commit -m "Minify JavaScript"
+          git push origin main
