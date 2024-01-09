@@ -52,6 +52,7 @@ jobs:
                 # Verifica si el archivo de entrada existe
                 if [ ! -f $file ]; then
                   echo "Error: El archivo $file no existe."
+                   exit 1
                 fi
 
                 # Realiza la minificación dentro del directorio assets
@@ -78,7 +79,6 @@ jobs:
             # Verifica si la lista de archivos CSS a minificar está vacía
             if [ ${#cssFilesToMinify[@]} -eq 0 ]; then
               echo "Error: La lista de archivos CSS a minificar está vacía en assets/cssFilesToMinify.json."
-              exit 1
             else
               # Instala css-minify
               npm install css-minify -g
