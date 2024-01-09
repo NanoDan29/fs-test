@@ -44,16 +44,27 @@ jobs:
           npm install terser -g
           terser assets/animations.js -o assets/animations.min.js
 
-      - name: Subir cambios al repositorio
+      - name: Upload Minify JavaScript
         run: |
           git config --global user.email "jowell29jm@gmail.com"
           git config --global user.name "NanoDan29"
           git config credential.helper '!echo "password=${{ secrets.SHOPIFY_SECRET }}" | git-credential-store --file ~/.git-credentials store'
-          git status
           git add .
-          git status
           git commit -m "Actualización automática"
           git push origin main
-          
+
+      - name: Minify CSS
+        run: |
+          npm install cssnano -g
+          cssnano assets/banner-text.css -o assets/banner-text.min.css
+
+      - name: Upload Minify CSS
+        run: |
+          git config --global user.email "jowell29jm@gmail.com"
+          git config --global user.name "NanoDan29"
+          git config credential.helper '!echo "password=${{ secrets.SHOPIFY_SECRET }}" | git-credential-store --file ~/.git-credentials store'
+          git add .
+          git commit -m "Actualización automática"
+          git push origin main
 
       
