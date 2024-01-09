@@ -35,6 +35,8 @@ jobs:
               exit 1
             fi
 
+            # Instala Terser
+            npm install terser -g
 
             # Cambia al directorio de assets para que Terser pueda encontrar los archivos
             cd assets
