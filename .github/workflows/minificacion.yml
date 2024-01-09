@@ -10,22 +10,31 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
+      - name: Config
+        run: |
+          git config --global user.email "jowell29jm@gmail.com"
+          git config --global user.name "NanoDan29"
+          git config credential.helper '!echo "password=${{ secrets.SHOPIFY_SECRET }}" | git-credential-store --file ~/.git-credentials store'
+
       - name: Minify JavaScript
         run: | 
           # Verifica si el archivo de configuración existe
-          if [ -f javascriptFilesToMinify.json ]; then
+          if [ -f assets/javascriptFilesToMinify.json ]; then
             # Lee el archivo de configuración
-            config=$(cat javascriptFilesToMinify.json)
+            config=$(cat assets/javascriptFilesToMinify.json)
             # Extrae la lista de archivos de entrada y salidas
             filesToMinify=($(echo $config | jq -r '.javascriptFilesToMinify[] | .input'))
             outputDirectories=($(echo $config | jq -r '.javascriptFilesToMinify[] | .output'))
+
+            # Crea el directorio de salida si no existe
+            mkdir -p assets/minified
 
             # Instala Terser
             npm install terser -g
 
             # Realiza la minificación de JavaScript
             for ((i=0; i<${#filesToMinify[@]}; i++)); do
-              file=${filesToMinify[i]}
+              file=assets/${filesToMinify[i]}
               outputDirectory=${outputDirectories[i]}
 
               # Obtiene el nombre del archivo de salida
@@ -34,13 +43,13 @@ jobs:
               filename="${filename%.*}"
 
               # Realiza la minificación
-              terser $file -o assets/$filename.min.$extension
+              terser $file -o assets/minified/$filename.min.$extension
             done
 
             # Añade y sube los archivos minificados
-            git add assets/minified
+            git add .
             git commit -m "Minify JavaScript"
             git push origin main
           else
-            echo "Error: El archivo javascriptFilesToMinify.json no existe."
+            echo "Error: El archivo assets/javascriptFilesToMinify.json no existe."
           fi
