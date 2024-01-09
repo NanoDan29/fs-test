@@ -43,15 +43,15 @@ jobs:
         run: |
           npm install terser -g
           terser assets/animations.js -o assets/animations.min.js
-          
-      - name: Add files to staging
-        run: git add .
 
-      - name: Commit changes
+      - name: Add files to staging and Commit changes
         run: |
           git config --global user.email "jowell29jm@gmail.com"
           git config --global user.name "NanoDan29"
+          git add .
           git commit -m "Minify and add files"
+          git push
+          env:
+            GITHUB_TOKEN: ${{ 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 }}
 
-      - name: Push changes to remote repository
-        run: git push
+      
