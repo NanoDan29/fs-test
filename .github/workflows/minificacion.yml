@@ -51,8 +51,6 @@ jobs:
               terser $file -o $outputName
             done
 
-            # Vuelve al directorio raíz del repositorio
-            cd ..
           else
             echo "Error: El archivo assets/javascriptFilesToMinify.json no existe."
           fi
