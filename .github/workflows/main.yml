@@ -43,8 +43,12 @@ jobs:
         run: |
           npm install terser -g
           terser assets/animations.js -o assets/animations.min.js
+          
+      - name: Add files to staging
+        run: git add .
 
       - name: Commit changes
         run: |
-          git add .
-          git commit -m "Minificar archivo JavaScript"
+          git config --global user.email "jowell29jm@gmail.com"
+          git config --global user.name "NanoDan29"
+          git commit -m "Minify and add files"
