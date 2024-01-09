@@ -46,8 +46,11 @@ jobs:
 
       - name: Subir cambios al repositorio
         run: |
+          git config --global user.email "jowell29jm@gmail.com"
+          git config --global user.name "NanoDan29"
           git status
           git add .
+          git status
           git commit -m "Actualización automática"
           git push origin main
           
