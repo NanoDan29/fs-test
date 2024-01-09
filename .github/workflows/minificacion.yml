@@ -18,7 +18,6 @@ jobs:
 
       - name: Minify JavaScript
         run: | 
-          # Cambia al directorio de assets para que Terser pueda encontrar los archivos
           cd assets
           # Verifica si el archivo de configuración existe
           if [ -f javascriptFilesToMinify.json ]; then
