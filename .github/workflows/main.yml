@@ -52,6 +52,6 @@ jobs:
           git commit -m "Minify and add files"
           git push
           env:
-            GITHUB_TOKEN: ${{ secrets.SHOPIFY_SECRET }}
+            repo-token: ${{ secrets.SHOPIFY_SECRET }}
 
       
