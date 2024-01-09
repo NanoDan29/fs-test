@@ -62,6 +62,6 @@ jobs:
       - name: Commit and Push Changes
         run: |
           # Añade y sube los archivos minificados
-          git add assets/minified
+          git add .
           git commit -m "Minify JavaScript"
           git push origin main
