@@ -73,3 +73,49 @@ jobs:
           git add assets
           git commit -m "Minify JavaScript"
           git push origin main
+
+      - name: Minify CSS
+        run: |
+          # Verifica si el archivo de configuración para CSS existe
+          if [ -f assets/cssFilesToMinify.json ]; then
+            # Lee el archivo de configuración
+            cssConfig=$(cat assets/cssFilesToMinify.json)
+            # Extrae la lista de archivos CSS a minificar
+            cssFilesToMinify=($(echo $cssConfig | jq -r '.cssFilesToMinify[]'))
+
+            # Verifica si la lista de archivos CSS a minificar está vacía
+            if [ ${#cssFilesToMinify[@]} -eq 0 ]; then
+              echo "Error: La lista de archivos CSS a minificar está vacía en assets/cssFilesToMinify.json."
+              exit 1
+            fi
+
+            # Instala css-minify
+            npm install css-minify -g
+
+            # Realiza la minificación de CSS
+            for cssFile in "${cssFilesToMinify[@]}"; do
+              # Verifica si el archivo CSS de entrada existe
+              if [ ! -f $cssFile ]; then
+                echo "Error: El archivo CSS $cssFile no existe."
+                exit 1
+              fi
+
+              # Realiza la minificación
+              css-minify -f $cssFile -o $cssFile.min.css
+              git add $cssFile.min.css
+            done
+
+          else
+            echo "Error: El archivo assets/cssFilesToMinify.json no existe."
+          fi
+          
+      - name: Status
+        run: |
+          git status
+  
+      - name: Commit and Push Changes
+        run: |
+          # Añade y sube los archivos minificados
+          git add .
+          git commit -m "Minify CSS"
+          git push origin main
