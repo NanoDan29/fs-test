@@ -94,7 +94,7 @@ jobs:
               fi
 
               # Realiza la minificación
-              css-minify -f $cssFile -o $cssFile.min.css
+              css-minify -f $cssFile -o assets
               git add $cssFile.min.css
             done
 
