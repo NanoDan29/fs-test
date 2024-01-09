@@ -33,6 +33,8 @@ jobs:
 
             # Instala Terser
             npm install terser -g
+            
+            cd assets
 
             # Realiza la minificación de JavaScript
             for file in "${filesToMinify[@]}"; do
