@@ -47,7 +47,7 @@ jobs:
             done
 
             # Añade y sube los archivos minificados
-            git add assets/minified
+            git add .
             git commit -m "Minify JavaScript"
             git push origin main
           else
