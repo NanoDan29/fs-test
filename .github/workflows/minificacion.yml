@@ -24,7 +24,6 @@ jobs:
           if [ -f javascriptFilesToMinify.json ]; then
             # Lee el archivo de configuración
             filesToMinify=($(cat javascriptFilesToMinify.json))
-
             # Verifica si la lista de archivos a minificar está vacía
             if [ ${#filesToMinify[@]} -eq 0 ]; then
               echo "Error: La lista de archivos a minificar está vacía en assets/javascriptFilesToMinify.json."
