@@ -44,8 +44,12 @@ jobs:
           npm install terser -g
           terser assets/animations.js -o assets/animations.min.js
 
-      - name: Verificar la rama actual
-        run: git branch
+      - name: Subir cambios al repositorio
+        run: |
+          git status
+          git add .
+          git commit -m "Actualización automática"
+          git push
           
 
       
