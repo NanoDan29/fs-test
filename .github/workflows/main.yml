@@ -62,8 +62,8 @@ jobs:
 
       - name: Minify CSS
         run: |
-          npm install cssnano -g
-          npx cssnano assets/banner-text.css -o assets/banner-text.min.css
+          npm install css-minify -g
+          css-minify -f assets/compare.css -o assets
 
       - name: Check for changes in CSS
         run: |
