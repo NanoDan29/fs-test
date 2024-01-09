@@ -40,29 +40,25 @@ jobs:
             # Verifica si la lista de archivos a minificar está vacía
             if [ ${#filesToMinify[@]} -eq 0 ]; then
               echo "Error: La lista de archivos a minificar está vacía en assets/javascriptFilesToMinify.json."
-              exit 1
-            fi
+            else
+              # Instala Terser
+              npm install terser -g
 
-            # Instala Terser
-            npm install terser -g
+              # Realiza la minificación de JavaScript
+              for i in "${!filesToMinify[@]}"; do
+                file="${filesToMinify[$i]}"
+                outputName="${outputNames[$i]}"
 
-            # Realiza la minificación de JavaScript
-            for i in "${!filesToMinify[@]}"; do
-              file="${filesToMinify[$i]}"
-              outputName="${outputNames[$i]}"
+                # Verifica si el archivo de entrada existe
+                if [ ! -f $file ]; then
+                  echo "Error: El archivo $file no existe."
+                  exit 1
+                fi
 
-              # Verifica si el archivo de entrada existe
-              if [ ! -f $file ]; then
-                echo "Error: El archivo $file no existe."
-                exit 1
-              fi
-
-              # Realiza la minificación dentro del directorio assets
-              terser $file -o $outputName
-            done
-
-            # Vuelve al directorio raíz del repositorio
-            cd ..
+                # Realiza la minificación dentro del directorio assets
+                terser $file -o $outputName
+              done
+            fi      
           else
             echo "Error: El archivo assets/javascriptFilesToMinify.json no existe."
           fi
@@ -84,24 +80,23 @@ jobs:
             if [ ${#cssFilesToMinify[@]} -eq 0 ]; then
               echo "Error: La lista de archivos CSS a minificar está vacía en assets/cssFilesToMinify.json."
               exit 1
+            else
+              # Instala css-minify
+              npm install css-minify -g
+
+              # Realiza la minificación de CSS
+              for cssFile in "${cssFilesToMinify[@]}"; do
+                # Verifica si el archivo CSS de entrada existe
+                if [ ! -f $cssFile ]; then
+                  echo "Error: El archivo CSS $cssFile no existe."
+                  exit 1
+                fi
+
+                # Realiza la minificación
+                css-minify -f $cssFile -o assets
+                git add $cssFile.min.css
+              done
             fi
-
-            # Instala css-minify
-            npm install css-minify -g
-
-            # Realiza la minificación de CSS
-            for cssFile in "${cssFilesToMinify[@]}"; do
-              # Verifica si el archivo CSS de entrada existe
-              if [ ! -f $cssFile ]; then
-                echo "Error: El archivo CSS $cssFile no existe."
-                exit 1
-              fi
-
-              # Realiza la minificación
-              css-minify -f $cssFile -o assets
-              git add $cssFile.min.css
-            done
-
           else
             echo "Error: El archivo assets/cssFilesToMinify.json no existe."
           fi
