@@ -39,32 +39,40 @@ jobs:
         run: |
           shopify theme check
 
-      - name: Minify JavaScript
-        run: |
-          npm install terser -g
-          terser assets/animations.js -o assets/animations.min.js
-
       - name: Config
         run: |
           git config --global user.email "jowell29jm@gmail.com"
           git config --global user.name "NanoDan29"
           git config credential.helper '!echo "password=${{ secrets.SHOPIFY_SECRET }}" | git-credential-store --file ~/.git-credentials store'
-
-      - name: Upload Minify JavaScript
+          
+      - name: Minify JavaScript
         run: |
-          git add .
-          git commit -m "Actualización automática 1"
-          git push origin main
+          npm install terser -g
+          terser assets/animations.js -o assets/animations.min.js
+
+      - name: Check for changes in JavaScript
+        run: |
+          if git diff --quiet; then
+            echo "No changes in JavaScript files."
+          else
+            git add assets/animations.min.js
+            git commit -m "Minify JavaScript - Auto commit"
+            git push origin main
+          fi
 
       - name: Minify CSS
         run: |
           npm install cssnano -g
           cssnano assets/banner-text.css -o assets/banner-text.min.css
 
-      - name: Upload Minify CSS
+      - name: Check for changes in CSS
         run: |
-          git add .
-          git commit -m "Actualización automática 2"
-          git push origin main
+          if git diff --quiet; then
+            echo "No changes in CSS files."
+          else
+            git add assets/banner-text.min.css
+            git commit -m "Minify CSS - Auto commit"
+            git push origin main
+          fi
 
       
