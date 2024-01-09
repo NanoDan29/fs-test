@@ -74,21 +74,21 @@
         "template--16777677799671__b7684526-f835-400c-8315-5ef8d457352d-16883763791ce68008-0": {
           "type": "scrolling_text",
           "settings": {
-            "content": "<p>Four Seasons EDITORIAL - MID-SEASON SALE UP TO 20% OFF</p>",
+            "content": "<p>Four Seasons - MID-SEASON SALE UP TO 20% OFF</p>",
             "text_link": ""
           }
         },
         "template--16777677799671__b7684526-f835-400c-8315-5ef8d457352d-16883763791ce68008-1": {
           "type": "scrolling_text",
           "settings": {
-            "content": "<p>Four Seasons EDITORIAL - SUMMER SALE FOR ALL SWIMSUITS - 10% OFF</p>",
+            "content": "<p>Four Seasons - SUMMER SALE FOR ALL SWIMSUITS - 10% OFF</p>",
             "text_link": ""
           }
         },
         "template--16777677799671__b7684526-f835-400c-8315-5ef8d457352d-16883763791ce68008-2": {
           "type": "scrolling_text",
           "settings": {
-            "content": "<p>Four Seasons EDITORIAL - FREE DELIVERY AND RETURNS FROM $120</p>",
+            "content": "<p>Four Seasons - FREE DELIVERY AND RETURNS FROM $120</p>",
             "text_link": ""
           }
         }
@@ -120,35 +120,28 @@
           "type": "collection",
           "settings": {
             "title": "All items",
-            "collection": "blazers"
+            "collection": "frontpage"
           }
         },
         "template--16777677799671__372599a2-5ef7-4644-ad2e-8220dd8d71bf-168837657547a69214-1": {
           "type": "collection",
           "settings": {
             "title": "Best of Sale",
-            "collection": "blazers"
+            "collection": "mattress"
           }
         },
         "bc2b847f-d28f-43bd-94ca-1d7de37011d9": {
           "type": "collection",
           "settings": {
             "title": "Sale 50% Off",
-            "collection": "blazers"
+            "collection": "linens"
           }
         },
         "b65ee25d-b159-4772-b91e-2bff93f99b09": {
           "type": "collection",
           "settings": {
-            "title": "T-shirt",
-            "collection": "blazers"
-          }
-        },
-        "169badbd-2634-4c6f-b1d3-5e2cac8beb58": {
-          "type": "collection",
-          "settings": {
-            "title": "CROP TOP",
-            "collection": "blazers"
+            "title": "",
+            "collection": "pillows"
           }
         }
       },
@@ -156,8 +149,7 @@
         "template--16777677799671__372599a2-5ef7-4644-ad2e-8220dd8d71bf-168837657547a69214-0",
         "template--16777677799671__372599a2-5ef7-4644-ad2e-8220dd8d71bf-168837657547a69214-1",
         "bc2b847f-d28f-43bd-94ca-1d7de37011d9",
-        "b65ee25d-b159-4772-b91e-2bff93f99b09",
-        "169badbd-2634-4c6f-b1d3-5e2cac8beb58"
+        "b65ee25d-b159-4772-b91e-2bff93f99b09"
       ],
       "settings": {
         "heading_logo_svg": "",
@@ -187,92 +179,6 @@
         "reset_spacing": false
       }
     },
-    "b81ed31e-1af1-4aed-a539-e1f61a4b671c": {
-      "type": "banner-with-text",
-      "blocks": {
-        "58a00c2e-06e4-4d79-a35d-3e787a7b1a3a": {
-          "type": "subheading",
-          "settings": {
-            "sub_title": "Sale 50% off all dresses",
-            "subheading_fs": 14,
-            "subheading_fw": "600",
-            "subheading_tf": "uppercase",
-            "subheading_mt": 0,
-            "subheading_mb": 10
-          }
-        },
-        "template--16777677799671__b81ed31e-1af1-4aed-a539-e1f61a4b671c-16883766912fabd80d-0": {
-          "type": "heading",
-          "settings": {
-            "title": "Special Offers",
-            "heading_fs": 60,
-            "heading_fw": "400",
-            "heading_tf": "unset",
-            "heading_mt": 0,
-            "heading_mb": 10
-          }
-        },
-        "template--16777677799671__b81ed31e-1af1-4aed-a539-e1f61a4b671c-16883766912fabd80d-1": {
-          "type": "text",
-          "settings": {
-            "txt_content": "<p>Get these deals before they’re gone! Save big on end-of-season and limited-edition colors in our most popular products.</p>",
-            "txt_fs": 16,
-            "txt_fw": "400",
-            "txt_tf": "unset",
-            "txt_mt": 0,
-            "txt_mb": 25
-          }
-        },
-        "template--16777677799671__b81ed31e-1af1-4aed-a539-e1f61a4b671c-16883766912fabd80d-2": {
-          "type": "buttons",
-          "settings": {
-            "btn_content": "Shop Now",
-            "button_type": "primary",
-            "button_link": "",
-            "button_target": false,
-            "b_mt": 0,
-            "b_mb": 15
-          }
-        }
-      },
-      "block_order": [
-        "58a00c2e-06e4-4d79-a35d-3e787a7b1a3a",
-        "template--16777677799671__b81ed31e-1af1-4aed-a539-e1f61a4b671c-16883766912fabd80d-0",
-        "template--16777677799671__b81ed31e-1af1-4aed-a539-e1f61a4b671c-16883766912fabd80d-1",
-        "template--16777677799671__b81ed31e-1af1-4aed-a539-e1f61a4b671c-16883766912fabd80d-2"
-      ],
-      "settings": {
-        "container": "full-width",
-        "color_scheme": "",
-        "banner_type": "image",
-        "image": "shopify://shop_images/img.jpg",
-        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
-        "link": "",
-        "open_link": "_blank",
-        "bn_design": "text_overlay",
-        "text_align": "text-center",
-        "text_horizontal_position": "center",
-        "text_position": "center",
-        "image_style": "default",
-        "content_bg_color": "",
-        "content_width": 40,
-        "banner_height": "custom-height",
-        "height_dk": 800,
-        "height_tb": 600,
-        "height_mb": 400,
-        "height_full": false,
-        "content_box": "content_in_container",
-        "bg_opacity": 100,
-        "text_bellow_mobile": false,
-        "img_position": "left",
-        "banner_width": "col-md-6",
-        "column_gap": 30,
-        "hover_effect": "none",
-        "padding_top": 0,
-        "padding_bottom": 0,
-        "reset_spacing": false
-      }
-    },
     "8a99114d-647d-4f2e-a9f0-809cba3b5c15": {
       "type": "products-carousel",
       "settings": {
@@ -282,7 +188,7 @@
         "text_alignment": "text-center",
         "container": "container",
         "color_scheme": "",
-        "collection": "blazers",
+        "collection": "frontpage",
         "limit_products": 8,
         "item_desktop": 4,
         "column_gap": 30,
@@ -296,7 +202,7 @@
         "text_view_all": "View All",
         "enable_banner": false,
         "banner_type": "image",
-        "video_url": "https://www.youtube.com/watch?v=_9VUPq3SxOc",
+        "video_url": "",
         "banner_position": "position-left",
         "banner_link": "",
         "banner_width": 30,
@@ -322,7 +228,7 @@
         "template--16777677799671__ca4a259f-6568-421d-a4c9-96dad9911424-1688377017810ed808-0": {
           "type": "iconbox",
           "settings": {
-            "icon": "shopify://shop_images/icon_box1_d1.png",
+            "icon": "shopify://shop_images/icon_box.webp",
             "heading": "Free Shipping",
             "description": "<p>Get complimentary ground shipping on every order. Don't love it? Send it back, on us.</p>"
           }
@@ -330,7 +236,7 @@
         "template--16777677799671__ca4a259f-6568-421d-a4c9-96dad9911424-1688377017810ed808-1": {
           "type": "iconbox",
           "settings": {
-            "icon": "shopify://shop_images/icon_box2_d1.png",
+            "icon": "shopify://shop_images/icon_box2.webp",
             "heading": "Free Returns",
             "description": "<p>Free returns within 10 days, please make sure the items are in undamaged condition.</p>"
           }
@@ -338,7 +244,7 @@
         "template--16777677799671__ca4a259f-6568-421d-a4c9-96dad9911424-1688377017810ed808-2": {
           "type": "iconbox",
           "settings": {
-            "icon": "shopify://shop_images/icon_box3_d1.png",
+            "icon": "shopify://shop_images/icon_box3.webp",
             "heading": "Support Online",
             "description": "<p>We support customers 24/7, send questions we will solve for you immediately.</p>"
           }
@@ -377,7 +283,6 @@
     "page-sale-banner",
     "b7684526-f835-400c-8315-5ef8d457352d",
     "372599a2-5ef7-4644-ad2e-8220dd8d71bf",
-    "b81ed31e-1af1-4aed-a539-e1f61a4b671c",
     "8a99114d-647d-4f2e-a9f0-809cba3b5c15",
     "ae931e5b-4dda-4c84-aabc-3dae756fca2a",
     "ca4a259f-6568-421d-a4c9-96dad9911424"

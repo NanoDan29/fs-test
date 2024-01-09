@@ -135,13 +135,15 @@
         {%- endfor -%}
       </div>
       {%- if paginate.pages > 1 -%}
-        {%- capture total_items -%}
-          {%- if limit_products >= paginate.items -%}
-            {{ paginate.items }}
-          {%- else -%}
-            {{ limit_products }}
-          {%- endif -%}
-        {%- endcapture -%}
+        {%- liquid
+          capture total_items
+            if limit_products >= paginate.items
+              echo paginate.items
+            else
+              echo limit_products
+            endif
+          endcapture
+        -%}
         {%- if load_more_button_enable -%}
           {%- if button_action == 'load' -%}
             <div

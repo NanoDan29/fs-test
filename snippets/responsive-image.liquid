@@ -77,6 +77,40 @@
       height="{{ image.height }}"
     >
   {%- else -%}
-    {%- render 'placeholder-render' | type: type -%}
+  {%- liquid
+    assign cls_placeholder = 'bls__placeholder'
+    if cls != blank
+      assign cls_placeholder = cls
+    endif
+    assign img_type = 'product'
+    if type != blank
+      assign img_type = type
+    endif
+  -%}
+  {% liquid
+    case img_type
+      when 'product'
+        assign diff = 6 | minus: 1
+        assign randomNumber = 'now' | date: '%N' | modulo: diff | plus: 1
+        echo 'product-' | append: randomNumber | placeholder_svg_tag: cls_placeholder
+      else
+  
+      when 'collection'
+        assign diff = 6 | minus: 1
+        assign randomNumber = 'now' | date: '%N' | modulo: diff | plus: 1
+        echo 'collection-' | append: randomNumber | placeholder_svg_tag: cls_placeholder
+      else
+  
+      when 'image'
+        echo 'image' | placeholder_svg_tag: cls_placeholder
+      else
+  
+      when 'lifestyle'
+        assign diff = 2 | minus: 1
+        assign randomNumber = 'now' | date: '%N' | modulo: diff | plus: 1
+        echo 'lifestyle-' | append: randomNumber | placeholder_svg_tag: cls_placeholder
+    endcase
+  %}
+  
   {%- endif -%}
 </div>

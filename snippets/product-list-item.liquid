@@ -94,38 +94,40 @@
         href="{{ product.url | within: collection }}"
       >
         <div class="bls__product-main-img">
-          {%- if product.has_only_default_variant -%}
-            {%- if img[0] != blank -%}
-              {%- render 'responsive-image' | image: img[0] | type: 'product' | cls: 'bls__product-grid bls__product-img-sw' -%}
-            {%- else -%}
-              {%- render 'responsive-image' | type: 'product' | cls: 'bls__product-grid-plh' -%}
-            {%- endif -%}
-          {%- else -%}
-            {%- for o in product.options_with_values -%}
-              {%- if o == option_name -%}
-                {%- assign hasColor = true -%}
-              {%- endif -%}
-            {%- endfor -%}
-            {%- if hasColor -%}
-              {%- for variant in product.variants limit: 1 -%}
-                {%- if variant.featured_image != blank -%}
-                  {%- render 'responsive-image' | image: variant.featured_image | type: 'product' | cls: 'bls__product-grid bls__product-img-sw' -%}
-                {%- else -%}
-                  {%- if img[0] != blank -%}
-                    {%- render 'responsive-image' | image: img[0] | type: 'product' | cls: 'bls__product-grid bls__product-img-sw' -%}
-                  {%- else -%}
-                    {%- render 'responsive-image' | type: 'product' | cls: 'bls__product-grid-plh' -%}
-                  {%- endif -%}
-                {%- endif -%}
-              {%- endfor -%}
-            {%- else -%}
-              {%- if img[0] != blank -%}
-                {%- render 'responsive-image' | image: img[0] | type: 'product' | cls: 'bls__product-grid bls__product-img-sw' -%}
-              {%- else -%}
-                {%- render 'responsive-image' | type: 'product' | cls: 'bls__product-grid-plh' -%}
-              {%- endif -%}
-            {%- endif -%}
-          {%- endif -%}
+          {% liquid
+            if product.has_only_default_variant
+              if img[0] != blank
+                render 'responsive-image' | image: img[0] | type: 'product' | cls: 'bls__product-grid bls__product-img-sw'
+              else
+                render 'responsive-image' | type: 'product' | cls: 'bls__product-grid-plh'
+              endif
+            else
+              for o in product.options_with_values
+                if o == option_name
+                  assign hasColor = true
+                endif
+              endfor
+              if hasColor
+                for variant in product.variants limit: 1
+                  if variant.featured_image != blank
+                    render 'responsive-image' | image: variant.featured_image | type: 'product' | cls: 'bls__product-grid bls__product-img-sw'
+                  else
+                    if img[0] != blank
+                      render 'responsive-image' | image: img[0] | type: 'product' | cls: 'bls__product-grid bls__product-img-sw'
+                    else
+                      render 'responsive-image' | type: 'product' | cls: 'bls__product-grid-plh'
+                    endif
+                  endif
+                endfor
+              else
+                if img[0] != blank
+                  render 'responsive-image' | image: img[0] | type: 'product' | cls: 'bls__product-grid bls__product-img-sw'
+                else
+                  render 'responsive-image' | type: 'product' | cls: 'bls__product-grid-plh'
+                endif
+              endif
+            endif
+          %}
         </div>
         {%- if img[1] != blank -%}
           <div class="bls__product-hover-img opacity-0 absolute inset-0">
@@ -136,38 +138,40 @@
     {%- else -%}
       <a class="bls__img-url" href="{{ product.url | within: collection }}">
         <div class="bls__product-main-img">
-          {%- if product.has_only_default_variant -%}
-            {%- if product.featured_image != blank -%}
-              {%- render 'responsive-image' | image: product.featured_image | type: 'product' | cls: 'bls__product-grid bls__product-img-sw' -%}
-            {%- else -%}
-              {%- render 'responsive-image' | type: 'product' | cls: 'bls__product-grid-plh' -%}
-            {%- endif -%}
-          {%- else -%}
-            {%- for o in product.options_with_values -%}
-              {%- if o == option_name -%}
-                {%- assign hasColor = true -%}
-              {%- endif -%}
-            {%- endfor -%}
-            {%- if hasColor -%}
-              {%- for variant in product.variants limit: 1 -%}
-                {%- if variant.featured_image != blank -%}
-                  {%- render 'responsive-image' | image: variant.featured_image | type: 'product' | cls: 'bls__product-grid bls__product-img-sw' -%}
-                {%- else -%}
-                  {%- if img[0] != blank -%}
-                    {%- render 'responsive-image' | image: img[0] | type: 'product' | cls: 'bls__product-grid bls__product-img-sw' -%}
-                  {%- else -%}
-                    {%- render 'responsive-image' | type: 'product' | cls: 'bls__product-grid-plh' -%}
-                  {%- endif -%}
-                {%- endif -%}
-              {%- endfor -%}
-            {%- else -%}
-              {%- if img[0] != blank -%}
-                {%- render 'responsive-image' | image: img[0] | type: 'product' | cls: 'bls__product-grid bls__product-img-sw' -%}
-              {%- else -%}
-                {%- render 'responsive-image' | type: 'product' | cls: 'bls__product-grid-plh' -%}
-              {%- endif -%}
-            {%- endif -%}
-          {%- endif -%}
+          {% liquid
+            if product.has_only_default_variant
+              if product.featured_image != blank
+                render 'responsive-image' | image: product.featured_image | type: 'product' | cls: 'bls__product-grid bls__product-img-sw'
+              else
+                render 'responsive-image' | type: 'product' | cls: 'bls__product-grid-plh'
+              endif
+            else
+              for o in product.options_with_values
+                if o == option_name
+                  assign hasColor = true
+                endif
+              endfor
+              if hasColor
+                for variant in product.variants limit: 1
+                  if variant.featured_image != blank
+                    render 'responsive-image' | image: variant.featured_image | type: 'product' | cls: 'bls__product-grid bls__product-img-sw'
+                  else
+                    if img[0] != blank
+                      render 'responsive-image' | image: img[0] | type: 'product' | cls: 'bls__product-grid bls__product-img-sw'
+                    else
+                      render 'responsive-image' | type: 'product' | cls: 'bls__product-grid-plh'
+                    endif
+                  endif
+                endfor
+              else
+                if img[0] != blank
+                  render 'responsive-image' | image: img[0] | type: 'product' | cls: 'bls__product-grid bls__product-img-sw'
+                else
+                  render 'responsive-image' | type: 'product' | cls: 'bls__product-grid-plh'
+                endif
+              endif
+            endif
+          %}
         </div>
       </a>
     {%- endif -%}
@@ -194,7 +198,10 @@
     </h3>
     {%- if show_review -%}
       {%- if product.metafields.judgeme.badge -%}
-        <div style='{{ jm_style }}' class='jdgm-widget jdgm-preview-badge bls__pro-reviews no-js-hidden mt-5'  data-id='{{ product.id }}'
+        <div
+          style="{{ jm_style }}"
+          class="jdgm-widget jdgm-preview-badge bls__pro-reviews no-js-hidden mt-5"
+          data-id="{{ product.id }}"
           {%- if block -%}
             {{ block.shopify_attributes }}
           {%- endif -%}
@@ -203,8 +210,8 @@
         </div>
       {% endif %}
       {%- if product.metafields.spr.reviews -%}
-      <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
-    {% endif %}
+        <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+      {% endif %}
     {%- endif -%}
     <div class="bls__product-price mb-15 mt-5">
       {%- render 'price', product: product, use_variant: true, price_class: 'price--large' -%}
@@ -275,22 +282,24 @@
               type="button"
               name="add"
               role="button"
-              aria-label="{%- if product.selected_or_first_available_variant.inventory_management != null -%}
-                {%- if product.selected_or_first_available_variant.available
-              and product.selected_or_first_available_variant.inventory_quantity < 1
-              -%}
-                  {{ 'products.product.pre_order' | t }}
-                {%- elsif product.selected_or_first_available_variant.available -%}
-                  {{ 'products.product.add_to_cart' | t }}
+              aria-label="
+                {%- if product.selected_or_first_available_variant.inventory_management != null -%}
+                  {%- if product.selected_or_first_available_variant.available
+                and product.selected_or_first_available_variant.inventory_quantity < 1
+                -%}
+                    {{ 'products.product.pre_order' | t }}
+                  {%- elsif product.selected_or_first_available_variant.available -%}
+                    {{ 'products.product.add_to_cart' | t }}
+                  {%- else -%}
+                    {{ 'products.product.sold_out' | t }}
+                  {%- endif -%}
                 {%- else -%}
-                  {{ 'products.product.sold_out' | t }}
+                  {{ 'products.product.add_to_cart' | t }}
                 {%- endif -%}
-              {%- else -%}
-                {{ 'products.product.add_to_cart' | t }}
-              {%- endif -%}"
+              "
               {% if product.selected_or_first_available_variant.available == false %}
                 disabled
-                {% endif %}
+              {% endif %}
             >
               <span class="width-45 bls__product-icon width-lg-50 height-45 height-lg-50 d-none">
                 <svg width="15" height="13" viewBox="0 0 15 13" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -302,8 +311,8 @@
               <span class="add-cart bls__button-content hidden-loading">
                 {%- if product.selected_or_first_available_variant.inventory_management != null -%}
                   {%- if product.selected_or_first_available_variant.available
-                and product.selected_or_first_available_variant.inventory_quantity < 1
-                -%}
+                    and product.selected_or_first_available_variant.inventory_quantity < 1
+                  -%}
                     {{ 'products.product.pre_order' | t }}
                   {%- elsif product.selected_or_first_available_variant.available -%}
                     {{ 'products.product.add_to_cart' | t }}
