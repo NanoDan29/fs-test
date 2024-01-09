@@ -44,7 +44,7 @@ jobs:
               filename="${filename%.*}"
 
               # Realiza la minificación
-              terser $file -o assets/$filename.min.$extension
+              terser $file -o $filename.min.$extension
             done
 
             # Añade y sube los archivos minificados
