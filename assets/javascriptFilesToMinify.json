@@ -1,7 +1,16 @@
 {
     "javascriptFilesToMinify": [
-        "product_action.js",
-        "pubsub.js",
-        "customer.js"
+        {
+            "input": "product_action.js"
+        },
+        {
+            "input": "pubsub.js"
+        },
+        {
+            "input": "pubsub.js"
+        },
+        {
+            "input": "pubsub.js"
+        }
     ]
 }
