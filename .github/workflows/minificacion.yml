@@ -66,13 +66,6 @@ jobs:
       - name: Status
         run: |
           git status
-  
-      - name: Commit and Push Changes
-        run: |
-          # Añade y sube los archivos minificados
-          git add assets
-          git commit -m "Minify JavaScript"
-          git push origin main
 
       - name: Minify CSS
         run: |
@@ -117,5 +110,6 @@ jobs:
         run: |
           # Añade y sube los archivos minificados
           git add .
-          git commit -m "Minify CSS"
+          git commit -m "Minify JS and CSS"
           git push origin main
+          
