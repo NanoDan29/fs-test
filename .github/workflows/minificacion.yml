@@ -54,7 +54,11 @@ jobs:
           else
             echo "Error: El archivo assets/javascriptFilesToMinify.json no existe."
           fi
-
+          
+      - name: Status
+        run: |
+          git status
+  
       - name: Commit and Push Changes
         run: |
           # Añade y sube los archivos minificados
