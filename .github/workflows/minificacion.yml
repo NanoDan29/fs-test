@@ -44,22 +44,15 @@ jobs:
               terser $file -o $filename.min.$extension
             done
 
+            # Vuelve al directorio raíz del repositorio
+            cd ..
           else
             echo "Error: El archivo assets/javascriptFilesToMinify.json no existe."
           fi
 
-      - name: Commit Changes
+      - name: Commit and Push Changes
         run: |
-          # Añade y realiza un commit de los archivos minificados
+          # Añade y sube los archivos minificados
           git add assets/minified
           git commit -m "Minify JavaScript"
-
-      - name: Push Changes
-        run: |
-          # Sube los cambios al repositorio
           git push origin main
-
-      - name: Check Status
-        run: |
-          # Verifica el estado del repositorio después de realizar el commit y push
-          git status
