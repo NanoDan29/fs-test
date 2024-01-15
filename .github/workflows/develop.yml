@@ -34,6 +34,9 @@ jobs:
       - name: Shopify Version
         run: |
           shopify --version
+      
+      - name: Print Current Branch
+        run: echo "Current Branch: $(git rev-parse --abbrev-ref HEAD)"
 
       - name: Lint with Shopify Theme Check
         run: |
