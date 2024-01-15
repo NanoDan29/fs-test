@@ -22,6 +22,7 @@
   width: 100%;
 }
 
+
 @media (max-width: 575px) {
   .layout-2 .collection-item .collections-content-inner {
     margin-top: var(--bs-gutter-x);
