@@ -2,8 +2,9 @@
 {{ 'product.css' | asset_url | stylesheet_tag }}
 {{ 'glightbox.min.css' | asset_url | stylesheet_tag }}
 {{ 'skeleton.css' | asset_url | stylesheet_tag }}
-{% # theme-check-disable ContentForHeaderModification %}
+
 {%- liquid
+  # theme-check-disable ContentForHeaderModification
   capture contentForQuerystring
     echo content_for_header
   endcapture

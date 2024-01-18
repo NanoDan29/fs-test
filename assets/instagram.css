@@ -14,7 +14,6 @@
     will-change: transform;
 }
 
-
 .bls__instagram-item.ins-radius {
     border-radius: var(--base-border-radius);
 }

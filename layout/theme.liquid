@@ -1,3 +1,29 @@
+{%- liquid
+  assign th_st = settings
+  assign header_layout = th_st.header_layout
+  assign container = th_st.container
+  assign transparent = th_st.enable_transparent_header
+  assign transparent_topbar = th_st.enable_transparent_header_topbar
+  assign top_search = th_st.show_top_search
+  assign color_scheme = th_st.color_scheme_header
+  assign my_account = th_st.show_my_account
+  assign wishlist = th_st.show_wishlist_icon
+  assign minicart = th_st.show_minicart
+  assign recently_viewed = th_st.show_recently_viewed
+  assign enable_sticky = th_st.sticky_header
+  assign show_country = th_st.show_country
+  assign show_language = th_st.show_language
+  assign sticky_mobile = th_st.sticky_header_mobile
+  assign transparent_class = ''
+  if template.name == 'index' and transparent or template.name == 'index' and transparent_topbar
+    assign transparent_class = 'transparent'
+  endif
+  assign transparent_topbar_class = ''
+  if template.name == 'index' and transparent_topbar
+    assign transparent_topbar_class = 'transparent-topbar'
+  endif
+-%}
+
 {% liquid
   assign enable_rtl = settings.rtl
   assign iso_code = request.locale.iso_code
@@ -20,6 +46,8 @@
     <meta name="theme-color" content="">
     <link rel="canonical" href="{{ canonical_url }}">
     <link rel="preconnect" href="https://cdn.shopify.com" crossorigin>
+    {{ 'popup.css' | asset_url | stylesheet_tag }}
+    {{ 'dropdown.css' | asset_url | stylesheet_tag }}
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
     {%- endif -%}
@@ -47,7 +75,330 @@
       {%- render 'fs-home' -%}
       <div class="bls__overlay d-none-overlay"></div>
       {% section 'announcement' %}
-      {%- render 'header' -%}
+      <header
+        id="page-header"
+        class="page-header h-{{ transparent_class }} {{ transparent_topbar_class }}"
+        data-sticky="{{ enable_sticky }}"
+        data-sticky-mobile="{{ sticky_mobile }}"
+      >
+        <div class="header-container {{ header_layout }}">
+          {%- liquid
+            section 'top-bar'
+          -%}
+          <div class="header-{{ transparent_class }}">
+            <div
+              class="header-middle {{ transparent_class }} color-{{ color_scheme }} gradient"
+              id="sticky-header"
+            >
+              {%- case header_layout -%}
+                {%- when 'h_layout1' -%}
+                  <div class="{{ container }} d-flex align-items-center">
+                    <div class="col-header-left mb-col-6 d-inline-flex justify-content-center justify-content-lg-start">
+                      {%- render 'logo', isTransparent: transparent -%}
+                    </div>
+                    <div class="col-header-center mb-col-3 col-menu-center bls_submenu-center">
+                      {%- render 'toggle-menu' -%}
+                      {%- liquid
+                        section 'horizontal-menu'
+                      -%}
+                    </div>
+
+                    <div class="col-header-right mb-col-3 d-flex justify-content-end align-items-center">
+                      {%- liquid
+                        if top_search
+                          render 'top-search'
+                        endif
+                        if my_account
+                          render 'my-account'
+                        endif
+                        if recently_viewed
+                          render 'recently-viewed'
+                        endif
+                        if wishlist
+                          render 'wishlist'
+                        endif
+                        if minicart
+                          render 'minicart'
+                        endif
+                      -%}
+                      <div id="dropdownParent" class="bls__header_minicart">
+                        <div class="dropdown">
+                          <button id="dropdownButton" class="dropbtn">
+                            <p data-value="CA">
+                              <img
+                                src="{{ 'us.jpg' | asset_url }}"
+                                alt="Bandera de Estados Unidos"
+                                width="auto"
+                                height="15"
+                                loading="lazy"
+                              >
+                            </p>
+                          </button>
+                          <div id="dropdownContent" class="dropdown-content">
+                            <p data-value="CA">
+                              <a href="" target="_blank">
+                                <img
+                                  src="{{ 'us.jpg' | asset_url }}"
+                                  alt="Bandera de Estados Unidos"
+                                  width="auto"
+                                  height="15"
+                                  loading="lazy"
+                                >
+                              </a>
+                            </p>
+                            <p data-value="US">
+                              <a href="" target="_blank">
+                                <img
+                                  src="{{ 'cn.jpg' | asset_url }}"
+                                  alt="Bandera de Canadá"
+                                  width="auto"
+                                  height="15"
+                                  loading="lazy"
+                                >
+                              </a>
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                {%- when 'h_layout2' -%}
+                  <div class="middle-top">
+                    <div class="{{ container }} d-flex align-items-center">
+                      <div class="col-header-left mb-col-3 d-inline-flex justify-content-center justify-content-lg-start">
+                        {%- render 'toggle-menu' -%}
+                        {%- liquid
+                          if show_language
+                            render 'country-switcher'
+                          endif
+                          if show_country
+                            render 'language-switcher'
+                          endif
+                        -%}
+                      </div>
+                      <div class="col-header-center mb-col-6 d-flex justify-content-center">
+                        {%- render 'logo', isTransparent: transparent -%}
+                      </div>
+                      <div class="col-header-right mb-col-3 d-flex justify-content-end align-items-center">
+                        {%- liquid
+                          if top_search
+                            render 'top-search'
+                          endif
+
+                          if my_account
+                            render 'my-account'
+                          endif
+                          if recently_viewed
+                            render 'recently-viewed'
+                          endif
+                          if wishlist
+                            render 'wishlist'
+                          endif
+                          if minicart
+                            render 'minicart'
+                          endif
+                        -%}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="middle-bottom bottom-{{ container }}">
+                    <div class="{{ container }} d-flex justify-content-center col-menu-center bls_submenu-center">
+                      {%- liquid
+                        section 'horizontal-menu'
+                      -%}
+                    </div>
+                  </div>
+                {%- when 'h_layout3' -%}
+                  <div class="{{ container }} d-flex align-items-center">
+                    <div class="col-header-left mb-col-3 d-inline-flex justify-content-center justify-content-lg-start">
+                      {%- render 'toggle-menu' -%}
+                      {%- liquid
+                        section 'horizontal-menu'
+                      -%}
+                    </div>
+                    <div class="col-header-center mb-col-6 d-flex justify-content-center">
+                      {%- render 'logo', isTransparent: transparent -%}
+                    </div>
+                    <div class="col-header-right mb-col-3 d-flex justify-content-end align-items-center">
+                      {%- liquid
+                        if top_search
+                          render 'top-search'
+                        endif
+
+                        if my_account
+                          render 'my-account'
+                        endif
+                        if recently_viewed
+                          render 'recently-viewed'
+                        endif
+                        if wishlist
+                          render 'wishlist'
+                        endif
+                        if minicart
+                          render 'minicart'
+                        endif
+                      -%}
+                    </div>
+                  </div>
+                {%- when 'h_layout4' -%}
+                  <div class="middle-top">
+                    <div class="{{ container }} d-flex align-items-center">
+                      <div class=" mb-col-3 col-header-toggle  d-inline-flex">
+                        {%- render 'toggle-menu' -%}
+                      </div>
+                      <div class="col-header-left mb-col-6 d-inline-flex justify-content-center justify-content-lg-start">
+                        {%- render 'logo', isTransparent: transparent -%}
+                      </div>
+                      <div class="col-header-center col-menu-center bls_submenu-center">
+                        {%- liquid
+                          if top_search
+                            render 'top-search' | layout4: true
+                          endif
+                        -%}
+                      </div>
+                      <div class="col-header-right mb-col-3 d-flex justify-content-end align-items-center">
+                        {%- liquid
+                          if my_account
+                            render 'my-account'
+                          endif
+                          if wishlist
+                            render 'wishlist'
+                          endif
+                          if minicart
+                            render 'minicart'
+                          endif
+                        -%}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="middle-bottom">
+                    <div class="{{ container }} d-flex align-items-center col-menu-center bls_submenu-center">
+                      <div class="col-header-left">
+                        {%- liquid
+                          section 'vertical-menu'
+                        -%}
+                      </div>
+                      <div class="col-header-center">
+                        {%- liquid
+                          section 'horizontal-menu'
+                        -%}
+                      </div>
+                      <div class="col-header-right d-none-mb">
+                        {%- liquid
+                          if recently_viewed
+                            render 'recently-viewed'
+                          endif
+                        -%}
+                      </div>
+                    </div>
+                  </div>
+                {%- when 'h_layout5' -%}
+                  <div class="{{ container }} d-flex align-items-center">
+                    <div class="col-header-left mb-col-6 d-inline-flex justify-content-center justify-content-lg-start">
+                      {%- render 'logo', isTransparent: transparent -%}
+                    </div>
+                    <div class="col-header-center mb-col-3 col-menu-center bls_submenu-center">
+                      {%- render 'toggle-menu' -%}
+                      {%- liquid
+                        section 'horizontal-menu'
+                      -%}
+                    </div>
+                    <div class="col-header-right mb-col-3 d-flex justify-content-end align-items-center">
+                      {%- liquid
+                        if top_search
+                          render 'top-search' | layout5: true
+                        endif
+                        if my_account
+                          render 'my-account'
+                        endif
+                        if recently_viewed
+                          render 'recently-viewed'
+                        endif
+                        if wishlist
+                          render 'wishlist'
+                        endif
+                        if minicart
+                          render 'minicart'
+                        endif
+                      -%}
+                    </div>
+                  </div>
+                {%- when 'h_layout6' -%}
+                  <div class="{{ container }} d-flex align-items-center">
+                    <div class="col-header-left mb-col-6 d-inline-flex justify-content-center justify-content-lg-start">
+                      {%- render 'logo', isTransparent: transparent -%}
+                    </div>
+                    <div class="col-header-center mb-col-3">
+                      {%- render 'toggle-menu' -%}
+                      {%- liquid
+                        section 'horizontal-menu'
+                      -%}
+                    </div>
+                    <div class="col-header-right mb-col-3 d-flex justify-content-end align-items-center">
+                      {%- liquid
+                        if top_search
+                          render 'top-search' | layout6: true
+                        endif
+                        if my_account
+                          render 'my-account'
+                        endif
+                        if recently_viewed
+                          render 'recently-viewed'
+                        endif
+                        if wishlist
+                          render 'wishlist'
+                        endif
+                        if minicart
+                          render 'minicart'
+                        endif
+                      -%}
+                    </div>
+                  </div>
+                {%- when 'h_layout7' -%}
+                  <div class="middle-top">
+                    <div class="{{ container }} d-flex  justify-content-center py-15">
+                      <div class="mb-col-6 d-flex justify-content-center">
+                        {%- render 'logo', isTransparent: transparent -%}
+                      </div>
+                    </div>
+                  </div>
+                  <div class="middle-bottom">
+                    <div class="{{ container }} d-flex align-items-center col-menu-center bls_submenu-center">
+                      <div class="col-header-left mb-col-3 d-inline-flex">
+                        {%- render 'toggle-menu' -%}
+                        {%- liquid
+                          if top_search
+                            render 'top-search'
+                          endif
+                        -%}
+                      </div>
+                      <div class="col-header-center mb-col-6 d-flex justify-content-center">
+                        {%- liquid
+                          section 'horizontal-menu'
+                        -%}
+                      </div>
+                      <div class="col-header-right mb-col-3 d-flex justify-content-end align-items-center">
+                        {%- liquid
+                          if my_account
+                            render 'my-account'
+                          endif
+                          if recently_viewed
+                            render 'recently-viewed'
+                          endif
+                          if wishlist
+                            render 'wishlist'
+                          endif
+                          if minicart
+                            render 'minicart'
+                          endif
+                        -%}
+                      </div>
+                    </div>
+                  </div>
+              {%- endcase -%}
+            </div>
+          </div>
+        </div>
+      </header>
       <main
         id="MainContent"
         class="content-for-layout focus-none{% if template == 'product' or template == 'page.wishlist' or template == "page.recently-viewed-products" %} skeleton-product-detail{% endif %}"
@@ -64,7 +415,6 @@
     {%- render 'content-bottom' -%}
     {%- render 'before-you-leave' -%}
     {%- render 'scripts-tag' -%}
-  
 
     {{ shop.metafields.loox.global_html_body }}
   </body>
