@@ -1,5 +1,8 @@
 {
     "javascriptFilesToMinify": [
-        
+        {
+            "input": "single-product.js",
+            "output": "single-product.min.js"
+        }
     ]
 }

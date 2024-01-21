@@ -93,5 +93,5 @@ jobs:
                 echo "No hay cambios para comprometer."
             else
             git commit -m "Minify JS and CSS"
-                git push origin main
+                git push origin develop
             fi
