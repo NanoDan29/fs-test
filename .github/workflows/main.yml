@@ -1,40 +1,97 @@
 name: main
+
 on:
   push:
     branches:
       - main
+
 jobs:
   build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Set up Ruby
-        uses: ruby/setup-ruby@v1
-        with:
-          ruby-version: '3.0'
-          
-      - name: Install Bundler
-        run: gem install bundler
-        
-      - name: Set Up Node.js
-        uses: actions/setup-node@v2
-        with:
-          node-version: '18.18.0'
-          
-      - name: Install Shopify CLI
+      - name: Run Jest Tests
         run: |
-          npm install -g @shopify/cli @shopify/theme
-          
-      - name: Find Shopify CLI Installation Location
-        run: |
-          which shopify
-          
-      - name: Shopify Version
-        run: |
-          shopify --version
+          npx jest --config assets/jest.config.js
 
-      - name: Lint with Shopify Theme Check
+      - name: Config
         run: |
-          shopify theme check
+          git config --global user.email "jowell29jm@gmail.com"
+          git config --global user.name "NanoDan29"
+          git config credential.helper '!echo "password=${{ secrets.SHOPIFY_SECRET }}" | git-credential-store --file ~/.git-credentials store'
+
+      - name: Minify JavaScript
+        run: | 
+          if [ -f assets/javascriptFilesToMinify.json ]; then
+            cd assets
+
+            config=$(cat javascriptFilesToMinify.json)
+            
+            filesToMinify=($(echo $config | jq -r '.javascriptFilesToMinify[].input'))
+            outputNames=($(echo $config | jq -r '.javascriptFilesToMinify[].output'))
+
+            if [ ${#filesToMinify[@]} -eq 0 ]; then
+              echo "Error: The list of files to minify is empty in assets/javascriptFilesToMinify.json."
+            else
+              npm install terser -g
+
+              for i in "${!filesToMinify[@]}"; do
+                file="${filesToMinify[$i]}"
+                outputName="${outputNames[$i]}"
+
+                if [ ! -f $file ]; then
+                  echo "Error: The file $file does not exist"
+                   exit 1
+                fi
+                
+                terser $file -o $outputName
+              done
+            fi      
+          else
+            echo "Error: The file assets/javascriptFilesToMinify.json does not exist"
+          fi
+
+      - name: Status
+        run: |
+          git status
+
+      - name: Minify CSS
+        run: |
+          if [ -f assets/cssFilesToMinify.json ]; then
+            cssConfig=$(cat assets/cssFilesToMinify.json)
+            cssFilesToMinify=($(echo $cssConfig | jq -r '.cssFilesToMinify[]'))
+
+            if [ ${#cssFilesToMinify[@]} -eq 0 ]; then
+              echo "Error: The list of CSS files to minify is empty in assets/cssFilesToMinify.json."
+            else
+              npm install css-minify -g
+
+              for cssFile in "${cssFilesToMinify[@]}"; do
+                if [ ! -f $cssFile ]; then
+                  echo "Error: The CSS file $cssFile does not exist."
+                  exit 1
+                fi
+                css-minify -f $cssFile -o assets
+                git add $cssFile.min.css
+              done
+            fi
+          else
+            echo "Error: The file assets/cssFilesToMinify.json does not exist."
+          fi
+          
+      - name: Status
+        run: |
+          git status
+  
+      - name: Commit and Push Changes
+        run: |
+            git add .
+            if git diff-index --quiet HEAD --; then
+                echo "No hay cambios para comprometer."
+            else
+            git commit -m "Minify JS and CSS"
+                git push origin main
+            fi
