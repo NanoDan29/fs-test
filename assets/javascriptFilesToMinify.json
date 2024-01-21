@@ -3,6 +3,10 @@
         {
             "input": "single-product.js",
             "output": "single-product.min.js"
+        },
+        {
+            "input": "product_action.js",
+            "output": "product_action.min.js"
         }
     ]
 }
