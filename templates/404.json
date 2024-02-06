@@ -19,12 +19,12 @@
       "type": "page-404",
       "settings": {
         "container": "container",
-        "image": "shopify://shop_images/image_5.png",
+        "image": "shopify:\/\/shop_images\/image_5.png",
         "custom_width": "120",
         "heading": "Oops...That link is broken.",
         "sub_heading": "Sorry for the inconvenience. Go to our homepage or check out our latest collections.",
         "label": "Back to homepage",
-        "link": "shopify://collections"
+        "link": "shopify:\/\/collections"
       }
     }
   },

@@ -1,0 +1,332 @@
+{% liquid
+  assign st = section.settings
+  assign th_st = settings
+  assign variants_available_arr = product.variants | map: 'available'
+  assign variants_option1_arr = product.variants | map: 'option1'
+  assign variants_option2_arr = product.variants | map: 'option2'
+  assign variants_option3_arr = product.variants | map: 'option3'
+%}
+{%- if th_st.enable_sw_only_product_detail == false -%}
+  <div class="product-variant-quick-view mb-15">
+    {%- unless product.has_only_default_variant -%}
+      <variant-radios-quickview
+        id="variant-radios"
+        class="no-js-hidden"
+        data-section="{{ section.id }}"
+        data-url="{{ product.url }}"
+      >
+        {%- for option in product.options_with_values -%}
+          {%- liquid
+            assign option_index = 'option' | append: forloop.index
+            assign selected_value = current_variant[option_index]
+          -%}
+          <fieldset class="js product-form__input flex mb-25 flex-wrap {% if option.name == option_name %}color{% endif %}">
+            <legend class="form__label mb-8">
+              <span class="swatch-attribute-label">{{ option.name }}:</span>
+              <span class="swatch-selected-value heading-weight heading-color">
+                {{ option.selected_value }}
+              </span>
+            </legend>
+            {% if option.name == option_name %}
+              {% if color_type == 'radio' %}
+                {%- for value in option.values -%}
+                  {%- liquid
+                    assign option_disabled = true
+
+                    for option1_name in variants_option1_arr
+                      case option.position
+                        when 1
+                          if variants_option1_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                            assign option_disabled = false
+                          endif
+                        when 2
+                          if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                            assign option_disabled = false
+                          endif
+                        when 3
+                          if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == product.selected_or_first_available_variant.option2 and variants_option3_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                            assign option_disabled = false
+                          endif
+                      endcase
+                    endfor
+                  -%}
+                  <div
+                    class="bls__product-color-swatches-radio bls__option-swatch ml-1 mr-20 {% if option.selected_value == value %} active{% endif %}"
+                    data-value="{{ value }}"
+                    {% if option_disabled %}
+                      data-disabled
+                    {% endif %}
+                    data-filter-color="{{ value }}"
+                    data-color="{{ value | downcase }}"
+                  >
+                    <label class="bls__product-swatches-radio">
+                      {{ value }}
+                    </label>
+                  </div>
+                {%- endfor -%}
+              {% elsif color_type == 'dropdown' %}
+                <div class="bls__color-dropdown relative">
+                  <div
+                    class="bls__color-dropdown-action d-flex align-items-center justify-content-between"
+                    data-swatches-value
+                  >
+                    <span class="bls__color-dropdown-value">
+                      {{ selected_value }}
+                    </span>
+                    <i class="icon-chevron-down"></i>
+                    <i class="icon-chevron-up"></i>
+                  </div>
+                  <div class="bls__color-dropdown-content">
+                    {%- for value in option.values -%}
+                      {%- liquid
+                        assign option_disabled = true
+
+                        for option1_name in variants_option1_arr
+                          case option.position
+                            when 1
+                              if variants_option1_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                                assign option_disabled = false
+                              endif
+                            when 2
+                              if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                                assign option_disabled = false
+                              endif
+                            when 3
+                              if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == product.selected_or_first_available_variant.option2 and variants_option3_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                                assign option_disabled = false
+                              endif
+                          endcase
+                        endfor
+                      -%}
+                      <div
+                        class="bls__product-color-swatches-dropdown selector-type-radio  bls__option-swatch{% if option.selected_value == value %} active{% endif %}"
+                        data-value="{{ value }}"
+                        {% if option_disabled %}
+                          data-disabled
+                        {% endif %}
+                        data-filter-color="{{ value }}"
+                        data-color="{{ value | downcase }}"
+                      >
+                        <label class="bls__product-swatches-dropdown">
+                          {{ value }}
+                        </label>
+                      </div>
+                    {%- endfor -%}
+                  </div>
+                </div>
+              {% elsif color_type == 'text' %}
+                {%- for value in option.values -%}
+                  {%- liquid
+                    assign option_disabled = true
+
+                    for option1_name in variants_option1_arr
+                      case option.position
+                        when 1
+                          if variants_option1_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                            assign option_disabled = false
+                          endif
+                        when 2
+                          if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                            assign option_disabled = false
+                          endif
+                        when 3
+                          if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == product.selected_or_first_available_variant.option2 and variants_option3_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                            assign option_disabled = false
+                          endif
+                      endcase
+                    endfor
+                  -%}
+                  <div
+                    class="bls__product-color-swatches-text bls__option-swatch bls_tooltip relative ml-1 mr-10{% if option.selected_value == value %} active{% endif %}"
+                    data-value="{{ value }}"
+                    {% if option_disabled %}
+                      data-disabled
+                    {% endif %}
+                    data-color="{{ value | downcase }}"
+                    data-filter-color="{{ value }}"
+                  >
+                    <label class="bls__product-swatches-text">
+                      <span
+                        class="bls_swatche-item"
+                      >
+                        {{- value -}}
+                      </span>
+                      <span
+                        class="bls_tooltip-content"
+                      >
+                        {{- value -}}
+                      </span>
+                    </label>
+                  </div>
+                {%- endfor -%}
+              {% else %}
+                {%- for value in option.values -%}
+                  {%- liquid
+                    assign op = 'option' | append: option.position
+                    assign variant = product.variants | where: op, value
+                    assign img = ''
+                    assign color = false
+                    for i in variant
+                      if i.featured_image.src
+                        assign color = true
+                        assign img = i.featured_image.src
+                        break
+                      endif
+                    endfor
+
+                    assign option_disabled = true
+                    for option1_name in variants_option1_arr
+                      case option.position
+                        when 1
+                          if variants_option1_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                            assign option_disabled = false
+                          endif
+                        when 2
+                          if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                            assign option_disabled = false
+                          endif
+                        when 3
+                          if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == product.selected_or_first_available_variant.option2 and variants_option3_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                            assign option_disabled = false
+                          endif
+                      endcase
+                    endfor
+                  -%}
+                  <div
+                    class="bls__product-color-swatches bls__option-swatch bls_tooltip relative ml-1 mr-10 {{ st.swatch_size }} {{ th_st.color_swatches_style }} {% if color %}bls__{{ value | downcase | replace: ' ', '-' }}{% endif %}{% if option.selected_value == value %} active{% endif %}"
+                    data-value="{{ value }}"
+                    {% if option_disabled %}
+                      data-disabled
+                    {% endif %}
+                    data-color="{{ value | downcase }}"
+                    data-filter-color="{{ value }}"
+                    data-image="{{ img | image_url: width: 100, height: 100 }}"
+                  >
+                    <label class="bls__product-swatches">
+                      <span class="bls_tooltip-content">{{ value }}</span>
+                    </label>
+                  </div>
+                {%- endfor -%}
+              {% endif %}
+            {% else %}
+              {% if selector_type != 'dropdown' %}
+                {%- for value in option.values -%}
+                  {%- liquid
+                    assign option_disabled = true
+
+                    for option1_name in variants_option1_arr
+                      case option.position
+                        when 1
+                          if variants_option1_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                            assign option_disabled = false
+                          endif
+                        when 2
+                          if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                            assign option_disabled = false
+                          endif
+                        when 3
+                          if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == product.selected_or_first_available_variant.option2 and variants_option3_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                            assign option_disabled = false
+                          endif
+                      endcase
+                    endfor
+                  -%}
+                  {% if selector_type != 'radio' %}
+                    <div
+                      {% if option_disabled %}
+                        data-disabled
+                      {% endif %}
+                      class="bls__option-swatch bls_tooltip relative mr-10 mb-10 {% if option.selected_value == value %} active{% endif %}"
+                      data-value="{{ value | escape }}"
+                    >
+                      <label class="bls__product-swatches bls__{{ value }}">
+                        <span class="bls_swatche-item">{{ value }}</span>
+                        <span class="bls_tooltip-content">{{ value }}</span>
+                      </label>
+                    </div>
+                  {% else %}
+                    <div
+                      {% if option_disabled %}
+                        data-disabled
+                      {% endif %}
+                      class="bls__product-type-swatches-radio bls__option-swatch ml-1 mr-20 {% if option.selected_value == value %} active{% endif %}"
+                      data-value="{{ value | escape }}"
+                    >
+                      <label class="bls__product-swatches-radio">
+                        {{ value }}
+                      </label>
+                    </div>
+                  {% endif %}
+                {%- endfor -%}
+              {% else %}
+                <div class="bls__color-dropdown relative">
+                  <div
+                    class="bls__color-dropdown-action d-flex align-items-center justify-content-between"
+                    data-swatches-value
+                  >
+                    <span class="bls__color-dropdown-value">
+                      {{ selected_value }}
+                    </span>
+                    <i class="icon-chevron-down"></i>
+                    <i class="icon-chevron-up"></i>
+                  </div>
+                  <div class="bls__color-dropdown-content">
+                    {%- for value in option.values -%}
+                      {%- liquid
+                        assign option_disabled = true
+
+                        for option1_name in variants_option1_arr
+                          case option.position
+                            when 1
+                              if variants_option1_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                                assign option_disabled = false
+                              endif
+                            when 2
+                              if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                                assign option_disabled = false
+                              endif
+                            when 3
+                              if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == product.selected_or_first_available_variant.option2 and variants_option3_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                                assign option_disabled = false
+                              endif
+                          endcase
+                        endfor
+                      -%}
+                      <div
+                        {% if option_disabled %}
+                          data-disabled
+                        {% endif %}
+                        class="bls__product-color-swatches-dropdown selector-type-radio bls__option-swatch{% if option.selected_value == value %} active{% endif %}"
+                        data-value="{{ value | escape }}"
+                        data-color="{{ value | downcase }}"
+                      >
+                        <label class="bls__product-swatches-dropdown">
+                          {{ value }}
+                        </label>
+                      </div>
+                    {%- endfor -%}
+                  </div>
+                </div>
+              {% endif %}
+            {% endif %}
+          </fieldset>
+        {%- endfor -%}
+        <script type="application/json">
+          {{ product.variants | json }}
+        </script>
+        <script type="application/json" class="productVariantsQty">
+          [
+          {%- for variant in product.variants -%}
+            {%- liquid
+                  assign id = '"id":' | append: variant.id
+                  assign quantity = '"qty":' | append: variant.inventory_quantity
+              -%}
+            { {{ id }},{{ quantity }} }
+            {%- unless forloop.last -%},{%- endunless forloop.last -%}
+          {%- endfor -%}
+          ]
+        </script>
+      </variant-radios-quickview>
+    {%- endunless -%}
+  </div>
+{%- endif -%}

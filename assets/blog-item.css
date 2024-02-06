@@ -10,15 +10,12 @@
     margin-bottom: var(--bs-gutter-x);
 }
 
-
-
 .blos__blog-posts-info {
     padding-top: 2.5rem;
 }
 
 .post-content-center {
     text-align: center;
-    
 }
 
 .post-content-center .bls__blog-posts-bottom {
