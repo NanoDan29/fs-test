@@ -1,6 +1,7 @@
 <script
   src="{{ 'compare.js' | asset_url }}"
-  defer="defer"></script>
+  defer="defer"
+></script>
 {{ 'product.css' | asset_url | stylesheet_tag }}
 {{ 'compare.css' | asset_url | stylesheet_tag }}
 {%- liquid
@@ -13,13 +14,14 @@
   assign product_name_t_transfrom = th_st.product_name_t_transfrom
   assign product_name_line = th_st.product_name_line
   assign enable_catalog_mode = th_st.enable_catalog_mode
-  assign jm_style = jm_style | default: "default" 
+  assign jm_style = st.jm_style | default: "default" 'default'
 -%}
 <section
   class="bls__section bls__compare-page-section"
   data-section-type="page-compare"
   data-section-id="{{ section.id }}"
-  data-view="{{ template.name }}">
+  data-view="{{ template.name }}"
+>
   {%- if search.results != blank -%}
     {% paginate search.results by 50 %}
       {%- for product in search.results -%}
@@ -35,24 +37,32 @@
           endif
         -%}
         <div
-          class="bls__product-compare">
+          class="bls__product-compare"
+        >
           <div
-            class="bls__compare-row-basic">
+            class="bls__compare-row-basic"
+          >
             <div
               class="bls__compare-item-basic-{{ product.id }} bls__product-item bls__compare-value"
-              data-product-handle="{{ product.handle }}">
+              data-product-handle="{{ product.handle }}"
+            >
               <div
-                class="bls__product-img-compare overflow-hidden relative label-rounded-2">
+                class="bls__product-img-compare overflow-hidden relative label-rounded-2"
+              >
                 <a
-                  class="bls__compare-remove d-block bls__compare-remove-js">
+                  class="bls__compare-remove d-block bls__compare-remove-js"
+                >
                   <i
-                    class="icon-x"></i>
+                    class="icon-x"
+                  ></i>
                 </a>
                 <a
                   class="bls__img-url"
-                  href="{{ product.url | within: collection }}">
+                  href="{{ product.url | within: collection }}"
+                >
                   <div
-                    class="bls__product-main-img">
+                    class="bls__product-main-img"
+                  >
                     {%- if product.featured_image != blank -%}
                       {%- render 'responsive-image' | image: product.featured_image | type: 'product' | cls: 'bls__product-grid bls__product-img-sw' -%}
                     {%- else -%}
@@ -62,9 +72,11 @@
                 </a>
                 {%- if compare_at_price > price and compare_at_price != blank -%}
                   <div
-                    class="bls__product-label fs-12 pointer-events-none absolute">
+                    class="bls__product-label fs-12 pointer-events-none absolute"
+                  >
                     <div
-                      class="bls__sale-label">
+                      class="bls__sale-label"
+                    >
                       {%- assign p = compare_at_price | minus: price -%}
                       {%- if p > 0 -%}
                         {%- assign p = p | times: 100.0 | divided_by: compare_at_price | round -%}
@@ -77,37 +89,44 @@
                 {%- endif -%}
               </div>
               <h3
-                class="bls__product-name regular mb-0 pt-15">
+                class="bls__product-name regular mb-0 pt-15"
+              >
                 <a
                   class="limited-line {{ product_name_t_transfrom }}"
                   style="--line-clamp: {{ product_name_line }}"
-                  href="{{ product.url | within: collection }}">
+                  href="{{ product.url | within: collection }}"
+                >
                   {{ product.title }}
                 </a>
               </h3>
               <div
-                class="bls__product-price mb-7">
+                class="bls__product-price mb-7"
+              >
                 {%- render 'price', product: product, use_variant: true, price_class: 'price--large' -%}
               </div>
               <div
                 class="bls__product-addtocart bls__product-addtocart-js"
-                data-product-variant-id="{{ product.selected_or_first_available_variant.id }}">
+                data-product-variant-id="{{ product.selected_or_first_available_variant.id }}"
+              >
                 {%- if product.metafields.custom.external_affiliate == blank -%}
                   {%- if enable_catalog_mode == false -%}
                     <button
                       class="{{ action_add_cart }} btn-secondary border-none button button--full-width"
                       type="submit"
                       {% if product.selected_or_first_available_variant.available == false %}
-                      disabled
-                      {% endif %}>
+                        disabled
+                      {% endif %}
+                    >
                       <span
-                        class="bls__product-icon">
+                        class="bls__product-icon"
+                      >
                         <svg
                           width="15"
                           height="13"
                           viewBox="0 0 15 13"
                           fill="none"
-                          xmlns="http://www.w3.org/2000/svg">
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
                           <path
                             d="M10.5454 11.3287C10.3922 11.3287 10.2452 11.2672 10.1369 11.1576C10.0285 11.048 9.96763 10.8994 9.96763 10.7444H8.81201C8.81201 11.2093 8.99464 11.6552 9.31972 11.984C9.6448 12.3128 10.0857 12.4975 10.5454 12.4975C11.0052 12.4975 11.4461 12.3128 11.7711 11.984C12.0962 11.6552 12.2789 11.2093 12.2789 10.7444H11.1232C11.1232 10.8994 11.0624 11.048 10.954 11.1576C10.8456 11.2672 10.6987 11.3287 10.5454 11.3287Z"
                             fill="#111" />
@@ -120,7 +139,8 @@
                         </svg>
                       </span>
                       <span
-                        class="bls_tooltip-content">
+                        class="bls_tooltip-content"
+                      >
                         {% if product.selected_or_first_available_variant.available == false %}
                           {{- 'products.product.sold_out' | t -}}
                         {%- else -%}
@@ -128,7 +148,8 @@
                         {% endif -%}
                       </span>
                       <span
-                        class="add-cart bls__button-content hidden-loading">
+                        class="add-cart bls__button-content hidden-loading"
+                      >
                         {% if product.selected_or_first_available_variant.available == false %}
                           {{- 'products.product.sold_out' | t -}}
                         {%- else -%}
@@ -142,7 +163,8 @@
                     href="{{ product.metafields.custom.external_affiliate.value.external_link }}"
                     rel="nofollow"
                     target="_blank"
-                    class="btn-secondary border-none button button--full-width text-center">
+                    class="btn-secondary border-none button button--full-width text-center"
+                  >
                     {{- product.metafields.custom.external_affiliate.value.button_text -}}
                   </a>
                 {%- endif -%}
@@ -150,22 +172,26 @@
               {%- unless product.has_only_default_variant -%}
                 <script
                   type="application/json"
-                  class="productinfo">
+                  class="productinfo"
+                >
                   {{ product.variants | json }}
                 </script>
                 <script
                   type="application/json"
-                  class="productOptions">
+                  class="productOptions"
+                >
                   {{ product.options | json }}
                 </script>
               {%- endunless -%}
             </div>
           </div>
           <div
-            class="bls__compare-row-availability">
+            class="bls__compare-row-availability"
+          >
             <div
               class="bls__compare-item-availability-{{ product.id }} bls__compare-value"
-              data-product-handle="{{ product.handle }}">
+              data-product-handle="{{ product.handle }}"
+            >
               {%- if product.available -%}
                 {{ 'products.product.available' | t }}
               {%- else -%}
@@ -174,10 +200,12 @@
             </div>
           </div>
           <div
-            class="bls__compare-row-vendor">
+            class="bls__compare-row-vendor"
+          >
             <div
               class="bls__compare-item-vendor-{{ product.id }} bls__compare-value"
-              data-product-handle="{{ product.handle }}">
+              data-product-handle="{{ product.handle }}"
+            >
               <span>
                 {%- if product.vendor -%}
                   {{ product.vendor }}
@@ -188,39 +216,48 @@
             </div>
           </div>
           <div
-            class="bls__compare-row-review">
+            class="bls__compare-row-review"
+          >
             <div
               class="bls__compare-item-review-{{ product.id }} bls__compare-value"
-              data-product-handle="{{ product.handle }}">
+              data-product-handle="{{ product.handle }}"
+            >
               {%- if product.metafields.judgeme.badge -%}
-                <div style='{{ jm_style }}' class='jdgm-widget jdgm-preview-badge bls__pro-reviews no-js-hidden mt-5'  data-id='{{ product.id }}'
-                  {%- if block -%}
-                    {{ block.shopify_attributes }}
-                  {%- endif -%}
+                <div
+                  style="{{ jm_style }}"
+                  class="jdgm-widget jdgm-preview-badge bls__pro-reviews no-js-hidden mt-5"
+                  data-id="{{ product.id }}"
                 >
                   {{ product.metafields.judgeme.badge }}
                 </div>
               {% endif %}
               {%- if product.metafields.spr.reviews -%}
-              <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
-            {% endif %}
+                <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
+              {% endif %}
             </div>
           </div>
           <div
-            class="bls__compare-row-size">
+            class="bls__compare-row-size"
+          >
             <div
               class="bls__compare-item-size-{{ product.id }} bls__compare-value"
-              data-product-handle="{{ product.handle }}">
+              data-product-handle="{{ product.handle }}"
+            >
               {%- if product.has_only_default_variant -%}
                 <span>-</span>
               {%- else -%}
-                {%- liquid assign sizeOption = product.options_with_values | where: 'name', 'Size' -%}
+                {%- liquid
+                  assign sizeOption = product.options_with_values | where: 'name', 'Size'
+                -%}
                 {%- if sizeOption != blank -%}
                   {%- for option in product.options_with_values -%}
                     {%- if option.name == 'Size' -%}
                       {%- for value in option.values -%}
                         <span
-                          class="bls_size-content">{{ value }}</span>
+                          class="bls_size-content"
+                        >
+                          {{- value -}}
+                        </span>
                         {%- if forloop.last != true %},{% endif %}
                       {%- endfor -%}
                     {%- endif -%}
@@ -232,20 +269,27 @@
             </div>
           </div>
           <div
-            class="bls__compare-row-color">
+            class="bls__compare-row-color"
+          >
             <div
               class="bls__compare-item-color-{{ product.id }} bls__compare-value"
-              data-product-handle="{{ product.handle }}">
+              data-product-handle="{{ product.handle }}"
+            >
               {%- if product.has_only_default_variant -%}
                 <span>-</span>
               {%- else -%}
-                {%- liquid assign colorOption = product.options_with_values | where: 'name', option_name -%}
+                {%- liquid
+                  assign colorOption = product.options_with_values | where: 'name', option_name
+                -%}
                 {%- if colorOption != blank -%}
                   {%- for option in product.options_with_values -%}
                     {%- if option.name == option_name -%}
                       {%- for value in option.values -%}
                         <span
-                          class="bls_color-content">{{ value }}</span>
+                          class="bls_color-content"
+                        >
+                          {{- value -}}
+                        </span>
                         {%- if forloop.last != true %},{% endif %}
                       {%- endfor -%}
                     {%- endif -%}
@@ -262,49 +306,80 @@
   {%- endif -%}
 
   <div
-    class="{{ section.settings.layout }} bls__compare-page-main bls__product-preload-js">
+    class="{{ section.settings.layout }} bls__compare-page-main bls__product-preload-js"
+  >
     <div
-      class="bls__compare-table d-none">
+      class="bls__compare-table d-none"
+    >
       <div
-        class="bls__compare-row bls__compare-row-basic row-cols-lg-5 row-cols-md-4 row-cols-sm-3">
+        class="bls__compare-row bls__compare-row-basic row-cols-lg-5 row-cols-md-4 row-cols-sm-3"
+      >
         <div
-          class="bls__compare-field">{{ 'products.product.product_title' | t }}</div>
+          class="bls__compare-field"
+        >
+          {{ 'products.product.product_title' | t }}
+        </div>
       </div>
       <div
-        class="bls__compare-row bls__compare-row-vendor row-cols-lg-5 row-cols-md-4 row-cols-sm-3">
+        class="bls__compare-row bls__compare-row-vendor row-cols-lg-5 row-cols-md-4 row-cols-sm-3"
+      >
         <div
-          class="bls__compare-field">{{ 'products.product.vendor' | t }}</div>
+          class="bls__compare-field"
+        >
+          {{ 'products.product.vendor' | t }}
+        </div>
       </div>
       <div
-        class="bls__compare-row bls__compare-row-availability row-cols-lg-5 row-cols-md-4 row-cols-sm-3">
+        class="bls__compare-row bls__compare-row-availability row-cols-lg-5 row-cols-md-4 row-cols-sm-3"
+      >
         <div
-          class="bls__compare-field">{{ 'products.product.availability' | t }}</div>
+          class="bls__compare-field"
+        >
+          {{ 'products.product.availability' | t }}
+        </div>
       </div>
       <div
-        class="bls__compare-row bls__compare-row-size row-cols-lg-5 row-cols-md-4 row-cols-sm-3">
+        class="bls__compare-row bls__compare-row-size row-cols-lg-5 row-cols-md-4 row-cols-sm-3"
+      >
         <div
-          class="bls__compare-field">{{ 'products.product.size' | t }}</div>
+          class="bls__compare-field"
+        >
+          {{ 'products.product.size' | t }}
+        </div>
       </div>
       <div
-        class="bls__compare-row bls__compare-row-color row-cols-lg-5 row-cols-md-4 row-cols-sm-3">
+        class="bls__compare-row bls__compare-row-color row-cols-lg-5 row-cols-md-4 row-cols-sm-3"
+      >
         <div
-          class="bls__compare-field">{{ 'products.product.color' | t }}</div>
+          class="bls__compare-field"
+        >
+          {{ 'products.product.color' | t }}
+        </div>
       </div>
       <div
-        class="bls__compare-row bls__compare-row-review row-cols-lg-5 row-cols-md-4 row-cols-sm-3">
+        class="bls__compare-row bls__compare-row-review row-cols-lg-5 row-cols-md-4 row-cols-sm-3"
+      >
         <div
-          class="bls__compare-field">{{ 'products.product.review' | t }}</div>
+          class="bls__compare-field"
+        >
+          {{ 'products.product.review' | t }}
+        </div>
       </div>
     </div>
 
     <div
-      class="bls__compare-no-product-js d-none">
+      class="bls__compare-no-product-js d-none"
+    >
       <h3
-        class="bls__compare-no-product-text">
+        class="bls__compare-no-product-text"
+      >
         {{ 'templates.compare.no_product' | t }}
         <a
           class="bls__compare-no-product-url"
-          href="/collections/all">{{ 'templates.compare.redirect' | t }}</a>
+          href="/collections/all"
+        >
+          {{- 'templates.compare.redirect' | t -}}
+        </a>
       </h3>
     </div>
   </div>

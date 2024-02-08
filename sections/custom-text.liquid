@@ -7,7 +7,6 @@
   assign reset_spacing = ''
   assign enabled_animations = settings.animations_enabled
   assign custom_class = st.custom_class
-  assign container_width = container_width | default: "100"
 
   if st.reset_spacing
     assign reset_spacing = ' remove_spacing'
@@ -29,11 +28,13 @@
     assign spb_mobile = ' spb-mobile'
   endif
   assign has_bg = ''
-  if background_color != blank
+  assign bg_color = st.bg_color | default: 'transparent'
+  if bg_color != blank
     assign has_bg = ' has-bg'
   endif
-  assign width_default = width_default | default: "100"
-  assign background_color = background_color | default: "transparent"
+
+  assign container_width = '100'
+  assign width_default = '100'
 -%}
 
 {%- capture style -%}
@@ -149,7 +150,7 @@
             {% if block.settings.button_link == blank %}
               role="link"
               aria-disabled="true"
-              href="{{ link }}"
+              href=""
             {% else %}
               href="{{ block.settings.button_link }}"
             {% endif %}

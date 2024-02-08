@@ -58,7 +58,7 @@
   endif
 
   assign has_bg = ''
-  assign background_color = background_color | default: "transparent" 
+  assign background_color = section.settings.background_color | default: "trasnsparent"
   if background_color != blank
     assign has_bg = ' has-bg'
   endif
@@ -128,7 +128,7 @@
               <div class="video-container video-banner {{ banner_height }} column-{{ image_style }}">
                 <div class="video-foreground">
                   {%- if video_url.type == 'youtube' -%}
-                    <video-youtube data-id="{{ block.id }}">
+                    <video-youtube>
                       <iframe
                         src="https://www.youtube.com/embed/{{ video_id }}?controls=0&autoplay=1&mute=1&playsinline=1&loop=1&playlist={{ video_id }}"
                         title="video youtube"

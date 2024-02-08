@@ -6,8 +6,7 @@
   assign product_style = th_st.product_style
   assign show_country = th_st.show_country
   assign show_language = th_st.show_language
-  assign menu_title = menu_title | default: "Menu"
-  assign background_color = background_color | default: "transparent"
+  assign menu_title = ""
 -%}
 {%- if section.blocks.size > 0 -%}
   <nav
@@ -86,7 +85,7 @@
               {%- elsif icon_font != blank -%}
                 <em
                   class="mr-10 menu-thumb-icon {{ icon_font }}"></em>
-              {%- endif- %}
+              {% endif %}
               <span>{{ block_st.title }}
               </span>
               {%- if label != blank -%}

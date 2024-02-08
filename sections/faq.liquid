@@ -28,10 +28,9 @@
   if st.padding_bottom > 30
     assign spb_mobile = ' spb-mobile'
   endif
-
   assign has_bg = ''
-  assign bg_color = bg_color | default: "transparent"
-  if bg_color
+  assign bg_color = st.bg_color | default: 'transparent'
+  if bg_color != blank
     assign has_bg = ' has-bg'
   endif
 -%}

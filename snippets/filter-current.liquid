@@ -49,7 +49,7 @@
                 class="bls__link-filter">{{ filter_value.label }}</a>
             </li>
           {%- endfor -%}
-        {%- endif- %}
+        {% endif %}
       {%- endfor -%}
       {%- for tag in current_tags -%}
         <li

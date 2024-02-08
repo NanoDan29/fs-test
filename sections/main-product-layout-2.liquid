@@ -111,7 +111,6 @@
   endif
   if product.media.size <= 0
   endif
-  assign pick_up_availabilities = pick_up_availabilities | default: array
 -%}
 {%- if enable_catalog_mode == true -%}
   <style>
@@ -467,12 +466,14 @@
                     -%}
                     <div class="bls__pickup-availability">
                       <pickup-availability
-                        class="product__pickup-availabilities no-js-hidden quick-add-hidden"
-                        {% if product.selected_or_first_available_variant.available
-                          and pick_up_availabilities.size > 0
-                        %}
-                          available
-                        {% endif %}
+                        class="
+                          product__pickup-availabilities no-js-hidden quick-add-hidden
+                          {% if product.selected_or_first_available_variant.available
+                            and pick_up_availabilities.size > 0
+                          %}
+                            available
+                          {% endif %}
+                        "
                         data-root-url="{{ routes.root_url }}"
                         data-variant-id="{{ product.selected_or_first_available_variant.id }}"
                         data-has-only-default-variant="{{ product.has_only_default_variant }}"
@@ -801,9 +802,7 @@
       "type": "product_label",
       "name": "Product label",
       "limit": 1,
-      "settings": [
-
-      ]
+      "settings": []
     },
     {
       "type": "review_sold",
@@ -854,9 +853,7 @@
       "type": "product_price",
       "name": "Product price",
       "limit": 1,
-      "settings": [
-
-      ]
+      "settings": []
     },
     {
       "type": "countdown_timer",
@@ -898,9 +895,7 @@
       "type": "product_swatch",
       "name": "Product swatch",
       "limit": 1,
-      "settings": [
-
-      ]
+      "settings": []
     },
     {
       "type": "product_custom_field",
@@ -1209,17 +1204,13 @@
       "type": "pickup_availability",
       "name": "Pickup availability",
       "limit": 1,
-      "settings": [
-
-      ]
+      "settings": []
     },
     {
       "type": "product_group",
       "name": "Product grouped",
       "limit": 1,
-      "settings": [
-
-      ]
+      "settings": []
     },
     {
       "type": "visitors",

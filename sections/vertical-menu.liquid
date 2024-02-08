@@ -1,41 +1,51 @@
 {%- liquid
-    assign enable = section.settings.enable
-    assign title = section.settings.title
-    assign ver_title_background_color = section.settings.ver_title_background_color
-    assign ver_title_text_color = section.settings.ver_title_text_color
-    assign limit_show_item = section.settings.limit_show_item
-    assign animation = section.settings.animation
-    assign menu_title = section.settings.menu_title | default: "Menu"
+  assign enable = section.settings.enable
+  assign title = section.settings.title
+  assign ver_title_background_color = section.settings.ver_title_background_color
+  assign ver_title_text_color = section.settings.ver_title_text_color
+  assign limit_show_item = section.settings.limit_show_item
+  assign animation = section.settings.animation
+  assign menu_title = section.settings.menu_title | default: 'Menu'
 -%}
-{%- capture style -%}
---vertical-title-bg: {{ ver_title_background_color }};
---vertical-title-color: {{ ver_title_text_color }};
-{%- endcapture -%}
 {%- if enable != blank -%}
-<div class="vertical-menu relative ">
+  <div class="vertical-menu relative ">
     {%- if section.blocks.size > 0 -%}
-    <div class="navigation nav-sections bls__canvas-mb-menu bls__canvas-mb-left" style="--hot-cl: {{ section.settings.color_hot }};--hot-bg-cl: {{ section.settings.color_bg_hot }};
-      --new-cl: {{ section.settings.color_new }};--new-bg-cl: {{ section.settings.color_bg_new }};--sale-cl: {{ section.settings.color_sale }};;--sale-bg-cl: {{ section.settings.color_bg_sale }};">
+      <div
+        class="navigation nav-sections bls__canvas-mb-menu bls__canvas-mb-left"
+        style="
+          --hot-cl: {{ section.settings.color_hot }};--hot-bg-cl: {{ section.settings.color_bg_hot }};
+          --new-cl: {{ section.settings.color_new }};--new-bg-cl: {{ section.settings.color_bg_new }};--sale-cl: {{ section.settings.color_sale }};;--sale-bg-cl: {{ section.settings.color_bg_sale }};
+        "
+      >
         <div class="close-menu-mobile">
-          <a href="#" class="close-menu">{{ 'main_menu.vertical.close' | t }}<i class="icon-x"></i></a>
+          <a href="#" class="close-menu">
+            {{- 'main_menu.vertical.close' | t -}}
+            <i class="icon-x"></i
+          ></a>
         </div>
         <div class="mobile-menu-content">
-            {%- if title != blank -%}
-              <div class="menu-mobile-title">
-                <span>{{ title }}</span>
-              </div>
-            {%- endif -%}
-            <div class="h3 title-menu-dropdown color-{{ section.settings.color_scheme_title }} gradient {% if template == 'index' %}home-page{% endif %} d-flex align-items-center" style="--vertical-title-bg: {{ ver_title_background_color }};--vertical-title-color: {{ ver_title_text_color }};"><i class="fs-20 icon-menu {% if title != blank %}mr-10{% endif %}"></i><span>{{ title }}</span><i class="fs-14 icon-chevron-down {% if title != blank %}ml-10{% endif %}"></i></div>
-            <div class="verticalmenu-html absolute top-100 left-0 right-0 " data-limitshowitem="{{ limit_show_item }}">
-              <ul class="p-0 my-0 list-none verticalmenu-list {{ animation }}" data-limitshowitem="{{ limit_show_item }}">
-                  {%- assign splits_main = 1 -%}
-                  {%- for block in section.blocks -%}
-                      {%- liquid
-                          assign block_st = block.settings 
-                          assign label = block_st.label
-                          assign label_bg = section.settings[label] | downcase | split: 'label' | last | prepend: "color_scheme_"
-                      -%}
-                      {%- capture menuLevel0 -%}
+          {%- if title != blank -%}
+            <div class="menu-mobile-title">
+              <span>{{ title }}</span>
+            </div>
+          {%- endif -%}
+          <div
+            class="h3 title-menu-dropdown color-{{ section.settings.color_scheme_title }} gradient {% if template == 'index' %}home-page{% endif %} d-flex align-items-center"
+            style="--vertical-title-bg: {{ ver_title_background_color }};--vertical-title-color: {{ ver_title_text_color }};"
+          >
+            <i class="fs-20 icon-menu {% if title != blank %}mr-10{% endif %}"></i><span>{{ title }}</span
+            ><i class="fs-14 icon-chevron-down {% if title != blank %}ml-10{% endif %}"></i>
+          </div>
+          <div class="verticalmenu-html absolute top-100 left-0 right-0 " data-limitshowitem="{{ limit_show_item }}">
+            <ul class="p-0 my-0 list-none verticalmenu-list {{ animation }}" data-limitshowitem="{{ limit_show_item }}">
+              {%- assign splits_main = 1 -%}
+              {%- for block in section.blocks -%}
+                {%- liquid
+                  assign block_st = block.settings
+                  assign label = block_st.label
+                  assign label_bg = section.settings[label] | downcase | split: 'label' | last | prepend: 'color_scheme_'
+                -%}
+                {%- capture menuLevel0 -%}
                           {%- assign label = block_st.label -%}
                           {%- assign icon_image = block_st.icon_image -%}
                           {%- assign icon_font = block_st.icon_font -%}
@@ -62,125 +72,160 @@
                           <div class="open-children-toggle"></div>
                           {%- endif -%}
                       {%- endcapture -%}
-                      {%- case block.type -%}
-                          {%- when 'menu_item' -%}
-                              {%- if block_st.title != blank -%}
-                                  <li class="bls__menu-parent relative level0 parent multicolumn_dropdown menu-width-custom" {{ block.shopify_attributes }}>{{ menuLevel0 }}
-                                      <div class="submenu absolute gradient top-0 " style="--submenu-custom-width:{{ block_st.custom_width }}px;">
-                                        <div class="fw-600 submenu-mobile-title justify-content-between">
-                                          <a role="link" class="back-main-menu pointer">
-                                            <i class="icon-chevron-left"></i>
-                                            {%- if block_st.title != blank %}
-                                              {{ block_st.title }}
-                                              {%- else -%}
-                                            {{ menu_title }}
-                                            {%- endif -%}
-                                          </a>
-                                          <i class="icon-x close-menu pointer"></i>
-                                        </div>  
-                                        <div class="row">
-                                              {%- liquid
-                                                  assign banner_image_left = block_st.banner_image_left
-                                                  assign banner_image_left_link = block_st.banner_image_left_link
-                                                  assign col_banner_left = block_st.col_banner_left | times: 1
-                                                  assign banner_image_right = block_st.banner_image_right
-                                                  assign banner_image_right_link = block_st.banner_image_right_link
-                                                  assign col_banner_right = block_st.col_banner_right | times: 1
-                                                  assign col_menu = 12
-                                                  if banner_image_left != blank
-                                                      assign col_menu = col_menu | minus: col_banner_left
-                                                      if col_menu == 0
-                                                          assign col_menu = 12
-                                                      endif
-                                                  endif
-                                                  if banner_image_right != blank and col_banner_right < col_menu
-                                                      assign col_menu = col_menu | minus: col_banner_right
-                                                  endif
-                                              -%}
-                                              {%- if banner_image_left != blank -%}
-                                                  <div class="block-banner col-sm-{{ col_banner_left }} d-none-mb">
-                                                    <div class="hover-zoom">
-                                                      {% if banner_image_left_link != blank %}
-                                                        <a href="{{ banner_image_left_link }}" target="_self">
-                                                      {% endif %}
-                                                      <img loading="lazy" class="menu-thumb-icon" src="{{ banner_image_left | image_url }}" alt="{{ banner_image_left.alt }}" width="{{ banner_image_left.width }}" height="{{ banner_image_left.height }}"/>
-                                                      {% if banner_image_left_link != blank %}
-                                                        </a>
-                                                      {% endif %}
-                                                    </div>
-                                                  </div>
-                                              {%- endif -%}
-                                              {%- if banner_image_left != blank or banner_image_right != blank -%}
-                                                  <div class=" col-sm-{{ col_menu }}">
-                                                      <div class="row"> 
-                                                          {%- render 'menu-splits', count_menu_item: splits_main -%}
-                                                          {%- assign splits_main = splits_main | plus : 1 -%}
-                                                      </div>
-                                                  </div>
-                                              {%- else -%}
-                                                  {%- render 'menu-splits', count_menu_item: splits_main -%}
-                                                  {%- assign splits_main = splits_main | plus : 1 -%}
-                                              {%- endif -%}
-                                              {%- if banner_image_right != blank -%}
-                                                  <div class="block-banner col-sm-{{ col_banner_right }} d-none-mb">
-                                                    <div class="hover-zoom">
-                                                      {% if banner_image_right_link != blank %}
-                                                        <a href="{{ banner_image_right_link }}" target="_self">
-                                                      {% endif %}
-                                                      <img loading="lazy" class="menu-thumb-icon" src="{{ banner_image_right | image_url }}" alt="{{ banner_image_right.alt }}" width="{{ banner_image_right.width }}" height="{{ banner_image_right.height }}"/>
-                                                      {% if banner_image_right_link != blank %}
-                                                      </a>
-                                                    {% endif %}
-                                                    </div>
-                                                  </div>
-                                              {%- endif -%}
-                                          </div>
-                                      </div>
-                                  </li>
+                {%- case block.type -%}
+                  {%- when 'menu_item' -%}
+                    {%- if block_st.title != blank -%}
+                      <li
+                        class="bls__menu-parent relative level0 parent multicolumn_dropdown menu-width-custom"
+                        {{ block.shopify_attributes }}
+                      >
+                        {{ menuLevel0 }}
+                        <div
+                          class="submenu absolute gradient top-0 "
+                          style="--submenu-custom-width:{{ block_st.custom_width }}px;"
+                        >
+                          <div class="fw-600 submenu-mobile-title justify-content-between">
+                            <a role="link" class="back-main-menu pointer">
+                              <i class="icon-chevron-left"></i>
+                              {%- if block_st.title != blank %}
+                                {{ block_st.title }}
+                              {%- else -%}
+                                {{ menu_title }}
                               {%- endif -%}
-                          {%- when 'dropdown' -%}
-                              {%- if block_st.title != blank -%}
-                                  <li class="bls__menu-parent relative level0 parent default_dropdown" {{ block.shopify_attributes }}>
-                                      {{ menuLevel0 }}
-                                      {%- if linklists[block_st.menu].links.size > 0 -%}
-                                          <div class="submenu absolute gradient top-0 ">
-                                            <div class="fw-600 submenu-mobile-title justify-content-between">
-                                              <a role="link" class="back-main-menu pointer">
-                                                <i class="icon-chevron-left"></i>
-                                                {%- if block_st.title != blank %}
-                                                  {{ block_st.title }}
-                                                  {%- else -%}
-                                                {{ menu_title }}
-                                                {%- endif -%}
-                                              </a>
-                                              <i class="icon-x close-menu pointer"></i>
-                                            </div>
-                                            {% if block_st.banner_image_mobile != blank %}
-                                              <img loading="lazy" class="menu-cate-mobile" src="{{ block_st.banner_image_mobile | image_url }}" alt="{{ block_st.banner_image_mobile.alt }}" width="{{ block_st.banner_image_mobile.width }}" height="{{ block_st.banner_image_mobile.height }}"/>
-                                            {% endif %}
-                                              <ul class="dropdown p-0 list-none">
-                                                  {%- render 'menu-dropdown', handle_menu: block_st.menu, menu_title: menu_title, block_title: block_st.title -%}
-                                              </ul>
-                                          </div>
-                                      {%- endif -%}
-                                  </li>
-                              {%- endif -%}
-                          {%- when 'single_link' -%}
-                              <li class="level0 single" {{ block.shopify_attributes }}>{{ menuLevel0 }}</li>
-                      {%- endcase -%}
-                  {%- endfor -%}
-                  <li class="expand-menu-link level0">
-                        <a href="#" class="level-top d-block">
-                            {{ 'main_menu.vertical.more' | t }}
-                        </a>
-                  </li>
-              </ul>
+                            </a>
+                            <i class="icon-x close-menu pointer"></i>
+                          </div>
+                          <div class="row">
+                            {%- liquid
+                              assign banner_image_left = block_st.banner_image_left
+                              assign banner_image_left_link = block_st.banner_image_left_link
+                              assign col_banner_left = block_st.col_banner_left | times: 1
+                              assign banner_image_right = block_st.banner_image_right
+                              assign banner_image_right_link = block_st.banner_image_right_link
+                              assign col_banner_right = block_st.col_banner_right | times: 1
+                              assign col_menu = 12
+                              if banner_image_left != blank
+                                assign col_menu = col_menu | minus: col_banner_left
+                                if col_menu == 0
+                                  assign col_menu = 12
+                                endif
+                              endif
+                              if banner_image_right != blank and col_banner_right < col_menu
+                                assign col_menu = col_menu | minus: col_banner_right
+                              endif
+                            -%}
+                            {%- if banner_image_left != blank -%}
+                              <div class="block-banner col-sm-{{ col_banner_left }} d-none-mb">
+                                <div class="hover-zoom">
+                                  {% if banner_image_left_link != blank %}
+                                    <a href="{{ banner_image_left_link }}" target="_self">
+                                  {% endif %}
+                                  <img
+                                    loading="lazy"
+                                    class="menu-thumb-icon"
+                                    src="{{ banner_image_left | image_url }}"
+                                    alt="{{ banner_image_left.alt }}"
+                                    width="{{ banner_image_left.width }}"
+                                    height="{{ banner_image_left.height }}"
+                                  >
+                                  {% if banner_image_left_link != blank %}
+                                    </a>
+                                  {% endif %}
+                                </div>
+                              </div>
+                            {%- endif -%}
+                            {%- if banner_image_left != blank or banner_image_right != blank -%}
+                              <div class=" col-sm-{{ col_menu }}">
+                                <div class="row">
+                                  {%- render 'menu-splits', count_menu_item: splits_main -%}
+                                  {%- assign splits_main = splits_main | plus: 1 -%}
+                                </div>
+                              </div>
+                            {%- else -%}
+                              {%- render 'menu-splits', count_menu_item: splits_main -%}
+                              {%- assign splits_main = splits_main | plus: 1 -%}
+                            {%- endif -%}
+                            {%- if banner_image_right != blank -%}
+                              <div class="block-banner col-sm-{{ col_banner_right }} d-none-mb">
+                                <div class="hover-zoom">
+                                  {% if banner_image_right_link != blank %}
+                                    <a href="{{ banner_image_right_link }}" target="_self">
+                                  {% endif %}
+                                  <img
+                                    loading="lazy"
+                                    class="menu-thumb-icon"
+                                    src="{{ banner_image_right | image_url }}"
+                                    alt="{{ banner_image_right.alt }}"
+                                    width="{{ banner_image_right.width }}"
+                                    height="{{ banner_image_right.height }}"
+                                  >
+                                  {% if banner_image_right_link != blank %}
+                                    </a>
+                                  {% endif %}
+                                </div>
+                              </div>
+                            {%- endif -%}
+                          </div>
+                        </div>
+                      </li>
+                    {%- endif -%}
+                  {%- when 'dropdown' -%}
+                    {%- if block_st.title != blank -%}
+                      <li
+                        class="bls__menu-parent relative level0 parent default_dropdown"
+                        {{ block.shopify_attributes }}
+                      >
+                        {{ menuLevel0 }}
+                        {%- if linklists[block_st.menu].links.size > 0 -%}
+                          <div class="submenu absolute gradient top-0 ">
+                            <div class="fw-600 submenu-mobile-title justify-content-between">
+                              <a role="link" class="back-main-menu pointer">
+                                <i class="icon-chevron-left"></i>
+                                {%- if block_st.title != blank %}
+                                  {{ block_st.title }}
+                                {%- else -%}
+                                  {{ menu_title }}
+                                {%- endif -%}
+                              </a>
+                              <i class="icon-x close-menu pointer"></i>
+                            </div>
+                            {% if block_st.banner_image_mobile != blank %}
+                              <img
+                                loading="lazy"
+                                class="menu-cate-mobile"
+                                src="{{ block_st.banner_image_mobile | image_url }}"
+                                alt="{{ block_st.banner_image_mobile.alt }}"
+                                width="{{ block_st.banner_image_mobile.width }}"
+                                height="{{ block_st.banner_image_mobile.height }}"
+                              >
+                            {% endif %}
+                            <ul class="dropdown p-0 list-none">
+                              {%- render 'menu-dropdown',
+                                handle_menu: block_st.menu,
+                                menu_title: menu_title,
+                                block_title: block_st.title
+                              -%}
+                            </ul>
+                          </div>
+                        {%- endif -%}
+                      </li>
+                    {%- endif -%}
+                  {%- when 'single_link' -%}
+                    <li class="level0 single" {{ block.shopify_attributes }}>{{ menuLevel0 }}</li>
+                {%- endcase -%}
+              {%- endfor -%}
+              <li class="expand-menu-link level0">
+                <a href="#" class="level-top d-block">
+                  {{ 'main_menu.vertical.more' | t }}
+                </a>
+              </li>
+            </ul>
           </div>
         </div>
-    </div>
-    {%- endif- %}
-</div>
-{%- endif- %}
+      </div>
+    {% endif %}
+  </div>
+{% endif %}
 
 {% schema %}
 {

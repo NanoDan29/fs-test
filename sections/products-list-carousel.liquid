@@ -14,7 +14,7 @@
   assign view_all_enable = st.view_all_enable
   assign text_view_all = st.text_view_all
   assign cls = st.collection
-  assign bl = section.settings.bl | default: ""
+  assign bl = section.settings.bl | default: ''
   if bl != blank
     assign cls = bl
   endif
@@ -49,12 +49,12 @@
   endif
 
   assign has_bg = ''
+  assign bg_color = st.bg_color | default: 'transparent'
   if bg_color != blank
     assign has_bg = ' has-bg'
   endif
   assign collection = collections[cls]
-  assign jm_style = section.settings.jm_style | default: "default_style"
-  assign bg_color = section.settings.bg_color | default: "#FFFFFF"
+  assign jm_style = st.jm_style | default: 'default_style'
 -%}
 
 {%- capture style -%}
@@ -311,9 +311,6 @@
                         style="{{ jm_style }}"
                         class="jdgm-widget jdgm-preview-badge bls__pro-reviews no-js-hidden mt-5"
                         data-id="{{ product.id }}"
-                        {%- if block -%}
-                          {{ block.shopify_attributes }}
-                        {%- endif -%}
                       >
                         {{ product.metafields.judgeme.badge }}
                       </div>

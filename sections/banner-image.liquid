@@ -77,9 +77,7 @@
   elsif st.text_position == 'bottom'
     assign text_position = ' justify-content-end'
   endif
-
-  assign has_bg = ''
-  assign bg_color = bg_color | default: "tranparent"
+  assign bg_color = st.bg_color
   if bg_color != blank
     assign has_bg = ' has-bg'
   endif
@@ -834,10 +832,7 @@
           "id": "video_url",
           "type": "video_url",
           "label": "Video url",
-          "accept": [
-            "youtube",
-            "vimeo"
-          ],
+          "accept": ["youtube", "vimeo"],
           "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
         },
         {

@@ -112,7 +112,7 @@
         "multiple_tax_exemptions_and": "et",
         "tax_exemptions_modal_close": "Fermer",
         "taxes_none": "Aucun",
-        "tax_exemption_not_applicable": "N / A",
+        "tax_exemption_not_applicable": "N \/ A",
         "tax_exemptions_modal_button_accessibility_label": "Voir toutes les exonérations fiscales"
       },
       "location_selection": {
@@ -321,12 +321,12 @@
         "card_number_placeholder": "Numéro de carte",
         "name_on_card_label": "Nom sur la carte",
         "name_on_card_placeholder": "Nom sur la carte",
-        "card_expiry_label": "Date d'expiration (MM / AA)",
-        "card_expiry_placeholder": "Date d'expiration (MM / AA)",
+        "card_expiry_label": "Date d'expiration (MM \/ AA)",
+        "card_expiry_placeholder": "Date d'expiration (MM \/ AA)",
         "card_verification_value_label": "Code de sécurité",
         "card_verification_value_placeholder": "Code de sécurité",
-        "card_start_label": "Date d'émission (MM / AA)",
-        "card_start_placeholder": "Date d'émission (MM / AA)",
+        "card_start_label": "Date d'émission (MM \/ AA)",
+        "card_start_placeholder": "Date d'émission (MM \/ AA)",
         "tooltip": {
           "tooltip_accessibility_label": "Plus d'information",
           "card_verification_value_explanation_amex": "Code de sécurité à 4 chiffres au recto de votre carte",
@@ -402,7 +402,7 @@
       },
       "no_data": "Aucun",
       "no_data_provided_accessibility_label": "{{fieldName}} est vide",
-      "not_applicable": "N / A",
+      "not_applicable": "N \/ A",
       "paid_amount": "Payé",
       "partially_refunded_label": "PARTIELLEMENT REMBOURSÉ",
       "payment": {
@@ -488,7 +488,7 @@
       "taxes": "Impôts",
       "tip": "Conseil",
       "title": "Commandez {{name}}",
-      "unit_price": "( {{price}} /ch)",
+      "unit_price": "( {{price}} \/ch)",
       "pagination": {
         "load_more": "Charger plus",
         "load_more_accessibility_label": "Charger plus d'articles",
@@ -840,7 +840,7 @@
       "login_form_password_placeholder": "Your password",
       "login_form_error": "Wrong password!",
       "login_form_submit": "Enter",
-      "admin_link_html": "Are you the store owner? <a href=\"/admin\" class=\"link underlined-link\">Log in here</a>",
+      "admin_link_html": "Are you the store owner? <a href=\"\/admin\" class=\"link underlined-link\">Log in here<\/a>",
       "powered_by_shopify_html": "This shop will be powered by {{ shopify }}"
     },
     "social": {
@@ -904,10 +904,10 @@
       "timeout_message": "You're out of time! Checkout now to avoid losing your order!",
       "countdown_message_html": "Products are limited, checkout within {{ html }}",
       "countdown_cart_message_html": "Please, hurry! Someone has placed an order on one of the items you have in the cart. Products are limited, checkout within {{ html }}",
-      "cart_thres1_html": "Free Shipping for all orders over <span class=\"price\">{{ price }}</span>",
-      "cart_thres2_html": "Spend <span class=\"price\">{{ price }}</span> more to enjoy <span class=\"bold\">FREE SHIPPING!</span>",
-      "cart_thres3_html": "<span class=\"congratulations\">Congratulations!</span> You've got free shipping!",
-      "free_shipping": "Spend <span class=\"price\">{{ amount }}</span> more to enjoy <span class=\"bold\">FREE SHIPPING!</span>",
+      "cart_thres1_html": "Free Shipping for all orders over <span class=\"price\">{{ price }}<\/span>",
+      "cart_thres2_html": "Spend <span class=\"price\">{{ price }}<\/span> more to enjoy <span class=\"bold\">FREE SHIPPING!<\/span>",
+      "cart_thres3_html": "<span class=\"congratulations\">Congratulations!<\/span> You've got free shipping!",
+      "free_shipping": "Spend <span class=\"price\">{{ amount }}<\/span> more to enjoy <span class=\"bold\">FREE SHIPPING!<\/span>",
       "free_shipping_avaiable": "Congratulations! You've got free shipping!",
       "terms_conditions_text": "Terms Of Service",
       "return_shop": "Return to shop",
@@ -923,7 +923,7 @@
       },
       "gift": {
         "title": "Add Gift",
-        "gift_wrap_html": "<span class=\"cd\">Do you want a gift wrap?</span> Only {{ price }}",
+        "gift_wrap_html": "<span class=\"cd\">Do you want a gift wrap?<\/span> Only {{ price }}",
         "button_text": "Add A Gift Wrap"
       },
       "shipping": {
@@ -1034,8 +1034,8 @@
     "collection_title": "Collection name"
   },
   "collection": {
-    "count_html": "{{ count }}<span> Product</span>",
-    "counts_html": "{{ count }}<span> Products</span>",
+    "count_html": "{{ count }}<span> Product<\/span>",
+    "counts_html": "{{ count }}<span> Products<\/span>",
     "collection_title": "Collection name",
     "collection_link": "Explore collection Now",
     "shop_now": "Shop Now",
@@ -1099,14 +1099,14 @@
         "view_store_info": "View store information",
         "check_other_stores": "Check availability at other stores",
         "pick_up_available": "Pickup available",
-        "pick_up_available_at_html": "Pickup available at <span class=\"heading-color heading-weight\">{{ location_name }}.</span>",
-        "pick_up_unavailable_at_html": "Pickup currently unavailable at <span class=\"heading-color heading-weight\">{{ location_name }}</span>",
+        "pick_up_available_at_html": "Pickup available at <span class=\"heading-color heading-weight\">{{ location_name }}.<\/span>",
+        "pick_up_unavailable_at_html": "Pickup currently unavailable at <span class=\"heading-color heading-weight\">{{ location_name }}<\/span>",
         "unavailable": "Couldn't load pickup availability",
         "refresh": "Refresh",
         "pickup_location": "Show on google map",
         "address": "Address",
         "city": "City",
-        "country": "Country/region",
+        "country": "Country\/region",
         "phone": "Phone"
       },
       "price": {
@@ -1122,7 +1122,7 @@
         "save": "You are saving"
       },
       "product_title": "Product",
-      "sold_in_last_html": "<span class=\"product-sold\">{{ sold }}</span> sold in last <span class=\"product-hour\">{{ hour }}</span> hours",
+      "sold_in_last_html": "<span class=\"product-sold\">{{ sold }}<\/span> sold in last <span class=\"product-hour\">{{ hour }}<\/span> hours",
       "sold_out": "Sold out",
       "read_more": "Read more",
       "pre_order": "Pre-order",
@@ -1143,14 +1143,14 @@
       "askquestion": "Ask a Question",
       "share": "Share",
       "compare_color": "Compare Color",
-      "compare_color_empty": "Click On Color / Pattern To Compare, Click And Drag Images To Reorder",
+      "compare_color_empty": "Click On Color \/ Pattern To Compare, Click And Drag Images To Reorder",
       "outstock": "outstock",
       "video_exit_message": "{{ title }} opens full screen video in same window.",
       "view_full_details": "View full details",
       "xr_button": "View in your space",
       "xr_button_label": "View in your space, loads item in augmented reality window",
       "include_taxes": "Tax included.",
-      "shipping_policy_html": "<a href=\"{{ link }}\">Shipping</a> calculated at checkout."
+      "shipping_policy_html": "<a href=\"{{ link }}\">Shipping<\/a> calculated at checkout."
     },
     "modal": {
       "label": "Media gallery"
@@ -1210,8 +1210,8 @@
         "other": "{{ count }} results found for “{{ terms }}”"
       },
       "title": "Search Our Site",
-      "search_for_html": "Search for “<span>{{ terms }}</span>”",
-      "search_empty_html": "Nothing matches your search “<span>{{ terms }}</span>”"
+      "search_for_html": "Search for “<span>{{ terms }}<\/span>”",
+      "search_empty_html": "Nothing matches your search “<span>{{ terms }}<\/span>”"
     },
     "cart": {
       "cart": "Cart"
@@ -1277,9 +1277,9 @@
       "empty": "Your cart is empty",
       "cart_error": "There was an error while updating your cart. Please try again.",
       "cart_quantity_error_html": "You can only add {{ quantity }} of this item to your cart.",
-      "taxes_and_shipping_policy_at_checkout_html": "Taxes and <a href=\"{{ link }}\">shipping</a> calculated at checkout",
+      "taxes_and_shipping_policy_at_checkout_html": "Taxes and <a href=\"{{ link }}\">shipping<\/a> calculated at checkout",
       "taxes_included_but_shipping_at_checkout": "Tax included and shipping calculated at checkout",
-      "taxes_included_and_shipping_policy_html": "Tax included. <a href=\"{{ link }}\">Shipping</a> calculated at checkout.",
+      "taxes_included_and_shipping_policy_html": "Tax included. <a href=\"{{ link }}\">Shipping<\/a> calculated at checkout.",
       "taxes_and_shipping_at_checkout": "Taxes and shipping calculated at checkout",
       "no_shipping": "We do not ship to this address.",
       "shipping_rate": "Shipping rate for {{address}}",
@@ -1297,7 +1297,7 @@
       "update": "Update",
       "login": {
         "title": "Have an account?",
-        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Log in</a> to check out faster."
+        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Log in<\/a> to check out faster."
       }
     },
     "footer": {
@@ -1319,7 +1319,7 @@
     "collection_template": {
       "empty": "No products found",
       "title": "Collection",
-      "use_fewer_filters_html": " Use fewer filters or <a class=\"{{ class }}\" href=\"{{ link }}\">remove all</a>"
+      "use_fewer_filters_html": " Use fewer filters or <a class=\"{{ class }}\" href=\"{{ link }}\">remove all<\/a>"
     },
     "video": {
       "load_video": "Load video: {{ description }}"
@@ -1348,10 +1348,10 @@
     }
   },
   "localization": {
-    "country_label": "Country/region",
+    "country_label": "Country\/region",
     "language_label": "Language",
     "update_language": "Update language",
-    "update_country": "Update country/region"
+    "update_country": "Update country\/region"
   },
   "customer": {
     "account": {
@@ -1386,9 +1386,9 @@
       "address1": "Address 1",
       "address2": "Address 2",
       "city": "City",
-      "country": "Country/region",
+      "country": "Country\/region",
       "province": "Province",
-      "zip": "Postal/ZIP code",
+      "zip": "Postal\/ZIP code",
       "phone": "Phone",
       "set_default": "Set as default address",
       "add": "Add address",
@@ -1402,7 +1402,7 @@
     },
     "log_in": "Log in",
     "log_out": "Log out",
-    "login_menu_mobile": "Login / Register",
+    "login_menu_mobile": "Login \/ Register",
     "login_page": {
       "cancel": "Cancel",
       "create_account": "Create account",

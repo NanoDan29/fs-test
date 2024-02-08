@@ -112,7 +112,7 @@
         "multiple_tax_exemptions_and": "et",
         "tax_exemptions_modal_close": "Fermer",
         "taxes_none": "Aucun",
-        "tax_exemption_not_applicable": "N / A",
+        "tax_exemption_not_applicable": "N \/ A",
         "tax_exemptions_modal_button_accessibility_label": "Voir toutes les exonérations fiscales"
       },
       "location_selection": {
@@ -321,12 +321,12 @@
         "card_number_placeholder": "Numéro de carte",
         "name_on_card_label": "Nom sur la carte",
         "name_on_card_placeholder": "Nom sur la carte",
-        "card_expiry_label": "Date d'expiration (MM / AA)",
-        "card_expiry_placeholder": "Date d'expiration (MM / AA)",
+        "card_expiry_label": "Date d'expiration (MM \/ AA)",
+        "card_expiry_placeholder": "Date d'expiration (MM \/ AA)",
         "card_verification_value_label": "Code de sécurité",
         "card_verification_value_placeholder": "Code de sécurité",
-        "card_start_label": "Date d'émission (MM / AA)",
-        "card_start_placeholder": "Date d'émission (MM / AA)",
+        "card_start_label": "Date d'émission (MM \/ AA)",
+        "card_start_placeholder": "Date d'émission (MM \/ AA)",
         "tooltip": {
           "tooltip_accessibility_label": "Plus d'information",
           "card_verification_value_explanation_amex": "Code de sécurité à 4 chiffres au recto de votre carte",
@@ -402,7 +402,7 @@
       },
       "no_data": "Aucun",
       "no_data_provided_accessibility_label": "{{fieldName}} est vide",
-      "not_applicable": "N / A",
+      "not_applicable": "N \/ A",
       "paid_amount": "Payé",
       "partially_refunded_label": "PARTIELLEMENT REMBOURSÉ",
       "payment": {
@@ -488,7 +488,7 @@
       "taxes": "Impôts",
       "tip": "Conseil",
       "title": "Commandez {{name}}",
-      "unit_price": "( {{price}} /ch)",
+      "unit_price": "( {{price}} \/ch)",
       "pagination": {
         "load_more": "Charger plus",
         "load_more_accessibility_label": "Charger plus d'articles",
@@ -904,10 +904,10 @@
       "timeout_message": "Sei fuori tempo! Acquista ora per evitare di perdere il tuo ordine!",
       "countdown_message_html": "I prodotti sono limitati, checkout entro {{ html }}",
       "countdown_cart_message_html": "Per favore sbrigati! Qualcuno ha effettuato un ordine su uno degli articoli che hai nel carrello. I prodotti sono limitati, checkout entro {{ html }}",
-      "cart_thres1_html": "Spedizione gratuita per tutti gli ordini superiori a <span class=\"price\">{{ price }}</span>",
-      "cart_thres2_html": "Spendi <span class=\"price\">{{ price }}</span> in più per usufruire <span class=\"bold\">della SPEDIZIONE GRATUITA!</span>",
-      "cart_thres3_html": "<span class=\"congratulations\">Congratulazioni!</span> Hai la spedizione gratuita!",
-      "free_shipping": "Spend <span class=\"price\">{{ amount }}</span> more to enjoy <span class=\"bold\">FREE SHIPPING!</span>",
+      "cart_thres1_html": "Spedizione gratuita per tutti gli ordini superiori a <span class=\"price\">{{ price }}<\/span>",
+      "cart_thres2_html": "Spendi <span class=\"price\">{{ price }}<\/span> in più per usufruire <span class=\"bold\">della SPEDIZIONE GRATUITA!<\/span>",
+      "cart_thres3_html": "<span class=\"congratulations\">Congratulazioni!<\/span> Hai la spedizione gratuita!",
+      "free_shipping": "Spend <span class=\"price\">{{ amount }}<\/span> more to enjoy <span class=\"bold\">FREE SHIPPING!<\/span>",
       "free_shipping_avaiable": "Congratulations! You've got free shipping!",
       "terms_conditions_text": "Termini di servizio",
       "return_shop": "Ritorna al negozio",
@@ -923,7 +923,7 @@
       },
       "gift": {
         "title": "Aggiungi regalo",
-        "gift_wrap_html": "<span class=\"cd\">Vuoi una confezione regalo?</span> Solo {{ price }}",
+        "gift_wrap_html": "<span class=\"cd\">Vuoi una confezione regalo?<\/span> Solo {{ price }}",
         "button_text": "Aggiungi una confezione regalo"
       },
       "shipping": {
@@ -1034,8 +1034,8 @@
     "collection_title": "Nome della raccolta"
   },
   "collection": {
-    "count_html": "{{ count }} <span>Prodotto</span>",
-    "counts_html": "{{ count }} <span>prodotti</span>",
+    "count_html": "{{ count }} <span>Prodotto<\/span>",
+    "counts_html": "{{ count }} <span>prodotti<\/span>",
     "collection_title": "Nome della raccolta",
     "collection_link": "Explore collection Now",
     "shop_now": "Acquistare ora",
@@ -1091,14 +1091,14 @@
         "view_store_info": "Visualizza le informazioni del negozio",
         "check_other_stores": "Verifica la disponibilità in altri negozi",
         "pick_up_available": "Ritiro disponibile",
-        "pick_up_available_at_html": "Ritiro disponibile presso <span class=\"heading-color heading-weight\">{{ location_name }} .</span>",
-        "pick_up_unavailable_at_html": "Ritiro al momento non disponibile presso <span class=\"heading-color heading-weight\">{{ location_name }}</span>",
+        "pick_up_available_at_html": "Ritiro disponibile presso <span class=\"heading-color heading-weight\">{{ location_name }} .<\/span>",
+        "pick_up_unavailable_at_html": "Ritiro al momento non disponibile presso <span class=\"heading-color heading-weight\">{{ location_name }}<\/span>",
         "unavailable": "Impossibile caricare la disponibilità del ritiro",
         "refresh": "ricaricare",
         "pickup_location": "Mostra su google map",
         "address": "Indirizzo",
         "city": "Città",
-        "country": "Paese/regione",
+        "country": "Paese\/regione",
         "phone": "Telefono"
       },
       "price": {
@@ -1114,7 +1114,7 @@
         "save": "Stai risparmiando"
       },
       "product_title": "Prodotto",
-      "sold_in_last_html": "<span class=\"product-sold\">{{ sold }}</span> venduto nelle ultime <span class=\"product-hour\">{{ hour }}</span> ore",
+      "sold_in_last_html": "<span class=\"product-sold\">{{ sold }}<\/span> venduto nelle ultime <span class=\"product-hour\">{{ hour }}<\/span> ore",
       "sold_out": "Esaurito",
       "read_more": "Per saperne di più",
       "pre_order": "Pre order",
@@ -1135,14 +1135,14 @@
       "askquestion": "Fai una domanda",
       "share": "Condividere",
       "compare_color": "Confronta Colore",
-      "compare_color_empty": "Fare clic su colore/motivo per confrontare, fare clic e trascinare le immagini per riordinarle",
+      "compare_color_empty": "Fare clic su colore\/motivo per confrontare, fare clic e trascinare le immagini per riordinarle",
       "outstock": "non disponibile",
       "video_exit_message": "{{ title }} apre il video a schermo intero nella stessa finestra.",
       "view_full_details": "Visualizza tutti i dettagli",
       "xr_button": "Visualizza nel tuo spazio",
       "xr_button_label": "Visualizza nel tuo spazio, carica l'oggetto nella finestra della realtà aumentata",
       "include_taxes": "Tasse incluse.",
-      "shipping_policy_html": "<a href=\"&lt;span%20class='notranslate'&gt;%7B%7B%20link%20%7D%7D&lt;/span&gt;\">Spedizione</a> calcolata al momento del pagamento.",
+      "shipping_policy_html": "<a href=\"&lt;span%20class='notranslate'&gt;%7B%7B%20link%20%7D%7D&lt;\/span&gt;\">Spedizione<\/a> calcolata al momento del pagamento.",
       "buy_it_now": "Compralo Subito",
       "stock_notify_label": "Avvisami quando disponibile",
       "stock_notify_text_popup": "Registrati per ricevere un'e-mail per ricevere notifiche quando i prodotti sono di nuovo disponibili",
@@ -1297,7 +1297,7 @@
       "update": "Update",
       "login": {
         "title": "Have an account?",
-        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Log in</a> to check out faster."
+        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Log in<\/a> to check out faster."
       }
     },
     "footer": {
@@ -1386,9 +1386,9 @@
       "address1": "Address 1",
       "address2": "Address 2",
       "city": "City",
-      "country": "Country/region",
+      "country": "Country\/region",
       "province": "Province",
-      "zip": "Postal/ZIP code",
+      "zip": "Postal\/ZIP code",
       "phone": "Phone",
       "set_default": "Set as default address",
       "add": "Add address",
@@ -1402,7 +1402,7 @@
     },
     "log_in": "Log in",
     "log_out": "Log out",
-    "login_menu_mobile": "Login / Register",
+    "login_menu_mobile": "Login \/ Register",
     "login_page": {
       "cancel": "Cancel",
       "create_account": "Create account",

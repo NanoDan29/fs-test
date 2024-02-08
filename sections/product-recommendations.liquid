@@ -25,7 +25,6 @@
     --section-bg-color: {{ bg_color }};
   {%- endif -%}  --bls_product-item-vertical-space: 0px;
 {%- endcapture -%}
-
 <section
   class="bls__product-recommendations-section bls__section bls__product{{ reset_spacing }}"
   style="{{ style | strip | strip_newlines }}"
@@ -318,9 +317,6 @@
       "label": "Remove default space between sections",
       "default": false
     }
-  ],
-  "templates": [
-    "product"
   ],
   "presets": [
     {

@@ -55,7 +55,7 @@
     assign grid_class = 'bls__grid {{ product_style }}'
   endif
   assign has_bg = ''
-  assign bg_color = bg_color | default: "transparent"
+  assign bg_color = st.bg_color | default: "transparent"
   if bg_color != blank
     assign has_bg = ' has-bg'
   endif
@@ -68,7 +68,8 @@
   class="color-{{ color_scheme }} gradient bls__section {{ has_bg }} {{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }} bls__product bls__tab{{ reset_spacing }} {{ more_row }}"
   style="{{ style | strip | strip_newlines }}"
   id="{{ section.id }}"
-  data-id="{{ section.id }}"
+  data
+  -id="{{ section.id }}"
   data-type="product_grid"
 >
   <div class=" {{ container }} ">
@@ -126,37 +127,40 @@
                 </div>
               {%- endif -%}
           {% endif %}
-            <div class="bls__section-header tab-header text-center whitespace-nowrap overflow-y-hidden {{ design_class }} {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}">
-              {%- for block in blocks -%}
-                {%- liquid
-                  assign tab_name = block.settings.title
-                  assign current_collection = block.settings.collection
-                  assign active = ''
-                  if forloop.first == true
-                    assign active = ' active'
+          <div class="bls__section-header tab-header text-center whitespace-nowrap overflow-y-hidden {{ design_class }} {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}">
+            {%- for block in blocks -%}
+              {%- liquid
+                assign tab_name = block.settings.title
+                assign current_collection = block.settings.collection
+                assign active = ''
+                if forloop.first == true
+                  assign active = ' active'
+                endif
+                if block.settings.title == blank
+                  assign tab_name = 'Tab ' | append: forloop.index
+                  if current_collection != blank
+                    assign tab_name = current_collection.title
                   endif
-                  if block.settings.title == blank
-                    assign tab_name = 'Tab ' | append: forloop.index
-                    if current_collection != blank
-                      assign tab_name = current_collection.title
-                    endif
-                  endif
-                -%}
-                <div
-                  class="bls__section-heading bls__collection-tab-item{{ active }} px-25 d-inline-flex {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
-                  data-id="collection-{{ block.id }}"
-                  {% if enabled_animations %}
-                    data-cascade
-                    style="--animation-order: {{ forloop.index }};"
-                  {% endif %}
-                >
-                  <span class="relative">{{ tab_name }}</span>
-                </div>
-              {%- endfor -%}
-            </div>
+                endif
+              -%}
+              <div
+                class="bls__section-heading bls__collection-tab-item{{ active }} px-25 d-inline-flex {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
+                data-id="collection-{{ block.id }}"
+                {% if enabled_animations %}
+                  data-cascade
+                  style="--animation-order: {{ forloop.index }};"
+                {% endif %}
+              >
+                <span class="relative">{{ tab_name }}</span>
+              </div>
+            {%- endfor -%}
+          </div>
           {% if tab_style == 'tab_desgin_4' %}
             {%- if description != blank -%}
-              <div class="bls__section-des w-full bls__section-header {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}" style="margin-top:-20px">
+              <div
+                class="bls__section-des w-full bls__section-header {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
+                style="margin-top:-20px"
+              >
                 {{ description }}
               </div>
             {%- endif -%}
@@ -534,13 +538,11 @@
       "blocks": [
         {
           "type": "collection",
-          "settings": {
-          }
+          "settings": {}
         },
         {
           "type": "collection",
-          "settings": {
-          }
+          "settings": {}
         }
       ]
     }

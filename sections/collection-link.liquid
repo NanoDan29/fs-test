@@ -41,11 +41,7 @@
     assign reset_spacing = ' remove_spacing'
   endif
 
-  assign has_bg = ''
-  assign bg_color = bg_color | default: "tranparent"
-  if bg_color != blank
-    assign has_bg = ' has-bg'
-  endif
+  assign has_bg = ' has-bg'
 -%}
 {%- capture style -%}
   --section-padding-top: {{ st.padding_top }}px; --section-padding-bottom: {{ st.padding_bottom }}px; --bls-gutter-x:

@@ -13,7 +13,6 @@
   assign column_gap = st.column_gap
   assign carousel_between = st.column_gap
   assign item_desktop = st.grid_image_desktop
-  assign show_arrow = st.show_arrow
   assign carousel_pagination = st.carousel_pagination
   assign custom_ratio = st.custom_ratio
   assign aspect_ratio = st.aspect_ratio
@@ -58,7 +57,7 @@
     assign spb_mobile = ' spb-mobile'
   endif
   assign has_bg = ''
-  assign background_color = background_color | default: "transparent"
+  assign background_color = st.background_color | default: 'transparent'
   if background_color != blank
     assign has_bg = ' has-bg'
   endif
@@ -70,7 +69,7 @@
   --section-padding-top: {{ st.padding_top }}px; --section-padding-bottom: {{ st.padding_bottom }}px; --bls-gutter-x: {{ column_gap }}px;
 {%- endcapture -%}
 <section
-  class="bls__section color-{{ color_scheme }} gradient {{ has_bg }}{{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }}bls__gallery {{ reset_spacing }}"
+  class="bls__section color-{{ color_scheme }} gradient {{ has_bg }} {{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }}bls__gallery {{ reset_spacing }}"
   data-type="bls_swiper"
   id="{{ section.id }}"
   data-id="{{ section.id }}"
@@ -193,7 +192,7 @@
           </div>
           {%
             render 'swiper-control',
-            show_arrow: show_arrow,
+            show_arrow: st.show_arrow,
             carousel_pagination: carousel_pagination,
           %}
         </div>

@@ -25,7 +25,7 @@
 
   assign img_view = ''
   if st.img_view == 'framed'
-  assign img_view = ' border p-30 p-xl-40 rounded-10'
+    assign img_view = ' border p-30 p-xl-40 rounded-10'
   endif
 
   assign img_position = ''
@@ -66,6 +66,7 @@
   endif
 
   assign has_bg = ''
+  assign background_color = st.background_color | default: 'transparent'
   if background_color != blank
     assign has_bg = ' has-bg'
   endif
@@ -96,7 +97,7 @@
     assign size_svg = 'width="56" height="42"'
   endif
   assign carousel_pagination_progress = section.settings.carousel_pagination_progress | default: false
-  assign background_color = section.settings.background_color | default: "#FFFFFF"
+  assign background_color = section.settings.background_color | default: '#FFFFFF'
 -%}
 
 {%- capture style -%}
@@ -143,7 +144,9 @@
           </div>
         {%- endif -%}
         {%- if heading != blank -%}
-          <h2 class="bls__section-heading mb-5 {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}">{{ heading }}</h2>
+          <h2 class="bls__section-heading mb-5 {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}">
+            {{ heading }}
+          </h2>
         {%- endif -%}
         {%- if description != blank -%}
           <div class="bls__section-des {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}">
@@ -168,13 +171,14 @@
       >
         <div class="swiper-wrapper {% if carousel_pagination_progress %}mb-45{% endif %}">
           {%- for block in section.blocks -%}
-            <div class="swiper-slide {% if design == 'design_3' %}bls__tes-slide-3{% endif %}"
-            >
+            <div class="swiper-slide {% if design == 'design_3' %}bls__tes-slide-3{% endif %}">
               <div
                 class="bls__tes-item {{ img_view }} flex{{ img_position }}  {% if design == 'design_3' %}flex-wrap  bls__tes-item-3 flex-column{% endif %}"
                 style="--content-width:{{ content_width }}%;"
               >
-              {% if design == 'design_3' %}<div class="bls__tes-content-design3 w-full d-flex align-self-start {{ img_position }}">{% endif %}
+                {% if design == 'design_3' %}
+                  <div class="bls__tes-content-design3 w-full d-flex align-self-start {{ img_position }}">
+                {% endif %}
                 {%- if block.settings.image != blank -%}
                   <div class="bls__tes-img bls_img-ratio mb-15" style="width: {{ block.settings.testimonial_width }}px">
                     {% render 'responsive-image', image: block.settings.image %}
@@ -193,12 +197,12 @@
                         >
                           <path d="M53.1087 1H31.587C30.2684 1 29.1957 2.07144 29.1957 3.3884V23.6898C29.1957 25.0068 30.2684 26.0782 31.587 26.0782H41.75V40.4085C41.75 40.9705 42.488 41.2171 42.8261 40.7669L55.3804 24.0481C55.458 23.9448 55.5 23.819 55.5 23.6898V3.3884C55.5 2.07144 54.4274 1 53.1087 1ZM54.3043 23.4907L42.9457 38.6173V25.4811C42.9457 25.1513 42.6781 24.884 42.3478 24.884H31.587C30.9277 24.884 30.3913 24.3483 30.3913 23.6898V3.3884C30.3913 2.72992 30.9277 2.1942 31.587 2.1942H53.1087C53.768 2.1942 54.3043 2.72992 54.3043 3.3884V23.4907ZM24.413 1H2.8913C1.57274 1 0.5 2.07144 0.5 3.3884V23.6898C0.5 25.0068 1.57274 26.0782 2.8913 26.0782H13.0543V40.4086C13.0543 40.9674 13.7921 41.2175 14.1304 40.7669L26.6848 24.0481C26.7624 23.9448 26.8043 23.819 26.8043 23.6898V3.3884C26.8043 2.07144 25.7316 1 24.413 1ZM25.6087 23.4907L14.25 38.6173V25.4811C14.25 25.1513 13.9823 24.884 13.6522 24.884H2.8913C2.23202 24.884 1.69565 24.3483 1.69565 23.6898V3.3884C1.69565 2.72992 2.23202 2.1942 2.8913 2.1942H24.413C25.0723 2.1942 25.6087 2.72992 25.6087 3.3884V23.4907Z" fill="#111111" stroke="#111111" stroke-width="0.5"/>
                         </svg>
-                      {%- endif -%} 
+                      {%- endif -%}
                       {%- if block.settings.title_text != blank -%}
-                      <div class="h4 bls__tes-title title-name heading-color heading-weight mb-0  {{ title_text_size }}">
-                        {{ block.settings.title_text }}
-                      </div> 
-                      {%- endif -%}                 
+                        <div class="h4 bls__tes-title title-name heading-color heading-weight mb-0  {{ title_text_size }}">
+                          {{ block.settings.title_text }}
+                        </div>
+                      {%- endif -%}
                       {{ block.settings.description }}
                     </div>
                     <div class="bls__quote-info">
@@ -208,57 +212,53 @@
                             <span class="star inline-flex">
                               <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <path d="M11.9674 4.53771C12.0065 4.66002 12.0104 4.78641 11.9792 4.91687C11.9479 5.04734 11.8815 5.15742 11.7799 5.24711L9.16544 7.64439L9.93921 11.1914C9.96266 11.3219 9.95093 11.4482 9.90404 11.5706C9.86496 11.6929 9.79461 11.7948 9.69301 11.8763C9.58359 11.9579 9.46635 11.9986 9.34129 11.9986C9.21624 12.0068 9.099 11.9783 8.98958 11.913L6 10.0417L3.01042 11.913C2.96353 11.9375 2.90881 11.9579 2.84629 11.9742C2.79158 11.9905 2.73686 11.9986 2.68215 11.9986C2.61963 11.9986 2.55319 11.9864 2.48285 11.9619C2.42032 11.9456 2.3617 11.9171 2.30699 11.8763C2.20538 11.7948 2.13113 11.6929 2.08424 11.5706C2.04516 11.4482 2.03734 11.3219 2.06079 11.1914L2.83456 7.64439L0.220148 5.24711C0.118541 5.15742 0.0521059 5.04734 0.0208424 4.91687C-0.0104212 4.78641 -0.00651324 4.66002 0.0325662 4.53771C0.0716457 4.40725 0.138081 4.30125 0.231871 4.21971C0.333478 4.13817 0.446808 4.08924 0.571863 4.07293L4.04212 3.75493L5.41381 0.403624C5.4607 0.281314 5.53886 0.183465 5.64828 0.110079C5.75771 0.0366931 5.87495 0 6 0C6.12505 0 6.24229 0.0366931 6.35172 0.110079C6.46114 0.183465 6.5393 0.281314 6.58619 0.403624L7.95788 3.75493L11.4281 4.07293C11.5532 4.08924 11.6626 4.13817 11.7564 4.21971C11.858 4.30125 11.9284 4.40725 11.9674 4.53771Z" fill="#111111"/>
-                                </svg>
-
+                              </svg>
                             </span>
                           {%- endfor -%}
                         </div>
                       {%- endif -%}
                       <p class="bls__tes-author author-name heading-color title-heading-weight mb-0">
-
                         {{ block.settings.author }}
                       </p>
                       <div class="bls__tes-job">
                         <span class="author-job">{{ block.settings.job }}</span>
                       </div>
                     </div>
-                    {% elsif design == 'design_2' %}
+                  {% elsif design == 'design_2' %}
                     {%- if section.settings.show_rating -%}
                       <div class="bls__tes-rate stars mb-10 mt-10">
                         {%- for i in (1..5) -%}
                           <span class="star inline-flex">
                             <svg viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
                               <path d="M11.9674 4.53771C12.0065 4.66002 12.0104 4.78641 11.9792 4.91687C11.9479 5.04734 11.8815 5.15742 11.7799 5.24711L9.16544 7.64439L9.93921 11.1914C9.96266 11.3219 9.95093 11.4482 9.90404 11.5706C9.86496 11.6929 9.79461 11.7948 9.69301 11.8763C9.58359 11.9579 9.46635 11.9986 9.34129 11.9986C9.21624 12.0068 9.099 11.9783 8.98958 11.913L6 10.0417L3.01042 11.913C2.96353 11.9375 2.90881 11.9579 2.84629 11.9742C2.79158 11.9905 2.73686 11.9986 2.68215 11.9986C2.61963 11.9986 2.55319 11.9864 2.48285 11.9619C2.42032 11.9456 2.3617 11.9171 2.30699 11.8763C2.20538 11.7948 2.13113 11.6929 2.08424 11.5706C2.04516 11.4482 2.03734 11.3219 2.06079 11.1914L2.83456 7.64439L0.220148 5.24711C0.118541 5.15742 0.0521059 5.04734 0.0208424 4.91687C-0.0104212 4.78641 -0.00651324 4.66002 0.0325662 4.53771C0.0716457 4.40725 0.138081 4.30125 0.231871 4.21971C0.333478 4.13817 0.446808 4.08924 0.571863 4.07293L4.04212 3.75493L5.41381 0.403624C5.4607 0.281314 5.53886 0.183465 5.64828 0.110079C5.75771 0.0366931 5.87495 0 6 0C6.12505 0 6.24229 0.0366931 6.35172 0.110079C6.46114 0.183465 6.5393 0.281314 6.58619 0.403624L7.95788 3.75493L11.4281 4.07293C11.5532 4.08924 11.6626 4.13817 11.7564 4.21971C11.858 4.30125 11.9284 4.40725 11.9674 4.53771Z" fill="#111111"/>
-                              </svg>
-  
+                            </svg>
                           </span>
                         {%- endfor -%}
                       </div>
                     {%- endif -%}
-                      <div class="desc-quote-info {{ desc_text_size }} heading-color">
-                        {%- if block.settings.title_text != blank -%}
-                          <div class="h4 bls__tes-title title-name heading-color heading-weight mb-0  {{ title_text_size }}">
-                            {{ block.settings.title_text }}
-                          </div> 
-                          {%- endif -%}  
-                        {{ block.settings.description }}
-                      </div>
-                      <div class="bls__quote-info d-flex align-items-center justify-content-center">
-                        <p class="bls__tes-author author-name heading-color title-heading-weight mb-0">
-
-                        {{ block.settings.author }}
-                        </p>
-                        <span>-</span>
-                        <div class="bls__tes-job">
-                          <span class="author-job">{{ block.settings.job }}</span>
+                    <div class="desc-quote-info {{ desc_text_size }} heading-color">
+                      {%- if block.settings.title_text != blank -%}
+                        <div class="h4 bls__tes-title title-name heading-color heading-weight mb-0  {{ title_text_size }}">
+                          {{ block.settings.title_text }}
                         </div>
-                      </div>  
+                      {%- endif -%}
+                      {{ block.settings.description }}
+                    </div>
+                    <div class="bls__quote-info d-flex align-items-center justify-content-center">
+                      <p class="bls__tes-author author-name heading-color title-heading-weight mb-0">
+                        {{ block.settings.author }}
+                      </p>
+                      <span>-</span>
+                      <div class="bls__tes-job">
+                        <span class="author-job">{{ block.settings.job }}</span>
+                      </div>
+                    </div>
                   {% else %}
                     {%- if block.settings.title_text != blank -%}
                       <div class="h4 bls__tes-title title-name heading-color heading-weight mt-7 mb-0  {{ title_text_size }}">
                         {{ block.settings.title_text }}
-                      </div> 
-                    {%- endif -%}  
+                      </div>
+                    {%- endif -%}
                     {%- if section.settings.show_rating -%}
                       <div class="bls__tes-rate stars mb-7">
                         {%- for i in (1..5) -%}
@@ -279,21 +279,21 @@
                   {% endif %}
                 </div>
                 {% if design == 'design_3' %}</div>{% endif %}
-                {% if design == 'design_3' %}            
+                {% if design == 'design_3' %}
                   <div class="bls__tes-content-bottom  d-flex flex-column flex-1">
-                    <div class="desc-quote-info {{ desc_text_size }} heading-color flex-1">                     
-                    {{ block.settings.description }}
-                  </div>
-                  <div class="bls__quote-info d-flex align-items-center border-top justify-content-between  mt-25 pt-20">
-                    <p class="bls__tes-author author-name heading-color heading-weight mb-0">
-                    {{ block.settings.author }}
-                    </p>
-                    <div class="bls__tes-job">
-                      <span class="author-job">{{ block.settings.job }}</span>
+                    <div class="desc-quote-info {{ desc_text_size }} heading-color flex-1">
+                      {{ block.settings.description }}
+                    </div>
+                    <div class="bls__quote-info d-flex align-items-center border-top justify-content-between  mt-25 pt-20">
+                      <p class="bls__tes-author author-name heading-color heading-weight mb-0">
+                        {{ block.settings.author }}
+                      </p>
+                      <div class="bls__tes-job">
+                        <span class="author-job">{{ block.settings.job }}</span>
+                      </div>
                     </div>
                   </div>
-                </div>
-              {% endif %}
+                {% endif %}
               </div>
             </div>
           {%- endfor -%}
@@ -308,43 +308,44 @@
       </div>
     </div>
     {%- if pagination_style == 'logo' -%}
-        <div
-          class="swiper testimonial-thumb testimonial-thumb-{{ section.id }}"
-          data-section-id="{{ section.id }}"
-          data-loop="false"
-          data-mobile="1"
-          data-tablet="{%- if item_desktop > 1 -%}2{%- else -%}1{%- endif -%}"
-          data-desktop="3"
-          data-thumb="{% if pagination_style == 'logo' %}true{% else %}false{% endif %}"
-        >
-          <div class="swiper-wrapper" style="--perload-gap: 10px">
-            {%- for block in section.blocks -%}
-              <div class="swiper-slide" >
-                <div class="testimonial-thumb-img text-center">
-                  <img
-                    data-src="{{ block.settings.logo | image_url }}"
-                    srcset="
-                      {%- if block.settings.logo.width >= 550 -%}{{ block.settings.logo | image_url: width: 550 }} 550w,{%- endif -%}
-                      {%- if block.settings.logo.width >= 1100 -%}{{ block.settings.logo | image_url: width: 1100 }} 1100w,{%- endif -%}
-                      {%- if block.settings.logo.width >= 1445 -%}{{ block.settings.logo | image_url: width: 1445 }} 1445w,{%- endif -%}
-                      {%- if block.settings.logo.width >= 1680 -%}{{ block.settings.logo | image_url: width: 1680 }} 1680w,{%- endif -%}
-                      {%- if block.settings.logo.width >= 2048 -%}{{ block.settings.logo | image_url: width: 2048 }} 2048w,{%- endif -%}
-                      {%- if block.settings.logo.width >= 2200 -%}{{ block.settings.logo | image_url: width: 2200 }} 2200w,{%- endif -%}
-                      {%- if block.settings.logo.width >= 2890 -%}{{ block.settings.logo | image_url: width: 2890 }} 2890w,{%- endif -%}
-                      {%- if block.settings.logo.width >= 4096 -%}{{ block.settings.logo | image_url: width: 4096 }} 4096w,{%- endif -%}
-                      {{ block.settings.logo | image_url }} {{ block.settings.logo.width }}w
-                    "
-                    sizes="100vw"
-                    src="{{ block.settings.logo | image_url }}"
-                    alt="{{ image.alt | escape }}"
-                    loading="lazy"
-                    width="110"
-                    height="{{ 110 | divided_by: block.settings.logo.aspect_ratio | ceil }}"
-                  >
-                </div>
+      <div
+        class="swiper testimonial-thumb testimonial-thumb-{{ section.id }}"
+        data-section-id="{{ section.id }}"
+        data-loop="false"
+        data-mobile="1"
+        data-tablet="{%- if item_desktop > 1 -%}2{%- else -%}1{%- endif -%}"
+        data-desktop="3"
+        data-thumb="{% if pagination_style == 'logo' %}true{% else %}false{% endif %}"
+      >
+        <div class="swiper-wrapper" style="--perload-gap: 10px">
+          {%- for block in section.blocks -%}
+            <div class="swiper-slide">
+              <div class="testimonial-thumb-img text-center">
+                <img
+                  data-src="{{ block.settings.logo | image_url }}"
+                  srcset="
+                    {%- if block.settings.logo.width >= 550 -%}{{ block.settings.logo | image_url: width: 550 }} 550w,{%- endif -%}
+                    {%- if block.settings.logo.width >= 1100 -%}{{ block.settings.logo | image_url: width: 1100 }} 1100w,{%- endif -%}
+                    {%- if block.settings.logo.width >= 1445 -%}{{ block.settings.logo | image_url: width: 1445 }} 1445w,{%- endif -%}
+                    {%- if block.settings.logo.width >= 1680 -%}{{ block.settings.logo | image_url: width: 1680 }} 1680w,{%- endif -%}
+                    {%- if block.settings.logo.width >= 2048 -%}{{ block.settings.logo | image_url: width: 2048 }} 2048w,{%- endif -%}
+                    {%- if block.settings.logo.width >= 2200 -%}{{ block.settings.logo | image_url: width: 2200 }} 2200w,{%- endif -%}
+                    {%- if block.settings.logo.width >= 2890 -%}{{ block.settings.logo | image_url: width: 2890 }} 2890w,{%- endif -%}
+                    {%- if block.settings.logo.width >= 4096 -%}{{ block.settings.logo | image_url: width: 4096 }} 4096w,{%- endif -%}
+                    {{ block.settings.logo | image_url }} {{ block.settings.logo.width }}w
+                  "
+                  sizes="100vw"
+                  src="{{ block.settings.logo | image_url }}"
+                  alt="{{ block.settings.alt | escape }}"
+                  loading="lazy"
+                  width="110"
+                  height="{{ 110 | divided_by: block.settings.logo.aspect_ratio | ceil }}"
+                >
               </div>
-            {%- endfor -%}
-          </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      </div>
     {%- endif -%}
   </div>
 </section>

@@ -43,7 +43,7 @@
   if pageQuerystring contains 'pagination='
     assign pagination_pr = pageQuerystring | split: 'pagination=' | last | split: '&' | first
     if pagination_pr == 'default' or pagination_pr == 'load_more' or pagination_pr == 'infinit_scrolling'
-      assign pagination = pagination_pr
+      assing pagination = pagination_pr
     endif
   endif
   assign blog_column = ''

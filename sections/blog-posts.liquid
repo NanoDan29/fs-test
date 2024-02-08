@@ -20,7 +20,6 @@
   assign heading_logo = st.heading_logo
   assign heading_logo_svg = st.heading_logo_svg
   assign aspect_ratio = st.aspect_ratio
-  assign show_arrow = st.show_arrow
   assign carousel_pagination = st.carousel_pagination
   assign autoplay = st.autoplay
   assign loop = st.loop
@@ -46,12 +45,8 @@
   if st.padding_bottom > 30
     assign spb_mobile = ' spb-mobile'
   endif
-
   assign has_bg = ''
-  assign bg_color = bg_color | default: "tranparent"
-  if bg_color != blank
-    assign has_bg = ' has-bg'
-  endif
+  assign has_bg = ' has-bg'
 %}
 {%- capture style -%}
   --section-padding-top: {{ st.padding_top }}px; --section-padding-bottom: {{ st.padding_bottom }}px;--bls-gutter-x:
@@ -138,7 +133,7 @@
             </div>
             {%
               render 'swiper-control',
-              show_arrow: show_arrow,
+              show_arrow: st.show_arrow,
               carousel_pagination: carousel_pagination,
             %}
           </div>
@@ -207,7 +202,7 @@
             </div>
             {%
               render 'swiper-control',
-              show_arrow: show_arrow,
+              show_arrow: st.show_arrow,
               carousel_pagination: carousel_pagination,
             %}
           </div>

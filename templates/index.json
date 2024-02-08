@@ -6,7 +6,7 @@
         "template--16567751082231__0c521c75-5d82-4dd6-aecc-f519d8907411-1666406556d8612fa9-0": {
           "type": "slider_item",
           "settings": {
-            "image": "shopify://shop_images/FSAH_January-2022_Promo_Slide01.jpg",
+            "image": "shopify:\/\/shop_images\/FSAH_January-2022_Promo_Slide01.jpg",
             "content_box": "content_in_container_fluid",
             "content_custom_width": true,
             "content_width": 50,
@@ -19,8 +19,8 @@
             "text_alignment_on_mobile": "center",
             "subheading": "Exclusive Offer",
             "title": "Love In Every Gift",
-            "description": "<p>Shop up to 30% off our iconic bedding, bath and décor**</p>",
-            "image_link": "shopify://collections",
+            "description": "<p>Shop up to 30% off our iconic bedding, bath and décor**<\/p>",
+            "image_link": "shopify:\/\/collections",
             "button_text": "SHOP SALE",
             "button_type": "primary"
           }
@@ -28,7 +28,7 @@
         "4d89f9ff-8153-4b4a-a089-ccb19f702450": {
           "type": "slider_item",
           "settings": {
-            "image": "shopify://shop_images/Candle1600x800_01.jpg",
+            "image": "shopify:\/\/shop_images\/Candle1600x800_01.jpg",
             "content_box": "content_in_container_fluid",
             "content_custom_width": true,
             "content_width": 50,
@@ -41,8 +41,8 @@
             "text_alignment_on_mobile": "center",
             "subheading": "HOME DECORATION",
             "title": "Four Seaons at Home",
-            "description": "<p>Discount 30% On Products & Free Shipping.</p>",
-            "image_link": "shopify://collections",
+            "description": "<p>Discount 30% On Products & Free Shipping.<\/p>",
+            "image_link": "shopify:\/\/collections",
             "button_text": "SHOP SALE",
             "button_type": "primary"
           }
@@ -93,7 +93,7 @@
           "settings": {
             "title_collection": "",
             "collection": "mattress",
-            "image": "shopify://shop_images/Four-Seasons-Signature-Sleep-Collection_Bed-RenderingUPDATED_002c5da6-0ab5-44dd-9165-ba841cb73eb8.jpg"
+            "image": "shopify:\/\/shop_images\/Four-Seasons-Signature-Sleep-Collection_Bed-RenderingUPDATED_002c5da6-0ab5-44dd-9165-ba841cb73eb8.jpg"
           }
         },
         "template--17164395577568__5383dcd7-9a92-4d23-b309-b89cb6353364-collection_item-2": {
@@ -101,7 +101,7 @@
           "settings": {
             "title_collection": "",
             "collection": "spa-bath",
-            "image": "shopify://shop_images/COLOUR_1_3d70de5c-b9bc-454d-885f-e60e65153ba5.jpg"
+            "image": "shopify:\/\/shop_images\/COLOUR_1_3d70de5c-b9bc-454d-885f-e60e65153ba5.jpg"
           }
         },
         "template--17164395577568__5383dcd7-9a92-4d23-b309-b89cb6353364-collection_item-3": {
@@ -109,7 +109,7 @@
           "settings": {
             "title_collection": "",
             "collection": "decor-lifestyle",
-            "image": "shopify://shop_images/BATH_TERRY_C_UNBOXING_900x1200_c842242b-4537-461e-a42c-2adaa783bb8c.jpg"
+            "image": "shopify:\/\/shop_images\/BATH_TERRY_C_UNBOXING_900x1200_c842242b-4537-461e-a42c-2adaa783bb8c.jpg"
           }
         },
         "template--17164395577568__5383dcd7-9a92-4d23-b309-b89cb6353364-collection_item-4": {
@@ -117,7 +117,7 @@
           "settings": {
             "title_collection": "",
             "collection": "pillows",
-            "image": "shopify://shop_images/EURO_SHAM_MS_LOGO_V1_0005ba0a-41b8-416e-98de-12fd70d0119c.jpg"
+            "image": "shopify:\/\/shop_images\/EURO_SHAM_MS_LOGO_V1_0005ba0a-41b8-416e-98de-12fd70d0119c.jpg"
           }
         },
         "template--17164395577568__5383dcd7-9a92-4d23-b309-b89cb6353364-collection_item-5": {
@@ -125,7 +125,7 @@
           "settings": {
             "title_collection": "",
             "collection": "bedding",
-            "image": "shopify://shop_images/DUVET_SET_C_900x1200_91daa81b-c38d-41a0-bfbe-addb60356c66.jpg"
+            "image": "shopify:\/\/shop_images\/DUVET_SET_C_900x1200_91daa81b-c38d-41a0-bfbe-addb60356c66.jpg"
           }
         }
       },
@@ -139,14 +139,14 @@
       "settings": {
         "heading_logo_svg": "",
         "heading": "Featured Collections",
-        "description": "<p>Upgrade your home with our elegant products. Choose confidence. </p>",
+        "description": "<p>Upgrade your home with our elegant products. Choose confidence. <\/p>",
         "text_alignment": "text-center",
         "container": "container",
         "color_scheme": "default-color-scheme",
         "hover_effect": "zoom",
         "show_count_product": true,
         "images_style": "square",
-        "image_ratio": "1/1",
+        "image_ratio": "1\/1",
         "custom_ratio": "21:9",
         "column_gap": 30,
         "padding_top": 0,
@@ -211,7 +211,7 @@
       "settings": {
         "heading_logo_svg": "",
         "heading": "You Might Like",
-        "description": "<p>Our products are designed for everyone, environmentally friendly.</p>",
+        "description": "<p>Our products are designed for everyone, environmentally friendly.<\/p>",
         "text_alignment": "text-center",
         "container": "container-fluid",
         "color_scheme": "default-color-scheme",
@@ -222,7 +222,7 @@
         "custom_width_images": true,
         "width_image": 160,
         "images_style": "rounded",
-        "image_ratio": "1/1",
+        "image_ratio": "1\/1",
         "custom_ratio": "9:7",
         "custom_column": 6,
         "column_gap": 30,
@@ -246,7 +246,7 @@
       "settings": {
         "heading_logo_svg": "",
         "heading": "Top Trending",
-        "description": "<p>Here’s some of our most popular products people are in love with.</p>",
+        "description": "<p>Here’s some of our most popular products people are in love with.<\/p>",
         "text_alignment": "text-center",
         "container": "container-fluid",
         "color_scheme": "",
@@ -257,10 +257,10 @@
         "enable_banner": true,
         "enable_sticky_banner": true,
         "banner_type": "image",
-        "banner_img": "shopify://shop_images/banner_613b8008-06f5-4107-a957-29aa34ba9740.png",
-        "video_url": "https://www.youtube.com/watch?v=58XVRPkvA2g",
+        "banner_img": "shopify:\/\/shop_images\/banner_613b8008-06f5-4107-a957-29aa34ba9740.png",
+        "video_url": "https:\/\/www.youtube.com\/watch?v=58XVRPkvA2g",
         "banner_position": "position-left",
-        "banner_link": "shopify://collections",
+        "banner_link": "shopify:\/\/collections",
         "banner_width": 50,
         "text_content": "",
         "view_all_enable": false,
@@ -281,7 +281,7 @@
         "template--17164395577568__4a721749-afc7-4b14-9677-f98da78b39c9-lookbook-1": {
           "type": "lookbook",
           "settings": {
-            "image": "shopify://shop_images/ALFRESCO_BLANKET_LIFESTYLE2_900x1200_ea6c0cef-3745-4b6a-8b9f-bfcb4b55c575.jpg",
+            "image": "shopify:\/\/shop_images\/ALFRESCO_BLANKET_LIFESTYLE2_900x1200_ea6c0cef-3745-4b6a-8b9f-bfcb4b55c575.jpg",
             "position_top_1": 90,
             "position_left_1": 72,
             "product_1": "al-fresco-blanket",
@@ -302,7 +302,7 @@
         "b991487b-f68b-459d-a16b-46190d7f0f40": {
           "type": "lookbook",
           "settings": {
-            "image": "shopify://shop_images/HOODED_ROBE_LIFESTYLE_1_900x1200_2e62e64c-7851-41ff-8122-681c40b6795a.jpg",
+            "image": "shopify:\/\/shop_images\/HOODED_ROBE_LIFESTYLE_1_900x1200_2e62e64c-7851-41ff-8122-681c40b6795a.jpg",
             "position_top_1": 41,
             "position_left_1": 63,
             "product_1": "hooded-robe",
@@ -323,7 +323,7 @@
         "efdacca2-5a34-4843-b634-eb59d91375c7": {
           "type": "lookbook",
           "settings": {
-            "image": "shopify://shop_images/WOOL_BLANKET_NAVY_INSITU_900x1200_adb22e22-ccff-4207-ae7f-4c2d731f0d68.jpg",
+            "image": "shopify:\/\/shop_images\/WOOL_BLANKET_NAVY_INSITU_900x1200_adb22e22-ccff-4207-ae7f-4c2d731f0d68.jpg",
             "position_top_1": 52,
             "position_left_1": 50,
             "product_1": "wool-blanket",
@@ -344,7 +344,7 @@
         "763799f0-d391-4e8e-be8f-70bd21518e53": {
           "type": "lookbook",
           "settings": {
-            "image": "shopify://shop_images/DUVET_SET_TS_ea48011b-ba2f-43bb-9780-31d6c7678f11.jpg",
+            "image": "shopify:\/\/shop_images\/DUVET_SET_TS_ea48011b-ba2f-43bb-9780-31d6c7678f11.jpg",
             "position_top_1": 86,
             "position_left_1": 52,
             "product_1": "dream-set",
@@ -372,13 +372,13 @@
       "settings": {
         "heading_logo_svg": "",
         "heading": "Shop by Gram",
-        "description": "<p>Inspire and let yourself be inspired, from one unique fashion to another.</p>",
+        "description": "<p>Inspire and let yourself be inspired, from one unique fashion to another.<\/p>",
         "text_alignment": "text-center",
         "container": "container-fluid",
         "color_scheme": "",
         "design_layout": "grid",
         "dot_type": "icon",
-        "aspect_ratio": "1/1",
+        "aspect_ratio": "1\/1",
         "custom_ratio": "21:9",
         "column_gap": 5,
         "slider_lookbook_items": 4,
@@ -399,13 +399,13 @@
         "template--18768531521833__73df9b61-4630-4729-a77d-5a9e9712bc69-168265069261c4999f-0": {
           "type": "image_banner",
           "settings": {
-            "image": "shopify://shop_images/DUVET_SET_CAMEL_f577c66c-d7b9-48ca-b3de-6961fd27fc9c.jpg"
+            "image": "shopify:\/\/shop_images\/DUVET_SET_CAMEL_f577c66c-d7b9-48ca-b3de-6961fd27fc9c.jpg"
           }
         },
         "template--18768531521833__73df9b61-4630-4729-a77d-5a9e9712bc69-168265069261c4999f-1": {
           "type": "image_banner",
           "settings": {
-            "image": "shopify://shop_images/DUVET_SET_MS_8e601547-455a-47a4-9c1b-85a08b030463.jpg"
+            "image": "shopify:\/\/shop_images\/DUVET_SET_MS_8e601547-455a-47a4-9c1b-85a08b030463.jpg"
           }
         }
       },
@@ -435,25 +435,25 @@
         "template--18728529330473__d7c2da9e-0de3-48cd-b11d-457fe7bfdc6d-1682397415a4825875-0": {
           "type": "iconbox",
           "settings": {
-            "icon": "shopify://shop_images/icon_box.webp",
+            "icon": "shopify:\/\/shop_images\/icon_box.webp",
             "heading": "Free Shipping",
-            "description": "<p>Get complimentary ground shipping on every order. Don't love it? Send it back, on us.</p>"
+            "description": "<p>Get complimentary ground shipping on every order. Don't love it? Send it back, on us.<\/p>"
           }
         },
         "template--18728529330473__d7c2da9e-0de3-48cd-b11d-457fe7bfdc6d-1682397415a4825875-1": {
           "type": "iconbox",
           "settings": {
-            "icon": "shopify://shop_images/icon_box2.webp",
+            "icon": "shopify:\/\/shop_images\/icon_box2.webp",
             "heading": "Free Returns",
-            "description": "<p>Free returns within 10 days, please make sure the items are in undamaged condition.</p>"
+            "description": "<p>Free returns within 10 days, please make sure the items are in undamaged condition.<\/p>"
           }
         },
         "template--18728529330473__d7c2da9e-0de3-48cd-b11d-457fe7bfdc6d-1682397415a4825875-2": {
           "type": "iconbox",
           "settings": {
-            "icon": "shopify://shop_images/icon_box3.webp",
+            "icon": "shopify:\/\/shop_images\/icon_box3.webp",
             "heading": "Support Online",
-            "description": "<p>We support customers 24/7, send questions we will solve for you immediately.</p>"
+            "description": "<p>We support customers 24\/7, send questions we will solve for you immediately.<\/p>"
           }
         }
       },

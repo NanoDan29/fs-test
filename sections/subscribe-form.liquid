@@ -35,10 +35,11 @@
   endif
 
   assign has_bg = ''
+  assign background_color = st.background_color | default: "transparent"
   if background_color != blank
     assign has_bg = ' has-bg'
   endif
-  assign background_color = section.settings.background_color | default: "#FFFFFF"
+  
 -%}
 {%- capture style -%}
   {%- if background_color != blank -%}

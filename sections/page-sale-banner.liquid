@@ -35,8 +35,8 @@
     if st.reset_spacing
       assign reset_spacing = ' remove_spacing'
     endif
-    assign enabled_animations = enabled_animations | default: false
-    assign spb_mobile = spb_mobile | default: "default"
+    assign enabled_animations = st.enabled_animations | default: false
+    assign spb_mobile = st.spb_mobile | default: "default"
     assign spt_mobile = spb_mobile | default: "default"
     assign spb_tablet = spb_mobile | default: "default"
     assign spt_tablet = spb_mobile | default: "default"

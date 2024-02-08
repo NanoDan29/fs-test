@@ -12,7 +12,6 @@
   assign heading_logo_svg = st.heading_logo_svg
   assign column_gap = st.column_gap
   assign item_desktop = st.slider_lookbook_items
-  assign show_arrow = st.show_arrow
   assign carousel_pagination = st.carousel_pagination
   assign loop = st.loop
   assign autoplay = st.autoplay
@@ -60,7 +59,7 @@
   endif
 
   assign has_bg = ''
-  assign bg_color = bg_color | default: "tranparent"
+  assign bg_color = st.bg_color | default: "tranparent"
   if bg_color != blank
     assign has_bg = ' has-bg'
   endif
@@ -147,7 +146,7 @@
           </div>
           {%
             render 'swiper-control',
-            show_arrow: show_arrow,
+            show_arrow: st.show_arrow,
             carousel_pagination: carousel_pagination,
           %}
         </div>

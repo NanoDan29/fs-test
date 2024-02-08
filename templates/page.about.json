@@ -11,7 +11,7 @@
         "4096cbca-6b77-4dcb-b60a-66290398b018": {
           "type": "text",
           "settings": {
-            "txt_content": "<p>Welcome to Four Seasons</p>",
+            "txt_content": "<p>Welcome to Four Seasons<\/p>",
             "txt_fs": 14,
             "txt_fw": "600",
             "txt_tf": "uppercase",
@@ -33,7 +33,7 @@
         "template--16584037925111__507aafc1-1757-4f5b-a2e3-88035abcecf8-1665450078ece10545-1": {
           "type": "text",
           "settings": {
-            "txt_content": "<p>Over 20 years of experience in excellence  </p>",
+            "txt_content": "<p>Over 20 years of experience in excellence  <\/p>",
             "txt_fs": 16,
             "txt_fw": "400",
             "txt_tf": "unset",
@@ -51,7 +51,7 @@
         "container": "full-width",
         "color_scheme": "scheme-013ccfbf-beb5-42e6-bc8f-8a36ab634ca7",
         "banner_type": "image",
-        "image": "shopify://shop_images/FSAH_January-2022_Promo_Slide01.jpg",
+        "image": "shopify:\/\/shop_images\/FSAH_January-2022_Promo_Slide01.jpg",
         "video_url": "",
         "link": "",
         "open_link": "_blank",
@@ -85,7 +85,7 @@
         "babde14e-f9b5-464b-9c85-58b12c9cf7d3": {
           "type": "text",
           "settings": {
-            "txt_content": "<p>Our mission</p>",
+            "txt_content": "<p>Our mission<\/p>",
             "txt_fs": 12,
             "txt_fw": "500",
             "txt_tf": "uppercase",
@@ -107,7 +107,7 @@
         "template--16584037925111__ce9234d5-6cd4-465a-85fd-01377e10f037-1665563953d6e64dbe-1": {
           "type": "text",
           "settings": {
-            "txt_content": "<p>Four Seasons commitment to excellence is in the heart of every product we offer to our clients so they can experience the same luxury at the comfort of their homes.</p>",
+            "txt_content": "<p>Four Seasons commitment to excellence is in the heart of every product we offer to our clients so they can experience the same luxury at the comfort of their homes.<\/p>",
             "txt_fs": 16,
             "txt_fw": "400",
             "txt_tf": "unset",
@@ -118,7 +118,7 @@
         "53ab94f5-0edc-4a2f-9398-f7520031b381": {
           "type": "text",
           "settings": {
-            "txt_content": "<p>Our signature mattress lines will give you the comfort and rest you and your family deserves. Give the your love ones the peace that only comes with Four Seasons.</p>",
+            "txt_content": "<p>Our signature mattress lines will give you the comfort and rest you and your family deserves. Give the your love ones the peace that only comes with Four Seasons.<\/p>",
             "txt_fs": 16,
             "txt_fw": "400",
             "txt_tf": "unset",
@@ -137,7 +137,7 @@
         "container": "container",
         "color_scheme": "scheme-013ccfbf-beb5-42e6-bc8f-8a36ab634ca7",
         "banner_type": "image",
-        "image": "shopify://shop_images/POOL_RESORT_ROBE_LIFESTYLE_1_900x1200_1f7d5767-fdaf-4a0c-81df-f47f656dc92b.jpg",
+        "image": "shopify:\/\/shop_images\/POOL_RESORT_ROBE_LIFESTYLE_1_900x1200_1f7d5767-fdaf-4a0c-81df-f47f656dc92b.jpg",
         "video_url": "",
         "link": "",
         "open_link": "_blank",
@@ -171,7 +171,7 @@
         "template--16584037925111__de27bbae-8b57-4758-bfe7-5ac9b1179505-1665713233cd3512b4-0": {
           "type": "sub_heading",
           "settings": {
-            "sub_heading": "<p>Why Choose Us</p>",
+            "sub_heading": "<p>Why Choose Us<\/p>",
             "sub_fs": 12,
             "sub_fw": "500",
             "sub_tf": "uppercase",
@@ -193,7 +193,7 @@
         "template--16584037925111__de27bbae-8b57-4758-bfe7-5ac9b1179505-1665713233cd3512b4-2": {
           "type": "desc",
           "settings": {
-            "desc": "<p>Choose from a variety of luxury products to fit your home.</p>",
+            "desc": "<p>Choose from a variety of luxury products to fit your home.<\/p>",
             "desc_fs": 16,
             "desc_fw": "400",
             "content_width": 100,
@@ -226,13 +226,13 @@
           "settings": {
             "banner_width": "4",
             "banner_type": "image",
-            "image": "shopify://shop_images/DUVET_SET_W_900x1200_e1310206-0740-4e34-9891-6521fbaa6f27.jpg",
+            "image": "shopify:\/\/shop_images\/DUVET_SET_W_900x1200_e1310206-0740-4e34-9891-6521fbaa6f27.jpg",
             "video_url": "",
             "link": "",
             "open_link": "_blank",
             "subtext": "Unique Beauty",
             "title": "",
-            "content": "<p>Our collections are full of beauty and elegance. Featuring the latest in comfort and style.</p>",
+            "content": "<p>Our collections are full of beauty and elegance. Featuring the latest in comfort and style.<\/p>",
             "btn_content": "",
             "button_type": "link"
           }
@@ -242,13 +242,13 @@
           "settings": {
             "banner_width": "4",
             "banner_type": "image",
-            "image": "shopify://shop_images/COLOUR_2_1f3a8ada-c799-43e6-9590-b3ea2481dac5.jpg",
+            "image": "shopify:\/\/shop_images\/COLOUR_2_1f3a8ada-c799-43e6-9590-b3ea2481dac5.jpg",
             "video_url": "",
             "link": "",
             "open_link": "_blank",
             "subtext": "Simple Elegance",
             "title": "",
-            "content": "<p>Our collections are full of beauty and elegance. Featuring the latest in comfort and style.</p>",
+            "content": "<p>Our collections are full of beauty and elegance. Featuring the latest in comfort and style.<\/p>",
             "btn_content": "",
             "button_type": "primary"
           }
@@ -258,13 +258,13 @@
           "settings": {
             "banner_width": "4",
             "banner_type": "image",
-            "image": "shopify://shop_images/signaturesleepset_1.jpg",
+            "image": "shopify:\/\/shop_images\/signaturesleepset_1.jpg",
             "video_url": "",
             "link": "",
             "open_link": "_blank",
             "subtext": "Sleep like no other",
             "title": "",
-            "content": "<p>Our collections are full of beauty and elegance. Featuring the latest in comfort and style.</p>",
+            "content": "<p>Our collections are full of beauty and elegance. Featuring the latest in comfort and style.<\/p>",
             "btn_content": "",
             "button_type": "primary"
           }
@@ -312,7 +312,7 @@
         "template--16584037925111__2dc0f1df-4f5b-4b3c-869a-2e69745ae766-16667479252899c4f1-2": {
           "type": "desc",
           "settings": {
-            "desc": "<p>“ Four Seasons has become and example of perfection and elegance.</p>",
+            "desc": "<p>“ Four Seasons has become and example of perfection and elegance.<\/p>",
             "desc_fs": 20,
             "desc_fw": "400",
             "content_width": 100,
@@ -324,7 +324,7 @@
         "a7729639-85be-4c47-a122-0a9b5481e9f2": {
           "type": "desc",
           "settings": {
-            "desc": "<p>our signature mattresses are design to provide the best sleep for your and your family</p>",
+            "desc": "<p>our signature mattresses are design to provide the best sleep for your and your family<\/p>",
             "desc_fs": 20,
             "desc_fw": "400",
             "content_width": 100,
@@ -336,7 +336,7 @@
         "a1a3c57a-7dfe-4c13-bb19-d22d3166f94c": {
           "type": "desc",
           "settings": {
-            "desc": "<p>with the best products with the most high quality standards”</p>",
+            "desc": "<p>with the best products with the most high quality standards”<\/p>",
             "desc_fs": 20,
             "desc_fw": "400",
             "content_width": 100,
@@ -348,7 +348,7 @@
         "03a56868-5767-4f3d-bda1-2ea7942d2c90": {
           "type": "sub_heading",
           "settings": {
-            "sub_heading": "<p></p>",
+            "sub_heading": "<p><\/p>",
             "sub_fs": 14,
             "sub_fw": "400",
             "sub_tf": "unset",
@@ -379,7 +379,7 @@
         "53472d49-ff77-4644-b112-81f458396685": {
           "type": "text",
           "settings": {
-            "txt_content": "<p>OUR QUALITY</p>",
+            "txt_content": "<p>OUR QUALITY<\/p>",
             "txt_fs": 12,
             "txt_fw": "500",
             "txt_tf": "unset",
@@ -401,7 +401,7 @@
         "template--16584037925111__c3ebe82c-835b-4f82-b2f6-b38befcf6797-16655668072faff6b4-1": {
           "type": "text",
           "settings": {
-            "txt_content": "<p>At Four Seasons, every product is design with you in mind. Your comfort and happiness is at the heart of every product and design. Start your journey today.</p>",
+            "txt_content": "<p>At Four Seasons, every product is design with you in mind. Your comfort and happiness is at the heart of every product and design. Start your journey today.<\/p>",
             "txt_fs": 16,
             "txt_fw": "400",
             "txt_tf": "unset",
@@ -414,7 +414,7 @@
           "settings": {
             "btn_content": "Learn More",
             "button_type": "primary",
-            "button_link": "shopify://products/signature-votive-champagne-wonderland",
+            "button_link": "shopify:\/\/products\/signature-votive-champagne-wonderland",
             "button_target": false,
             "b_mt": 0,
             "b_mb": 15
@@ -431,9 +431,9 @@
         "container": "container",
         "color_scheme": "",
         "banner_type": "image",
-        "image": "shopify://shop_images/2020_09_fs-home-product0086-v2_46519fa9-6567-4cdf-b233-adb9e8f4552e.jpg",
+        "image": "shopify:\/\/shop_images\/2020_09_fs-home-product0086-v2_46519fa9-6567-4cdf-b233-adb9e8f4552e.jpg",
         "video_url": "",
-        "link": "shopify://pages/about-us",
+        "link": "shopify:\/\/pages\/about-us",
         "open_link": "_blank",
         "bn_design": "text_column",
         "text_align": "text-center",

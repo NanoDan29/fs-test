@@ -93,7 +93,7 @@
                                         {%- for item in cart.items -%}
                                             <tr class="cart-item" id="CartItem-{{ item.index | plus: 1 }}">
                                                 <td class="cart-item__media">
-                                                    <a href="{{ item.url }}" class="cart-item__link" aria-hidden="true" tabindex="-1"> </a>
+                                                    <a href="{{ item.url }}" class="cart-item__link" aria-hidden="true" tabindex="-1">
                                                         <div class="cart-item__image-container gradient global-media-settings">
                                                             {%- if item.image != blank -%}
                                                                 {%- render 'responsive-image' | image: item.image | type: 'product' | cls: 'bls__product-grid bls__product-img-sw' -%}
@@ -351,11 +351,11 @@
                                             </div>
                                             <div id="address_province_container" class="address_province_container form-group mb-15 d-flex flex-column">
                                                 <label for="address_province" class="mb-5">{{ 'customer.addresses.province' | t }}</label>
-                                                <select id="address_province" class="form-control" name="address[province]" data-default="{{ form.province }}"></select>
+                                                <select id="address_province" class="form-control" name="address[province]" data-default=""></select>
                                             </div>
                                             <div class="form-group mb-15 d-flex flex-column">
                                                 <label for="AddressZip" class="mb-5">{{ 'customer.addresses.zip' | t }}</label>
-                                                <input type="text" class="form-control" id="AddressZip" name="address[zip]" value="{{ form.zip }}" autocapitalize="characters">
+                                                <input type="text" class="form-control" id="AddressZip" name="address[zip]" value="" autocapitalize="characters">
                                             </div>
                                         </div>
                                     </div>
@@ -401,7 +401,7 @@
                                             {{ 'sections.cart.taxes_and_shipping_at_checkout' | t }}
                                         {%- endif -%}
                                     </small>
-                                    <div class="cart__ctas" {{ block.shopify_attributes }}>
+                                    <div class="cart__ctas">
                                         {%- if settings.enable_cart_terms_conditions -%}
                                             <div class="bls__terms-conditions flex mb-25">
                                                 <div class="checkbox-group relative">

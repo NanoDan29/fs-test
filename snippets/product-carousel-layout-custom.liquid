@@ -18,12 +18,12 @@
 
 -%}
 <div
-  class="swiper bls__swiper grid-{{ product_style }} hover__show-nav {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}  {% if reveal_on_scroll %}reveal_on_scroll{% endif %}"
-  id="bls__swiper-{{ section.id }}"
+  class="swiper custom-bls__swiper grid-{{ product_style }} hover__show-nav {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}  {% if reveal_on_scroll %}reveal_on_scroll{% endif %}"
+  id="custom-bls__swiper-{{ section.id }}"
   data-section-id="{{ section.id }}"
   data-autoplay="{{ carousel_autoplay }}"
   data-loop="{{ carousel_loop }}"
-  data-mobile="{% if st.banner_position == 'position-center' %}2{% else %}2{% endif %}"
+  data-mobile="{% if st.banner_position == 'position-center' %}1{% else %}2{% endif %}"
   data-tablet="{% if st.banner_position == 'position-center' %}1{% else %}3{% endif %}"
   data-desktop="{% if st.banner_position == 'position-center' %}1{% else %}{{ item_desktop }}{% endif %}"
   data-spacing="{{ column_gap }}"

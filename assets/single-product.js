@@ -7,9 +7,6 @@ class VariantRadiosProductSingle extends HTMLElement {
         this.actionDropdownSwatches();
     }
 
-
-
-    
     onVariantChange(event) {
         event.preventDefault();
         const target = event.currentTarget;

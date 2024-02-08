@@ -3,30 +3,34 @@
   assign product_style = th_st.product_style
   assign show_country = th_st.show_country
   assign show_language = th_st.show_language
-  assign menu_title = menu_title | default: "Menu"
+  assign menu_title = section.settings.menu_title | default: 'Menu'
 -%}
 {%- if section.blocks.size > 0 -%}
   <nav
     class="navigation horizontal main-nav nav-sections"
     data-width-sub-center="{{ section.settings.width_sub_menu_center }}"
     data-action-mobile="{{ section.settings.menu_mb_action }}"
-    style="--hot-cl: {{ section.settings.color_hot }};--hot-bg-cl: {{ section.settings.color_bg_hot }};
-    --new-cl: {{ section.settings.color_new }};--new-bg-cl: {{ section.settings.color_bg_new }};--sale-cl: {{ section.settings.color_sale }};;--sale-bg-cl: {{ section.settings.color_bg_sale }};"
+    style="
+      --hot-cl: {{ section.settings.color_hot }};--hot-bg-cl: {{ section.settings.color_bg_hot }};
+      --new-cl: {{ section.settings.color_new }};--new-bg-cl: {{ section.settings.color_bg_new }};--sale-cl: {{ section.settings.color_sale }};;--sale-bg-cl: {{ section.settings.color_bg_sale }};
+    "
   >
     <div
-      class="mobile-menu-content">
+      class="mobile-menu-content"
+    >
       <ul
-        class="horizontal-list {% if show_language or show_country %}show-localization{% endif %} menu p-0 list-none my-0 {{ section.settings.m_animation }}">
+        class="horizontal-list {% if show_language or show_country %}show-localization{% endif %} menu p-0 list-none my-0 {{ section.settings.m_animation }}"
+      >
         {%- assign splits_main = 1 -%}
         {%- for block in section.blocks -%}
           {%- liquid
-                     assign block_st = block.settings
+            assign block_st = block.settings
 
-                     assign menu_custom_width = ''
-                     if block_st.custom_width > 1000
-                     assign menu_custom_width = 'menu-custom-width-center'
-                     endif
-                 -%}
+            assign menu_custom_width = ''
+            if block_st.custom_width > 1000
+              assign menu_custom_width = 'menu-custom-width-center'
+            endif
+          -%}
           {%- capture menuLevel0 -%}
             {%- liquid
                 assign width = block_st.width
@@ -56,7 +60,7 @@
               {%- elsif icon_font != blank -%}
                 <em
                   class="mr-10 menu-thumb-icon {{ icon_font }}"></em>
-              {%- endif- %}
+              {% endif %}
               <span>{{ block_st.title }}
               </span>
               {%- if label != blank -%}
@@ -72,106 +76,126 @@
           {%- endcapture -%}
           {%- case block.type -%}
             {%- when 'menu_item' -%}
-            {%- if block_st.title != blank -%}
-              <li
-                class="level0 bls__menu-parent multicolumn_dropdown menu-width-{{ block_st.width }}"
-                {{ block.shopify_attributes }}>{{ menuLevel0 }}
-                <div
-                  class=" submenu absolute gradient {{ menu_custom_width }}"
-                  style="--submenu-custom-width:{{ block_st.custom_width }}px;">
-                  <div class="fw-600 submenu-mobile-title justify-content-between">
-                    <a role="link" class="back-main-menu pointer">
-                      <i class="icon-chevron-left"></i>
-                      {%- if block_st.title != blank %}
-                        {{ block_st.title }}
+              {%- if block_st.title != blank -%}
+                <li
+                  class="level0 bls__menu-parent multicolumn_dropdown menu-width-{{ block_st.width }}"
+                  {{ block.shopify_attributes }}
+                >
+                  {{ menuLevel0 }}
+                  <div
+                    class=" submenu absolute gradient {{ menu_custom_width }}"
+                    style="--submenu-custom-width:{{ block_st.custom_width }}px;"
+                  >
+                    <div class="fw-600 submenu-mobile-title justify-content-between">
+                      <a role="link" class="back-main-menu pointer">
+                        <i class="icon-chevron-left"></i>
+                        {%- if block_st.title != blank %}
+                          {{ block_st.title }}
                         {%- else -%}
-                      {{ menu_title }}
-                      {%- endif -%}
-                    </a>
-                    <i class="icon-x close-menu pointer"></i>
-                  </div>
-                  {%- if width == 'full-width' -%}
-                    <div
-                      class="container-fluid">
+                          {{ menu_title }}
+                        {%- endif -%}
+                      </a>
+                      <i class="icon-x close-menu pointer"></i>
+                    </div>
+                    {%- if width == 'full-width' -%}
+                      <div
+                        class="container-fluid"
+                      >
                     {%- endif -%}
                     <div
-                      class="row">
+                      class="row"
+                    >
                       {%- render 'menu-splits', count_menu_item: splits_main -%}
                       {%- assign splits_main = splits_main | plus: 1 -%}
                     </div>
                     {%- if width == 'full-width' -%}
-                    </div>
-                  {%- endif -%}
-                </div>
-              </li>
-            {%- endif -%}
+                      </div>
+                    {%- endif -%}
+                  </div>
+                </li>
+              {%- endif -%}
             {%- when 'advanced' -%}
-            {%- if block_st.title != blank -%}
-              <li
-                class="level0 bls__menu-parent advanced menu-width-{{ block_st.width }}"
-                {{ block.shopify_attributes }}>{{ menuLevel0 }}
-                <div
-                  class="submenu absolute gradient {{ menu_custom_width }}"
-                  style="--submenu-custom-width:{{ block_st.custom_width }}px;">
-                  {%- if width == 'full-width' -%}
-                    <div
-                      class="container-fluid">
+              {%- if block_st.title != blank -%}
+                <li
+                  class="level0 bls__menu-parent advanced menu-width-{{ block_st.width }}"
+                  {{ block.shopify_attributes }}
+                >
+                  {{ menuLevel0 }}
+                  <div
+                    class="submenu absolute gradient {{ menu_custom_width }}"
+                    style="--submenu-custom-width:{{ block_st.custom_width }}px;"
+                  >
+                    {%- if width == 'full-width' -%}
+                      <div
+                        class="container-fluid"
+                      >
                     {%- endif -%}
                     <ul
-                      class="submenu-wrapper p-0 list-none d-flex">
+                      class="submenu-wrapper p-0 list-none d-flex"
+                    >
                       <li class="fw-600 submenu-mobile-title justify-content-between">
                         <a role="link" class="back-main-menu pointer">
                           <i class="icon-chevron-left"></i>
                           {%- if block_st.title != blank %}
                             {{ block_st.title }}
-                            {%- else -%}
-                          {{ menu_title }}
+                          {%- else -%}
+                            {{ menu_title }}
                           {%- endif -%}
                         </a>
-                      <i class="icon-x close-menu pointer"></i>
+                        <i class="icon-x close-menu pointer"></i>
                       </li>
                       <li
-                        class="advanced-main">
+                        class="advanced-main"
+                      >
                         {%- for link in linklists[block.settings.menu].links -%}
                           <a
                             href="{{ link.url }}"
                             class="py-10 d-block site-nav level-1{%- if link.links != blank -%} hasSub{%- endif -%}"
-                            data-link="{{ block.id }}-nv{{ link.title | handleize }}">
+                            data-link="{{ block.id }}-nv{{ link.title | handleize }}"
+                          >
                             {{ link.title | split: '[label' | first }}
                           </a>
                         {%- endfor -%}
                       </li>
                       <li
-                        class="advanced-content level-1 flex-fill">
+                        class="advanced-content level-1 flex-fill"
+                      >
                         {% for link in linklists[block_st.menu].links %}
                           {% assign index = forloop.index %}
                           <div
                             id="{{ block.id }}-nv{{ link.title | handleize }}"
-                            class="sub{% if forloop.first %} active{% endif %}">
-
+                            class="sub{% if forloop.first %} active{% endif %}"
+                          >
                             {%- liquid
-                                assign label1 = link.title | split: '[label' | last | split: ']' | first | prepend: "label"
-                                assign label_bg1 = section.settings[label1] | downcase | split: 'label' | last | prepend: "color_scheme_"
+                              assign label1 = link.title | split: '[label' | last | split: ']' | first | prepend: 'label'
+                              assign label_bg1 = section.settings[label1] | downcase | split: 'label' | last | prepend: 'color_scheme_'
                             -%}
                             <a
                               href="{{ link.url }}"
-                              class="py-10 d-block site-nav level-1 d-xl-none">
+                              class="py-10 d-block site-nav level-1 d-xl-none"
+                            >
                               {{ link.title | split: '[label' | first }}
                               {%- if link.title contains '[label' -%}
                                 <span
-                                  class="px-6 d-inline-block label {{ label1 }} color-{{ section.settings[label_bg1] }} gradient">{{ section.settings[label1] }}
+                                  class="px-6 d-inline-block label {{ label1 }} color-{{ section.settings[label_bg1] }} gradient"
+                                >
+                                  {{- section.settings[label1] }}
                                 </span>
                               {%- endif -%}
                             </a>
                             {%- if link.links != blank -%}
                               <div
-                                class="open-children-toggle" data-menu-level2></div>
+                                class="open-children-toggle"
+                                data-menu-level2
+                              ></div>
                             {%- endif -%}
                             <div
-                              class="d-flex">
+                              class="d-flex"
+                            >
                               {%- if link.links != blank -%}
                                 <ul
-                                  class="subchildmenu subLinks p-0 list-none flex-fill gradient">
+                                  class="subchildmenu subLinks p-0 list-none flex-fill gradient"
+                                >
                                   <li class="fw-600 submenu-mobile-title justify-content-between">
                                     <a role="link" class="back-main-menu-lv1 pointer">
                                       <i class="icon-chevron-left"></i>
@@ -181,19 +205,23 @@
                                   </li>
                                   <li
                                     class="level-2{%- if childlink.active or childlink.child_active -%} active{% endif %}"
-                                    style="column-count:{{ block_st.columns }};">
+                                    style="column-count:{{ block_st.columns }};"
+                                  >
                                     {%- for childlink in link.links -%}
                                       {%- liquid
-                                            assign label2 = childlink.title | split: '[label' | last | split: ']' | first | prepend: "label"
-                                            assign label_bg2 = section.settings[label2] | downcase | split: 'label' | last | prepend: "color_scheme_"
-                                        -%}
+                                        assign label2 = childlink.title | split: '[label' | last | split: ']' | first | prepend: 'label'
+                                        assign label_bg2 = section.settings[label2] | downcase | split: 'label' | last | prepend: 'color_scheme_'
+                                      -%}
                                       <a
                                         href="{{ childlink.url }}"
-                                        class="site-nav level-2">
+                                        class="site-nav level-2"
+                                      >
                                         {{ childlink.title | split: '[label' | first }}
                                         {%- if childlink.title contains '[label' -%}
                                           <span
-                                            class="px-6 d-inline-block label {{ label2 }} color-{{ section.settings[label_bg2] }} gradient">{{ section.settings[label2] }}
+                                            class="px-6 d-inline-block label {{ label2 }} color-{{ section.settings[label_bg2] }} gradient"
+                                          >
+                                            {{- section.settings[label2] }}
                                           </span>
                                         {%- endif -%}
                                       </a>
@@ -202,18 +230,20 @@
                                 </ul>
                               {%- endif -%}
                               {% liquid
-                                  assign collection_index = 'collection' | append: index
-                                  assign lkclect = block_st[collection_index]
-                                  assign collection = collections[lkclect]
-                                  assign show_item = block.settings.show_item
-                                  %}
+                                assign collection_index = 'collection' | append: index
+                                assign lkclect = block_st[collection_index]
+                                assign collection = collections[lkclect]
+                                assign show_item = block.settings.show_item
+                              %}
 
                               {%- if collection.products.size > 0 -%}
                                 <div
                                   class="level-1 type-memu-product"
-                                  style="width:{{ block_st.column_width }}%">
+                                  style="width:{{ block_st.column_width }}%"
+                                >
                                   <div
-                                    class="products-grid bls__grid {{ product_style }}">
+                                    class="products-grid bls__grid {{ product_style }}"
+                                  >
                                     <div
                                       class="swiper bls__swiper hover__show-nav"
                                       id="bls__swiper-{{ section.id }}"
@@ -223,12 +253,15 @@
                                       data-desktop="{{ show_item }}"
                                       data-autoplay="false"
                                       data-loop="false"
-                                      data-spacing="30">
+                                      data-spacing="30"
+                                    >
                                       <div
-                                        class="swiper-wrapper">
+                                        class="swiper-wrapper"
+                                      >
                                         {%- for product in collection.products limit: block_st.limit -%}
                                           <div
-                                            class="swiper-slide">
+                                            class="swiper-slide"
+                                          >
                                             {%- render 'product-item', product: product -%}
                                           </div>
                                         {%- endfor -%}
@@ -244,44 +277,49 @@
                       </li>
                     </ul>
                     {%- if width == 'full-width' -%}
+                      </div>
+                    {%- endif -%}
+                  </div>
+                </li>
+              {%- endif -%}
+            {%- when 'dropdown' -%}
+              {%- if block_st.title != blank -%}
+                <li
+                  class="level0 bls__menu-parent default_dropdown"
+                  {{ block.shopify_attributes }}
+                >
+                  {{ menuLevel0 }}
+                  {%- if linklists[block_st.menu].links.size > 0 -%}
+                    <div
+                      class="submenu absolute gradient"
+                    >
+                      <div class="fw-600 submenu-mobile-title justify-content-between">
+                        <a role="link" class="back-main-menu pointer">
+                          <i class="icon-chevron-left"></i>
+                          {%- if block_st.title != blank %}
+                            {{ block_st.title }}
+                          {%- else -%}
+                            {{ menu_title }}
+                          {%- endif -%}
+                        </a>
+                        <i class="icon-x close-menu pointer"></i>
+                      </div>
+                      <ul
+                        class="dropdown p-0 list-none my-0"
+                      >
+                        {%- render 'menu-dropdown', handle_menu: block_st.menu -%}
+                      </ul>
                     </div>
                   {%- endif -%}
-                </div>
-              </li>
-            {%- endif -%}
-            {%- when 'dropdown' -%}
-            {%- if block_st.title != blank -%}
-              <li
-                class="level0 bls__menu-parent default_dropdown"
-                {{ block.shopify_attributes }}>
-                {{ menuLevel0 }}
-                {%- if linklists[block_st.menu].links.size > 0 -%}
-                  <div
-                    class="submenu absolute gradient">
-                    <div class="fw-600 submenu-mobile-title justify-content-between">
-                      <a role="link" class="back-main-menu pointer">
-                        <i class="icon-chevron-left"></i>
-                        {%- if block_st.title != blank %}
-                          {{ block_st.title }}
-                          {%- else -%}
-                        {{ menu_title }}
-                        {%- endif -%}
-                      </a>
-                      <i class="icon-x close-menu pointer"></i>
-                    </div>
-                    <ul
-                      class="dropdown p-0 list-none my-0">
-                      {%- render 'menu-dropdown', handle_menu: block_st.menu -%}
-                    </ul>
-                  </div>
-                {%- endif -%}
-              </li>
-            {%- endif -%}
+                </li>
+              {%- endif -%}
             {%- when 'single_link' -%}
-            <li
-              class="level0 single"
-              {{ block.shopify_attributes }}>{{ menuLevel0 }}
-            </li>
+              <li
+                class="level0 single"
+                {{ block.shopify_attributes }}
+              >
+                {{ menuLevel0 }}
+              </li>
           {%- endcase -%}
         {%- endfor -%}
       </ul>

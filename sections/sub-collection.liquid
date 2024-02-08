@@ -14,7 +14,6 @@
   assign loop = st.loop
   assign autoplay = st.autoplay
   assign carousel_pagination = st.carousel_pagination
-  assign show_arrow = st.show_arrow
   assign reveal_on_scroll = st.reveal_on_scroll
   assign column_gap = st.column_gap
   assign media_aspect_ratio = st.image_ratio
@@ -24,13 +23,11 @@
   assign width_image = st.width_image
   assign images_style = st.images_style
   assign sub_collection = collection.metafields.bls.sub_collections | split: ','
-
   assign collection_font_size = st.collection_font_size
   assign collection_font_weight = st.collection_font_weight
   assign collection_spacing = st.collection_spacing
   assign count_font_size = st.count_font_size
   assign count_font_weight = st.count_font_weight
-
   assign categories_item = ''
   if item_desktop > 5
     assign categories_item = ' more-categories'
@@ -74,10 +71,10 @@
     assign responsive_column = 'col-sm-4'
   endif
   assign has_bg = ''
+  assign bg_color = st.bg_color | default: 'transparent'
   if bg_color != blank
     assign has_bg = ' has-bg'
   endif
-  assign bg_color = section.settings.bg_color | default: "#FFFFFF"
 -%}
 {%- capture style -%}
   {%- if bg_color != blank -%}
@@ -91,6 +88,7 @@
   --collection-count-size: {{ count_font_size }}px;
   --collection-count-weight: {{ count_font_weight }};
 {%- endcapture -%}
+
 {% if sub_collection.size > 0 %}
   <section
     class="color-{{ color_scheme }} gradient bls__section{{ has_bg }}{{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }} bls__collection bls__sub-collection {{ reset_spacing }} {% if reveal_on_scroll %}reveal_on_scroll{% endif %}"
@@ -164,7 +162,7 @@
             </div>
             {%
               render 'swiper-control',
-              show_arrow: show_arrow,
+              show_arrow: st.show_arrow,
               carousel_pagination: carousel_pagination,
             %}
           </div>

@@ -14,7 +14,6 @@
   assign heading_logo_svg = st.heading_logo_svg
   assign autoplay = st.autoplay
   assign carousel_pagination = st.carousel_pagination
-  assign show_arrow = st.show_arrow
   assign column_gap = st.column_gap
   assign image_width = st.image_width
   assign enabled_animations = settings.animations_enabled
@@ -59,11 +58,7 @@
   else
     assign responsive_column = 'col-sm-6'
   endif
-  assign has_bg = ''
-  assign bg_color = bg_color | default: "tranparent"
-  if bg_color != blank
-    assign has_bg = ' has-bg'
-  endif
+  assign has_bg = ' has-bg'
 -%}
 {%- capture style -%}
     --section-padding-top: {{ st.padding_top }}px; --section-padding-bottom: {{ st.padding_bottom }}px; --bls-gutter-x:
@@ -209,7 +204,7 @@
           </div>
           {%
             render 'swiper-control',
-            show_arrow: show_arrow,
+            show_arrow: st.show_arrow,
             carousel_pagination: carousel_pagination,
           %}
         </div>

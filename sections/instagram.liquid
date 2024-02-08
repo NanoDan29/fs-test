@@ -52,11 +52,10 @@
   endif
 
   assign has_bg = ''
-  assign bg_color = bg_color | default: "transparent"
+  assign bg_color = st.bg_color | default: 'transparent'
   if bg_color != blank
     assign has_bg = ' has-bg'
   endif
-  assign show_arrow = show_arrow | default: false
 -%}
 
 {%- capture style -%}
@@ -194,7 +193,7 @@
         </div>
         {%
           render 'swiper-control',
-          show_arrow: show_arrow,
+          show_arrow: st.carousel_arrows,
           carousel_pagination: carousel_pagination,
         %}
       </div>

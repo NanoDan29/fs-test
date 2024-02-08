@@ -19,7 +19,7 @@
             </li>
           {%- endif -%}
           <li class="bls__breadcrumb-item d-inline">
-            <span class="bls__breadcrumb-link" aria-current="page">{{ product.title }}<span>
+            <span class="bls__breadcrumb-link" aria-current="page">{{ product.title }}</span>
           </li>
         {%- when 'collection' and collection.handle -%}
           {%- if current_tags -%}
@@ -49,8 +49,11 @@
               {%- capture tag_url -%}{{ blog.url }}/tagged/{{ current_tags | join: '+' }}{%- endcapture -%}
               <span aria-hidden="true" class="bls__breadcrumb-separator px-4">/</span>
               <span class="bls__breadcrumb-link" aria-current="page">
-                {{- current_tags | join: ' + ' -}}
+                {{ tag_url }}{{- current_tags | join: ' + ' -}}
               </span>
+            </li>
+            <li class="bls__breadcrumb-item d-inline">
+              <span class="bls__breadcrumb-link" aria-current="page">{{ page_title }}</span>
             </li>
           {%- else -%}
             <li class="bls__breadcrumb-item d-inline">

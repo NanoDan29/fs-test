@@ -30,7 +30,7 @@
   assign current_variant = product.selected_or_first_available_variant
   assign compare_at_price = current_variant.compare_at_price
   assign price = current_variant.price | default: 1999
-  assign jm_style = jm_style | default: 'valor por defecto'
+  assign jm_style = st.jm_style | default: 'valor por defecto'
 -%}
 <div class="bls__product-quickview bls__product-single bls__lm-product-js bg-white overflow-hidden bls__product-preload-js">
   <div class="{{ product_label_style }} row g-0">

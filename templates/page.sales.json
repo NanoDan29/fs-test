@@ -58,7 +58,7 @@
         "container": "container",
         "color_scheme": "scheme-cdad2881-e610-44b4-8e2f-e906f6a5f790",
         "heading": "outlet<br>\nUp to 50% Off",
-        "description": "<p>Selected Pieces / Online Exclusive</p>",
+        "description": "<p>Selected Pieces \/ Online Exclusive<\/p>",
         "text_alignment": "text-center",
         "text_size": "large",
         "text_transform": "uppercase",
@@ -74,21 +74,21 @@
         "template--16777677799671__b7684526-f835-400c-8315-5ef8d457352d-16883763791ce68008-0": {
           "type": "scrolling_text",
           "settings": {
-            "content": "<p>Four Seasons - MID-SEASON SALE UP TO 20% OFF</p>",
+            "content": "<p>Four Seasons - MID-SEASON SALE UP TO 20% OFF<\/p>",
             "text_link": ""
           }
         },
         "template--16777677799671__b7684526-f835-400c-8315-5ef8d457352d-16883763791ce68008-1": {
           "type": "scrolling_text",
           "settings": {
-            "content": "<p>Four Seasons - SUMMER SALE FOR ALL SWIMSUITS - 10% OFF</p>",
+            "content": "<p>Four Seasons - SUMMER SALE FOR ALL SWIMSUITS - 10% OFF<\/p>",
             "text_link": ""
           }
         },
         "template--16777677799671__b7684526-f835-400c-8315-5ef8d457352d-16883763791ce68008-2": {
           "type": "scrolling_text",
           "settings": {
-            "content": "<p>Four Seasons - FREE DELIVERY AND RETURNS FROM $120</p>",
+            "content": "<p>Four Seasons - FREE DELIVERY AND RETURNS FROM $120<\/p>",
             "text_link": ""
           }
         }
@@ -154,7 +154,7 @@
       "settings": {
         "heading_logo_svg": "",
         "heading": "Top Offers",
-        "description": "<p>Our products are designed for everyone, environmentally friendly.</p>",
+        "description": "<p>Our products are designed for everyone, environmentally friendly.<\/p>",
         "text_alignment": "text-center",
         "container": "container",
         "color_scheme": "",
@@ -184,7 +184,7 @@
       "settings": {
         "heading_logo_svg": "",
         "heading": "People Also Bought",
-        "description": "<p>Here’s some of our most similar products people are buying. Click to discover trending style.</p>",
+        "description": "<p>Here’s some of our most similar products people are buying. Click to discover trending style.<\/p>",
         "text_alignment": "text-center",
         "container": "container",
         "color_scheme": "",
@@ -228,25 +228,25 @@
         "template--16777677799671__ca4a259f-6568-421d-a4c9-96dad9911424-1688377017810ed808-0": {
           "type": "iconbox",
           "settings": {
-            "icon": "shopify://shop_images/icon_box.webp",
+            "icon": "shopify:\/\/shop_images\/icon_box.webp",
             "heading": "Free Shipping",
-            "description": "<p>Get complimentary ground shipping on every order. Don't love it? Send it back, on us.</p>"
+            "description": "<p>Get complimentary ground shipping on every order. Don't love it? Send it back, on us.<\/p>"
           }
         },
         "template--16777677799671__ca4a259f-6568-421d-a4c9-96dad9911424-1688377017810ed808-1": {
           "type": "iconbox",
           "settings": {
-            "icon": "shopify://shop_images/icon_box2.webp",
+            "icon": "shopify:\/\/shop_images\/icon_box2.webp",
             "heading": "Free Returns",
-            "description": "<p>Free returns within 10 days, please make sure the items are in undamaged condition.</p>"
+            "description": "<p>Free returns within 10 days, please make sure the items are in undamaged condition.<\/p>"
           }
         },
         "template--16777677799671__ca4a259f-6568-421d-a4c9-96dad9911424-1688377017810ed808-2": {
           "type": "iconbox",
           "settings": {
-            "icon": "shopify://shop_images/icon_box3.webp",
+            "icon": "shopify:\/\/shop_images\/icon_box3.webp",
             "heading": "Support Online",
-            "description": "<p>We support customers 24/7, send questions we will solve for you immediately.</p>"
+            "description": "<p>We support customers 24\/7, send questions we will solve for you immediately.<\/p>"
           }
         }
       },

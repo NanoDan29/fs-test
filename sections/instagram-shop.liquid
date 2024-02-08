@@ -14,7 +14,6 @@
   assign column_gap = st.column_gap
   assign item_desktop = st.slider_lookbook_items
   assign ins_images_style = st.ins_images_style
-  assign show_arrow = st.show_arrow
   assign carousel_pagination = st.carousel_pagination
   assign loop = st.loop
   assign autoplay = st.autoplay
@@ -61,10 +60,11 @@
   endif
 
   assign has_bg = ''
-  assign bg_color = bg_color | default: "transparent"
+  assign bg_color = st.bg_color | default: "transparent"
   if bg_color != blank
     assign has_bg = ' has-bg'
   endif
+ 
 
   assign ratio = ''
   if th_st.product_aspect_ratio != 'custom'
@@ -81,7 +81,7 @@
   {{ column_gap }}px;
 {%- endcapture -%}
 <section
-  class="bls__section color-{{ color_scheme }} gradient {{ has_bg }}{{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }} bls__lookbook-instagram {{ reset_spacing }}"
+  class="123456 bls__section color-{{ color_scheme }} gradient {{ has_bg }}{{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }} bls__lookbook-instagram {{ reset_spacing }}"
   style="{{ style | strip | strip_newlines }}"
 >
   <instagram-shop
@@ -161,7 +161,7 @@
             </div>
             {%
               render 'swiper-control',
-              show_arrow: show_arrow,
+              show_arrow: st.show_arrow,
               carousel_pagination: carousel_pagination,
             %}
           </div>

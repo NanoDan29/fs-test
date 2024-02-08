@@ -7,8 +7,6 @@
     flex-direction: column;
 }
 
-
-
 .banner-with-text-overplay:not(.text-bellow-mobile) .bls__banner-text--content {
     padding: 1rem;
 }

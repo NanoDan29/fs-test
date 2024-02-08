@@ -13,7 +13,6 @@
   assign thumbnail_position = st.thumbnail_position
   assign enabled_animations = settings.animations_enabled
   assign carousel_pagination = st.carousel_pagination
-
   assign reset_spacing = ''
   if st.reset_spacing
     assign reset_spacing = ' remove_spacing'
@@ -36,6 +35,7 @@
   endif
 
   assign has_bg = ''
+  assign bg_color = st.bg_color | default: "transparent"
   if bg_color != blank
     assign has_bg = ' has-bg'
   endif
@@ -66,7 +66,6 @@
           {% liquid
             assign position_top = block.settings.position_top
             assign position_left = block.settings.position_left
-            assign product = block.settings.product
           %}
           <div
             class="bls__lookbook-dot {% if forloop.index == 1 %}active{% endif %} absolute"
@@ -165,7 +164,6 @@
               {% liquid
                 assign position_top = block.settings.position_top
                 assign position_left = block.settings.position_left
-                assign product = block.settings.product
               %}
               <div
                 class="swiper-slide {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
@@ -174,7 +172,7 @@
                   style="--animation-order: {{ forloop.index }};"
                 {% endif %}
               >
-                {%- render 'product-item' | product: product -%}
+                {%- render 'product-item' | product: block.settings.product -%}
               </div>
             {%- endfor -%}
           </div>
