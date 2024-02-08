@@ -16,9 +16,19 @@
   | replace: '%20', ' '
   | replace: '\u0026', '&'
 -%}
-{%- assign pageQuerystring = pageUrl | split: '?' | last -%}
+
 {%- liquid
+  assign pagination = st.pagination
+  assign pageQuerystring = pageUrl | split: '?' | last
   assign pagination_ps = ''
+
+  if pageQuerystring contains 'pagination='
+    assign pagination_pr = pageQuerystring | split: 'pagination=' | last | split: '&' | first
+    if pagination_pr == 'default' or pagination_pr == 'load_more' or pagination_pr == 'infinit_scrolling'
+      assign pagination = pagination_pr
+    endif
+  endif
+  
   if pageQuerystring contains 'layout='
     assign layout_pra = pageQuerystring | split: 'layout=' | last | split: '&' | first
     if layout_pra == 'list' or layout_pra == 'grid'
@@ -109,7 +119,7 @@
               assign number_page = st.max_articles | times: 1
               assign count = blog.articles_count
             endif
-            
+
             assign amount = number_page | times: cur_page
             if cur_page == paginate_size or amount > count
               assign amount = count

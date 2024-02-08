@@ -35,7 +35,6 @@
   assign items_per_row = st.items_per_row
   assign column_gap = st.column_gap
   assign layout = st.layout
-  assign pagination = st.pagination
 
   if pageQuerystring contains 'column='
     assign column = pageQuerystring | split: 'column=' | last | split: '&' | first
@@ -55,12 +54,7 @@
       assign sidebar_ps = sidebar
     endif
   endif
-  if pageQuerystring contains 'pagination='
-    assign pagination_pr = pageQuerystring | split: 'pagination=' | last | split: '&' | first
-    if pagination_pr == 'default' or pagination_pr == 'load_more' or pagination_pr == 'infinit_scrolling'
-      assign pagination = pagination_pr
-    endif
-  endif
+ 
   assign blog_column = ''
   if items_per_row == 1
     assign blog_column = 'row-cols-1'
@@ -111,7 +105,14 @@
                   {%- endfor -%}
                 </div>
                 {%- if paginate.pages > 1 -%}
-                  {% render 'pagination', paginate: paginate, st: st, anchor: '', pagination: pagination, %}
+                  {%
+                    render 'pagination',
+                    paginate: paginate, 
+                    st: st, 
+                    anchor: '',
+                    pageQuerystring:pageQuerystring, 
+                    pagination: st.pagination,
+                  %}
                 {%- endif -%}
               </div>
             {%- endpaginate -%}
