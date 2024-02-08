@@ -1,5 +1,6 @@
 {%- liquid
   assign th_st = settings
+  assign st = section.settings
   assign product_style = th_st.product_style
   assign show_country = th_st.show_country
   assign show_language = th_st.show_language
@@ -204,7 +205,7 @@
                                     <i class="icon-x close-menu pointer"></i>
                                   </li>
                                   <li
-                                    class="level-2{%- if childlink.active or childlink.child_active -%} active{% endif %}"
+                                    class="level-2{%- if st.childlink.active or st.childlink.child_active -%} active{% endif %}"
                                     style="column-count:{{ block_st.columns }};"
                                   >
                                     {%- for childlink in link.links -%}

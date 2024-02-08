@@ -10,6 +10,7 @@
   assign custom_ratio = st.custom_ratio
   assign hover_effect = st.hover_effect
 -%}
+<h1>main</h1>
 <script src="{{ 'blog.js' | asset_url }}" defer="defer"></script>
 <section id="pageContent">
   <div class="{{ st.container }} clearfix">
@@ -17,13 +18,11 @@
       <div class="col-blog-contents">
         <article class="article-template" itemscope itemtype="http://schema.org/BlogPosting">
           {%- if article.image -%}
-            <div class="article-template__hero-container" {{ block.shopify_attributes }}>
+            <div class="article-template__hero-container">
               <div
-                class="article-template__hero-{{ block.settings.image_height }} media"
+                class="article-template__hero- media"
                 itemprop="image"
-                {% if block.settings.image_height == 'adapt' and article.image %}
-                  style="padding-bottom: {{ 1 | divided_by: article.image.aspect_ratio | times: 100 }}%;"
-                {% endif %}
+                
               >
                 <img
                   srcset="
@@ -47,7 +46,7 @@
           {%- endif -%}
           <div class="blog-content-wap">
             <div class="blog-article-contents blog-section">
-              <div class="page-width mb-20" {{ block.shopify_attributes }}>
+              <div class="page-width mb-20">
                 <div class="article-template__back fw-500 fs-12 uppercase mb-5">
                   <a href="{{ blog.url }}" class="article-template__link link animate-arrow">
                     {{ blog.title }}
@@ -83,7 +82,6 @@
               <div
                 class="article-template__content page-width page-width--narrow rte"
                 itemprop="articleBody"
-                {{ block.shopify_attributes }}
               >
                 {{ article.content }}
               </div>
@@ -264,8 +262,8 @@
                       </h2>
                       {% paginate article.comments by 5 %}
                         <div class="article-template__comments">
-                          {%- if comment.status == 'pending' and comment.content -%}
-                            <article id="{{ comment.id }}" class="article-template__comments-comment d-flex">
+                          {%- if article.comment.status == 'pending' and article.comment.content -%}
+                            <article id="{{ article.comment.id }}" class="article-template__comments-comment d-flex">
                               <div class="author-image mr-20">
                                 <svg
                                   width="70"
@@ -282,11 +280,11 @@
                               <div class="flex-1">
                                 <div class="mb-5">
                                   <span class="author-comment heading-weight fs-12 uppercase">
-                                    {{- comment.author -}}
+                                    {{- article.comment.author -}}
                                   </span>
                                 </div>
                                 <div class="content-comment">
-                                  {{ comment.content }}
+                                  {{ article.comment.content }}
                                 </div>
                               </div>
                             </article>
@@ -331,7 +329,7 @@
                   {% form 'new_comment', article %}
                     {%- liquid
                       assign post_message = 'blogs.article.success'
-                      if blog.moderated? and comment.status == 'unapproved'
+                      if blog.moderated? and article.comment.status == 'unapproved'
                         assign post_message = 'blogs.article.success_moderated'
                       endif
                     -%}

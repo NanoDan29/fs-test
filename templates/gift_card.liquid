@@ -42,8 +42,8 @@
           }
       </script>
     {%- render 'head-assets' -%}
-    {{ 'reset.css' | asset_url | stylesheet_tag }} 
-    {{ 'utilities.css' | asset_url | stylesheet_tag }}
+    {{ 'reset.min.css' | asset_url | stylesheet_tag }} 
+    {{ 'utilities.min.css' | asset_url | stylesheet_tag }}
     {{ 'template-giftcard.css' | asset_url | stylesheet_tag }}
   </head>
 
@@ -111,7 +111,7 @@
               {{ 'gift_cards.issued.shop_link' | t }}
             </a>
             <button
-              class="button btn-secondary mt-10""
+              class="button btn-secondary mt-10"
               onclick="window.print();"
             >
               {{ 'gift_cards.issued.print_gift_card' | t }}
