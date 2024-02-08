@@ -30,7 +30,7 @@
   assign current_variant = product.selected_or_first_available_variant
   assign compare_at_price = current_variant.compare_at_price
   assign price = current_variant.price | default: 1999
-  assign jm_style = st.jm_style | default: 'valor por defecto'
+  assign jm_style = st.jm_style | default: 'default'
 -%}
 <div class="bls__product-quickview bls__product-single bls__lm-product-js bg-white overflow-hidden bls__product-preload-js">
   <div class="{{ product_label_style }} row g-0">
@@ -123,9 +123,6 @@
                   style="{{ jm_style }}"
                   class="jdgm-widget jdgm-preview-badge bls__pro-reviews no-js-hidden mt-5"
                   data-id="{{ product.id }}"
-                  {%- if block -%}
-                    {{ block.shopify_attributes }}
-                  {%- endif -%}
                 >
                   {{ product.metafields.judgeme.badge }}
                 </div>
@@ -197,9 +194,9 @@
             {{ product.metafields.bls.short_description }}
           </div>
         {%- endif -%}
-        {%
-          render 'quickview-sw-only-product',
-          st: st, option_name: option_name,
+        {% render 'quickview-sw-only-product',
+          st: st,
+          option_name: option_name,
           color_type: color_type,
           selector_type: selector_type,
           product: product,
@@ -351,7 +348,7 @@
                     <button
                       type="submit"
                       name="add"
-                      class="product-form__submit relative flex-1 whitespace-nowrap min-height-48 mb-15 mr-10 animation {{ block.settings.button_animation }}"
+                      class="product-form__submit relative flex-1 whitespace-nowrap min-height-48 mb-15 mr-10 animation xcvxcxcv"
                       {% if product.selected_or_first_available_variant.available == false %}
                         disabled
                       {% endif %}

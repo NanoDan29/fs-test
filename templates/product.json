@@ -182,7 +182,7 @@
         "swatch_size": "medium",
         "bought_together": true,
         "sticky": true,
-        "sticky_mode": "1"
+        "sticky_mode": "2"
       }
     },
     "product-sidebar": {
