@@ -1,15 +1,7 @@
-<script src="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.js" defer></script>
-<link href="https://api.mapbox.com/mapbox-gl-js/v2.11.0/mapbox-gl.css" rel="stylesheet">
-<!-- Geocoder plugin -->
-<script
-  src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.min.js"
-  defer
-></script>
-<link
-  rel="stylesheet"
-  href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-geocoder/v4.7.0/mapbox-gl-geocoder.css"
-  type="text/css"
->
+<script src="{{ 'mapbox-gl.js' | asset_url }}" defer></script>
+{{ 'mapbox-gl.css' | asset_url | stylesheet_tag }}
+<script src="{{ 'mapbox-gl-geocoder.min.js' | asset_url }}" defer></script>
+{{ 'mapbox-gl-geocoder.css' | asset_url | stylesheet_tag }}
 
 {% liquid
   assign st = section.settings
