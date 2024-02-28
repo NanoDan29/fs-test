@@ -14,11 +14,11 @@
   assign text_view_all = st.text_view_all
   assign enable_banner = st.enable_banner
   assign banner_img = st.banner_img
+  assign banner_position = st.banner_position
   assign banner_width = st.banner_width
   assign video_local = st.video_local
   assign th_st = settings.animations_enabled
   assign reveal_on_scroll = st.reveal_on_scroll
-  assign column_gap = st.column_gap
 
   assign reset_spacing = ''
   if st.reset_spacing
@@ -40,10 +40,6 @@
   assign banner_position = ''
   if st.banner_position == 'position-right'
     assign banner_position = ' flex-row-reverse'
-  endif
-
-  if st.banner_position == 'position-center'
-    assign banner_position = ' banner-center'
   endif
 
   assign spt_tablet = ''
@@ -84,7 +80,6 @@
   endif
   assign collection = collections[cls]
   assign enabled_animations = st.animations_enabled | default: false
-  
 -%}
 
 {%- capture style -%}
@@ -94,7 +89,7 @@
   --section-padding-top: {{ st.padding_top }}px; --section-padding-bottom: {{ st.padding_bottom }}px; --bls_product-item-vertical-space: 0px;
 {%- endcapture -%}
 <section
-  class="bls__section color-{{ color_scheme }} gradient {{ has_bg }}{{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }} bls__product{{ reset_spacing }} {% if reveal_on_scroll %}reveal_on_scroll{% endif %}"
+  class="bls__section color-{{ color_scheme }} gradient {{ has_bg }}{{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }} bls__product{{ reset_spacing }} {% if reveal_on_scroll %}reveal_on_scroll{% endif %} {% if section.settings.container == "full-width" or section.settings.column_gap == 0 %} not-radius {% endif %}"
   style="{{ style | strip | strip_newlines }}"
   data-id="{{ section.id }}"
   data-type="product_carousel"
@@ -102,7 +97,7 @@
     data-free-scroll
   {% endif %}
 >
-  <div class=" {{ container }} ">
+  <div class=" {{ container }} section-full">
     {%- if heading != blank or description != blank or heading_logo != blank or heading_logo_svg != blank -%}
       <div class="bls__section-header {{ text_align }} {% if text_view_all -%}text-view-all{% endif %} {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}">
         {%- if heading_logo_svg != blank -%}
@@ -154,126 +149,63 @@
       </div>
     {%- endif -%}
     <div class="bls__grid {{ product_style }}">
-      {% if st.banner_position != 'position-center' %}
-        <div
-          class="row flex-nowrap {{ banner_position }}"
-          style="--product-banner-width: {{ banner_width }}%; --bls_product-item-vertical-space: 0"
-        >
-          {%- if enable_banner -%}
-            <div class="bls__product-banner d-none d-xl-block {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}">
-              {%- case st.banner_type -%}
-                {%- when 'video' -%}
-                  {%- if video_local == blank -%}
-                    <div class="video-container h-full">
-                      <div class="video-foreground">
-                        {%- if video_url.type == 'youtube' -%}
-                          <video-youtube data-id="">
-                            <iframe
-                              src="https://www.youtube.com/embed/{{ video_id }}?controls=0&autoplay=1&mute=1&playsinline=1&loop=1&playlist={{ video_id }}"
-                            ></iframe>
-                          </video-youtube>
-                        {%- elsif video_url.type == 'vimeo' -%}
+      <div
+        class="row flex-nowrap {{ banner_position }}"
+        style="--product-banner-width: {{ banner_width }}%; --bls_product-item-vertical-space: 0"
+      >
+        {%- if enable_banner -%}
+          <div class="bls__product-banner d-none d-xl-block {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}">
+            {%- case st.banner_type -%}
+              {%- when 'video' -%}
+                {%- if video_local == blank -%}
+                  <div class="video-container h-full">
+                    <div class="video-foreground">
+                      {%- if video_url.type == 'youtube' -%}
+                        <video-youtube data-id="">
                           <iframe
-                            src="https://player.vimeo.com/video/{{ video_id }}?controls=0background=1&autoplay=1&muted=1&loop=1"
-                            frameborder="0"
-                            allowfullscreen
+                            src="https://www.youtube.com/embed/{{ video_id }}?controls=0&autoplay=1&mute=1&playsinline=1&loop=1&playlist={{ video_id }}"
                           ></iframe>
-                        {%- endif -%}
-                      </div>
+                        </video-youtube>
+                      {%- elsif video_url.type == 'vimeo' -%}
+                        <iframe
+                          src="https://player.vimeo.com/video/{{ video_id }}?controls=0background=1&autoplay=1&muted=1&loop=1"
+                          frameborder="0"
+                          allowfullscreen
+                        ></iframe>
+                      {%- endif -%}
                     </div>
-                  {%- else -%}
-                    <div class="local-video h-full">
-                      <video
-                        controls="true"
-                        loop="true"
-                        muted="true"
-                        playsinline="true"
-                        autoplay="true"
-                        src="{{ video_local.sources[1].url }}"
-                      ></video>
-                    </div>
-                  {%- endif -%}
+                  </div>
                 {%- else -%}
-                  <a
-                    class="h-full w-full d-block"
-                    href="{{ banner_url }}"
-                    aria-label="Link detail"
-                  >
-                    {% if banner_img != blank %}
-                      {%- render 'responsive-image', image: banner_img -%}
-                    {% else %}
-                      {%- render 'placeholder-render' | type: 'image' -%}
-                    {% endif %}
-                  </a>
-              {%- endcase -%}
-            </div>
-          {%- endif -%}
-          <div class="bls__product-with-banner{{ show_banner }}">
-            {%- render 'product-carousel-layout' | st: section.settings -%}
+                  <div class="local-video h-full">
+                    <video
+                      controls="true"
+                      loop="true"
+                      muted="true"
+                      playsinline="true"
+                      autoplay="true"
+                      src="{{ video_local.sources[1].url }}"
+                    ></video>
+                  </div>
+                {%- endif -%}
+              {%- else -%}
+                <a
+                  class="h-full w-full d-block"
+                  href="{{ banner_url }}"
+                  aria-label="Link detail"
+                >
+                  {% if banner_img != blank %}
+                    {%- render 'responsive-image', image: banner_img -%}
+                  {% else %}
+                    {%- render 'placeholder-render' | type: 'image' -%}
+                  {% endif %}
+                </a>
+            {%- endcase -%}
           </div>
+        {%- endif -%}
+        <div class="bls__product-with-banner{{ show_banner }}">
+          {%- render 'product-carousel-layout' | st: section.settings -%}
         </div>
-      {% else %}
-        <div
-          class="bls__product-with-banner{{ banner_position }}"
-          style="gap: {{ column_gap }}px"
-        >
-          <div class="bls__product-with-banner{{ show_banner }}">
-            {%- render 'product-carousel-layout' | st: section.settings -%}
-          </div>
-          {%- if enable_banner -%}
-            <div class="bls__product-banner {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}">
-              {%- case st.banner_type -%}
-                {%- when 'video' -%}
-                  {%- if video_local == blank -%}
-                    <div class="video-container h-full">
-                      <div class="video-foreground">
-                        {%- if video_url.type == 'youtube' -%}
-                          <video-youtube data-id="">
-                            <iframe
-                              src="https://www.youtube.com/embed/{{ video_id }}?controls=0&autoplay=1&mute=1&playsinline=1&loop=1&playlist={{ video_id }}"
-                            ></iframe>
-                          </video-youtube>
-                        {%- elsif video_url.type == 'vimeo' -%}
-                          <iframe
-                            src="https://player.vimeo.com/video/{{ video_id }}?controls=0background=1&autoplay=1&muted=1&loop=1"
-                            frameborder="0"
-                            allowfullscreen
-                          ></iframe>
-                        {%- endif -%}
-                      </div>
-                    </div>
-                  {%- else -%}
-                    <div class="local-video h-full">
-                      <video
-                        controls="true"
-                        loop="true"
-                        muted="true"
-                        playsinline="true"
-                        autoplay="true"
-                        src="{{ video_local.sources[1].url }}"
-                      ></video>
-                    </div>
-                  {%- endif -%}
-                {%- else -%}
-                  <a
-                    class="h-full w-full d-block"
-                    href="{{ banner_url }}"
-                    aria-label="Link detail"
-                  >
-                    {% if banner_img != blank %}
-                      {%- render 'responsive-image', image: banner_img -%}
-                    {% else %}
-                      {%- render 'placeholder-render' | type: 'image' -%}
-                    {% endif %}
-                  </a>
-              {%- endcase -%}
-            </div>
-          {%- endif -%}
-          <div class="bls__product-with-banner{{ show_banner }}">
-            {%- render 'product-carousel-layout-custom' | st: section.settings -%}
-          </div>
-        </div>
-      {%- endif -%}
+      </div>
     </div>
   </div>
 </section>
@@ -281,6 +213,9 @@
 {% schema %}
 {
   "name": "Products carousel",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
   "settings": [
     {
       "type": "header",
@@ -345,6 +280,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",
@@ -522,10 +461,6 @@
         {
           "value": "position-left",
           "label": "Left"
-        },
-        {
-          "value": "position-center",
-          "label": "Center"
         },
         {
           "value": "position-right",

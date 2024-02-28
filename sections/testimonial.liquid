@@ -115,7 +115,7 @@
   data-id="{{ section.id }}"
   id="{{ section.id }}"
 >
-  <div class="{{ container }}">
+  <div class="{{ container }} section-full">
     {%- if heading != blank or description != blank or heading_logo != blank or heading_logo_svg != blank -%}
       <div class="bls__section-header {{ text_align }}">
         {%- if heading_logo_svg != blank -%}
@@ -171,22 +171,27 @@
       >
         <div class="swiper-wrapper {% if carousel_pagination_progress %}mb-45{% endif %}">
           {%- for block in section.blocks -%}
-            <div class="swiper-slide {% if design == 'design_3' %}bls__tes-slide-3{% endif %}">
+            <div
+              {{ block.shopify_attributes }}
+              class="swiper-slide {% if design == 'design_3' %}bls__tes-slide-3{% endif %}"
+            >
               <div
                 class="bls__tes-item {{ img_view }} flex{{ img_position }}  {% if design == 'design_3' %}flex-wrap  bls__tes-item-3 flex-column{% endif %}"
                 style="--content-width:{{ content_width }}%;"
               >
                 {% if design == 'design_3' %}
-                  <div class="bls__tes-content-design3 w-full d-flex align-self-start {{ img_position }}">
+                  <div
+                    class="bls__tes-content-design3 w-full d-flex align-items-center align-self-start {{ img_position }}"
+                  >
                 {% endif %}
                 {%- if block.settings.image != blank -%}
                   <div class="bls__tes-img bls_img-ratio mb-15" style="width: {{ block.settings.testimonial_width }}px">
                     {% render 'responsive-image', image: block.settings.image %}
                   </div>
                 {%- endif -%}
-                <div class="bls__tes-content {{ bls_tes-content }}">
+                <div class="bls__tes-content {{ bls_tes-content }}  {% if design == 'design_3' %}mb-15{%- endif -%}">
                   {% if design == 'design_1' %}
-                    <div class="desc-quote-info {{ desc_text_size }} heading-color">
+                    <div class="desc-quote-info {{ desc_text_size }}">
                       {%- if block.settings.image == blank -%}
                         <svg
                           class="{{ mb_svg }} {% if st.img_view == 'framed' %} mt-10 {% endif %}"
@@ -199,7 +204,7 @@
                         </svg>
                       {%- endif -%}
                       {%- if block.settings.title_text != blank -%}
-                        <div class="h4 bls__tes-title title-name heading-color heading-weight mb-0  {{ title_text_size }}">
+                        <div class="h4 bls__tes-title title-name heading-color heading-weight mb-0-important {{ title_text_size }}">
                           {{ block.settings.title_text }}
                         </div>
                       {%- endif -%}
@@ -236,9 +241,9 @@
                         {%- endfor -%}
                       </div>
                     {%- endif -%}
-                    <div class="desc-quote-info {{ desc_text_size }} heading-color">
+                    <div class="desc-quote-info {{ desc_text_size }}">
                       {%- if block.settings.title_text != blank -%}
-                        <div class="h4 bls__tes-title title-name heading-color heading-weight mb-0  {{ title_text_size }}">
+                        <div class="h4 bls__tes-title title-name heading-color heading-weight mb-0-important {{ title_text_size }}">
                           {{ block.settings.title_text }}
                         </div>
                       {%- endif -%}
@@ -255,12 +260,12 @@
                     </div>
                   {% else %}
                     {%- if block.settings.title_text != blank -%}
-                      <div class="h4 bls__tes-title title-name heading-color heading-weight mt-7 mb-0  {{ title_text_size }}">
+                      <div class="h4 bls__tes-title title-name heading-color heading-weight mb-0-important {{ title_text_size }}">
                         {{ block.settings.title_text }}
                       </div>
                     {%- endif -%}
                     {%- if section.settings.show_rating -%}
-                      <div class="bls__tes-rate stars mb-7">
+                      <div class="bls__tes-rate stars">
                         {%- for i in (1..5) -%}
                           <span class="star inline-flex">
                             <svg
@@ -281,7 +286,7 @@
                 {% if design == 'design_3' %}</div>{% endif %}
                 {% if design == 'design_3' %}
                   <div class="bls__tes-content-bottom  d-flex flex-column flex-1">
-                    <div class="desc-quote-info {{ desc_text_size }} heading-color flex-1">
+                    <div class="desc-quote-info {{ desc_text_size }} flex-1">
                       {{ block.settings.description }}
                     </div>
                     <div class="bls__quote-info d-flex align-items-center border-top justify-content-between  mt-25 pt-20">
@@ -319,7 +324,7 @@
       >
         <div class="swiper-wrapper" style="--perload-gap: 10px">
           {%- for block in section.blocks -%}
-            <div class="swiper-slide">
+            <div {{ block.shopify_attributes }} class="swiper-slide">
               <div class="testimonial-thumb-img text-center">
                 <img
                   data-src="{{ block.settings.logo | image_url }}"
@@ -338,8 +343,8 @@
                   src="{{ block.settings.logo | image_url }}"
                   alt="{{ block.settings.alt | escape }}"
                   loading="lazy"
-                  width="110"
-                  height="{{ 110 | divided_by: block.settings.logo.aspect_ratio | ceil }}"
+                  width="140"
+                  height="{{ 140 | divided_by: block.settings.logo.aspect_ratio | ceil }}"
                 >
               </div>
             </div>
@@ -353,6 +358,9 @@
 {% schema %}
 {
   "name": "Testimonials",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
   "settings": [
     {
       "type": "header",
@@ -417,6 +425,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",
@@ -670,16 +682,16 @@
           "info": "70 x 70px recommended"
         },
         {
-          "type": "image_picker",
-          "id": "logo",
-          "label": "Logo",
-          "info": "The logo image is only displayed when you select the Panigation type as logo"
-        },
-        {
           "type": "number",
           "id": "testimonial_width",
           "label": "Image width (px)",
           "default": 100
+        },
+        {
+          "type": "image_picker",
+          "id": "logo",
+          "label": "Logo",
+          "info": "The logo image is only displayed when you select the Panigation type as logo"
         }
       ]
     }

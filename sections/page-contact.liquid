@@ -8,7 +8,11 @@
   assign contact_info_heading = st.contact_info_heading
   assign contact_info_sub_heading = st.contact_info_sub_heading
   assign contact_info_content = st.contact_info_content
+  assign contact_info_content_2 = st.contact_info_content_2
+  assign contact_info_content_3 = st.contact_info_content_3
   assign store_1 = st.store_1
+  assign store_2 = st.store_2
+  assign store_3 = st.store_3
 -%}
 
 <section
@@ -32,7 +36,7 @@
         </div>
       {%- endif -%}
       <div
-        class="{{ container }}"
+        class="{{ container }} section-full"
       >
         <div
           class="bls__section bls__contact-header"
@@ -64,6 +68,38 @@
                     {{ store_1 }}
                   </h5>
                   {{ contact_info_content }}
+                </div>
+              </div>
+            {%- endif -%}
+            {%- if contact_info_content_2 != blank or store_2 != blank -%}
+              <div
+                class="flex-xs-1 col-12"
+              >
+                <div
+                  class="bs__store-info pt-xs-0 border-xs-0 pt-30 border-top"
+                >
+                  <h5
+                    class="mb-15"
+                  >
+                    {{ store_2 }}
+                  </h5>
+                  {{ contact_info_content_2 }}
+                </div>
+              </div>
+            {%- endif -%}
+            {%- if contact_info_content_3 != blank or store_2 != blank -%}
+              <div
+                class="flex-xs-1 col-12"
+              >
+                <div
+                  class="bs__store-info pt-xs-0 border-xs-0 pt-30 border-top"
+                >
+                  <h5
+                    class="mb-15"
+                  >
+                    {{ store_3 }}
+                  </h5>
+                  {{ contact_info_content_3 }}
                 </div>
               </div>
             {%- endif -%}
@@ -202,6 +238,10 @@
           "label": "Fluid container"
         },
         {
+          "label": "Stretch width",
+          "value": "strecth-width"
+        },
+        {
           "value": "full-width",
           "label": "Full width"
         }
@@ -253,7 +293,7 @@
       "type": "richtext",
       "id": "contact_info_sub_heading",
       "label": "Sub heading",
-      "default": "<p>United States. info@fourseasons.com</p><p>(702) 479-4017</p>"
+      "default": "<p>68 St, South New York/NY 98944, United States. blueskytechcompany@gmail.comm</p><p>+222-1800-262</p><p>Opening Hours: Everyday 9:00 am - 6:00 pm</p>"
     },
     {
       "type": "header",
@@ -263,13 +303,45 @@
       "type": "text",
       "id": "store_1",
       "label": "Store name",
-      "default": "United States"
+      "default": "Umino - United States"
     },
     {
       "type": "richtext",
       "id": "contact_info_content",
       "label": "Store info",
       "default": "<p>Opening Hours: Everyday 9:00 am - 6:00 pm</p>"
+    },
+    {
+      "type": "header",
+      "content": "Store 2"
+    },
+    {
+      "type": "text",
+      "id": "store_2",
+      "label": "Store name",
+      "default": "Umino - India"
+    },
+    {
+      "type": "richtext",
+      "id": "contact_info_content_2",
+      "label": "Store info",
+      "default": "<p>68 St, South New York/NY 98944, United States. blueskytechcompany@gmail.comm</p><p>+222-1800-262</p><p>Opening Hours: Everyday 9:00 am - 6:00 pm</p>"
+    },
+    {
+      "type": "header",
+      "content": "Store 3"
+    },
+    {
+      "type": "text",
+      "id": "store_3",
+      "label": "Store name",
+      "default": "Umino - French"
+    },
+    {
+      "type": "richtext",
+      "id": "contact_info_content_3",
+      "label": "Store info",
+      "default": "<p>68 St, South New York/NY 98944, United States. blueskytechcompany@gmail.comm</p><p>+222-1800-262</p><p>Opening Hours: Everyday 9:00 am - 6:00 pm</p>"
     }
   ]
 }

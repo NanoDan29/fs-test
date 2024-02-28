@@ -22,7 +22,7 @@
     class="topbar border-bottom color-{{ section.settings.color_scheme }} gradient {% if show_phone_number or show_email or show_social or show_store_page or show_language or show_country or show_message %} {% endif %} {% if show_mobile == blank %}d-none-mb{% endif %}"
   >
     <div class="topbar__section">
-      <div class="{{ container }} d-flex flex-wrap justify-content-between align-items-center topbar__section-inner">
+      <div class="{{ container }} section-full d-flex flex-wrap justify-content-between align-items-center topbar__section-inner">
         {%- if show_phone_number or show_email or show_social -%}
           <div class="col-t col-left d-flex flex-wrap">
             {%- if show_phone_number -%}
@@ -94,6 +94,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

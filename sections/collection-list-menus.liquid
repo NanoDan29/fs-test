@@ -14,6 +14,7 @@
   assign heading_logo_svg = st.heading_logo_svg
   assign autoplay = st.autoplay
   assign carousel_pagination = st.carousel_pagination
+  assign show_arrow = st.show_arrow
   assign column_gap = st.column_gap
   assign image_width = st.image_width
   assign enabled_animations = settings.animations_enabled
@@ -58,7 +59,11 @@
   else
     assign responsive_column = 'col-sm-6'
   endif
-  assign has_bg = ' has-bg'
+  assign has_bg = ''
+  assign bg_color = st.bg_color | default: 'tranparent'
+  if bg_color != blank
+    assign has_bg = ' has-bg'
+  endif
 -%}
 {%- capture style -%}
     --section-padding-top: {{ st.padding_top }}px; --section-padding-bottom: {{ st.padding_bottom }}px; --bls-gutter-x:
@@ -131,11 +136,15 @@
           <div class="swiper-wrapper" style="--perload-gap: {{ column_gap }}px">
             {%- for block in section.blocks -%}
               <div
+                {{ block.shopify_attributes }}
                 class="swiper-slide bls__collection-menu-items"
               >
                 {%- assign linkl = linklists[block.settings.collection_menu].links -%}
                 <div class="d-flex">
-                  <div class="image mr-10" style="width: {{ image_width }}px;">
+                  <div
+                    class="image mr-10 {% if settings.image_style != blank and section.settings.container != "full-width" and section.settings.column_gap != 0 %} radius {% endif %}"
+                    style="width: {{ image_width }}px;"
+                  >
                     {% if block.settings.image != blank %}
                       <div
                         class="bls__collection-menu-image"
@@ -202,11 +211,7 @@
               </div>
             {%- endfor -%}
           </div>
-          {%
-            render 'swiper-control',
-            show_arrow: st.show_arrow,
-            carousel_pagination: carousel_pagination,
-          %}
+          {% render 'swiper-control', show_arrow: show_arrow, carousel_pagination: carousel_pagination %}
         </div>
       {%- else -%}
         <div class="bls__collection-menu-grid">
@@ -216,6 +221,7 @@
           >
             {%- for block in section.blocks -%}
               <div
+                {{ block.shopify_attributes }}
                 class="{{ responsive_column }} {% if item_desktop > 2 %}col-12{% else %}col-12 {% endif %} bls__collection-menu-items"
               >
                 {%- assign linkl = linklists[block.settings.collection_menu].links -%}
@@ -297,6 +303,12 @@
 {% schema %}
 {
   "name": "Collection list menus",
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
   "settings": [
     {
       "type": "header",
@@ -360,6 +372,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

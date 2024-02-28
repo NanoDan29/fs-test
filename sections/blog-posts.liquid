@@ -45,7 +45,6 @@
   if st.padding_bottom > 30
     assign spb_mobile = ' spb-mobile'
   endif
-  assign has_bg = ''
   assign has_bg = ' has-bg'
 %}
 {%- capture style -%}
@@ -59,7 +58,7 @@
   data-type="bls_swiper"
   style="{{ style | strip | strip_newlines }}"
 >
-  <div class="{{ container }}">
+  <div class="{{ container }} section-full">
     <div class="bls__blog-header ">
       {%- if title != blank or desc != blank or heading_logo != blank or heading_logo_svg != blank -%}
         <div class="{% if enabled_animations %}scroll-trigger animate--slide-in{% endif %} bls__section-header {{ text_align }}">
@@ -111,12 +110,14 @@
             data-tablet="2"
             data-desktop="{{ item_desktop }}"
             data-spacing="{{ column_gap }}"
+            data-arrow-centerimage="1"
             data-pagination-progressbar="{% if carousel_pagination == 'carousel_pagination_progress' %}true{% else %}false{% endif %}"
           >
             <div class="swiper-wrapper" style="--perload-gap: {{ column_gap }}px">
               {%- for article in blog.articles limit: num_post -%}
                 <div class="swiper-slide">
                   {%- render 'article-card',
+                    blog: st.blog,
                     article: article,
                     show_category: show_category,
                     show_date: show_date,
@@ -131,11 +132,7 @@
                 </div>
               {%- endfor -%}
             </div>
-            {%
-              render 'swiper-control',
-              show_arrow: st.show_arrow,
-              carousel_pagination: carousel_pagination,
-            %}
+            {% render 'swiper-control', show_arrow: st.show_arrow, carousel_pagination: carousel_pagination %}
           </div>
         {%- else -%}
           <div
@@ -157,7 +154,7 @@
                     style="--animation-order: {{ forloop.index }};"
                   {% endif %}
                 >
-                  <div class="bls__blog-posts-image hover-effect hover-{{ hover_effect }}">
+                  <div class="bls__blog-posts-image hover-effect hover-{{ hover_effect }} {% if settings.image_style != blank and section.settings.column_gap != 0 and section.settings.container != "full-width" %} radius {% endif %}">
                     {% render 'responsive-image' %}
                   </div>
                   <div
@@ -192,7 +189,7 @@
                           </span>
                         </div>
                       </div>
-                      <a class="mt-5 fw-500 fs-12 uppercase blog-posts-readmore" href="/blogs/news/new-summer">
+                      <a class="mt-5 fw-500 fs-12 uppercase blog-posts-readmore" href="{{ blog.url }}">
                         {{- 'blog_post.read_more' | t -}}
                       </a>
                     </div>
@@ -200,11 +197,7 @@
                 </div>
               {% endfor %}
             </div>
-            {%
-              render 'swiper-control',
-              show_arrow: st.show_arrow,
-              carousel_pagination: carousel_pagination,
-            %}
+            {% render 'swiper-control', show_arrow: st.show_arrow, carousel_pagination: carousel_pagination %}
           </div>
         {%- endif -%}
       </div>
@@ -215,6 +208,9 @@
 {
   "name": "Blog posts",
   "class": "section-blog-posts",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
   "settings": [
     {
       "type": "header",
@@ -278,6 +274,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

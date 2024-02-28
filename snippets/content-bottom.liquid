@@ -47,6 +47,7 @@
     outStock: `{{ 'products.product.outstock' | t }}`,
     inStock: `{{ 'products.product.instock' | t }}`,
     compare: `{{ 'products.product.compare' | t }}`,
+    sale: `{{ 'products.product.label.sale' | t }}`,
     removeCompare: `{{ 'products.product.remove_compare' | t }}`
   }
   window.stringsTemplate = {
@@ -62,6 +63,10 @@
     newsletterPopup: {{ show }},
     promotionPopup: {{ show_promotion }}
   }
+  window.productLabel = {
+    saleType: `{{ th_st.product_label_sale_type }}`,
+    saleLabel: `{{ 'products.product.label.sale' | t }}`
+  }
   window.flashingBrowseTab = {
     enable: {{ th_st.flashing_browser }},
     firstNotification: `{{ th_st.first_notification }}`,
@@ -71,20 +76,20 @@
     recipientFormExpanded: `{{ 'recipient.form.expanded' | t }}`,
     recipientFormCollapsed: `{{ 'recipient.form.collapsed' | t }}`,
   };
+  window.action = {
+    show_all: `{{ 'general.show_all' | t }}`,
+    show_less: `{{ 'general.show_less' | t }}`
+  }
 </script>
 {%- if th_st.page_terms_conditions != blank -%}
   <div
     id="popup-terms-conditions"
     class="d-none"
-    data-text="{{ 'general.cart.terms_conditions_text' | t }}">
+    data-text="{{ 'general.cart.terms_conditions_text' | t }}"
+  >
     <div class="terms-conditions-content bls_popup-content p-5">
       {{ pages[th_st.page_terms_conditions].content }}
     </div>
-  </div>
-{%- endif -%}
-{%- if th_st.help_chat != blank -%}
-  <div id="bls_help-chat">
-    {{ th_st.help_chat }}
   </div>
 {%- endif -%}
 {%- if th_st.enable_eu_cookie_bar_gdpr != blank -%}
@@ -92,18 +97,18 @@
     <div class="cookie-message col fs-small">
       {{- th_st.message_cookie }}
     </div>
-      <div class="cookie-compliance col-auto w-full">
-        {%- if th_st.cookie_button_text != blank -%}
-            <button class="cookie-btn cookie-dismiss w-full btn-primary mt-15 mb-15" id="ba-cookie-dismiss">
-              {{ th_st.cookie_button_text }}
-            </button>
-        {%- endif -%}
-        {% if th_st.cookie_button_text_refuse != blank %}
-          <button class="cookie-btn cookie-dismiss w-full btn-secondary" id="ba-cookie-refuse">
-            {{ th_st.cookie_button_text_refuse }}
-          </button>
-        {% endif %}
-      </div>
+    <div class="cookie-compliance col-auto w-full">
+      {%- if th_st.cookie_button_text != blank -%}
+        <button class="cookie-btn cookie-dismiss w-full btn-primary mt-15 mb-15" id="ba-cookie-dismiss">
+          {{ th_st.cookie_button_text }}
+        </button>
+      {%- endif -%}
+      {% if th_st.cookie_button_text_refuse != blank %}
+        <button class="cookie-btn cookie-dismiss w-full btn-secondary" id="ba-cookie-refuse">
+          {{ th_st.cookie_button_text_refuse }}
+        </button>
+      {% endif %}
+    </div>
   </div>
 {%- endif -%}
 

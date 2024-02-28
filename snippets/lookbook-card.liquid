@@ -3,11 +3,11 @@
   assign st = section.settings
 -%}
 <div class="bls__lookbook-items" id="{{ block.id }}">
-  <div class="bls__lookbook-image">
+  <div class="bls__lookbook-image {% if settings.image_style != blank and section.settings.container != "full-width" and section.settings.column_gap != 0 %} radius {% endif %}">
     {%- if bst.image != blank -%}
-      {% render 'responsive-image', cls: ins_images_style, image: bst.image, aspect_ratio: aspect_ratio, custom_ratio: custom_ratio %}
+      {% render 'responsive-image', image: bst.image, aspect_ratio: aspect_ratio, custom_ratio: custom_ratio %}
     {%- else -%}
-      {%- render 'responsive-image', cls: ins_images_style, aspect_ratio: aspect_ratio, custom_ratio: custom_ratio -%}
+      {%- render 'responsive-image', aspect_ratio: aspect_ratio, custom_ratio: custom_ratio -%}
     {%- endif -%}
     {%- if type == 'ig_shop' -%}
       <span class="text-on-hover absolute right-10 top-10 d-flex content-center">

@@ -15,12 +15,17 @@
   assign carousel_pagination = st.carousel_pagination
   assign column_gap = st.column_gap
   assign items_to_show = st.ig_num_imgs
-  assign ins_images_style = st.ins_images_style
   assign ig_ac = st.ig_ac
   assign ig_type = st.ig_type
   assign ig_type_get = st.ig_image_show
   assign aspect_ratio = st.aspect_ratio
   assign enabled_animations = settings.animations_enabled
+
+  assign ins_images_style = ''
+  if settings.image_style != blank and section.settings.column_gap != 0 and section.settings.container != 'full-width'
+    assign ins_images_style = 'radius'
+  endif
+
   assign column_gap_tablet = ''
   if column_gap > 30
     assign column_gap_tablet = ' gap-tablet'
@@ -51,11 +56,7 @@
     assign spb_mobile = ' spb-mobile'
   endif
 
-  assign has_bg = ''
   assign bg_color = st.bg_color | default: 'transparent'
-  if bg_color != blank
-    assign has_bg = ' has-bg'
-  endif
 -%}
 
 {%- capture style -%}
@@ -74,10 +75,10 @@
     data-access-token="{{ ig_ac }}"
     data-images="{{ items_to_show }}"
   {% endif %}
-  class="color-{{ color_scheme }} gradient bls__section {{ has_bg }}{{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }} {% if ig_type_get == 'ig_type_api' %}bls__instagram-api{% endif %} bls__instagram-section {{ reset_spacing }}"
-  style="{{ style | strip | strip_newlines }}"
+  class="color-{{ color_scheme }} gradient bls__section{{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }}{{ column_gap_tablet }}{{ column_gap_mobile }} {% if ig_type_get == 'ig_type_api' %}bls__instagram-api{% endif %} bls__instagram-section {{ reset_spacing }}"
+  style="{{ style | strip | strip_newlines }};--bs-gutter-x: {{ column_gap }}px;"
 >
-  <div class="{{ container }}">
+  <div class="{{ container }} section-full">
     {%- if heading != blank or description != blank or heading_logo != blank or heading_logo_svg != blank -%}
       <div class="bls__section-header {{ text_align }}">
         {%- if heading_logo_svg != blank -%}
@@ -153,6 +154,7 @@
           {%- if ig_type_get == 'ig_type_local' -%}
             {%- for block in section.blocks -%}
               <div
+                {{ block.shopify_attributes }}
                 class="swiper-slide {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %} {% if block.settings.ig_up_video != blank %}swiper-local-video{% endif %}"
                 {% if enabled_animations %}
                   data-cascade
@@ -191,11 +193,7 @@
             {%- endfor -%}
           {%- endif -%}
         </div>
-        {%
-          render 'swiper-control',
-          show_arrow: st.carousel_arrows,
-          carousel_pagination: carousel_pagination,
-        %}
+        {% render 'swiper-control', show_arrow: st.carousel_arrows, carousel_pagination: carousel_pagination %}
       </div>
     {%- else -%}
       <div class="bls__instagram-grid" data-section-id="{{ section.id }}">
@@ -225,6 +223,7 @@
           {%- if ig_type_get == 'ig_type_local' -%}
             {%- for block in section.blocks -%}
               <div
+                {{ block.shopify_attributes }}
                 class="bls__instagram-item ins-{{ ins_images_style }} {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
                 {% if enabled_animations %}
                   data-cascade
@@ -261,6 +260,9 @@
 {% schema %}
 {
   "name": "Instagram",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
   "settings": [
     {
       "type": "header",
@@ -325,6 +327,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",
@@ -407,26 +413,6 @@
       "id": "ig_ac",
       "label": "User's photos via Instagram API",
       "info": "Add Instagram Access Token Key here."
-    },
-    {
-      "type": "select",
-      "id": "ins_images_style",
-      "label": "Images style",
-      "default": "square",
-      "options": [
-        {
-          "value": "square",
-          "label": "Square"
-        },
-        {
-          "value": "rounded",
-          "label": "Rounded"
-        },
-        {
-          "value": "radius",
-          "label": "Radius"
-        }
-      ]
     },
     {
       "type": "range",

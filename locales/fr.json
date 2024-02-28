@@ -2096,7 +2096,7 @@
       },
       "gift": {
         "title": "Ajouter un cadeau",
-        "gift_wrap_html": "<span class=\"cd\">Vous souhaitez un emballage cadeau ?<\/span> Seulement {{ price }}",
+        "gift_wrap_html": "Please wrap the product carefully. Fee is only <span class=\"price\">{{ price }}<\/span>. (You can choose or not)",
         "button_text": "Ajouter un emballage cadeau"
       },
       "shipping": {
@@ -2123,7 +2123,9 @@
     "product_name": "FS par Sobel Westex",
     "accessibility": {
       "unit_price_separator": "FAIRE"
-    }
+    },
+    "show_all": "Show all",
+    "show_less": "Show less"
   },
   "brands": {
     "all": "Show All"
@@ -2251,6 +2253,8 @@
       "hurry_up_message": "Dépêche-toi! La vente se termine dans",
       "unit_price_label": "Prix unitaire",
       "view_in_space": "Voir dans votre espace",
+      "back_to_product": "Back to products",
+      "more_info": "View detail",
       "view_in_space_label": "Visualisez dans votre espace, charge l'élément dans la fenêtre de réalité augmentée",
       "media": {
         "gallery_viewer": "Visionneuse de galerie",
@@ -2262,11 +2266,20 @@
         "play_model": "Jouer à la visionneuse 3D",
         "play_video": "Lire la vidéo"
       },
+      "label": {
+        "subscription": "Subscription",
+        "sale": "Sale"
+      },
       "quantity": {
         "label": "Quantité",
         "input_label": "Quantité pour {{ product }}",
         "increase": "Augmenter la quantité pour {{ product }}",
-        "decrease": "Diminuer la quantité pour {{ product }}"
+        "decrease": "Diminuer la quantité pour {{ product }}",
+        "minimum_of": "Minimum of {{ quantity }}",
+        "maximum_of": "Maximum of {{ quantity }}",
+        "multiples_of": "Increments of {{ quantity }}",
+        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}</span> products in cart",
+        "note": "View quantity rules"
       },
       "pickup_availability": {
         "view_store_info": "Afficher les informations du magasin",
@@ -2311,6 +2324,7 @@
       "size": "Taille",
       "color": "Couleur",
       "review": "Examen",
+      "review_app": "Customer Reviews",
       "instock": "en stock",
       "size_guide": "Guide des tailles",
       "askquestion": "Poser une question",
@@ -2384,7 +2398,10 @@
       },
       "title": "Rechercher sur notre site",
       "search_for_html": "Rechercher \" <span>{{ terms }}<\/span> \"",
-      "search_empty_html": "Rien ne correspond à votre recherche \" <span>{{ terms }}<\/span> \""
+      "search_empty_html": "Rien ne correspond à votre recherche \" <span>{{ terms }}<\/span> \"",
+      "suggestions": "Suggestions",
+      "pages": "Page",
+      "article": "Article"
     },
     "cart": {
       "cart": "Chariot"
@@ -2398,7 +2415,10 @@
     "wishlist": {
       "wishlist": "Liste de souhaits",
       "no_product": "Aucun produit n'a été ajouté à la page de liste de souhaits.",
-      "redirect": "Retour aux achats"
+      "redirect": "Retour aux achats",
+      "title_remove": "Add to wishlist before remove?",
+      "action_yes": "Yes",
+      "action_no": "No"
     },
     "compare": {
       "no_product": "Aucun produit n'a été ajouté à la page de comparaison.",
@@ -2430,6 +2450,10 @@
     }
   },
   "sections": {
+    "custom_content_readmore": "Read more",
+    "shopable_video": {
+      "default_content": "Please upload the video and associate it with a specific product."
+    },
     "header": {
       "announcement": "Annonce",
       "menu": "Menu",

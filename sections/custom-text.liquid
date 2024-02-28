@@ -28,8 +28,8 @@
     assign spb_mobile = ' spb-mobile'
   endif
   assign has_bg = ''
-  assign bg_color = st.bg_color | default: 'transparent'
-  if bg_color != blank
+  assign background_color = st.background_color | default: 'transparent'
+  if background_color != blank
     assign has_bg = ' has-bg'
   endif
 
@@ -45,10 +45,12 @@
   class="bls__section {{ has_bg }}{{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }} bls__section-custom-text color-{{ color_scheme }} gradient {{ reset_spacing }}"
   style="{{ style | strip | strip_newlines }}"
 >
-  <div class="{{ container }}">
+  <div class="{{ container }} section-full">
     <div class="bls__section-header {{ text_align }} {{ custom_class }}">
+      {% assign count = 0 %}
       {%- for block in section.blocks -%}
         {%- liquid
+          assign count = count | plus: 1
           assign b_st = block.settings
 
           assign image = b_st.image
@@ -86,6 +88,7 @@
         -%}
         {% if image != blank or text_circle != blank %}
           <div
+            {{ block.shopify_attributes }}
             class="bls__section-image {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
             style="--image_mt: {{ image_mt }}px;--image_mb: {{ image_mb }}px;"
           >
@@ -123,6 +126,7 @@
         {% endif %}
         {%- if sub_heading != blank -%}
           <div
+            {{ block.shopify_attributes }}
             class="bls__section-sub-heading {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
             style="--sub-font-size: {{ sub_fs }}px;{% if sub_fw != 'default' %}--sub-font-weight: {{ sub_fw }};{% endif %}{%- if sub_color != blank -%}--sub-color: {{ sub_color }};{%- endif -%}--sub-transform: {{ sub_tf }};--sub-mt: {{ sub_mt }}px;--sub-mb: {{ sub_mb }}px;"
           >
@@ -131,6 +135,7 @@
         {%- endif -%}
         {%- if heading != blank -%}
           <h2
+            {{ block.shopify_attributes }}
             class="bls__section-heading mb-5 {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
             style="--heading-font-size: {{ heading_fs }}px;{% if heading_fw != 'default' %}--cutsom-heading-font-weight: {{ heading_fw }};{% endif %}{%- if heading_color != blank -%}--heading-color: {{ heading_color }};{%- endif -%}--heading-transform: {{ heading_tf }};--heading-mt: {{ heading_mt }}px;--heading-mb: {{ heading_mb }}px;"
           >
@@ -139,6 +144,7 @@
         {%- endif -%}
         {%- if desc != blank -%}
           <div
+            {{ block.shopify_attributes }}
             class="bls__section-des {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
             style="--content_width: {{ content_width }}%;--desc-font-size: {{ desc_fs }}px;{% if desc_fw != 'default' %}--desc-font-weight: {{ desc_fw }}{% endif %};{%- if desc_color != blank -%}--desc-color: {{ desc_color }};{%- endif -%}--desc-transform: {{ desc_tf }};--desc-mt: {{ desc_mt }}px;--desc-mb: {{ desc_mb }}px;"
           >
@@ -147,6 +153,7 @@
         {%- endif -%}
         {%- if block.settings.btn_content != blank -%}
           <a
+            {{ block.shopify_attributes }}
             {% if block.settings.button_link == blank %}
               role="link"
               aria-disabled="true"
@@ -173,6 +180,12 @@
 {% schema %}
 {
   "name": "Custom content",
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
   "settings": [
     {
       "type": "header",
@@ -191,6 +204,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

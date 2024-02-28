@@ -2,15 +2,17 @@
   assign st = settings
   assign option_name = 'Color'
   if st.option_name_color != blank
-    assign option_name = st.option_name_color
+    assign option_name = st.option_name_color | split: ','
   endif
   assign color_swatches_size = st.color_swatches_size
   assign color_swatches_style = st.color_swatches_style
   assign has_color = false
   for opt in product.options_with_values
-    if opt.name == option_name
-      assign has_color = true
-    endif
+    for itemColor in option_name
+      if opt.name == itemColor
+        assign has_color = true
+      endif
+    endfor
   endfor
 -%}
 {% if product.has_only_default_variant == false and has_color == true %}
@@ -18,7 +20,15 @@
     class="bls__product-option option_color flex mt-4"
   >
     {%- for option in product.options_with_values -%}
-      {%- if option.name == option_name -%}
+      {%- liquid
+        assign isColorOption = false
+        for colorItem in option_name
+          if option.name == colorItem
+            assign isColorOption = true
+          endif
+        endfor
+      -%}
+      {%- if isColorOption -%}
         {%- for value in option.values -%}
           {%- liquid
             assign active = ''
@@ -40,7 +50,7 @@
             data-value="{{ value }}"
             data-color="{{ value | downcase }}"
             data-position="{{ option.position }}"
-            data-image="{{ img | image_url }}"
+            data-image="{{ img | image_url: width: 100, height: 100 }}"
           >
             <span class="bls_tooltip-content">{{ value }}</span>
           </div>

@@ -1,16 +1,18 @@
-{%-liquid assign total_active_values = 0 -%}
-{% liquid 
-  assign total_active_values = 0 
+{%- liquid
+  assign total_active_values = 0
+-%}
+{% liquid
+  assign total_active_values = 0
 %}
 {% for filter in collection.filters %}
-  {% liquid 
-    assign total_active_values = total_active_values | plus: filter.active_values.size 
+  {% liquid
+    assign total_active_values = total_active_values | plus: filter.active_values.size
   %}
 
-  {% if filter.type == "price_range" %}
-    {% if filter.min_value.value != nil or filter.max_value.value != nil %}
-      {% liquid 
-        assign total_active_values = total_active_values | plus: 1 
+  {% if filter.type == 'price_range' %}
+    {% if filter.min_value.value != null or filter.max_value.value != null %}
+      {% liquid
+        assign total_active_values = total_active_values | plus: 1
       %}
     {% endif %}
   {% endif %}
@@ -18,17 +20,21 @@
 
 {% if current_tags.size > 0 or total_active_values > 0 %}
   <div
-    class="filter-current">
+    class="filter-current"
+  >
     <ol
-      class="filters">
+      class="filters"
+    >
       {%- for filter in collection.filters -%}
-        {%- if filter.type == "price_range" -%}
-          {%- if filter.min_value.value != nil or filter.max_value.value != nil -%}
+        {%- if filter.type == 'price_range' -%}
+          {%- if filter.min_value.value != null or filter.max_value.value != null -%}
             <li
-              class="bls__filter_remove_item">
+              class="bls__filter_remove_item"
+            >
               <a
                 href="{{ filter.url_to_remove }}"
-                class="bls__link-filter">
+                class="bls__link-filter"
+              >
                 {%- assign min_value = filter.min_value.value | default: 0 -%}
                 {%- assign max_value = filter.max_value.value | default: filter.range_max -%}
                 {% if settings.currency_code_enabled %}
@@ -36,24 +42,28 @@
                 {% else %}
                   {{ min_value | money }} - {{ max_value | money }}
                 {% endif %}
-
               </a>
             </li>
           {%- endif -%}
         {%- else -%}
           {%- for filter_value in filter.active_values -%}
             <li
-              class="bls__filter_remove_item">
+              class="bls__filter_remove_item"
+            >
               <a
                 href="{{ filter_value.url_to_remove }}"
-                class="bls__link-filter">{{ filter_value.label }}</a>
+                class="bls__link-filter"
+              >
+                {{- filter_value.label -}}
+              </a>
             </li>
           {%- endfor -%}
         {% endif %}
       {%- endfor -%}
       {%- for tag in current_tags -%}
         <li
-          class="bls__filter_remove_item">
+          class="bls__filter_remove_item"
+        >
           {% capture tag_link %}
             {{ tag | link_to_remove_tag: tag }}
           {% endcapture %}
@@ -61,14 +71,18 @@
           {% assign tag_link = tag_link_parts[0] | strip %}
           <a
             href="{{ tag_link }}"
-            class="bls__link-filter">{{ tag }}</a>
+            class="bls__link-filter"
+          >
+            {{- tag -}}
+          </a>
         </li>
       {%- endfor -%}
       <li>
         <a
           class="bls__filters_clear bls__link-filter"
           aria-label="{{ 'collections.sidebar.clear_all' | t }}"
-          href="{{ collection.url }}">
+          href="{{ collection.url }}"
+        >
           {{ 'collections.sidebar.clear_all' | t }}
         </a>
       </li>

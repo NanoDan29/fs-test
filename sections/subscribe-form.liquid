@@ -35,11 +35,10 @@
   endif
 
   assign has_bg = ''
-  assign background_color = st.background_color | default: "transparent"
+  assign background_color = st.background_color | default: 'transparent'
   if background_color != blank
     assign has_bg = ' has-bg'
   endif
-  
 -%}
 {%- capture style -%}
   {%- if background_color != blank -%}
@@ -52,7 +51,7 @@
   class="color-{{ color_scheme }} gradient bls__section {{ has_bg }} {{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }} bls__subcribe-form {{ reset_spacing }}"
   style="{{ style | strip | strip_newlines }}"
 >
-  <div class="{{ container }}">
+  <div class="{{ container }} section-full">
     <div class="bls__section_subcribe-form-content {{ text_alignment }} {% if st.form_layout == 'horizontal' %}row justify-content-between align-items-center{%- endif -%}">
       {%- if heading != blank or description != blank or heading_logo != blank or heading_logo_svg != blank -%}
         <div class="bls__section-header {% if form_layout == 'horizontal' %}reset-margin col-lg{%- endif -%}">
@@ -116,6 +115,9 @@
 {% schema %}
 {
   "name": "Newsletter",
+  "disabled_on": {
+    "groups": ["header"]
+  },
   "settings": [
     {
       "type": "header",
@@ -180,6 +182,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

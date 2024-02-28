@@ -923,7 +923,7 @@
       },
       "gift": {
         "title": "Add Gift",
-        "gift_wrap_html": "<span class=\"cd\">Do you want a gift wrap?<\/span> Only {{ price }}",
+        "gift_wrap_html": "Please wrap the product carefully. Fee is only <span class=\"price\">{{ price }}<\/span>. (You can choose or not)",
         "button_text": "Add A Gift Wrap"
       },
       "shipping": {
@@ -934,6 +934,10 @@
       "coupon": {
         "title": "Add Coupon",
         "enter_discount_code": "Coupon code"
+      },
+      "delivery_days": {
+        "one": "day",
+        "other": "days"
       }
     },
     "share": {
@@ -950,7 +954,9 @@
     "product_name": "FS by Sobel Westex",
     "accessibility": {
       "unit_price_separator": "TODO"
-    }
+    },
+    "show_all": "Show all",
+    "show_less": "Show less"
   },
   "brands": {
     "all": "Show All"
@@ -1078,6 +1084,8 @@
       "hurry_up_message": "Hurry Up! Sale ends in",
       "unit_price_label": "Unit price",
       "view_in_space": "View in your space",
+      "back_to_product": "Back to products",
+      "more_info": "View detail",
       "view_in_space_label": "View in your space, loads item in augmented reality window",
       "media": {
         "gallery_viewer": "Gallery Viewer",
@@ -1089,11 +1097,20 @@
         "play_model": "Play 3D Viewer",
         "play_video": "Play video"
       },
+      "label": {
+        "subscription": "Subscription",
+        "sale": "Sale"
+      },
       "quantity": {
         "label": "Quantity",
         "input_label": "Quantity for {{ product }}",
         "increase": "Increase quantity for {{ product }}",
-        "decrease": "Decrease quantity for {{ product }}"
+        "decrease": "Decrease quantity for {{ product }}",
+        "minimum_of": "Minimum of {{ quantity }}",
+        "maximum_of": "Maximum of {{ quantity }}",
+        "multiples_of": "Increments of {{ quantity }}",
+        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}</span> products in cart",
+        "note": "View quantity rules"
       },
       "pickup_availability": {
         "view_store_info": "View store information",
@@ -1138,6 +1155,7 @@
       "size": "Size",
       "color": "Color",
       "review": "Review",
+      "review_app": "Customer Reviews",
       "instock": "instock",
       "size_guide": "Size guide",
       "askquestion": "Ask a Question",
@@ -1211,7 +1229,10 @@
       },
       "title": "Search Our Site",
       "search_for_html": "Search for “<span>{{ terms }}<\/span>”",
-      "search_empty_html": "Nothing matches your search “<span>{{ terms }}<\/span>”"
+      "search_empty_html": "Nothing matches your search “<span>{{ terms }}<\/span>”",
+      "suggestions": "Suggestions",
+      "pages": "Page",
+      "article": "Article"
     },
     "cart": {
       "cart": "Cart"
@@ -1225,7 +1246,10 @@
     "wishlist": {
       "wishlist": "Wishlist",
       "no_product": "No products were added to the wishlist page.",
-      "redirect": "Back to shopping"
+      "redirect": "Back to shopping",
+      "title_remove": "Add to wishlist before remove?",
+      "action_yes": "Yes",
+      "action_no": "No"
     },
     "compare": {
       "no_product": "No products were added to the compare page.",
@@ -1257,6 +1281,10 @@
     }
   },
   "sections": {
+    "custom_content_readmore": "Read more",
+    "shopable_video": {
+      "default_content": "Please upload the video and associate it with a specific product."
+    },
     "header": {
       "announcement": "Announcement",
       "menu": "Menu",

@@ -1,6 +1,6 @@
 {% comment %}theme-check-disable UndefinedObject{% endcomment %}
 {%- assign pick_up_availabilities = product_variant.store_availabilities | where: 'pick_up_enabled', true -%}
-
+{%- assign hidden_price = settings.hidden_price -%}
 {%- if pick_up_availabilities.size > 0 -%}
   <pickup-availability-preview class="pickup-availability-preview flex">
     {%- liquid
@@ -33,9 +33,17 @@
         </button>
       {%- else -%}
         <span class="caption-large">
-          <svg class="mr-5" style="margin-bottom: 3px" width="12" height="13" viewBox="0 0 12 13" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <svg
+            class="mr-5"
+            style="margin-bottom: 3px"
+            width="12"
+            height="13"
+            viewBox="0 0 12 13"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
             <path d="M0.414062 2.24609C0.244792 2.08984 0.160156 1.90104 0.160156 1.67969C0.160156 1.44531 0.244792 1.24349 0.414062 1.07422C0.570312 0.917969 0.765625 0.839844 1 0.839844C1.23438 0.839844 1.42969 0.917969 1.58594 1.07422L6 5.48828L10.4141 1.07422C10.5703 0.917969 10.7656 0.839844 11 0.839844C11.2344 0.839844 11.4297 0.917969 11.5859 1.07422C11.7552 1.24349 11.8398 1.44531 11.8398 1.67969C11.8398 1.90104 11.7552 2.08984 11.5859 2.24609L7.17188 6.66016L11.5859 11.0742C11.7552 11.2435 11.8398 11.4453 11.8398 11.6797C11.8398 11.901 11.7552 12.0898 11.5859 12.2461C11.4297 12.4154 11.2344 12.5 11 12.5C10.7656 12.5 10.5703 12.4154 10.4141 12.2461L6 7.85156L1.58594 12.2461C1.42969 12.4154 1.23438 12.5 1 12.5C0.765625 12.5 0.570312 12.4154 0.414062 12.2461C0.244792 12.0898 0.160156 11.901 0.160156 11.6797C0.160156 11.4453 0.244792 11.2435 0.414062 11.0742L4.82812 6.66016L0.414062 2.24609Z" fill="#D73F0F"/>
-            </svg>
+          </svg>
           {{
             'products.product.pickup_availability.pick_up_unavailable_at_html'
             | t: location_name: closest_location.location.name
@@ -92,9 +100,11 @@
                 {%- endfor -%}
               </p>
             {%- endunless -%}
-            <div class="price mt-10">
-              {%- render 'price', product: product_variant.product, use_variant: true, price_class: 'price--large' -%}
-            </div>
+            {% if hidden_price == false %}
+              <div class="price mt-10">
+                {%- render 'price', product: product_variant.product, use_variant: true, price_class: 'price--large' -%}
+              </div>
+            {% endif %}
           </div>
         </div>
       </div>
@@ -103,10 +113,8 @@
       {%- for availability in pick_up_availabilities -%}
         <li class="pickup-availability-list__item pb-25 mb-25 border-bottom last-0">
           <h4 class="fs-16 capitalize">{{ availability.location.name | escape }}</h4>
-          {{ availability | json }}
-            {%- if availability.available -%}
-          <p class="pickup-availability-preview caption-large flex align-items-center">
-
+          {%- if availability.available -%}
+            <p class="pickup-availability-preview caption-large flex align-items-center">
               <svg
                 class="mr-10 m-width-12"
                 width="12"
@@ -119,8 +127,8 @@
               </svg>
               {{ 'products.product.pickup_availability.pick_up_available' | t }},
               {{ availability.pick_up_time | downcase }}
-          </p>
-            {%- endif -%}
+            </p>
+          {%- endif -%}
           {%- assign address = availability.location.address -%}
           <address class="pickup-availability-address">
             <p>
@@ -141,7 +149,7 @@
               </p>
             {%- endif -%}
           </address>
-          <a href="https://maps.google.com?daddr={{ address.street | escape }} {{ address.province | escape }} {{ address.country | escape }}">
+          <a href="https://maps.google.com?daddr={{ address.street | escape }} {{ address.province_code | escape }} {{ address.zip | escape }} {{ address.country | escape }}">
             <svg
               class="mr-5 mb-5"
               width="12"

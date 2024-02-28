@@ -23,8 +23,9 @@
 {%- capture style -%}
   {%- if bg_color != blank -%}
     --section-bg-color: {{ bg_color }};
-  {%- endif -%}  --bls_product-item-vertical-space: 0px;
+  {%- endif -%}  --section-padding-top: {{ st.padding_top }}px; --section-padding-bottom: {{ st.padding_bottom }}px;--bls_product-item-vertical-space: 0px;
 {%- endcapture -%}
+
 <section
   class="bls__product-recommendations-section bls__section bls__product{{ reset_spacing }}"
   style="{{ style | strip | strip_newlines }}"
@@ -32,7 +33,7 @@
   data-id="{{ section.id }}"
   data-type="product_recommendations"
 >
-  <div class="{{ container }}">
+  <div class="{{ container }} section-full">
     {%- if heading != blank or description != blank -%}
       <div class="bls__section-header {{ text_align }}">
         {%- if heading != blank -%}
@@ -132,7 +133,6 @@
           .finally((e) => {
             BlsColorSwatchesShopify.init();
             BlsSubActionProduct.init();
-            BlsSectionProductAddCart.updateBtnAdd();
             BlsLazyloadImg.init();
           });
       },
@@ -202,6 +202,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

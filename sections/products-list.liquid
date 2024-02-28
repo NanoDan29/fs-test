@@ -1,6 +1,7 @@
 {{ 'product.css' | asset_url | stylesheet_tag }}
 {%- liquid
   assign st = section.settings
+  assign th_st = settings
   assign container = st.container
   assign color_scheme = st.color_scheme
   assign text_align = st.text_alignment
@@ -11,6 +12,7 @@
   assign custom_column = st.custom_column
   assign column_gap = st.column_gap
   assign limit_products_desktop = st.limit_products_desktop
+  assign hidden_price = th_st.hidden_price
   assign enabled_animations = settings.animations_enabled
   assign column_gap_tablet = ''
   if column_gap > 30
@@ -44,11 +46,10 @@
   endif
 
   assign has_bg = ''
-  assign bg_color = st.bg_color | default: "transparent"
+  assign bg_color = st.bg_color | default: 'transparent'
   if bg_color != blank
     assign has_bg = ' has-bg'
   endif
-  
 -%}
 {%- capture style -%}
 --section-padding-top: {{ st.padding_top }}px; --section-padding-bottom: {{ st.padding_bottom }}px;
@@ -58,12 +59,12 @@
   --bls-gutter-x: {{ column_gap }}px;
 {%- endcapture -%}
 <section
-  class="color-{{ color_scheme }} gradient bls__section bls__product bls__product_list{{ reset_spacing }} {{ has_bg }} {{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }}"
+  class="color-{{ color_scheme }} gradient bls__section bls__product bls__product_list{{ reset_spacing }} {{ has_bg }} {{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }} {% if section.settings.container == "full-width" %} not-radius {% endif %}"
   style="{{ style | strip | strip_newlines }}"
   id="{{ section.id }}"
   data-id="{{ section.id }}"
 >
-  <div class="{{ container }}">
+  <div class="{{ container }} section-full">
     {%- if heading != blank or description != blank or heading_logo != blank or heading_logo_svg != blank -%}
       <div class="bls__section-header {{ text_align }}">
         {%- if heading_logo_svg != blank -%}
@@ -88,6 +89,7 @@
               loading="lazy"
               width="{{ heading_logo.width }}"
               height="{{ heading_logo.height }}"
+              style="--point:{{ heading_logo.presentation.focal_point }}"
             >
           </div>
         {%- endif -%}
@@ -141,9 +143,11 @@
                   <h3 class="bls__product-name regular mb-5">
                     <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
                   </h3>
-                  <div class="bls__product-price mb-7">
-                    {%- render 'price', product: product, use_variant: true, price_class: 'price--large' -%}
-                  </div>
+                  {% if hidden_price == false %}
+                    <div class="bls__product-price mb-7">
+                      {%- render 'price', product: product, use_variant: true, price_class: 'price--large' -%}
+                    </div>
+                  {% endif %}
                   {%- if sold_out -%}
                     <div>{{ 'products.product.sold_out' | t }}</div>
                   {%- endif -%}
@@ -174,6 +178,9 @@
 {% schema %}
 {
   "name": "Products List",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
   "settings": [
     {
       "type": "header",
@@ -238,6 +245,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

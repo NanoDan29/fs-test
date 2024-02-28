@@ -75,6 +75,7 @@
               loading="lazy"
               width="{{ heading_logo.width }}"
               height="{{ heading_logo.height }}"
+              style="--point:{{ heading_logo.presentation.focal_point }}"
             >
           </div>
         {%- endif -%}
@@ -91,7 +92,7 @@
       </div>
     {%- endif -%}
     <div
-      class="img-comp-container {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
+      class="img-comp-container {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %} {% if settings.image_style != blank and section.settings.container != "full-width" %} radius {% endif %}"
       style="--percent:50%; --height:{{ height_image }}px;"
     >
       <button type="button" class="image-comparison__button">
@@ -110,7 +111,20 @@
           assign image = bs.image
           assign image_mobile = bs.image_mobile | default: image
         %}
-        <div class="img-comp-img{% if forloop.last == true %} img-comp-overlay{% endif %}">
+        <div
+          {{ block.shopify_attributes }}
+          class="img-comp-img{% if forloop.last == true %} img-comp-overlay{% endif %}"
+        >
+          {% if forloop.first == true %}
+            <span class="button-comparison button-before absolute left-30 top-30 uppercase fs-12">
+              {{- 'sections.button_comparison.before' | t -}}
+            </span>
+          {% endif %}
+          {% if forloop.last == true %}
+            <span class="button-comparison button-after absolute right-30 bottom-30 uppercase fs-12">
+              {{- 'sections.button_comparison.after' | t -}}
+            </span>
+          {% endif %}
           <div
             class="bls__responsive-image bls-image-js desktop medium-hide {% if image != blank %}bls-loading-image{% endif %} h-full"
           >
@@ -132,6 +146,7 @@
                 loading="lazy"
                 width="{{ image.width }}"
                 height="{{ image.height }}"
+                style="--point:{{ image.presentation.focal_point }}"
               >
             {%- else -%}
               {%- render 'placeholder-render' -%}
@@ -156,6 +171,7 @@
                 loading="lazy"
                 width="{{ image_mobile.width }}"
                 height="{{ image_mobile.height }}"
+                style="--point:{{ image_mobile.presentation.focal_point }}"
               >
             {%- else -%}
               {%- render 'placeholder-render' -%}
@@ -169,6 +185,9 @@
 {% schema %}
 {
   "name": "Image comparison slider",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
   "settings": [
     {
       "type": "header",
@@ -237,6 +256,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

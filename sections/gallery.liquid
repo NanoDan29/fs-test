@@ -68,15 +68,18 @@
   {%- endif -%}
   --section-padding-top: {{ st.padding_top }}px; --section-padding-bottom: {{ st.padding_bottom }}px; --bls-gutter-x: {{ column_gap }}px;
 {%- endcapture -%}
+{% if st.actions_click == 'photoswipe' %}
+  {{ 'photoswipe.css' | asset_url | stylesheet_tag }}
+{% endif %}
 <section
-  class="bls__section color-{{ color_scheme }} gradient {{ has_bg }} {{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }}bls__gallery {{ reset_spacing }}"
+  class="bls__section color-{{ color_scheme }} gradient {{ has_bg }}{{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }}bls__gallery {{ reset_spacing }}"
   data-type="bls_swiper"
   id="{{ section.id }}"
   data-id="{{ section.id }}"
   style="{{ style | strip | strip_newlines }}"
 >
   <div
-    class="{{ container }}"
+    class="{{ container }} section-full"
   >
     {%- if heading != blank or description != blank or heading_logo != blank or heading_logo_svg != blank -%}
       <div
@@ -142,9 +145,13 @@
           <div
             class="swiper-wrapper"
             style="--perload-gap: {{ column_gap }}px"
+            {% if st.actions_click == 'photoswipe' %}
+              id="bls__gallery"
+            {% endif %}
           >
             {%- for block in section.blocks -%}
               <div
+                {{ block.shopify_attributes }}
                 class="swiper-slide {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
                 {% if enabled_animations %}
                   data-cascade
@@ -155,57 +162,49 @@
                   class="bls__gallery-item"
                   {{ block.shopify_attributes }}
                 >
-                  {%- if block.settings.link != blank -%}
-                    <a
-                      href="{{ block.settings.link }}"
-                    >
-                  {%- endif -%}
-                  {%- if block.settings.image != blank -%}
-                    {%- if st.actions_click == 'photoswipe' -%}
-                      <a
-                        data-fslightbox="Gallery"
-                        data-foo="bar"
-                        href="{{ block.settings.image | image_url }}"
-                      >
+                  <a
+                    class="hover-effect {% if settings.image_style != blank and section.settings.container != "full-width" and section.settings.column_gap != 0 %} radius {% endif %}"
+                    href="{% if block.settings.link != blank %}{{ block.settings.link }}{% else %}#{% endif %}"
+                    {% if st.actions_click == 'photoswipe' %}
+                      data-pswp-src="{{ block.settings.image | image_url }}"
+                      data-pswp-width="{{ block.settings.image.width }}"
+                      data-pswp-height="{{ block.settings.image.height }}"
+                    {% endif %}
+                  >
+                    {%- if block.settings.image != blank -%}
+                      {% render 'responsive-image',
+                        image: block.settings.image,
+                        aspect_ratio: aspect_ratio,
+                        custom_ratio: custom_ratio
+                      %}
+                    {% else %}
+                      {%- render 'responsive-image',
+                        cls: 'border',
+                        aspect_ratio: aspect_ratio,
+                        custom_ratio: custom_ratio
+                      -%}
                     {%- endif -%}
-                    {% render 'responsive-image',
-                      image: block.settings.image,
-                      aspect_ratio: aspect_ratio,
-                      custom_ratio: custom_ratio
-                    %}
-                    {%- if st.actions_click == 'photoswipe' -%}
-                      </a>
-                    {%- endif -%}
-                  {% else %}
-                    {%- render 'responsive-image',
-                      cls: 'border',
-                      aspect_ratio: aspect_ratio,
-                      custom_ratio: custom_ratio
-                    -%}
-                  {%- endif -%}
-                  {%- if block.settings.link != blank -%}
-                    </a>
-                  {%- endif -%}
+                  </a>
                 </div>
               </div>
             {%- endfor -%}
           </div>
-          {%
-            render 'swiper-control',
-            show_arrow: st.show_arrow,
-            carousel_pagination: carousel_pagination,
-          %}
+          {% render 'swiper-control', show_arrow: st.show_arrow, carousel_pagination: carousel_pagination %}
         </div>
       {%- else -%}
         <div
-          class="bls__gallerygallery-grid"
+          class="bls__gallery-grid"
         >
           <div
             class="row row-cols-lg-{{ custom_column }}{{ column_gap_tablet }}{{ column_gap_mobile }}"
             style="--bs-gutter-x: {{ column_gap }}px;"
+            {% if st.actions_click == 'photoswipe' %}
+              id="bls__gallery"
+            {% endif %}
           >
             {%- for block in section.blocks -%}
               <div
+                {{ block.shopify_attributes }}
                 class="{{ responsive_column }} col-6 {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
                 {% if enabled_animations %}
                   data-cascade
@@ -216,38 +215,29 @@
                   class="bls__gallery-item h-full"
                   {{ block.shopify_attributes }}
                 >
-                  {%- if block.settings.link != blank -%}
-                    <a
-                      href="{{ block.settings.link }}"
-                    >
-                  {%- endif -%}
-                  {%- if block.settings.image != blank -%}
-                    {%- if st.actions_click == 'photoswipe' -%}
-                      <a
-                        data-fslightbox="gallery"
-                        data-foo="bar"
-                        href="{{ block.settings.image | image_url }}"
-                      >
+                  <a
+                    class="hover-effect {% if settings.image_style != blank and section.settings.container != "full-width" and section.settings.column_gap != 0 %} radius {% endif %}"
+                    href="{% if block.settings.link != blank %}{{ block.settings.link }}{% else %}#{% endif %}"
+                    {% if st.actions_click == 'photoswipe' %}
+                      data-pswp-src="{{ block.settings.image | image_url }}"
+                      data-pswp-width="{{ block.settings.image.width }}"
+                      data-pswp-height="{{ block.settings.image.height }}"
+                    {% endif %}
+                  >
+                    {%- if block.settings.image != blank -%}
+                      {% render 'responsive-image',
+                        image: block.settings.image,
+                        aspect_ratio: aspect_ratio,
+                        custom_ratio: custom_ratio
+                      %}
+                    {% else %}
+                      {%- render 'responsive-image',
+                        cls: 'border h-full',
+                        aspect_ratio: aspect_ratio,
+                        custom_ratio: custom_ratio
+                      -%}
                     {%- endif -%}
-                    {% render 'responsive-image',
-                      cls: 'h-full',
-                      image: block.settings.image,
-                      aspect_ratio: aspect_ratio,
-                      custom_ratio: custom_ratio
-                    %}
-                    {%- if st.actions_click == 'photoswipe' -%}
-                      </a>
-                    {%- endif -%}
-                  {% else %}
-                    {%- render 'responsive-image',
-                      cls: 'border h-full',
-                      aspect_ratio: aspect_ratio,
-                      custom_ratio: custom_ratio
-                    -%}
-                  {%- endif -%}
-                  {%- if block.settings.link != blank -%}
-                    </a>
-                  {%- endif -%}
+                  </a>
                 </div>
               </div>
             {%- endfor -%}
@@ -257,9 +247,30 @@
     </div>
   </div>
 </section>
+{% if st.actions_click == 'photoswipe' %}
+  <script type="module">
+    import PhotoSwipeLightbox from '{{ 'photoswipe-lightbox.min.js' | asset_url }}'
+    import PhotoSwipe from '{{ 'photoswipe.min.js' | asset_url }}'
+
+    const lightbox = new PhotoSwipeLightbox({
+        gallery: '#bls__gallery',
+        children: 'a',
+        pswpModule: PhotoSwipe,
+        zoom: false
+    });
+
+    lightbox.init();
+  </script>
+{% endif %}
 {% schema %}
 {
   "name": "Gallery",
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
   "settings": [
     {
       "type": "header",
@@ -324,6 +335,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

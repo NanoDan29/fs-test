@@ -1,13 +1,13 @@
 {%- liquid
-  assign st = section.settings
   assign th_st = settings
   assign option_name = 'Color'
   if th_st.option_name_color != blank
-    assign option_name = th_st.option_name_color
+    assign option_name = th_st.option_name_color | split: ','
   endif
   assign color_type = th_st.swatch_type
   assign selector_type = th_st.swatch_selector_type
-  assign enable_catalog_mode = th_st.enable_catalog_mode
+  assign hidden_button_add_to_cart = th_st.hidden_button_add_to_cart
+  assign hidden_price = th_st.hidden_price
   assign show_wishlist = th_st.show_wishlist
   assign show_compare = th_st.show_compare
   assign enable_product_sku = th_st.show_qv_product_sku
@@ -20,6 +20,7 @@
   assign show_qv_sold_product = th_st.show_qv_sold_product
   assign sold_qv_product = th_st.sold_qv_product
   assign hours_qv_product = th_st.hours_qv_product
+  assign sale_type = th_st.product_label_sale_type
   assign message_qv_countdown_timer = th_st.message_qv_countdown_timer
   assign show_qv_countdown_timer = th_st.show_qv_countdown_timer
 
@@ -30,11 +31,28 @@
   assign current_variant = product.selected_or_first_available_variant
   assign compare_at_price = current_variant.compare_at_price
   assign price = current_variant.price | default: 1999
-  assign jm_style = st.jm_style | default: 'default'
+
+  assign variants_available_arr = product.variants | map: 'available'
+  assign variants_option1_arr = product.variants | map: 'option1'
+  assign variants_option2_arr = product.variants | map: 'option2'
+  assign variants_option3_arr = product.variants | map: 'option3'
+  assign subscription = product.selling_plan_groups.size
+  assign sale_label = false
+  if compare_at_price > price and compare_at_price != blank
+    assign sale_label = true
+  endif
+  assign class_no_image = ''
+  assign flex_full = ''
+  assign hidden = ''
+  if product.media.size <= 0
+    assign class_no_image = 'quickview-noimage'
+    assign flex_full = 'w-full'
+    assign hidden = 'd-none'
+  endif
 -%}
-<div class="bls__product-quickview bls__product-single bls__lm-product-js bg-white overflow-hidden bls__product-preload-js">
+<div class="{{ class_no_image }} bls__product-quickview bls__product-single bls__lm-product-js bg-white overflow-hidden bls__product-preload-js">
   <div class="{{ product_label_style }} row g-0">
-    <div class="bls__product-img-quickview col-12 col-lg-6 overflow-hidden relative">
+    <div class="{{ hidden }} bls__product-img-quickview col-12 col-lg-6 overflow-hidden relative">
       <a class="bls__img-url" href="{{ product.url | within: collection }}">
         <div class="bls__product-main-img">
           <div
@@ -76,6 +94,8 @@
                   >
                     {%- if media != blank -%}
                       {%- render 'responsive-image' | image: media | type: 'product' | cls: 'bls__product-grid bls__product-img-sw' -%}
+                    {%- else -%}
+                      {%- render 'responsive-image' | type: 'product' | cls: 'bls__product-grid-plh' -%}
                     {%- endif -%}
                   </div>
                 {%- endunless -%}
@@ -86,19 +106,32 @@
         </div>
       </a>
     </div>
-    <div class="col-12 col-lg-6 relative bls__quickview-content-wap">
-      <div class="bls__quickview-content absolute-lg inset-0 p-30 h-full overflow-x-hidden overflow-y-auto mt-lg-0 mt-30 scroll-bar-custom scroll-y">
-        {%- if compare_at_price > price and compare_at_price != blank -%}
+    <div class="col-12 col-lg-6 {{ flex_full }} relative bls__quickview-content-wap">
+      <div class="bls__quickview-content {% if product.media.size > 0 %}absolute-lg inset-0{% endif %} p-30 h-full overflow-x-hidden overflow-y-auto mt-lg-0 mt-30 scroll-bar-custom scroll-y">
+        {%- if sale_label or subscription > 0 -%}
           <div class="bls__product-label mb-5 fs-12 pointer-events-none inline-block static">
-            <div class="bls__sale-label">
-              {%- assign p = compare_at_price | minus: price -%}
-              {%- if p > 0 -%}
-                {%- assign p = p | times: 100.0 | divided_by: compare_at_price | round -%}
-              {%- endif -%}
-              -
-              {{- p -}}
-              %
-            </div>
+            {% if product.selling_plan_groups.size > 0 %}
+              <div class="bls__selling_plan-label">
+                {{- 'products.product.label.subscription' | t -}}
+              </div>
+            {% endif %}
+            {% if sale_label %}
+              <div class="bls__sale-label">
+                {%- assign p = compare_at_price | minus: price -%}
+                {%- if sale_type == 'text' -%}
+                  {{- 'products.product.label.sale' | t -}}
+                {% elsif sale_type == 'percent' %}
+                  {%- if p > 0 -%}
+                    {%- assign p = p | times: 100.0 | divided_by: compare_at_price | round -%}
+                  {%- endif -%}
+                  -
+                  {{- p -}}
+                  %
+                {% elsif sale_type == 'price' %}
+                  - {{ p | money }}
+                {% endif %}
+              </div>
+            {%- endif -%}
           </div>
         {%- endif -%}
         {%- if th_st.show_vendors -%}
@@ -117,19 +150,8 @@
         </h3>
         <div class="bls__product-review-sold flex flex-wrap align-items-center fs-small">
           {%- if enable_product_review -%}
-            <div class="bls__pro-reviews mr-20">
-              {%- if product.metafields.judgeme.badge -%}
-                <div
-                  style="{{ jm_style }}"
-                  class="jdgm-widget jdgm-preview-badge bls__pro-reviews no-js-hidden mt-5"
-                  data-id="{{ product.id }}"
-                >
-                  {{ product.metafields.judgeme.badge }}
-                </div>
-              {% endif %}
-              {%- if product.metafields.spr.reviews -%}
-                <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
-              {% endif %}
+            <div class="bls__pro-reviews">
+              {% render 'product-review' | review_star: true | product: product %}
             </div>
           {%- endif -%}
           {%- if show_qv_sold_product -%}
@@ -171,9 +193,11 @@
             </div>
           {%- endif -%}
         </div>
-        <div class="bls__product-price biger-price py-20">
-          {%- render 'price', product: product, use_variant: true, price_class: 'price--large' -%}
-        </div>
+        {% if hidden_price == false %}
+          <div class="bls__product-price biger-price py-20">
+            {%- render 'price', product: product, use_variant: true, price_class: 'price--large' -%}
+          </div>
+        {% endif %}
         {%- if show_qv_countdown_timer and product.metafields.bls.countdown_timer -%}
           <div
             class="bls__countdown-timer hidden mb-25 design-1 d-none"
@@ -194,101 +218,362 @@
             {{ product.metafields.bls.short_description }}
           </div>
         {%- endif -%}
-        {% render 'quickview-sw-only-product',
-          st: st,
-          option_name: option_name,
-          color_type: color_type,
-          selector_type: selector_type,
-          product: product,
-          section: section,
-          settings: settings
-        %}
-        {%- if enable_catalog_mode -%}
-          <div class="product-form__buttons flex mb-10 flex-wrap-mb">
-            <div
-              class="bls__product-action-inner flex flex-1"
-              style="--bls__product-icon-radius: var(--btn-border-radius);"
-            >
-              {%- if show_wishlist -%}
-                <button
-                  type="button"
-                  name="add"
-                  role="button"
-                  aria-label="button"
-                  class="btn-reset bls__product-wishlist bls__product-wishlist-js bls__product-action-btn-js bls_tooltip border mr-10 mb-15 btn-radius"
-                  data-pro-add-wishlist="{{ 'products.product.wishlist' | t }}"
-                  data-pro-remove-wishlist="{{ 'products.product.browse_wishlist' | t }}"
-                  data-product-handle="{{ product.handle }}"
-                >
-                  <span class="bls__product-icon min-height-48 m-width-48 box-shadow-none">
-                    <svg
-                      width="16"
-                      height="15"
-                      viewBox="0 0 16 15"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M13.4219 2.875C13.7135 3.16667 13.9323 3.5 14.0781 3.875C14.224 4.23958 14.2969 4.61458 14.2969 5C14.2969 5.38542 14.224 5.76562 14.0781 6.14062C13.9323 6.50521 13.7135 6.83333 13.4219 7.125L8 12.5469L2.57812 7.125C2.28646 6.83333 2.06771 6.50521 1.92188 6.14062C1.77604 5.76562 1.70312 5.38542 1.70312 5C1.70312 4.61458 1.77604 4.23958 1.92188 3.875C2.06771 3.5 2.28646 3.16667 2.57812 2.875C2.86979 2.58333 3.19792 2.36458 3.5625 2.21875C3.9375 2.07292 4.31771 2 4.70312 2C5.08854 2 5.46354 2.07292 5.82812 2.21875C6.19271 2.36458 6.52604 2.58333 6.82812 2.875L7.53125 3.57812C7.65625 3.71354 7.8125 3.78125 8 3.78125C8.1875 3.78125 8.34375 3.71354 8.46875 3.57812L9.17188 2.875C9.47396 2.58333 9.80729 2.36458 10.1719 2.21875C10.5365 2.07292 10.9115 2 11.2969 2C11.6823 2 12.0573 2.07292 12.4219 2.21875C12.7969 2.36458 13.1302 2.58333 13.4219 2.875ZM14.3594 1.9375C13.9427 1.51042 13.4635 1.19271 12.9219 0.984375C12.3906 0.776042 11.849 0.671875 11.2969 0.671875C10.7448 0.671875 10.2031 0.776042 9.67188 0.984375C9.14062 1.19271 8.66146 1.51042 8.23438 1.9375L8 2.17188L7.76562 1.9375C7.33854 1.51042 6.85938 1.19271 6.32812 0.984375C5.79688 0.776042 5.25521 0.671875 4.70312 0.671875C4.15104 0.671875 3.60417 0.776042 3.0625 0.984375C2.53125 1.19271 2.05729 1.51042 1.64062 1.9375C1.21354 2.35417 0.890625 2.83333 0.671875 3.375C0.463542 3.90625 0.359375 4.44792 0.359375 5C0.359375 5.55208 0.463542 6.09896 0.671875 6.64062C0.890625 7.17188 1.21354 7.64583 1.64062 8.0625L7.53125 13.9531C7.65625 14.0885 7.8125 14.1562 8 14.1562C8.1875 14.1562 8.34375 14.0885 8.46875 13.9531L14.3594 8.0625C14.7865 7.64583 15.1042 7.17188 15.3125 6.64062C15.5312 6.09896 15.6406 5.55208 15.6406 5C15.6406 4.44792 15.5312 3.90625 15.3125 3.375C15.1042 2.84375 14.7865 2.36458 14.3594 1.9375Z" fill="#111111" />
-                    </svg>
-                  </span>
-                  <span class="bls_tooltip-content">{{ 'products.product.wishlist' | t }}</span>
-                </button>
-              {%- endif -%}
-              {%- if show_compare -%}
-                <button
-                  type="button"
-                  name="add"
-                  role="button"
-                  aria-label="button"
-                  class="btn-reset bls__product-compare bls__product-compare-js bls__product-action-btn-js bls_tooltip border mb-15 btn-radius"
-                  data-pro-add-compare="{{ 'products.product.compare' | t }}"
-                  data-pro-remove-compare="{{ 'products.product.browse_compare' | t }}"
-                  data-product-handle="{{ product.handle }}"
-                >
-                  <span class="bls__product-icon min-height-48 m-width-48 box-shadow-none">
-                    <svg
-                      width="16"
-                      height="15"
-                      viewBox="0 0 16 15"
-                      fill="none"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path d="M8 1.40625L13.1719 4L8 6.59375L2.82812 4L8 1.40625ZM7.70312 0.078125L1.03125 3.40625C0.864583 3.48958 0.75 3.61979 0.6875 3.79688C0.635417 3.96354 0.651042 4.13021 0.734375 4.29688C0.765625 4.36979 0.807292 4.43229 0.859375 4.48438C0.911458 4.52604 0.96875 4.5625 1.03125 4.59375L7.70312 7.92188C7.79688 7.97396 7.89583 8 8 8C8.10417 8 8.20312 7.97396 8.29688 7.92188L14.9688 4.59375C15.1354 4.51042 15.2448 4.38542 15.2969 4.21875C15.3594 4.04167 15.349 3.86979 15.2656 3.70312C15.2344 3.63021 15.1927 3.57292 15.1406 3.53125C15.0885 3.47917 15.0312 3.4375 14.9688 3.40625L8.29688 0.0625C8.20312 0.0208333 8.10417 0 8 0C7.89583 0 7.79688 0.0208333 7.70312 0.0625V0.078125ZM1.03125 11.2656L7.70312 14.5938C7.79688 14.6458 7.89583 14.6667 8 14.6562C8.10417 14.6562 8.20312 14.6354 8.29688 14.5938L14.9688 11.2656C15.1354 11.1823 15.2448 11.0521 15.2969 10.875C15.3594 10.6979 15.349 10.5312 15.2656 10.375C15.1823 10.2083 15.0521 10.099 14.875 10.0469C14.6979 9.98438 14.5312 9.98958 14.375 10.0625L8 13.25L1.625 10.0781C1.46875 9.99479 1.30208 9.98438 1.125 10.0469C0.947917 10.099 0.817708 10.2083 0.734375 10.375C0.651042 10.5312 0.635417 10.6979 0.6875 10.875C0.75 11.0521 0.864583 11.1823 1.03125 11.2656ZM1.03125 7.92188L7.70312 11.2656C7.79688 11.3073 7.89583 11.3281 8 11.3281C8.10417 11.3281 8.20312 11.3073 8.29688 11.2656L14.9688 7.92188C15.1354 7.84896 15.2448 7.72396 15.2969 7.54688C15.3594 7.36979 15.349 7.19792 15.2656 7.03125C15.1823 6.86458 15.0521 6.75521 14.875 6.70312C14.6979 6.64062 14.5312 6.65104 14.375 6.73438L8 9.92188L1.625 6.73438C1.46875 6.65104 1.30208 6.64062 1.125 6.70312C0.947917 6.75521 0.817708 6.86458 0.734375 7.03125C0.651042 7.19792 0.635417 7.36979 0.6875 7.54688C0.75 7.72396 0.864583 7.85417 1.03125 7.9375V7.92188Z" fill="#111111" />
-                    </svg>
-                  </span>
-                  <span class="bls_tooltip-content">{{ 'products.product.compare' | t }}</span>
-                </button>
-              {%- endif -%}
-            </div>
-          </div>
-        {%- else -%}
-          {%- if product.metafields.custom.external_affiliate == blank -%}
-            <product-form
-              class="product-form bls__product-addtocart-form-js"
-              data-product-variant-id="{{ product.selected_or_first_available_variant.id }}"
-            >
-              <div
-                class="product-form__error-message-wrapper"
-                role="alert"
-                hidden
+        {%- if th_st.enable_sw_only_product_detail == false -%}
+          <div class="product-variant-quick-view mb-15">
+            {%- unless product.has_only_default_variant -%}
+              <variant-radios-quickview
+                id="variant-radios"
+                class="no-js-hidden"
+                data-section="{{ section.id }}"
+                data-url="{{ product.url }}"
               >
-                <span class="product-form__error-message"></span>
-              </div>
-              {%- assign product_form_id = 'product-form-' | append: section.id -%}
-              {%- form 'product',
-                product,
-                id: product_form_id,
-                class: 'form',
-                novalidate: 'novalidate',
-                data-type: 'add-to-cart-form'
-              -%}
-                <input
-                  type="hidden"
-                  name="id"
-                  value="{{ product.selected_or_first_available_variant.id }}"
-                  disabled
-                >
-                <div class="product-form__buttons flex mb-10 flex-wrap-table">
+                {%- for option in product.options_with_values -%}
+                  {%- liquid
+                    assign option_index = 'option' | append: forloop.index
+                    assign selected_value = current_variant[option_index]
+                    assign isColorOption = false
+                    for colorItem in option_name
+                      if option.name == colorItem
+                        assign isColorOption = true
+                      endif
+                    endfor
+                  -%}
+                  <fieldset class="js product-form__input flex mb-25 flex-wrap {% if isColorOption %}color{% endif %}">
+                    <legend class="form__label mb-8">
+                      <span class="swatch-attribute-label">{{ option.name }}:</span>
+                      <span class="swatch-selected-value heading-weight heading-color">
+                        {{ option.selected_value }}
+                      </span>
+                    </legend>
+                    {% if isColorOption %}
+                      {% if color_type == 'radio' %}
+                        {%- for value in option.values -%}
+                          {%- liquid
+                            assign option_disabled = true
+
+                            for option1_name in variants_option1_arr
+                              case option.position
+                                when 1
+                                  if variants_option1_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                                    assign option_disabled = false
+                                  endif
+                                when 2
+                                  if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                                    assign option_disabled = false
+                                  endif
+                                when 3
+                                  if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == product.selected_or_first_available_variant.option2 and variants_option3_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                                    assign option_disabled = false
+                                  endif
+                              endcase
+                            endfor
+                          -%}
+                          <div
+                            class="bls__product-color-swatches-radio bls__option-swatch ml-1 mr-20 {% if option.selected_value == value %} active{% endif %}"
+                            data-value="{{ value }}"
+                            {% if option_disabled %}
+                              data-disabled
+                            {% endif %}
+                            data-filter-color="{{ value }}"
+                            data-color="{{ value | downcase }}"
+                          >
+                            <label class="bls__product-swatches-radio">
+                              {{ value }}
+                            </label>
+                          </div>
+                        {%- endfor -%}
+                      {% elsif color_type == 'dropdown' %}
+                        <div class="bls__color-dropdown relative">
+                          <div
+                            class="bls__color-dropdown-action d-flex align-items-center justify-content-between"
+                            data-swatches-value
+                          >
+                            <span class="bls__color-dropdown-value">
+                              {{ selected_value }}
+                            </span>
+                            <i class="icon-chevron-down"></i>
+                            <i class="icon-chevron-up"></i>
+                          </div>
+                          <div class="bls__color-dropdown-content">
+                            {%- for value in option.values -%}
+                              {%- liquid
+                                assign option_disabled = true
+
+                                for option1_name in variants_option1_arr
+                                  case option.position
+                                    when 1
+                                      if variants_option1_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                                        assign option_disabled = false
+                                      endif
+                                    when 2
+                                      if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                                        assign option_disabled = false
+                                      endif
+                                    when 3
+                                      if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == product.selected_or_first_available_variant.option2 and variants_option3_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                                        assign option_disabled = false
+                                      endif
+                                  endcase
+                                endfor
+                              -%}
+                              <div
+                                class="bls__product-color-swatches-dropdown selector-type-radio  bls__option-swatch{% if option.selected_value == value %} active{% endif %}"
+                                data-value="{{ value }}"
+                                {% if option_disabled %}
+                                  data-disabled
+                                {% endif %}
+                                data-filter-color="{{ value }}"
+                                data-color="{{ value | downcase }}"
+                              >
+                                <label class="bls__product-swatches-dropdown">
+                                  {{ value }}
+                                </label>
+                              </div>
+                            {%- endfor -%}
+                          </div>
+                        </div>
+                      {% elsif color_type == 'text' %}
+                        {%- for value in option.values -%}
+                          {%- liquid
+                            assign option_disabled = true
+
+                            for option1_name in variants_option1_arr
+                              case option.position
+                                when 1
+                                  if variants_option1_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                                    assign option_disabled = false
+                                  endif
+                                when 2
+                                  if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                                    assign option_disabled = false
+                                  endif
+                                when 3
+                                  if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == product.selected_or_first_available_variant.option2 and variants_option3_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                                    assign option_disabled = false
+                                  endif
+                              endcase
+                            endfor
+                          -%}
+                          <div
+                            class="bls__product-color-swatches-text bls__option-swatch bls_tooltip relative ml-1 mr-10{% if option.selected_value == value %} active{% endif %}"
+                            data-value="{{ value }}"
+                            {% if option_disabled %}
+                              data-disabled
+                            {% endif %}
+                            data-color="{{ value | downcase }}"
+                            data-filter-color="{{ value }}"
+                          >
+                            <label class="bls__product-swatches-text">
+                              <span
+                                class="bls_swatche-item"
+                              >
+                                {{- value -}}
+                              </span>
+                              <span
+                                class="bls_tooltip-content"
+                              >
+                                {{- value -}}
+                              </span>
+                            </label>
+                          </div>
+                        {%- endfor -%}
+                      {% else %}
+                        {%- for value in option.values -%}
+                          {%- liquid
+                            assign op = 'option' | append: option.position
+                            assign variant = product.variants | where: op, value
+                            assign img = ''
+                            for i in variant
+                              if i.featured_image.src
+                                assign img = i.featured_image.src
+                                break
+                              endif
+                            endfor
+
+                            assign option_disabled = true
+                            for option1_name in variants_option1_arr
+                              case option.position
+                                when 1
+                                  if variants_option1_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                                    assign option_disabled = false
+                                  endif
+                                when 2
+                                  if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                                    assign option_disabled = false
+                                  endif
+                                when 3
+                                  if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == product.selected_or_first_available_variant.option2 and variants_option3_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                                    assign option_disabled = false
+                                  endif
+                              endcase
+                            endfor
+                          -%}
+                          <div
+                            class="bls__product-color-swatches bls__option-swatch bls_tooltip relative ml-1 mr-10 {{ th_st.color_swatches_size }} {{ th_st.color_swatches_style }} bls__{{ value | downcase | replace: ' ', '-' }}{% if option.selected_value == value %} active{% endif %}"
+                            data-value="{{ value }}"
+                            {% if option_disabled %}
+                              data-disabled
+                            {% endif %}
+                            data-color="{{ value | downcase }}"
+                            data-filter-color="{{ value }}"
+                            data-image="{{ img | image_url: width: 100, height: 100 }}"
+                          >
+                            <label class="bls__product-swatches">
+                              <span class="bls_tooltip-content">{{ value }}</span>
+                            </label>
+                          </div>
+                        {%- endfor -%}
+                      {% endif %}
+                    {% else %}
+                      {% if selector_type != 'dropdown' %}
+                        {%- for value in option.values -%}
+                          {%- liquid
+                            assign option_disabled = true
+
+                            for option1_name in variants_option1_arr
+                              case option.position
+                                when 1
+                                  if variants_option1_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                                    assign option_disabled = false
+                                  endif
+                                when 2
+                                  if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                                    assign option_disabled = false
+                                  endif
+                                when 3
+                                  if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == product.selected_or_first_available_variant.option2 and variants_option3_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                                    assign option_disabled = false
+                                  endif
+                              endcase
+                            endfor
+                          -%}
+                          {% if selector_type != 'radio' %}
+                            <div
+                              {% if option_disabled %}
+                                data-disabled
+                              {% endif %}
+                              class="bls__option-swatch bls_tooltip relative mr-10 mb-10 {% if option.selected_value == value %} active{% endif %}"
+                              data-value="{{ value | escape }}"
+                            >
+                              <label class="bls__product-swatches bls__{{ value }}">
+                                <span class="bls_swatche-item">{{ value }}</span>
+                                <span class="bls_tooltip-content">{{ value }}</span>
+                              </label>
+                            </div>
+                          {% else %}
+                            <div
+                              {% if option_disabled %}
+                                data-disabled
+                              {% endif %}
+                              class="bls__product-type-swatches-radio bls__option-swatch ml-1 mr-20 {% if option.selected_value == value %} active{% endif %}"
+                              data-value="{{ value | escape }}"
+                            >
+                              <label class="bls__product-swatches-radio">
+                                {{ value }}
+                              </label>
+                            </div>
+                          {% endif %}
+                        {%- endfor -%}
+                      {% else %}
+                        <div class="bls__color-dropdown relative">
+                          <div
+                            class="bls__color-dropdown-action d-flex align-items-center justify-content-between"
+                            data-swatches-value
+                          >
+                            <span class="bls__color-dropdown-value">
+                              {{ selected_value }}
+                            </span>
+                            <i class="icon-chevron-down"></i>
+                            <i class="icon-chevron-up"></i>
+                          </div>
+                          <div class="bls__color-dropdown-content">
+                            {%- for value in option.values -%}
+                              {%- liquid
+                                assign option_disabled = true
+
+                                for option1_name in variants_option1_arr
+                                  case option.position
+                                    when 1
+                                      if variants_option1_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                                        assign option_disabled = false
+                                      endif
+                                    when 2
+                                      if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                                        assign option_disabled = false
+                                      endif
+                                    when 3
+                                      if option1_name == product.selected_or_first_available_variant.option1 and variants_option2_arr[forloop.index0] == product.selected_or_first_available_variant.option2 and variants_option3_arr[forloop.index0] == value and variants_available_arr[forloop.index0]
+                                        assign option_disabled = false
+                                      endif
+                                  endcase
+                                endfor
+                              -%}
+                              <div
+                                {% if option_disabled %}
+                                  data-disabled
+                                {% endif %}
+                                class="bls__product-color-swatches-dropdown selector-type-radio bls__option-swatch{% if option.selected_value == value %} active{% endif %}"
+                                data-value="{{ value | escape }}"
+                                data-color="{{ value | downcase }}"
+                              >
+                                <label class="bls__product-swatches-dropdown">
+                                  {{ value }}
+                                </label>
+                              </div>
+                            {%- endfor -%}
+                          </div>
+                        </div>
+                      {% endif %}
+                    {% endif %}
+                  </fieldset>
+                {%- endfor -%}
+                <script type="application/json">
+                  {{ product.variants | json }}
+                </script>
+                <script type="application/json" class="productVariantsQty">
+                  [
+                  {%- for variant in product.variants -%}
+                    {%- liquid
+                          assign id = '"id":' | append: variant.id
+                          assign quantity = '"qty":' | append: variant.inventory_quantity
+                      -%}
+                    { {{ id }},{{ quantity }} }
+                    {%- unless forloop.last -%},{%- endunless forloop.last -%}
+                  {%- endfor -%}
+                  ]
+                </script>
+              </variant-radios-quickview>
+            {%- endunless -%}
+          </div>
+        {%- endif -%}
+        {%- if product.metafields.custom.external_affiliate == blank -%}
+          <product-form
+            class="product-form bls__product-addtocart-form-js"
+            data-product-variant-id="{{ product.selected_or_first_available_variant.id }}"
+          >
+            <div
+              class="product-form__error-message-wrapper"
+              role="alert"
+              hidden
+            >
+              <span class="product-form__error-message"></span>
+            </div>
+            {%- assign product_form_id = 'product-form-' | append: section.id -%}
+            {%- form 'product',
+              product,
+              id: product_form_id,
+              class: 'form',
+              novalidate: 'novalidate',
+              data-type: 'add-to-cart-form'
+            -%}
+              <input
+                type="hidden"
+                name="id"
+                value="{{ product.selected_or_first_available_variant.id }}"
+                disabled
+              >
+              <div class="product-form__buttons flex mb-10 flex-wrap-table">
+                {%- if hidden_button_add_to_cart == blank -%}
                   <div class="bls__product-add-cart flex">
                     <div class="product-form__input product-form__quantity mb-15">
                       <label class="form__label visually-hidden" for="Quantity-{{ product.id }}">
@@ -341,14 +626,16 @@
                       </quantity-input>
                     </div>
                   </div>
-                  <div
-                    class="bls__product-action-inner flex flex-1 "
-                    style="--bls__product-icon-radius: var(--btn-border-radius);"
-                  >
+                {%- endif -%}
+                <div
+                  class="bls__product-action-inner flex flex-1 "
+                  style="--bls__product-icon-radius: var(--btn-border-radius);"
+                >
+                  {%- if hidden_button_add_to_cart == blank -%}
                     <button
                       type="submit"
                       name="add"
-                      class="product-form__submit relative flex-1 whitespace-nowrap min-height-48 mb-15 mr-10 animation xcvxcxcv"
+                      class="button-add-cart-qv product-form__submit relative flex-1 whitespace-nowrap min-height-48 mb-15 mr-10 animation"
                       {% if product.selected_or_first_available_variant.available == false %}
                         disabled
                       {% endif %}
@@ -370,93 +657,95 @@
                       </span>
                       <span class="loader-icon"></span>
                     </button>
-                    {%- if show_wishlist -%}
-                      <button
-                        type="button"
-                        name="add"
-                        role="button"
-                        aria-label="button"
-                        class="btn-reset bls__product-wishlist bls__product-wishlist-js bls__product-action-btn-js bls_tooltip border mr-10 mb-15 btn-radius"
-                        data-pro-add-wishlist="{{ 'products.product.wishlist' | t }}"
-                        data-pro-remove-wishlist="{{ 'products.product.browse_wishlist' | t }}"
-                        data-product-handle="{{ product.handle }}"
-                      >
-                        <span class="bls__product-icon min-height-48 m-width-48 box-shadow-none">
-                          <svg
-                            width="16"
-                            height="15"
-                            viewBox="0 0 16 15"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path d="M13.4219 2.875C13.7135 3.16667 13.9323 3.5 14.0781 3.875C14.224 4.23958 14.2969 4.61458 14.2969 5C14.2969 5.38542 14.224 5.76562 14.0781 6.14062C13.9323 6.50521 13.7135 6.83333 13.4219 7.125L8 12.5469L2.57812 7.125C2.28646 6.83333 2.06771 6.50521 1.92188 6.14062C1.77604 5.76562 1.70312 5.38542 1.70312 5C1.70312 4.61458 1.77604 4.23958 1.92188 3.875C2.06771 3.5 2.28646 3.16667 2.57812 2.875C2.86979 2.58333 3.19792 2.36458 3.5625 2.21875C3.9375 2.07292 4.31771 2 4.70312 2C5.08854 2 5.46354 2.07292 5.82812 2.21875C6.19271 2.36458 6.52604 2.58333 6.82812 2.875L7.53125 3.57812C7.65625 3.71354 7.8125 3.78125 8 3.78125C8.1875 3.78125 8.34375 3.71354 8.46875 3.57812L9.17188 2.875C9.47396 2.58333 9.80729 2.36458 10.1719 2.21875C10.5365 2.07292 10.9115 2 11.2969 2C11.6823 2 12.0573 2.07292 12.4219 2.21875C12.7969 2.36458 13.1302 2.58333 13.4219 2.875ZM14.3594 1.9375C13.9427 1.51042 13.4635 1.19271 12.9219 0.984375C12.3906 0.776042 11.849 0.671875 11.2969 0.671875C10.7448 0.671875 10.2031 0.776042 9.67188 0.984375C9.14062 1.19271 8.66146 1.51042 8.23438 1.9375L8 2.17188L7.76562 1.9375C7.33854 1.51042 6.85938 1.19271 6.32812 0.984375C5.79688 0.776042 5.25521 0.671875 4.70312 0.671875C4.15104 0.671875 3.60417 0.776042 3.0625 0.984375C2.53125 1.19271 2.05729 1.51042 1.64062 1.9375C1.21354 2.35417 0.890625 2.83333 0.671875 3.375C0.463542 3.90625 0.359375 4.44792 0.359375 5C0.359375 5.55208 0.463542 6.09896 0.671875 6.64062C0.890625 7.17188 1.21354 7.64583 1.64062 8.0625L7.53125 13.9531C7.65625 14.0885 7.8125 14.1562 8 14.1562C8.1875 14.1562 8.34375 14.0885 8.46875 13.9531L14.3594 8.0625C14.7865 7.64583 15.1042 7.17188 15.3125 6.64062C15.5312 6.09896 15.6406 5.55208 15.6406 5C15.6406 4.44792 15.5312 3.90625 15.3125 3.375C15.1042 2.84375 14.7865 2.36458 14.3594 1.9375Z" fill="#111111" />
-                          </svg>
-                        </span>
-                        <span class="bls_tooltip-content">{{ 'products.product.wishlist' | t }}</span>
-                      </button>
-                    {%- endif -%}
-                    {%- if show_compare -%}
-                      <button
-                        type="button"
-                        name="add"
-                        role="button"
-                        aria-label="button"
-                        class="btn-reset bls__product-compare bls__product-compare-js bls__product-action-btn-js bls_tooltip border mb-15 btn-radius"
-                        data-pro-add-compare="{{ 'products.product.compare' | t }}"
-                        data-pro-remove-compare="{{ 'products.product.browse_compare' | t }}"
-                        data-product-handle="{{ product.handle }}"
-                      >
-                        <span class="bls__product-icon min-height-48 m-width-48 box-shadow-none">
-                          <svg
-                            width="16"
-                            height="15"
-                            viewBox="0 0 16 15"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path d="M8 1.40625L13.1719 4L8 6.59375L2.82812 4L8 1.40625ZM7.70312 0.078125L1.03125 3.40625C0.864583 3.48958 0.75 3.61979 0.6875 3.79688C0.635417 3.96354 0.651042 4.13021 0.734375 4.29688C0.765625 4.36979 0.807292 4.43229 0.859375 4.48438C0.911458 4.52604 0.96875 4.5625 1.03125 4.59375L7.70312 7.92188C7.79688 7.97396 7.89583 8 8 8C8.10417 8 8.20312 7.97396 8.29688 7.92188L14.9688 4.59375C15.1354 4.51042 15.2448 4.38542 15.2969 4.21875C15.3594 4.04167 15.349 3.86979 15.2656 3.70312C15.2344 3.63021 15.1927 3.57292 15.1406 3.53125C15.0885 3.47917 15.0312 3.4375 14.9688 3.40625L8.29688 0.0625C8.20312 0.0208333 8.10417 0 8 0C7.89583 0 7.79688 0.0208333 7.70312 0.0625V0.078125ZM1.03125 11.2656L7.70312 14.5938C7.79688 14.6458 7.89583 14.6667 8 14.6562C8.10417 14.6562 8.20312 14.6354 8.29688 14.5938L14.9688 11.2656C15.1354 11.1823 15.2448 11.0521 15.2969 10.875C15.3594 10.6979 15.349 10.5312 15.2656 10.375C15.1823 10.2083 15.0521 10.099 14.875 10.0469C14.6979 9.98438 14.5312 9.98958 14.375 10.0625L8 13.25L1.625 10.0781C1.46875 9.99479 1.30208 9.98438 1.125 10.0469C0.947917 10.099 0.817708 10.2083 0.734375 10.375C0.651042 10.5312 0.635417 10.6979 0.6875 10.875C0.75 11.0521 0.864583 11.1823 1.03125 11.2656ZM1.03125 7.92188L7.70312 11.2656C7.79688 11.3073 7.89583 11.3281 8 11.3281C8.10417 11.3281 8.20312 11.3073 8.29688 11.2656L14.9688 7.92188C15.1354 7.84896 15.2448 7.72396 15.2969 7.54688C15.3594 7.36979 15.349 7.19792 15.2656 7.03125C15.1823 6.86458 15.0521 6.75521 14.875 6.70312C14.6979 6.64062 14.5312 6.65104 14.375 6.73438L8 9.92188L1.625 6.73438C1.46875 6.65104 1.30208 6.64062 1.125 6.70312C0.947917 6.75521 0.817708 6.86458 0.734375 7.03125C0.651042 7.19792 0.635417 7.36979 0.6875 7.54688C0.75 7.72396 0.864583 7.85417 1.03125 7.9375V7.92188Z" fill="#111111" />
-                          </svg>
-                        </span>
-                        <span class="bls_tooltip-content">{{ 'products.product.compare' | t }}</span>
-                      </button>
-                    {%- endif -%}
+                  {%- endif -%}
+                  {%- if show_wishlist -%}
+                    <button
+                      type="button"
+                      name="add"
+                      role="button"
+                      aria-label="button"
+                      class="btn-reset bls__product-wishlist bls__product-wishlist-js bls__product-action-btn-js bls_tooltip border mr-10 mb-15 btn-radius"
+                      data-pro-add-wishlist="{{ 'products.product.wishlist' | t }}"
+                      data-pro-remove-wishlist="{{ 'products.product.browse_wishlist' | t }}"
+                      data-product-handle="{{ product.handle }}"
+                      data-remove-wishlist="{{ 'products.product.remove_wishlist' | t }}"
+                      data-action="{% if settings.remove_wishlist == 'on_wishlist_icon' %}remove{% else %}redirect{% endif %}"
+                    >
+                      <span class="bls__product-icon min-height-48 m-width-48 box-shadow-none">
+                        <svg
+                          width="16"
+                          height="15"
+                          viewBox="0 0 16 15"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M13.4219 2.875C13.7135 3.16667 13.9323 3.5 14.0781 3.875C14.224 4.23958 14.2969 4.61458 14.2969 5C14.2969 5.38542 14.224 5.76562 14.0781 6.14062C13.9323 6.50521 13.7135 6.83333 13.4219 7.125L8 12.5469L2.57812 7.125C2.28646 6.83333 2.06771 6.50521 1.92188 6.14062C1.77604 5.76562 1.70312 5.38542 1.70312 5C1.70312 4.61458 1.77604 4.23958 1.92188 3.875C2.06771 3.5 2.28646 3.16667 2.57812 2.875C2.86979 2.58333 3.19792 2.36458 3.5625 2.21875C3.9375 2.07292 4.31771 2 4.70312 2C5.08854 2 5.46354 2.07292 5.82812 2.21875C6.19271 2.36458 6.52604 2.58333 6.82812 2.875L7.53125 3.57812C7.65625 3.71354 7.8125 3.78125 8 3.78125C8.1875 3.78125 8.34375 3.71354 8.46875 3.57812L9.17188 2.875C9.47396 2.58333 9.80729 2.36458 10.1719 2.21875C10.5365 2.07292 10.9115 2 11.2969 2C11.6823 2 12.0573 2.07292 12.4219 2.21875C12.7969 2.36458 13.1302 2.58333 13.4219 2.875ZM14.3594 1.9375C13.9427 1.51042 13.4635 1.19271 12.9219 0.984375C12.3906 0.776042 11.849 0.671875 11.2969 0.671875C10.7448 0.671875 10.2031 0.776042 9.67188 0.984375C9.14062 1.19271 8.66146 1.51042 8.23438 1.9375L8 2.17188L7.76562 1.9375C7.33854 1.51042 6.85938 1.19271 6.32812 0.984375C5.79688 0.776042 5.25521 0.671875 4.70312 0.671875C4.15104 0.671875 3.60417 0.776042 3.0625 0.984375C2.53125 1.19271 2.05729 1.51042 1.64062 1.9375C1.21354 2.35417 0.890625 2.83333 0.671875 3.375C0.463542 3.90625 0.359375 4.44792 0.359375 5C0.359375 5.55208 0.463542 6.09896 0.671875 6.64062C0.890625 7.17188 1.21354 7.64583 1.64062 8.0625L7.53125 13.9531C7.65625 14.0885 7.8125 14.1562 8 14.1562C8.1875 14.1562 8.34375 14.0885 8.46875 13.9531L14.3594 8.0625C14.7865 7.64583 15.1042 7.17188 15.3125 6.64062C15.5312 6.09896 15.6406 5.55208 15.6406 5C15.6406 4.44792 15.5312 3.90625 15.3125 3.375C15.1042 2.84375 14.7865 2.36458 14.3594 1.9375Z" fill="#111111" />
+                        </svg>
+                      </span>
+                      <span class="bls_tooltip-content">{{ 'products.product.wishlist' | t }}</span>
+                    </button>
+                  {%- endif -%}
+                  {%- if show_compare -%}
+                    <button
+                      type="button"
+                      name="add"
+                      role="button"
+                      aria-label="button"
+                      class="btn-reset bls__product-compare bls__product-compare-js bls__product-action-btn-js bls_tooltip border mb-15 btn-radius"
+                      data-pro-add-compare="{{ 'products.product.compare' | t }}"
+                      data-pro-remove-compare="{{ 'products.product.browse_compare' | t }}"
+                      data-product-handle="{{ product.handle }}"
+                    >
+                      <span class="bls__product-icon min-height-48 m-width-48 box-shadow-none">
+                        <svg
+                          width="16"
+                          height="15"
+                          viewBox="0 0 16 15"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M8 1.40625L13.1719 4L8 6.59375L2.82812 4L8 1.40625ZM7.70312 0.078125L1.03125 3.40625C0.864583 3.48958 0.75 3.61979 0.6875 3.79688C0.635417 3.96354 0.651042 4.13021 0.734375 4.29688C0.765625 4.36979 0.807292 4.43229 0.859375 4.48438C0.911458 4.52604 0.96875 4.5625 1.03125 4.59375L7.70312 7.92188C7.79688 7.97396 7.89583 8 8 8C8.10417 8 8.20312 7.97396 8.29688 7.92188L14.9688 4.59375C15.1354 4.51042 15.2448 4.38542 15.2969 4.21875C15.3594 4.04167 15.349 3.86979 15.2656 3.70312C15.2344 3.63021 15.1927 3.57292 15.1406 3.53125C15.0885 3.47917 15.0312 3.4375 14.9688 3.40625L8.29688 0.0625C8.20312 0.0208333 8.10417 0 8 0C7.89583 0 7.79688 0.0208333 7.70312 0.0625V0.078125ZM1.03125 11.2656L7.70312 14.5938C7.79688 14.6458 7.89583 14.6667 8 14.6562C8.10417 14.6562 8.20312 14.6354 8.29688 14.5938L14.9688 11.2656C15.1354 11.1823 15.2448 11.0521 15.2969 10.875C15.3594 10.6979 15.349 10.5312 15.2656 10.375C15.1823 10.2083 15.0521 10.099 14.875 10.0469C14.6979 9.98438 14.5312 9.98958 14.375 10.0625L8 13.25L1.625 10.0781C1.46875 9.99479 1.30208 9.98438 1.125 10.0469C0.947917 10.099 0.817708 10.2083 0.734375 10.375C0.651042 10.5312 0.635417 10.6979 0.6875 10.875C0.75 11.0521 0.864583 11.1823 1.03125 11.2656ZM1.03125 7.92188L7.70312 11.2656C7.79688 11.3073 7.89583 11.3281 8 11.3281C8.10417 11.3281 8.20312 11.3073 8.29688 11.2656L14.9688 7.92188C15.1354 7.84896 15.2448 7.72396 15.2969 7.54688C15.3594 7.36979 15.349 7.19792 15.2656 7.03125C15.1823 6.86458 15.0521 6.75521 14.875 6.70312C14.6979 6.64062 14.5312 6.65104 14.375 6.73438L8 9.92188L1.625 6.73438C1.46875 6.65104 1.30208 6.64062 1.125 6.70312C0.947917 6.75521 0.817708 6.86458 0.734375 7.03125C0.651042 7.19792 0.635417 7.36979 0.6875 7.54688C0.75 7.72396 0.864583 7.85417 1.03125 7.9375V7.92188Z" fill="#111111" />
+                        </svg>
+                      </span>
+                      <span class="bls_tooltip-content">{{ 'products.product.compare' | t }}</span>
+                    </button>
+                  {%- endif -%}
+                </div>
+              </div>
+              {% if product.selected_or_first_available_variant.available and hidden_button_add_to_cart == blank %}
+                <div class="bls__product-dynamic-checkout">
+                  {%- if th_st.enable_quickview_terms_conditions -%}
+                    <div class="bls__terms-conditions flex mb-25">
+                      <div class="checkbox-group relative">
+                        <input
+                          class="input m-0 opacity-0 absolute inset-0 pointer"
+                          type="checkbox"
+                          name="conditions"
+                          id="conditions_form_qickview"
+                        >
+                        <span class="checkmark"></span>
+                      </div>
+                      <label class="label form-label pointer" for="conditions_form_qickview">
+                        {{ th_st.content_terms_conditions }}
+                      </label>
+                    </div>
+                  {%- endif -%}
+                  <div class="bls__payment-button bls-btn-checkout-qickview{% if th_st.enable_quickview_terms_conditions %} disabled{% endif %}">
+                    {{ form | payment_button }}
                   </div>
                 </div>
-                {% if product.selected_or_first_available_variant.available %}
-                  <div class="bls__product-dynamic-checkout">
-                    {%- if th_st.enable_quickview_terms_conditions -%}
-                      <div class="bls__terms-conditions flex mb-25">
-                        <div class="checkbox-group relative">
-                          <input
-                            class="input m-0 opacity-0 absolute inset-0 pointer"
-                            type="checkbox"
-                            name="conditions"
-                            id="conditions_form_qickview"
-                          >
-                          <span class="checkmark"></span>
-                        </div>
-                        <label class="label form-label pointer" for="conditions_form_qickview">
-                          {{ th_st.content_terms_conditions }}
-                        </label>
-                      </div>
-                    {%- endif -%}
-                    <div class="bls__payment-button bls-btn-checkout-qickview{% if th_st.enable_quickview_terms_conditions %} disabled{% endif %}">
-                      {{ form | payment_button }}
-                    </div>
-                  </div>
-                {%- endif -%}
-              {%- endform -%}
-            </product-form>
-          {%- else -%}
-            <a
-              href="{{ product.metafields.custom.external_affiliate.value.external_link }}"
-              rel="nofollow"
-              target="_blank"
-              class="btn product-form__submit relative w-full text-center whitespace-nowrap min-height-48 mb-15 mr-10 animation flash-move"
-            >
-              {{- product.metafields.custom.external_affiliate.value.button_text -}}
-            </a>
-          {%- endif -%}
+              {%- endif -%}
+            {%- endform -%}
+          </product-form>
+        {%- else -%}
+          <a
+            href="{{ product.metafields.custom.external_affiliate.value.external_link }}"
+            rel="nofollow"
+            target="_blank"
+            class="btn product-form__submit relative w-full text-center whitespace-nowrap min-height-48 mb-15 mr-10 animation flash-move"
+          >
+            {{- product.metafields.custom.external_affiliate.value.button_text -}}
+          </a>
         {%- endif -%}
         {%- if th_st.use_stock_notify -%}
           <div class="bls__product-action-inner mt-15" style="--bls__product-icon-radius: var(--btn-border-radius);">

@@ -3,7 +3,6 @@
   assign font_source_heading = settings.font_source_heading
   assign font_source_menu = settings.font_source_menu
 
-  assign custom_css = settings.global_css
   assign enable_rtl = settings.rtl
   assign iso_code = request.locale.iso_code
   assign lis_language_rtl = settings.language_rtl
@@ -20,7 +19,7 @@
     assign fnt_body_sp = settings.fnt_body_sp
   -%}
   {%- unless fnt_body_sp.system? -%}
-    {{ fnt_body_sp | font_url | preload_tag: 'font', crossorigin: 'anonymous' }}
+    {{ fnt_body_sp | font_url | preload_tag: 'font', crossorigin: 'anonymous', type: 'font/woff2' }}
   {%- endunless -%}
   {%- liquid
     assign fm_body_sp = fnt_body_sp.family
@@ -62,7 +61,7 @@
     assign fnt_heading_sp = settings.fnt_headings_sp
   -%}
   {%- unless fnt_heading_sp.system? -%}
-    {{ fnt_heading_sp | font_url | preload_tag: 'font', crossorigin: 'anonymous' }}
+    {{ fnt_heading_sp | font_url | preload_tag: 'font', crossorigin: 'anonymous', type: 'font/woff2' }}
   {%- endunless -%}
   {%- liquid
     assign fm_heading_sp = fnt_heading_sp.family
@@ -104,7 +103,7 @@
     assign fnt_menu_sp = settings.fnt_menu_sp
   -%}
   {%- unless fnt_menu_sp.system? -%}
-    {{ fnt_menu_sp | font_url | preload_tag: 'font', crossorigin: 'anonymous' }}
+    {{ fnt_menu_sp | font_url | preload_tag: 'font', crossorigin: 'anonymous', type: 'font/woff2' }}
   {%- endunless -%}
   {%- liquid
     assign fm_menu_sp = fnt_menu_sp.family
@@ -262,6 +261,9 @@
     --navigation-font-weight : {{ settings.menu_font_weight }};
     --navigation-letter-spacing : {{ settings.menu_letter_spacing }}px;
     --navigation-uppercase : {% if settings.menu_uppercase %} uppercase {% else %} none {% endif %};
+    --color-title-mobile : {{ settings.color_title_mobile }};
+    --bg-title-mobile : {{ settings.bg_title_mobile }};
+
     --btn-font-size : {{ settings.button_font_size }}px;
     --btn-font-weight : {{ settings.button_font_weight }};
     --btn-letter-spacing : {{ settings.button_letter_spacing }}px;
@@ -275,6 +277,13 @@
     --bls__product-price-sale-weight : {{ settings.compare_price_font_weight }};
     --bls__product-price-sale-size : {{ settings.compare_price_font_size }}px;
 
+    --bls__product-color-sale-label : {{ settings.color_sale_label }};
+    --bls__product-bg-sale-label : {{ settings.bg_sale_label }};
+    --bls__product-color-pre-order-label : {{ settings.color_pre_order_label }};
+    --bls__product-bg-pre-order-label : {{ settings.bg_pre_order_label }};
+    --bls__product-color-sold-out-label : {{ settings.color_sold_out_label }};
+    --bls__product-bg-sold-out-label : {{ settings.bg_sold_out_label }};
+
     --body-custom-width-container: {% if settings.general_layout == 'default' %}1260px{% elsif settings.general_layout == 'fluid_container' %}{{ settings.container-fluil-max-width }}px{% elsif settings.general_layout == 'full_width' %}100%{% else %}{{ settings.custom_width_bd }}px{%- endif -%};
     --bls-container-fluid-width: {{ settings.container-fluil-max-width }}px;
 
@@ -282,9 +291,6 @@
     --bls__product-details-align: {%- if settings.content_center -%}center{% else %} {%- if enable_rtl -%}right{% else %}left{%- endif -%}{%- endif -%};
     --header-transparent-color: {{ settings.header_color_transparent }}
   }
-  {%- if custom_css != blank -%}
-        {{ custom_css | strip_newlines }}
-    {%- endif -%}
   @media (min-width: 768px) {
     :root{
       --space_between_section: {{ settings.space_for_tablet }}px;
@@ -312,9 +318,11 @@
   {{- 'bootstrap-grid.css' | asset_url | stylesheet_tag -}}
   {{ 'utilities.min.css' | asset_url | stylesheet_tag }}
 {%- endif -%}
+{{ 'animations.css' | asset_url | stylesheet_tag }}
 {{ 'reset.min.css' | asset_url | stylesheet_tag }}
 {{ 'vendor.min.css' | asset_url | stylesheet_tag }}
 {{ 'base.min.css' | asset_url | stylesheet_tag }}
+{{ 'judgeme-reviews.css' | asset_url | stylesheet_tag }}
 {%- if enable_rtl -%}
   {{ 'rtl.min.css' | asset_url | stylesheet_tag }}
 {%- endif -%}

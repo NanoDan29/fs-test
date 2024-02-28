@@ -29,13 +29,17 @@
   if st.reset_spacing
     assign reset_spacing = ' remove_spacing'
   endif
-
+  assign has_bg = ''
+  assign bg_color = st.bg_color | default: 'transparent'
+  if bg_color != blank
+    assign has_bg = ' has-bg'
+  endif
 %}
 {%- capture style -%}
   --section-padding-top: {{ st.padding_top }}px; --section-padding-bottom: {{ st.padding_bottom }}px;
 {%- endcapture -%}
 <section
-  class="bls__section {{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }} bls__custom-html color-{{ color_scheme }} gradient {{ reset_spacing }}"
+  class="bls__section {{ has_bg }}{{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }} bls__custom-html color-{{ color_scheme }} gradient {{ reset_spacing }}"
   style="{{ style | strip | strip_newlines }}"
 >
   <div class="{{ container }} {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}">
@@ -82,6 +86,11 @@
 {% schema %}
 {
   "name": "Custom liquid",
+  "disabled_on": {
+    "groups": [
+      "footer"
+    ]
+  },
   "settings": [
     {
       "type": "header",
@@ -146,6 +155,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

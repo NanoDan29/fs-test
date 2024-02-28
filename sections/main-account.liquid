@@ -1,10 +1,10 @@
 {%- liquid
-    assign st = section.settings
-    assign container = st.container
+  assign st = section.settings
+  assign container = st.container
 -%}
 
 <section class="bls__section bls__page-account">
-  <div class="{{ container }}">
+  <div class="{{ container }} section-full">
     <div class="row">
       <div class="col-md-3  mb-30">
         <div class="account-dashboard">
@@ -13,11 +13,15 @@
       </div>
       <div class="col-md-9  mb-20 border-left">
         <div class="mb-30">
-          <span>{{ 'customer.account.welcome' | t }}
-            <strong>{{ customer.name }}</strong>!</span>
-          <span>({{ 'customer.account.no' | t }}
+          <span>
+            {{- 'customer.account.welcome' | t }}
+            <strong>{{ customer.name }}</strong>!</span
+          >
+          <span
+            >({{ 'customer.account.no' | t }}
             <strong>{{ customer.name }}</strong>
-            <a href="{{ routes.account_logout_url }}" class="underline">{{ 'customer.log_out' | t }}</a>)</span>
+            <a href="{{ routes.account_logout_url }}" class="underline">{{ 'customer.log_out' | t }}</a>)</span
+          >
         </div>
         <div class="bls__order-history mb-30 pb-20">
           <h3 class="mb-15">{{ 'customer.orders.title' | t }}</h3>
@@ -39,7 +43,7 @@
                       <td>
                         <a href="{{ order.customer_url }}">{{ order.name }}</a>
                       </td>
-                      <td>{{ order.created_at | date: "%b %d, %Y" }}</td>
+                      <td>{{ order.created_at | date: '%b %d, %Y' }}</td>
                       <td>{{ order.financial_status_label }}</td>
                       <td>{{ order.fulfillment_status_label }}</td>
                       <td>{{ order.total_price | money }}</td>
@@ -50,8 +54,9 @@
             {%- else -%}
               <div class="no-order">
                 <span class="icon-done"></span>
-                <a href="/collections">{{ 'customer.orders.make' | t }}</a>
-                {{ 'customer.orders.none' | t }}</div>
+                <a href="{{ routes.collections_url }}">{{ 'customer.orders.make' | t }}</a>
+                {{ 'customer.orders.none' | t }}
+              </div>
             {%- endif -%}
           {% endpaginate %}
         </div>
@@ -79,7 +84,9 @@
               </div>
             {%- endif -%}
           </div>
-          <a href="{{ routes.account_addresses_url }}" class="btn btn-primary">{{ 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a>
+          <a href="{{ routes.account_addresses_url }}" class="btn btn-primary">
+            {{- 'customer.account.view_addresses' | t }} ({{ customer.addresses_count }})</a
+          >
         </div>
       </div>
     </div>
@@ -107,6 +114,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

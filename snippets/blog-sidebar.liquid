@@ -2,7 +2,7 @@
   {%- for block in section.blocks -%}
     {%- case block.type -%}
       {%- when 'categories' -%}
-        <div class="widget mb-30 pb-30 mb-xl-40 pb-xl-40 border-bottom last-0">
+        <div {{ block.shopify_attributes }} class="widget mb-30 pb-30 mb-xl-40 pb-xl-40 border-bottom last-0">
           <h4 class="widget-title fs-18 mb-20">{{ block.settings.title | escape }}</h4>
           <div class="widget-content">
             {%- if linklists[block.settings.menu].links.size > 0 -%}
@@ -13,7 +13,7 @@
           </div>
         </div>
       {%- when 'tags' -%}
-        <div class="widget mb-30 pb-30 mb-xl-40 pb-xl-40 border-bottom last-0">
+        <div {{ block.shopify_attributes }} class="widget mb-30 pb-30 mb-xl-40 pb-xl-40 border-bottom last-0">
           <h4 class="widget-title fs-18 mb-20">{{ block.settings.title | escape }}</h4>
           <div class="widget-content">
             <ul class="blogTagsList list-inline p-0 list-none my-0 d-flex flex-wrap">
@@ -30,20 +30,22 @@
           </div>
         </div>
       {%- when 'recent_post' -%}
-        <div class="widget mb-30 pb-30 mb-xl-40 pb-xl-40 border-bottom last-0">
+        <div {{ block.shopify_attributes }} class="widget mb-30 pb-30 mb-xl-40 pb-xl-40 border-bottom last-0">
           <h4 class="widget-title fs-18 mb-20">{{ block.settings.title | escape }}</h4>
           <div class="widget-content">
             <div class="listSidebarBlog">
               {% for article in blogs[blog.handle].articles limit: block.settings.maximum %}
                 <div class="flex flex-nowrap mb-20">
                   <div class="bls__blog-posts-image width-75 mr-15">
-                    <a href="{{ article.url }}">
-                      {% render 'responsive-image',
-                        image: article.image,
-                        aspect_ratio: block.settings.aspect_ratio,
-                        custom_ratio: block.settings.custom_ratio
-                      %}
-                    </a>
+                    <div class="hover-effect {% if settings.image_style != blank and section.settings.column_gap != 0 and section.settings.container != "full-width" %} radius {% endif %}">
+                      <a href="{{ article.url }}">
+                        {% render 'responsive-image',
+                          image: article.image,
+                          aspect_ratio: block.settings.aspect_ratio,
+                          custom_ratio: block.settings.custom_ratio
+                        %}
+                      </a>
+                    </div>
                   </div>
                   <div class="post-info media-body flex-1">
                     <a class="post-title d-block fw-500 mb-5" href="{{ article.url }}">
@@ -71,7 +73,7 @@
             assign ratio = '1/1'
           endif
         -%}
-        <div class="banner mb-30 pb-30 mb-xl-40 pb-xl-40 last-0">
+        <div {{ block.shopify_attributes }} class="banner mb-30 pb-30 mb-xl-40 pb-xl-40 last-0">
           <a
             href="{% if url == blank %}#{% else %}{{ url }}{% endif %}"
             class="banner-link"

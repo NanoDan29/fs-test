@@ -27,7 +27,7 @@
     style="--bs-gutter-x: {{ column_gap }}px;"
   {% endif %}
 >
-  <div class="bls__blog-posts-image hover-effect hover-{{ hover_effect }}">
+  <div class="bls__blog-posts-image hover-effect hover-{{ hover_effect }} {% if settings.image_style != blank and section.settings.column_gap != 0 and section.settings.container != "full-width" %} radius {% endif %}">
     <a href="{{ article.url }}">
       {% render 'responsive-image', image: article.image, aspect_ratio: aspect_ratio, custom_ratio: custom_ratio %}
     </a>
@@ -37,7 +37,7 @@
       {% assign blog_name = article.handle | split: '/' | first %}
       {% if blog_name != blank %}
         <div class="bls__blog-posts-category fs-12 fw-500 uppercase mb-5">
-          <a href="/blogs/{{ blog_name }}">
+          <a href="{{ blog.url }}">
             <span>{{ blog_name | capitalize }}</span>
           </a>
         </div>

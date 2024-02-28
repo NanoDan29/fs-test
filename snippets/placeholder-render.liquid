@@ -8,27 +8,23 @@
     assign img_type = type
   endif
 -%}
-{% liquid
-  case img_type
-    when 'product'
-      assign diff = 6 | minus: 1
-      assign randomNumber = 'now' | date: '%N' | modulo: diff | plus: 1
-      echo 'product-' | append: randomNumber | placeholder_svg_tag: cls_placeholder
-    else
-
-    when 'collection'
-      assign diff = 6 | minus: 1
-      assign randomNumber = 'now' | date: '%N' | modulo: diff | plus: 1
-      echo 'collection-' | append: randomNumber | placeholder_svg_tag: cls_placeholder
-    else
-
-    when 'image'
-      echo 'image' | placeholder_svg_tag: cls_placeholder
-    else
-
-    when 'lifestyle'
-      assign diff = 2 | minus: 1
-      assign randomNumber = 'now' | date: '%N' | modulo: diff | plus: 1
-      echo 'lifestyle-' | append: randomNumber | placeholder_svg_tag: cls_placeholder
-  endcase
-%}
+{%- case img_type -%}
+  {%- when 'product' -%}
+    {% assign diff = 6 | minus: 1 %}
+    {% assign randomNumber = 'now' | date: '%N' | modulo: diff | plus: 1 %}
+    {{ 'product-' | append: randomNumber | placeholder_svg_tag: cls_placeholder }}
+  {%- else -%}
+  {%- when 'collection' -%}
+    {% assign diff = 6 | minus: 1 %}
+    {% assign randomNumber = 'now' | date: '%N' | modulo: diff | plus: 1 %}
+    {{ 'collection-' | append: randomNumber | placeholder_svg_tag: cls_placeholder }}
+  {%- else -%}
+  {%- when 'image' -%}
+    {{ 'image' | placeholder_svg_tag: cls_placeholder }}
+  {%- else -%}
+  {%- when 'lifestyle' -%}
+    {% assign diff = 2 | minus: 1 %}
+    {% assign randomNumber = 'now' | date: '%N' | modulo: diff | plus: 1 %}
+    {{ 'lifestyle-' | append: randomNumber | placeholder_svg_tag: cls_placeholder }}
+  {%- else -%}
+{%- endcase -%}

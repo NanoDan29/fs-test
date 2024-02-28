@@ -5,7 +5,6 @@
   assign heading = st.heading
   assign description = st.description
   assign text_align = st.text_align
-  assign image_style = st.image_style
   assign heading_logo = st.heading_logo
   assign heading_logo_svg = st.heading_logo_svg
   assign column_gap = st.column_gap
@@ -64,7 +63,7 @@
   if st.design_banner == 'text-below-image'
     assign design_banner_content = 'mt-20'
   elsif st.design_banner == 'text-overlay-image' and design_content == 'default'
-    assign design_banner_content = ' absolute inset-0 p-30 pl-80 pb-80 pr-80'
+    assign design_banner_content = ' absolute inset-0 p-30 pl-80 pr-80'
   elsif st.design_banner == 'text-overlay-image' and design_content == 'design_2'
     assign design_banner_content = ' absolute inset-0 p-40'
   endif
@@ -77,21 +76,17 @@
   elsif st.text_position == 'bottom'
     assign text_position = ' justify-content-end'
   endif
-  assign bg_color = st.bg_color
-  if bg_color != blank
-    assign has_bg = ' has-bg'
-  endif
 %}
 {%- capture style -%}
-  --section-padding-top: {{ st.padding_top }}px; --section-padding-bottom: {{ st.padding_bottom }}px; --bls-gutter-x:
+  --section-padding-top: {{ st.padding_top }}px; --section-padding-bottom: {{ st.padding_bottom }}px; --bls-gutter-x: 
   {{ column_gap }}px;
 {%- endcapture -%}
 
 <section
-  class="{{ has_bg }} bls__section {{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }} {{ reset_spacing }} color-{{ color_scheme }} gradient {% if st.content_on_mobile %} {% if reset_color_mb %} reset-color-on-mb color-default-color-scheme {% endif %} {% endif %}"
+  class="bls__section {{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }}{{ column_gap_tablet }}{{ column_gap_mobile }} {{ reset_spacing }} color-{{ color_scheme }} gradient {% if st.content_on_mobile %} {% if reset_color_mb %} reset-color-on-mb color-default-color-scheme {% endif %} {% endif %}"
   style="{{ style | strip | strip_newlines }}"
 >
-  <div class="{{ container }} {% if st.design_banner == 'text-overlay-image' %}section-full{% endif %}">
+  <div class="{{ container }} section-full">
     {%- if heading != blank or description != blank or heading_logo != blank or heading_logo_svg != blank -%}
       <div class="bls__section-header {{ text_align_title }} {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}">
         {%- if heading_logo_svg != blank -%}
@@ -116,6 +111,7 @@
               loading="lazy"
               width="{{ heading_logo.width }}"
               height="{{ heading_logo.height }}"
+              style="--point:{{ heading_logo.presentation.focal_point }}"
             >
           </div>
         {%- endif -%}
@@ -130,7 +126,7 @@
       </div>
     {%- endif -%}
     <div
-      class="row{% if section.settings.layout_on_mobile %} horizontal_scroll {% endif %}{{ column_gap_tablet }}{{ column_gap_mobile }}"
+      class="row {% if section.settings.layout_on_mobile %}horizontal_scroll{% endif %} {{ column_gap_tablet }} {{ column_gap_mobile }}"
       style="--bs-gutter-x: {{ column_gap }}px;"
     >
       {%- for block in section.blocks -%}
@@ -152,12 +148,15 @@
             assign class_animation = 'scroll-trigger animate--slide-in'
           endif
         %}
-        <div class="{% if st.design_banner == 'text-overlay-image' %}overlay-image col-lg-{{ block.settings.banner_width }} {% else %}col-md-{{ block.settings.banner_width }}  {% endif %} bls__banner-item">
+        <div
+          {{ block.shopify_attributes }}
+          class="{% if st.design_banner == 'text-overlay-image' %}overlay-image col-lg-{{ block.settings.banner_width }} {% else %} {% if section.settings.layout_on_mobile %}col-lg-{{ block.settings.banner_width }}{% else %}col-md-{{ block.settings.banner_width }}  {% endif %} {% endif %} bls__banner-item"
+        >
           <div
             class="bls__banner-inner relative overflow-hidden {{ design_banner_position }} {% if st.design_banner == 'text-overlay-image' %}{% if st.content_on_mobile %}content-on-mobile{% endif %}{% endif %}"
           >
             <div
-              class="{% if enabled_animations %}scroll-trigger animate--slide-in{% endif %} bls__banner-media h-full overflow-hidden {% if section.blocks.size > 1 %}block-min-two{% endif %} {{ image_style }}"
+              class="{% if enabled_animations %}scroll-trigger animate--slide-in{% endif %} bls__banner-media h-full overflow-hidden {% if section.blocks.size > 1 %}block-min-two{% endif %}{% if settings.image_style != blank and section.settings.container != "full-width" and section.settings.column_gap != 0 %} radius {% endif %}"
               {% if enabled_animations %}
                 data-cascade
                 style="--animation-order: {{ forloop.index }};"
@@ -195,6 +194,7 @@
                   {%- endif -%}
                 {%- else -%}
                   <a
+                    {{ block.shopify_attributes }}
                     aria-label="Link detail"
                     class="h-full hover-{{ hover_effect }} hover-effect"
                     {% if bs.link == blank %}
@@ -209,7 +209,7 @@
                       target="_self"
                     {%- endif -%}
                   >
-                    <div class="h-full desktop {% if image_mobile != blank %}medium-hide{% endif %}">
+                    <div class="h-full desktop {% if st.design_banner == 'text-overlay-image' %}{% if st.image_behavior != 'none' %} animate--{{ st.image_behavior }}{% endif %}{% endif %} {% if image_mobile != blank %}medium-hide{% endif %}">
                       {%- if bs.image != blank -%}
                         {%- render 'responsive-image' | image: bs.image | width: "100vw" | cls: "h-full" -%}
                       {%- else -%}
@@ -217,7 +217,7 @@
                       {%- endif -%}
                     </div>
                     {%- if image_mobile != blank -%}
-                      <div class="mobile d-block d-md-none">
+                      <div class="mobile {% if st.design_banner == 'text-overlay-image' %}{% if st.image_behavior != 'none' %} animate--{{ st.image_behavior }}{% endif %}{% endif %} d-block d-md-none">
                         {%- render 'responsive-image' | image: bs.image_mobile | width: "100vw" | cls: "h-full" -%}
                       </div>
                     {% endif %}
@@ -225,7 +225,7 @@
               {%- endcase -%}
             </div>
             <div
-              class="bls__banner-content {{ design_content }}  {% if st.design_banner == 'text-overlay-image' %}pointer-events-none{% endif %} {% if st.content_on_mobile == true %}pointer-events-mobile{% endif %} flex flex-column z-1 {{ text_align }}{{ text_position }} {{ design_banner_content }} {% if st.design_banner == 'text-overlay-image' and design_content == 'default' %} {% if text_align == 'text-left' %}pl-8o{% endif %}{% endif %}"
+              class="bls__banner-content {{ design_content }}  {% if st.design_banner == 'text-overlay-image' %}pointer-events-none{% endif %} {% if st.content_on_mobile == true %}pointer-events-mobile{% endif %} flex flex-column z-1 {{ text_align }}{{ text_position }} {{ design_banner_content }} {% if st.design_banner == 'text-overlay-image' and design_content == 'default' %} {% if st.text_position == 'bottom' %}pb-80{%  elsif st.text_position == 'top' %}pt-80{% endif %}{% endif %}"
             >
               {%- if bs.banner_image_logo != blank -%}
                 <div class="bls__banner-logo mb-35">
@@ -245,6 +245,7 @@
                     loading="lazy"
                     width="{{ bs.banner_image_logo.width }}"
                     height="{{ bs.banner_image_logo.height }}"
+                    style="--point:{{ bs.banner_image_logo.presentation.focal_point }}"
                   >
                 </div>
               {%- endif -%}
@@ -332,6 +333,12 @@
 {
   "name": "Banner image",
   "class": "bls__banner-image",
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
   "settings": [
     {
       "type": "header",
@@ -396,6 +403,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",
@@ -696,6 +707,30 @@
     },
     {
       "type": "select",
+      "id": "image_behavior",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "ambient",
+          "label": "Ambient movement"
+        },
+        {
+          "value": "fixed",
+          "label": "Fixed background position"
+        },
+        {
+          "value": "zoom-in",
+          "label": "Zoom in on scroll"
+        }
+      ],
+      "default": "none",
+      "label": "Image behavior"
+    },
+    {
+      "type": "select",
       "id": "text_position",
       "label": "Position",
       "options": [
@@ -832,7 +867,10 @@
           "id": "video_url",
           "type": "video_url",
           "label": "Video url",
-          "accept": ["youtube", "vimeo"],
+          "accepts": [
+            "youtube",
+            "vimeo"
+          ],
           "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
         },
         {

@@ -1,11 +1,7 @@
 {{ 'blog-template.css' | asset_url | stylesheet_tag }}
 {{ 'blog-item.css' | asset_url | stylesheet_tag }}
-{% liquid
-  # theme-check-disable ContentForHeaderModification
-  capture contentForQuerystring
-    echo content_for_header
-  endcapture
-%}
+{% # theme-check-disable ContentForHeaderModification %}
+{%- capture contentForQuerystring -%}{{ content_for_header }}{%- endcapture -%}
 {% # theme-check-enable ContentForHeaderModification %}
 
 {%- assign pageUrl = contentForQuerystring
@@ -27,7 +23,7 @@
   assign hover_effect = st.hover_effect
   assign items_per_row = st.items_per_row
   assign column_gap = st.column_gap
-
+  assign pagination = st.pagination
 
   assign active = ''
   if blog.url contains request.path
@@ -43,7 +39,7 @@
   if pageQuerystring contains 'pagination='
     assign pagination_pr = pageQuerystring | split: 'pagination=' | last | split: '&' | first
     if pagination_pr == 'default' or pagination_pr == 'load_more' or pagination_pr == 'infinit_scrolling'
-      assing pagination = pagination_pr
+      assign pagination = pagination_pr
     endif
   endif
   assign blog_column = ''
@@ -60,7 +56,7 @@
 <script src="{{ 'masonry.min.js' | asset_url }}" defer></script>
 <script src="{{ 'blog.js' | asset_url }}" defer="defer"></script>
 <div class="section-{{ section.id }} section-blog-portfolio" data-id="{{ section.id }}">
-  <div class="{{ st.container }}">
+  <div class="{{ st.container }} section-full">
     <ul class="blog-tags-list p-0 list-unstyled my-0 d-flex flex-wrap flex-1 justify-content-center article-card__info">
       <li class="post-tags outline-style heading-color {{ active }}">
         <a href="{{ blog.url }}" class="remove-underline uppercase">All</a>
@@ -97,7 +93,7 @@
                   {%- endfor -%}
                 </div>
                 {%- if paginate.pages > 1 -%}
-                  {% render 'pagination', paginate: paginate, st: st, anchor: '', pagination: pagination, %}
+                  {% render 'pagination', paginate: paginate, st: st, anchor: '', pagination: pagination %}
                 {%- endif -%}
               </div>
             {%- endpaginate -%}
@@ -129,6 +125,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

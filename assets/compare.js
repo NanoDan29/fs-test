@@ -74,7 +74,6 @@ var BlsComparePageShopify = (function() {
                         BlsSubActionProductPreLoad.handleActionPg();
                         BlsSettingsSwiper.BlsSettingsCarousel();
                         BlsReloadSpr.init();
-                        BlsSectionProductAddCart.init();
                         BlsLazyloadImg.init();
                     })   
             }

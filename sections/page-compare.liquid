@@ -6,16 +6,21 @@
 {{ 'compare.css' | asset_url | stylesheet_tag }}
 {%- liquid
   assign th_st = settings
-  assign st = section.settings
   assign option_name = 'Color'
   if th_st.option_name_color != blank
-    assign option_name = th_st.option_name_color
+    assign option_name = th_st.option_name_color | split: ','
+  endif
+
+  assign option_name_size = 'Size'
+  if th_st.option_name_size != blank
+    assign option_name_size = th_st.option_name_size | split: ','
   endif
 
   assign product_name_t_transfrom = th_st.product_name_t_transfrom
   assign product_name_line = th_st.product_name_line
-  assign enable_catalog_mode = th_st.enable_catalog_mode
-  assign jm_style = st.jm_style | default: 'default'
+  assign hidden_button_add_to_cart = th_st.hidden_button_add_to_cart
+  assign hidden_price = th_st.hidden_price
+  assign sale_type = th_st.product_label_sale_type
 -%}
 <section
   class="bls__section bls__compare-page-section"
@@ -44,11 +49,11 @@
             class="bls__compare-row-basic"
           >
             <div
-              class="bls__compare-item-basic-{{ product.id }} bls__product-item bls__compare-value"
+              class="bls__compare-item-basic-{{ product.id }} bls__product-item bls__compare-value label-depend-on-button"
               data-product-handle="{{ product.handle }}"
             >
               <div
-                class="bls__product-img-compare overflow-hidden relative label-rounded-2"
+                class="bls__product-img-compare overflow-hidden relative"
               >
                 <a
                   class="bls__compare-remove d-block bls__compare-remove-js"
@@ -79,12 +84,18 @@
                       class="bls__sale-label"
                     >
                       {%- assign p = compare_at_price | minus: price -%}
-                      {%- if p > 0 -%}
-                        {%- assign p = p | times: 100.0 | divided_by: compare_at_price | round -%}
-                      {%- endif -%}
-                      -
-                      {{- p -}}
-                      %
+                      {%- if sale_type == 'text' -%}
+                        {{- 'products.product.label.sale' | t -}}
+                      {% elsif sale_type == 'percent' %}
+                        {%- if p > 0 -%}
+                          {%- assign p = p | times: 100.0 | divided_by: compare_at_price | round -%}
+                        {%- endif -%}
+                        -
+                        {{- p -}}
+                        %
+                      {% elsif sale_type == 'price' %}
+                        - {{ p | money }}
+                      {% endif %}
                     </div>
                   </div>
                 {%- endif -%}
@@ -100,17 +111,19 @@
                   {{ product.title }}
                 </a>
               </h3>
-              <div
-                class="bls__product-price mb-7"
-              >
-                {%- render 'price', product: product, use_variant: true, price_class: 'price--large' -%}
-              </div>
-              <div
+              {% if hidden_price == false %}
+                <div
+                  class="bls__product-price mb-7"
+                >
+                  {%- render 'price', product: product, use_variant: true, price_class: 'price--large' -%}
+                </div>
+              {% endif %}
+              <quick-buy
                 class="bls__product-addtocart bls__product-addtocart-js"
                 data-product-variant-id="{{ product.selected_or_first_available_variant.id }}"
               >
                 {%- if product.metafields.custom.external_affiliate == blank -%}
-                  {%- if enable_catalog_mode == false -%}
+                  {%- if hidden_button_add_to_cart == false -%}
                     <button
                       class="{{ action_add_cart }} btn-secondary border-none button button--full-width"
                       type="submit"
@@ -169,7 +182,7 @@
                     {{- product.metafields.custom.external_affiliate.value.button_text -}}
                   </a>
                 {%- endif -%}
-              </div>
+              </quick-buy>
               {%- unless product.has_only_default_variant -%}
                 <script
                   type="application/json"
@@ -223,18 +236,7 @@
               class="bls__compare-item-review-{{ product.id }} bls__compare-value"
               data-product-handle="{{ product.handle }}"
             >
-              {%- if product.metafields.judgeme.badge -%}
-                <div
-                  style="{{ jm_style }}"
-                  class="jdgm-widget jdgm-preview-badge bls__pro-reviews no-js-hidden mt-5"
-                  data-id="{{ product.id }}"
-                >
-                  {{ product.metafields.judgeme.badge }}
-                </div>
-              {% endif %}
-              {%- if product.metafields.spr.reviews -%}
-                <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
-              {% endif %}
+              {% render 'product-review' | review_star: true | product: product %}
             </div>
           </div>
           <div
@@ -248,11 +250,26 @@
                 <span>-</span>
               {%- else -%}
                 {%- liquid
-                  assign sizeOption = product.options_with_values | where: 'name', 'Size'
+                  assign sizeOption = false
+                  for option in product.options_with_values
+                    for sizeItem in option_name_size
+                      if option.name == sizeItem
+                        assign sizeOption = true
+                      endif
+                    endfor
+                  endfor
                 -%}
-                {%- if sizeOption != blank -%}
+                {%- if sizeOption -%}
                   {%- for option in product.options_with_values -%}
-                    {%- if option.name == 'Size' -%}
+                    {%- liquid
+                      assign isSizeOption = false
+                      for sizeItem in option_name_size
+                        if option.name == sizeItem
+                          assign isSizeOption = true
+                        endif
+                      endfor
+                    -%}
+                    {%- if isSizeOption -%}
                       {%- for value in option.values -%}
                         <span
                           class="bls_size-content"
@@ -279,25 +296,26 @@
               {%- if product.has_only_default_variant -%}
                 <span>-</span>
               {%- else -%}
-                {%- liquid
-                  assign colorOption = product.options_with_values | where: 'name', option_name
-                -%}
-                {%- if colorOption != blank -%}
-                  {%- for option in product.options_with_values -%}
-                    {%- if option.name == option_name -%}
-                      {%- for value in option.values -%}
-                        <span
-                          class="bls_color-content"
-                        >
-                          {{- value -}}
-                        </span>
-                        {%- if forloop.last != true %},{% endif %}
-                      {%- endfor -%}
-                    {%- endif -%}
-                  {%- endfor -%}
-                {%- else -%}
-                  <span>-</span>
-                {%- endif -%}
+                {%- for option in product.options_with_values -%}
+                  {%- liquid
+                    assign isColorOption = false
+                    for colorItem in option_name
+                      if option.name == colorItem
+                        assign isColorOption = true
+                      endif
+                    endfor
+                  -%}
+                  {%- if isColorOption -%}
+                    {%- for value in option.values -%}
+                      <span
+                        class="bls_color-content"
+                      >
+                        {{- value -}}
+                      </span>
+                      {%- if forloop.last != true %},{% endif %}
+                    {%- endfor -%}
+                  {%- endif -%}
+                {%- endfor -%}
               {%- endif -%}
             </div>
           </div>
@@ -307,7 +325,7 @@
   {%- endif -%}
 
   <div
-    class="{{ section.settings.layout }} bls__compare-page-main bls__product-preload-js"
+    class="{{ section.settings.layout }} section-full bls__compare-page-main bls__product-preload-js"
   >
     <div
       class="bls__compare-table d-none"
@@ -377,7 +395,7 @@
         {{ 'templates.compare.no_product' | t }}
         <a
           class="bls__compare-no-product-url"
-          href="/collections/all"
+          href="{{ routes.all_products_collection_url }}"
         >
           {{- 'templates.compare.redirect' | t -}}
         </a>
@@ -407,6 +425,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

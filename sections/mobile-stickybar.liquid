@@ -52,7 +52,7 @@
         {%- if show_products_all -%}
           <li>
             <div class="collections-item">
-              <a href="/collections/all" class="bls_tooltip">
+              <a href="{{ routes.all_products_collection_url }}" class="bls_tooltip">
                 <span class="bls_tooltip-content">{{ 'products.product.collections' | t }}</span>
                 <svg width="17" height="17" viewBox="0 0 17 17" fill="none" xmlns="http://www.w3.org/2000/svg">
                   <path d="M1.57253 7.89728V11.3668C1.57253 14.8364 2.96343 16.2273 6.43298 16.2273H10.598C14.0675 16.2273 15.4584 14.8364 15.4584 11.3668V7.89728" stroke="#111111" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
@@ -80,7 +80,7 @@
             </div>
           </li>
         {%- endif -%}
-        {%- if show_cart -%}
+        {%- if show_cart and settings.hidden_button_add_to_cart == false -%}
           <li>
             <div class="bls__header_minicart">
               <div class="header_minicart">

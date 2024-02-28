@@ -13,7 +13,7 @@
   assign min_height = st.min_height
 -%}
 <div
-  class="page-heading section-full  {% if se_block == blank %}not-info{% endif %} not-bg {% if design != 'text-overlay-image' %}show-beside{% endif %} {% if show_banner != blank and image_bg != blank %} show-banner{% endif %} "
+  class="page-heading {% if se_block == blank %}not-info{% endif %} not-bg {% if design != 'text-overlay-image' %}show-beside{% endif %} {% if show_banner != blank and image_bg != blank %} show-banner{% endif %} "
 >
   {%- capture style -%}
     --background-image:{% if show_banner != blank and image_bg != blank %}url({{ image_bg | image_url }}){% endif %};
@@ -35,7 +35,7 @@
           ></div>
         {%- endif -%}
       {%- endif -%}
-      <div class="{{ st.layout }} {% if design != 'text-overlay-image' %} content-beside{% endif %}">
+      <div class="{{ st.layout }} {% if design != 'text-overlay-image' %} content-beside{% endif %} section-full ">
         <div class="heading-content relative">
           {%- assign blocks = section.blocks -%}
           {%- for block in blocks -%}
@@ -93,6 +93,9 @@
 {% schema %}
 {
   "name": "Page heading",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
   "settings": [
     {
       "type": "header",
@@ -111,6 +114,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

@@ -76,6 +76,7 @@
                   {%- when 'menu_item' -%}
                     {%- if block_st.title != blank -%}
                       <li
+                        {{ block.shopify_attributes }}
                         class="bls__menu-parent relative level0 parent multicolumn_dropdown menu-width-custom"
                         {{ block.shopify_attributes }}
                       >
@@ -172,6 +173,7 @@
                   {%- when 'dropdown' -%}
                     {%- if block_st.title != blank -%}
                       <li
+                        {{ block.shopify_attributes }}
                         class="bls__menu-parent relative level0 parent default_dropdown"
                         {{ block.shopify_attributes }}
                       >
@@ -211,7 +213,9 @@
                       </li>
                     {%- endif -%}
                   {%- when 'single_link' -%}
-                    <li class="level0 single" {{ block.shopify_attributes }}>{{ menuLevel0 }}</li>
+                    <li {{ block.shopify_attributes }} class="level0 single" {{ block.shopify_attributes }}>
+                      {{ menuLevel0 }}
+                    </li>
                 {%- endcase -%}
               {%- endfor -%}
               <li class="expand-menu-link level0">

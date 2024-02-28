@@ -38,7 +38,7 @@
   class="color-{{ color_scheme }} gradient bls__section bls__google-map{{ reset_spacing }} {{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }}"
   style="{{ style | strip | strip_newlines }}"
 >
-  <div class="{{ container }}">
+  <div class="{{ container }} section-full">
     {%- if heading != blank or description != blank or heading_logo != blank or heading_logo_svg != blank -%}
       <div class="bls__section-header {{ text_align }}">
         {%- if heading_logo_svg != blank -%}
@@ -86,6 +86,12 @@
 {% schema %}
 {
   "name": "Google maps",
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
   "settings": [
     {
       "type": "header",
@@ -150,6 +156,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

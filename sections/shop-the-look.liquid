@@ -13,6 +13,7 @@
   assign thumbnail_position = st.thumbnail_position
   assign enabled_animations = settings.animations_enabled
   assign carousel_pagination = st.carousel_pagination
+
   assign reset_spacing = ''
   if st.reset_spacing
     assign reset_spacing = ' remove_spacing'
@@ -35,12 +36,12 @@
   endif
 
   assign has_bg = ''
-  assign bg_color = st.bg_color | default: "transparent"
+  assign bg_color = st.bg_color | default: 'transparent'
   if bg_color != blank
     assign has_bg = ' has-bg'
   endif
   assign carousel_pagination_progress = section.settings.carousel_pagination_progress | default: false
-  assign bg_color = section.settings.bg_color | default: "#FFFFFF"
+  assign bg_color = section.settings.bg_color | default: '#FFFFFF'
 -%}
 <shop-the-look
   class="color-{{ color_scheme }} gradient bls__section {{ has_bg }} bls__shoplookbook {{ reset_spacing }}"
@@ -51,7 +52,7 @@
   <div class="{{ container }} section-full">
     <div class="bls__shop-lookbook-content align-items-center row{% if thumbnail_position == "right" %} row-reverse{% endif %}">
       <div class="bls__lookbook-items col-xl-6 m-0-important">
-        <div class="bls__lookbook-image {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}">
+        <div class="bls__lookbook-image {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %} {% if settings.image_style != blank and section.settings.container != "full-width" and section.settings.column_gap != 0 %} radius {% endif %}">
           {%- if st.lookbook_image != blank -%}
             {% render 'responsive-image',
               image: st.lookbook_image,
@@ -68,6 +69,7 @@
             assign position_left = block.settings.position_left
           %}
           <div
+            {{ block.shopify_attributes }}
             class="bls__lookbook-dot {% if forloop.index == 1 %}active{% endif %} absolute"
             style="top: {{ position_top }}%; left: {{ position_left }}%;transform: translate(-{{ position_left }}%,-{{ position_top }}%)"
             data-product-position="{{ forloop.index }}"
@@ -121,6 +123,7 @@
                   loading="lazy"
                   width="{{ heading_logo.width }}"
                   height="{{ heading_logo.height }}"
+                  style="--point:{{ heading_logo.presentation.focal_point }}"
                 >
               </div>
             {%- endif -%}
@@ -141,7 +144,7 @@
           data-autoplay="false"
           data-loop="true"
           data-mobile="2"
-          data-tablet="2"
+          data-tablet="3"
           data-desktop="{{ item_desktop }}"
           data-spacing="{{ column_gap }}"
           data-pagination-progressbar="{% if carousel_pagination == 'carousel_pagination_progress' %}true{% else %}false{% endif %}"
@@ -166,6 +169,7 @@
                 assign position_left = block.settings.position_left
               %}
               <div
+                {{ block.shopify_attributes }}
                 class="swiper-slide {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
                 {% if enabled_animations %}
                   data-cascade
@@ -192,6 +196,9 @@
 {% schema %}
 {
   "name": "Shop the look",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
   "settings": [
     {
       "type": "header",
@@ -256,6 +263,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

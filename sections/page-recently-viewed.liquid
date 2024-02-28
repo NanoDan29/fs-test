@@ -1,6 +1,7 @@
 <script
   src="{{ 'recently-viewed.js' | asset_url }}"
-  defer="defer"></script>
+  defer="defer"
+></script>
 {{ 'product.css' | asset_url | stylesheet_tag }}
 {{ 'skeleton.css' | asset_url | stylesheet_tag }}
 {%- liquid
@@ -12,25 +13,34 @@
   class="bls__section bls__product bls__rvp-page-section"
   data-section-type="page-recently-viewed-products"
   data-section-id="{{ section.id }}"
-  data-view="{{ template.name }}">
+  data-view="{{ template.name }}"
+>
   <skeleton-page></skeleton-page>
   <div
-    class="bls__rv-page-section-inner d-none">
+    class="bls__rv-page-section-inner d-none"
+  >
     <div
-      class="{{ section.settings.layout }} bls__rv-page-main bls__grid {{ product_style }}">
+      class="{{ section.settings.layout }} section-full bls__rv-page-main bls__grid {{ product_style }}"
+    >
       <div
-        class="d-flex justify-content-center mb-50">
+        class="d-flex justify-content-center mb-50"
+      >
         <button
-          class="bls__clear-all-rvp {% if search.results == blank %}d-none{% endif %}">{{ 'collections.sidebar.clear_all' | t }}</button>
+          class="bls__clear-all-rvp {% if search.results == blank %}d-none{% endif %}"
+        >
+          {{ 'collections.sidebar.clear_all' | t }}
+        </button>
       </div>
       {%- if search.results != blank -%}
         {% paginate search.results by 50 %}
           <div
-            class="row">
+            class="row"
+          >
             {%- for item in search.results -%}
               <div
                 class="col-6 col-md-4 col-lg-3 bls__product-load bls__wl-product-js bls__product-preload-js"
-                data-product-handle="{{ item.handle }}">
+                data-product-handle="{{ item.handle }}"
+              >
                 {%- render 'product-item' | product: item -%}
               </div>
             {%- endfor -%}
@@ -38,13 +48,18 @@
         {% endpaginate %}
       {%- endif -%}
       <div
-        class="bls__rv-no-product-js d-none">
+        class="bls__rv-no-product-js d-none"
+      >
         <h3
-          class="bls__rvp-no-product-text">
+          class="bls__rvp-no-product-text"
+        >
           {{ 'templates.rvp.no_product' | t }}
           <a
             class="bls__rvp-no-product-url"
-            href="/collections/all">{{ 'templates.rvp.redirect' | t }}</a>
+            href="{{ routes.all_products_collection_url }}"
+          >
+            {{- 'templates.rvp.redirect' | t -}}
+          </a>
         </h3>
       </div>
     </div>
@@ -72,6 +87,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

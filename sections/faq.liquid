@@ -43,7 +43,7 @@
   class="bls__section color-{{ color_scheme }} gradient {{ has_bg }}{{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }} bls__faq {{ reset_spacing }}"
   style="{{ style | strip | strip_newlines }}"
 >
-  <div class="{{ st.container }}">
+  <div class="{{ st.container }} section-full">
     {%- if heading != blank or description != blank or heading_logo != blank or heading_logo_svg != blank -%}
       <div class="bls__section-header {{ text_align }}">
         {%- if heading_logo_svg != blank -%}
@@ -84,7 +84,10 @@
       </div>
     {%- endif -%}
     {%- for block in section.blocks -%}
-      <div class="bls__page-faq-items bls-toggle relative {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}">
+      <div
+        {{ block.shopify_attributes }}
+        class="bls__page-faq-items bls-toggle relative {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
+      >
         <h4 class="bls__page-faq-title fs-18 border-bottom py-15 mb-0 relative">
           {{ block.settings.title }}
           <span class="open-children-toggle d-block-important"></span>
@@ -164,6 +167,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

@@ -29,6 +29,10 @@
     cursor: pointer;
 }
 
+.bls__page-faq-items .bls__page-faq-title .open-children-toggle {
+    right: -15px;
+}
+
 .bls__page-faq-items.active .bls__page-faq-title {
     color: var(--heading-color);
     border: 0;

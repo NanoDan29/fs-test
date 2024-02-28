@@ -13,15 +13,20 @@
             class="btn btn-primary add-address"
             data-attr
             aria-expanded="false"
-            aria-controls="AddAddress">{{ 'customer.addresses.add_new' | t }}</button>
+            aria-controls="AddAddress"
+          >
+            {{ 'customer.addresses.add_new' | t }}
+          </button>
           <div class="form-add-addresses mt-30" id="AddAddress">
             {% form 'customer_address', customer.new_address %}
               <div class="bls-customer-form__new-wrapper">
                 <div
-                  class="address-form my-3 bls-customer-form__new">
+                  class="address-form my-3 bls-customer-form__new"
+                >
                   <div class="form-field form-group mb-15 flex flex-column">
-                    <label for="AddressFirstName" class="control-label">{{
-   'customer.addresses.first_name' | t }}</label>
+                    <label for="AddressFirstName_{{ form.id }}" class="control-label">
+                      {{- 'customer.addresses.first_name' | t -}}
+                    </label>
                     <input
                       class="form-input form-input-placeholder"
                       type="text"
@@ -29,11 +34,13 @@
                       name="address[first_name]"
                       id="AddresFsirstName_{{ form.id }}"
                       value="{{ form.first_name }}"
-                      autocapitalize="words">
+                      autocapitalize="words"
+                    >
                   </div>
                   <div class="form-field form-group mb-15 flex flex-column">
-                    <label for="AddressLastName" class="control-label">{{ 'customer.addresses.last_name'
- | t }}</label>
+                    <label for="AddressLastName_{{ form.id }}" class="control-label">
+                      {{- 'customer.addresses.last_name' | t -}}
+                    </label>
                     <input
                       class="form-input form-input-placeholder"
                       type="text"
@@ -41,10 +48,11 @@
                       id="AddressLastName_{{ form.id }}"
                       value="{{ form.last_name }}"
                       autocapitalize="words"
-                      placeholder="{{ 'customer.addresses.last_name' | t }}">
+                      placeholder="{{ 'customer.addresses.last_name' | t }}"
+                    >
                   </div>
                   <div class="form-field form-group mb-15 flex flex-column">
-                    <label for="AddressCompany">{{ 'customer.addresses.company' | t }}</label>
+                    <label for="AddressCompany_{{ form.id }}">{{ 'customer.addresses.company' | t }}</label>
                     <input
                       class="form-input form-input-placeholder"
                       type="text"
@@ -52,10 +60,11 @@
                       id="AddressCompany_{{ form.id }}"
                       value="{{ form.company }}"
                       autocapitalize="words"
-                      placeholder="{{ 'customer.addresses.company' | t }}">
+                      placeholder="{{ 'customer.addresses.company' | t }}"
+                    >
                   </div>
                   <div class="form-field form-group mb-15 flex flex-column">
-                    <label for="AddressAddress1">{{ 'customer.addresses.address1' | t }}</label>
+                    <label for="AddressAddress1_{{ form.id }}">{{ 'customer.addresses.address1' | t }}</label>
                     <input
                       class="form-input form-input-placeholder"
                       type="text"
@@ -63,10 +72,11 @@
                       id="AddressAddress1_{{ form.id }}"
                       value="{{ form.address1 }}"
                       autocapitalize="words"
-                      placeholder="{{ 'customer.addresses.address1' | t }}">
+                      placeholder="{{ 'customer.addresses.address1' | t }}"
+                    >
                   </div>
                   <div class="form-field form-group mb-15 flex flex-column">
-                    <label for="AddressAddress2">{{ 'customer.addresses.address2' | t }}</label>
+                    <label for="AddressAddress2_{{ form.id }}">{{ 'customer.addresses.address2' | t }}</label>
                     <input
                       class="form-input form-input-placeholder"
                       type="text"
@@ -74,10 +84,11 @@
                       id="AddressAddress2_{{ form.id }}"
                       value="{{ form.address2 }}"
                       autocapitalize="words"
-                      placeholder="{{ 'customer.addresses.address2' | t }}">
+                      placeholder="{{ 'customer.addresses.address2' | t }}"
+                    >
                   </div>
                   <div class="form-field form-group mb-15 flex flex-column">
-                    <label for="AddressCity">{{ 'customer.addresses.city' | t }}</label>
+                    <label for="AddressCity_{{ form.id }}">{{ 'customer.addresses.city' | t }}</label>
                     <input
                       class="form-input form-input-placeholder"
                       type="text"
@@ -85,7 +96,8 @@
                       id="AddressCity_{{ form.id }}"
                       value="{{ form.city }}"
                       autocapitalize="words"
-                      placeholder="{{ 'customer.addresses.city' | t }}">
+                      placeholder="{{ 'customer.addresses.city' | t }}"
+                    >
                   </div>
                   <div class="form-field form-group mb-15 flex flex-column">
                     <label for="AddressCountryNew">{{ 'customer.addresses.country' | t }}</label>
@@ -94,22 +106,25 @@
                       name="address[country]"
                       id="AddressCountryNew"
                       class="address-country-option"
-                      data-default="{{ form.country }}">
+                      data-default="{{ form.country }}"
+                    >
                       {{ country_option_tags }}
                     </select>
                   </div>
                   <div
                     class="form-field form-group mb-15 flex flex-column"
                     id="AddressProvinceNewContainer"
-                    style="display:none">
+                    style="display:none"
+                  >
                     <label for="AddressProvinceNew">{{ 'customer.addresses.province' | t }}</label>
                     <select
                       id="AddressProvinceNew"
                       name="address[province]"
-                      data-default="{{ form.province }}"></select>
+                      data-default="{{ form.province }}"
+                    ></select>
                   </div>
                   <div class="form-field form-group mb-15 flex flex-column">
-                    <label for="AddressZip">{{ 'customer.addresses.zip' | t }}</label>
+                    <label for="AddressZip_{{ form.id }}">{{ 'customer.addresses.zip' | t }}</label>
                     <input
                       class="form-input form-input-placeholder"
                       type="text"
@@ -117,10 +132,11 @@
                       id="AddressZip_{{ form.id }}"
                       value="{{ form.zip }}"
                       autocapitalize="characters"
-                      placeholder="{{ 'customer.addresses.zip' | t }}">
+                      placeholder="{{ 'customer.addresses.zip' | t }}"
+                    >
                   </div>
                   <div class="form-field form-group mb-15 flex flex-column">
-                    <label for="AddressPhone">{{ 'customer.addresses.phone' | t }}</label>
+                    <label for="AddressPhone_{{ form.id }}">{{ 'customer.addresses.phone' | t }}</label>
                     <input
                       class="form-input form-input-placeholder"
                       type="tel"
@@ -128,12 +144,13 @@
                       id="AddressPhone_{{ form.id }}"
                       value="{{ form.phone }}"
                       pattern="[0-9\-]*"
-                      placeholder="{{ 'customer.addresses.phone' | t }}">
+                      placeholder="{{ 'customer.addresses.phone' | t }}"
+                    >
                   </div>
                 </div>
                 <div class="mt-3 mb-20">
                   {{ form.set_as_default_checkbox }}
-                  <label for="address_default_address_{{ form.id }}" class="cursor-pointer">
+                  <label class="cursor-pointer">
                     <span class="ml-2">{{ 'customer.addresses.set_default' | t }}</span>
                   </label>
                 </div>
@@ -190,20 +207,21 @@
                       aria-controls="EditAddress_{{ address.id }}"
                       aria-expanded="false"
                       data-address-id="{{ address.id }}"
-                      class="mr-10 btn btn-secondary flex-grow-1">
+                      class="mr-10 btn btn-secondary flex-grow-1"
+                    >
                       {{ 'customer.addresses.edit' | t }}
                     </button>
                     <button
                       type="button"
                       class="btn btn-secondart btn-secondary address-delete flex-grow-1"
                       data-form-id="{{ address.id }}"
-                      data-confirm-message="{{ 'customer.addresses.delete_confirm' | t }}">
+                      data-confirm-message="{{ 'customer.addresses.delete_confirm' | t }}"
+                    >
                       {{ 'customer.addresses.delete' | t }}
                     </button>
                   </div>
                 </div>
               </div>
-
             {% endfor %}
           </div>
           {%- for address in customer.addresses -%}
@@ -220,8 +238,9 @@
                   <div class="bls-customer-form__edit-wrapper">
                     <div class="address-form my-3 bls-customer-form__edit">
                       <div class="form-field form-group mb-15 flex flex-column">
-                        <label for="AddressFirstName" class="control-label">{{
-   'customer.addresses.first_name' | t }}</label>
+                        <label for="AddressFirstName_{{ form.id }}" class="control-label">
+                          {{- 'customer.addresses.first_name' | t -}}
+                        </label>
                         <input
                           class="form-input form-input-placeholder"
                           type="text"
@@ -229,12 +248,13 @@
                           name="address[first_name]"
                           id="AddressFirstName_{{ form.id }}"
                           value="{{ form.first_name }}"
-                          autocapitalize="words">
+                          autocapitalize="words"
+                        >
                       </div>
                       <div class="form-field form-group mb-15 flex flex-column">
-                        <label for="AddressLastName" class="control-label">{{
-   'customer.addresses.last_name'
- | t }}</label>
+                        <label for="AddressLastName_{{ form.id }}" class="control-label">
+                          {{- 'customer.addresses.last_name' | t -}}
+                        </label>
                         <input
                           class="form-input form-input-placeholder"
                           type="text"
@@ -242,10 +262,11 @@
                           id="AddressLastName_{{ form.id }}"
                           value="{{ form.last_name }}"
                           autocapitalize="words"
-                          placeholder="{{ 'customer.addresses.last_name' | t }}">
+                          placeholder="{{ 'customer.addresses.last_name' | t }}"
+                        >
                       </div>
                       <div class="form-field form-group mb-15 flex flex-column">
-                        <label for="AddressCompany">{{ 'customer.addresses.company' | t }}</label>
+                        <label for="AddressCompany_{{ form.id }}">{{ 'customer.addresses.company' | t }}</label>
                         <input
                           class="form-input form-input-placeholder"
                           type="text"
@@ -253,10 +274,11 @@
                           id="AddressCompany_{{ form.id }}"
                           value="{{ form.company }}"
                           autocapitalize="words"
-                          placeholder="{{ 'customer.addresses.company' | t }}">
+                          placeholder="{{ 'customer.addresses.company' | t }}"
+                        >
                       </div>
                       <div class="form-field form-group mb-15 flex flex-column">
-                        <label for="AddressAddress1">{{ 'customer.addresses.address1' | t }}</label>
+                        <label for="AddressAddress1_{{ form.id }}">{{ 'customer.addresses.address1' | t }}</label>
                         <input
                           class="form-input form-input-placeholder"
                           type="text"
@@ -264,10 +286,11 @@
                           id="AddressAddress1_{{ form.id }}"
                           value="{{ form.address1 }}"
                           autocapitalize="words"
-                          placeholder="{{ 'customer.addresses.address1' | t }}">
+                          placeholder="{{ 'customer.addresses.address1' | t }}"
+                        >
                       </div>
                       <div class="form-field form-group mb-15 flex flex-column">
-                        <label for="AddressAddress2">{{ 'customer.addresses.address2' | t }}</label>
+                        <label for="AddressAddress2_{{ form.id }}">{{ 'customer.addresses.address2' | t }}</label>
                         <input
                           class="form-input form-input-placeholder"
                           type="text"
@@ -275,10 +298,11 @@
                           id="AddressAddress2_{{ form.id }}"
                           value="{{ form.address2 }}"
                           autocapitalize="words"
-                          placeholder="{{ 'customer.addresses.address2' | t }}">
+                          placeholder="{{ 'customer.addresses.address2' | t }}"
+                        >
                       </div>
                       <div class="form-field form-group mb-15 flex flex-column">
-                        <label for="AddressCity">{{ 'customer.addresses.city' | t }}</label>
+                        <label for="AddressCity_{{ form.id }}">{{ 'customer.addresses.city' | t }}</label>
                         <input
                           class="form-input form-input-placeholder"
                           type="text"
@@ -286,31 +310,35 @@
                           id="AddressCity_{{ form.id }}"
                           value="{{ form.city }}"
                           autocapitalize="words"
-                          placeholder="{{ 'customer.addresses.city' | t }}">
+                          placeholder="{{ 'customer.addresses.city' | t }}"
+                        >
                       </div>
                       <div class="form-field form-group mb-15 flex flex-column">
-                        <label for="AddressCountry">{{ 'customer.addresses.country' | t }}</label>
+                        <label for="AddressCountry_{{ form.id }}">{{ 'customer.addresses.country' | t }}</label>
                         <select
                           class="form-input form-input-placeholder edit-country-option"
                           name="address[country]"
                           id="AddressCountry_{{ form.id }}"
                           data-form-id="{{ form.id }}"
-                          data-default="{{ form.country }}">
+                          data-default="{{ form.country }}"
+                        >
                           {{ country_option_tags }}
                         </select>
                       </div>
                       <div
                         class="form-field form-group mb-15 flex flex-column"
                         id="AddressProvinceContainer_{{ form.id }}"
-                        style="display:none">
+                        style="display:none"
+                      >
                         <label for="AddressProvince_{{ form.id }}">{{ 'customer.addresses.province' | t }}</label>
                         <select
                           id="AddressProvince_{{ form.id }}"
                           name="address[province]"
-                          data-default="{{ form.province }}"></select>
+                          data-default="{{ form.province }}"
+                        ></select>
                       </div>
                       <div class="form-field form-group mb-15 flex flex-column">
-                        <label for="AddressZip">{{ 'customer.addresses.zip' | t }}</label>
+                        <label for="AddressZip_{{ form.id }}">{{ 'customer.addresses.zip' | t }}</label>
                         <input
                           class="form-input form-input-placeholder"
                           type="text"
@@ -318,10 +346,11 @@
                           id="AddressZip_{{ form.id }}"
                           value="{{ form.zip }}"
                           autocapitalize="characters"
-                          placeholder="{{ 'customer.addresses.zip' | t }}">
+                          placeholder="{{ 'customer.addresses.zip' | t }}"
+                        >
                       </div>
                       <div class="form-field form-group mb-15 flex flex-column">
-                        <label for="AddressPhone">{{ 'customer.addresses.phone' | t }}</label>
+                        <label for="AddressPhone_{{ form.id }}">{{ 'customer.addresses.phone' | t }}</label>
                         <input
                           class="form-input form-input-placeholder"
                           type="tel"
@@ -329,12 +358,13 @@
                           id="AddressPhone_{{ form.id }}"
                           value="{{ form.phone }}"
                           pattern="[0-9\-]*"
-                          placeholder="{{ 'customer.addresses.phone' | t }}">
+                          placeholder="{{ 'customer.addresses.phone' | t }}"
+                        >
                       </div>
                     </div>
                     <div class="mt-3 mb-20">
                       {{ form.set_as_default_checkbox }}
-                      <label for="address_default_address_{{ form.id }}">
+                      <label>
                         <span class="ml-2">{{ 'customer.addresses.set_default' | t }}</span>
                       </label>
                     </div>
@@ -345,7 +375,8 @@
                       <button
                         type="reset"
                         onclick="Shopify.CustomerAddress.toggleForm({{ form.id }}); return false;"
-                        class="btn btn-secondary mb-5">
+                        class="btn btn-secondary mb-5"
+                      >
                         {{ 'customer.addresses.cancel' | t }}
                       </button>
                     </div>
@@ -370,15 +401,13 @@
 </style>
 <script>
   Shopify.CustomerAddress = {
-    toggleForm: function(id) {
+    toggleForm: function (id) {
       var edit = document.getElementById('EditAddress_' + id);
-      edit.style.display = edit.style.display == 'none'
-        ? ''
-        : 'none';
-      edit.scrollIntoView({behavior: "smooth", block: "end", inline: "nearest"});
+      edit.style.display = edit.style.display == 'none' ? '' : 'none';
+      edit.scrollIntoView({ behavior: 'smooth', block: 'end', inline: 'nearest' });
       return false;
-    }
-  }
+    },
+  };
 </script>
 
 <script src="{{ 'customer.js' | asset_url }}" defer="defer"></script>

@@ -170,10 +170,7 @@ var BlsSubActionProduct = (function() {
           const wishlist_items = JSON.parse(localStorage.getItem('bls__wishlist-items'));
           const wishlist_icon = document.querySelectorAll('.bls__product-wishlist');
           wishlist_icon.forEach(e => {
-            const {
-              proAddWishlist,
-              proRemoveWishlist
-            } = e?.dataset;
+            const { proAddWishlist, proRemoveWishlist, removeWishlist, action } = e?.dataset;
             const is_page_wishlist = document.querySelector('.bls__wishlist-page-section');
             const tooltip_wishlist = e.querySelector('.bls_tooltip-content');
             const productHandle = e.dataset.productHandle;
@@ -184,7 +181,11 @@ var BlsSubActionProduct = (function() {
                 if (is_page_wishlist) {
                     tooltip_wishlist.innerText = window.stringsTemplate.messageRemoveWishlist;
                 } else {
+                  if (action === 'remove') {
+                    tooltip_wishlist.innerText = removeWishlist;
+                  }else {
                     tooltip_wishlist.innerText = proRemoveWishlist;
+                  }
                 }
               }else{
                 e.querySelector('.bls__product-icon').classList.remove('active');
@@ -209,6 +210,7 @@ var BlsSubActionProduct = (function() {
           const e = evt.currentTarget;
           const wishlist_items = JSON.parse(localStorage.getItem('bls__wishlist-items'));
           const productHandle = e.dataset.productHandle;
+          const action = e.dataset.action;
           const is_page_wishlist = document.querySelector('.bls__wishlist-page-section');
           if (is_page_wishlist) {
             BlsWishlistLoad.init(productHandle, wishlist_items);
@@ -230,7 +232,11 @@ var BlsSubActionProduct = (function() {
                     arr_items.splice(index, 1);
                     localStorage.setItem('bls__wishlist-items', JSON.stringify(arr_items));
                 } else {
-                    window.location.href = `${window.shopUrl}/pages/wishlist`;
+                  if (action === 'remove') {
+                    BlsWishlistLoad.init(productHandle, wishlist_items);
+                  }else{
+                    window.location.href = `${window.shopUrl}${window.Shopify.routes.root}pages/wishlist`;
+                  }
                 }
             }
           }

@@ -71,7 +71,7 @@
     -%}
   {%- endif -%}
   <div
-    class="{{ st.layout }}"
+    class="{{ st.layout }} section-full"
   >
     <div
       class="row"
@@ -228,6 +228,10 @@
           "label": "Fluid container"
         },
         {
+          "label": "Stretch width",
+          "value": "strecth-width"
+        },
+        {
           "value": "full-width",
           "label": "Full width"
         }
@@ -341,18 +345,6 @@
           "label": "Canvas sidebar"
         }
       ]
-    },
-    {
-      "type": "textarea",
-      "id": "variant_color",
-      "label": "Add variant option name you want to show color swatchs",
-      "info": "Example: Color, couleur, Farbe, Kleur, Farge"
-    },
-    {
-      "type": "textarea",
-      "id": "variant_size",
-      "label": "Add variant option name you want to show size swatchs",
-      "info": "Example: 'Size, Dimensione, Taille'."
     },
     {
       "type": "checkbox",

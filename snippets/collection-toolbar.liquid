@@ -18,7 +18,7 @@
     {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}
     <div class="toolbar-sorter-mb sorter ml-10">
       <h4 class="facet-filters__label caption-large text-body m-0-important">
-        <label for="SortBy">{{ 'products.facets.sort_by_label_mb' | t }}</label>
+        <label>{{ 'products.facets.sort_by_label_mb' | t }}</label>
         <span class="icon-chevron-down"></span>
       </h4>
       <div class="toolbar-sorter-mb__option py-20">
@@ -168,7 +168,7 @@
   {%- if sort_options -%}
     <div class="toolbar-sorter sorter">
       <h4 class="facet-filters__label caption-large text-body">
-        <label for="SortBy">{{ 'products.facets.sort_by_label' | t }}</label>
+        <label>{{ 'products.facets.sort_by_label' | t }}</label>
       </h4>
       <div class="select-custom">
         {%- assign sort_by = collection.sort_by | default: collection.default_sort_by -%}

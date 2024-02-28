@@ -2,7 +2,7 @@
   {
     "name": "theme_info",
     "theme_name": "FS",
-    "theme_version": "2.0.1",
+    "theme_version": "2.4.0",
     "theme_author": "Sobel Westex Theme",
     "theme_documentation_url": "https:\/\/github.com\/sobelwestex\/shopify-fs\/blob\/master\/README.md",
     "theme_support_url": "https:\/\/support.sobelwestex.com\/"
@@ -142,6 +142,12 @@
         "content": "Rounded"
       },
       {
+        "type": "checkbox",
+        "id": "image_style",
+        "label": "Enable rounded corners",
+        "default": false
+      },
+      {
         "type": "range",
         "id": "base_radius",
         "min": 0,
@@ -160,6 +166,35 @@
         "id": "animations_enabled",
         "label": "Enable animations",
         "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "pre_load_page",
+        "label": "Enable preload page",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "icon_preload",
+        "label": "Icon preload page",
+        "options": [
+          {
+            "value": "dot-loading",
+            "label": "Dot loading"
+          },
+          {
+            "value": "infinity",
+            "label": "Infinity"
+          },
+          {
+            "value": "spin",
+            "label": "Spin"
+          },
+          {
+            "value": "spinner",
+            "label": "Spinner"
+          }
+        ]
       },
       {
         "type": "header",
@@ -274,6 +309,7 @@
       {
         "type": "select",
         "id": "general_layout",
+        "label":"",
         "options": [
           {
             "value": "default",
@@ -459,6 +495,10 @@
           {
             "value": "Royal Agustine",
             "label": "Royal Agustine"
+          },
+          {
+            "value": "Binerka Demo",
+            "label": "Binerka Demo"
           }
         ]
       },
@@ -586,6 +626,10 @@
           {
             "value": "Royal Agustine",
             "label": "Royal Agustine"
+          },
+          {
+            "value": "Binerka Demo",
+            "label": "Binerka Demo"
           }
         ]
       },
@@ -693,6 +737,7 @@
       {
         "type": "color_scheme_group",
         "id": "color_schemes",
+        "label":"",
         "definition": [
           {
             "type": "header",
@@ -844,6 +889,15 @@
           "on_secondary_button": "button_secondary_color",
           "secondary_button_border": "button_secondary_border_color"
         }
+      },
+      {
+        "type": "header",
+        "content": "Color for mobile browser"
+      },
+      {
+        "type": "color",
+        "id": "color_mobile_browser",
+        "label": "Color"
       }
     ]
   },
@@ -986,6 +1040,29 @@
         "label": "Text and icon"
       },
       {
+        "type": "checkbox",
+        "id": "transparent_mobile",
+        "label": "Transparent header on mobile",
+        "info": "Only works if you have checked the settings: \"Enable transparent on top\" or \"Enable transparent header\" above.",
+        "default": false
+      },
+      {
+        "type": "header",
+        "content": "Memu mobile title"
+      },
+      {
+        "type": "color",
+        "id": "bg_title_mobile",
+        "label": "Background",
+        "default": "#D73F0F"
+      },
+      {
+        "type": "color",
+        "id": "color_title_mobile",
+        "label": "Color",
+        "default": "#ffffff"
+      },
+      {
         "type": "header",
         "content": "Addons"
       },
@@ -1085,6 +1162,12 @@
         "default": true
       },
       {
+        "type": "checkbox",
+        "id": "enable_text_suggest",
+        "label": "Enable text suggest",
+        "default": false
+      },
+      {
         "type": "select",
         "id": "predictive_search_type",
         "options": [
@@ -1099,6 +1182,23 @@
         ],
         "label": "Predictive search type :",
         "default": "search_suggest"
+      },
+      {
+        "type": "select",
+        "id": "search_for",
+        "options": [
+          {
+            "value": "search_for_product",
+            "label": "Search for product"
+          },
+          {
+            "value": "search_for_all",
+            "label": "Search all"
+          }
+        ],
+        "label": "Search for :",
+        "default": "search_for_product",
+        "info": "\"Search all\" only work when you selected Predictive search suggest in Predictive search type setting"
       },
       {
         "type": "textarea",
@@ -1194,6 +1294,70 @@
         "id": "cart_shipping_rates_calculator",
         "label": "Enable shipping rates calculator",
         "default": true
+      },
+      {
+        "type": "checkbox",
+        "id": "cart_shipping_rates_days",
+        "label": "Show delivery days for estimate shipping",
+        "default": true
+      },
+      {
+        "type": "header",
+        "content": "Product recommendations"
+      },
+      {
+        "type": "checkbox",
+        "id": "show_in_cart",
+        "label": "Show in cart page",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "option_show_minicart",
+        "label": "Option show in minicart",
+        "default": "disable",
+        "options": [
+          {
+            "label": "Disable",
+            "value": "disable"
+          },
+          {
+            "value": "inside",
+            "label": "Show inside"
+          },
+          {
+            "label": "Show beside",
+            "value": "beside"
+          }
+        ]
+      },
+      {
+        "type": "text",
+        "id": "product_recommendations_heading",
+        "default": "You may also like",
+        "label": "Heading"
+      },
+      {
+        "type": "select",
+        "id": "recommendation_product_type",
+        "label": "Product recommendations type",
+        "options": [
+          {
+            "value": "auto",
+            "label": "Auto"
+          },
+          {
+            "value": "selected",
+            "label": "Selected"
+          }
+        ],
+        "default": "auto"
+      },
+      {
+        "type": "product_list",
+        "id": "select_product_recommendation",
+        "label": "Select product recommendations",
+        "limit": 12
       }
     ]
   },
@@ -1227,6 +1391,33 @@
         "id": "help_chat",
         "label": "Help chat",
         "placeholder": "Enter html frame chat"
+      }
+    ]
+  },
+  {
+    "name": "Wishlist",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "show_message_add_to_wishlist",
+        "label": "Show message add to wishlist when remove cart item",
+        "default": false
+      },
+      {
+        "type": "select",
+        "id": "remove_wishlist",
+        "label": "Remove wishlist",
+        "default": "redirect_page",
+        "options": [
+          {
+            "value": "on_wishlist_icon",
+            "label": "Tap back on wishlist icon"
+          },
+          {
+            "value": "redirect_page",
+            "label": "Visit the wishlist page and remove the item"
+          }
+        ]
       }
     ]
   },
@@ -1289,6 +1480,12 @@
         "type": "checkbox",
         "id": "show_vendors",
         "label": "Show product vendors",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "show_short_description",
+        "label": "Show short description",
         "default": false
       },
       {
@@ -1509,6 +1706,58 @@
       },
       {
         "type": "header",
+        "content": "Product label"
+      },
+      {
+        "type": "paragraph",
+        "content": "== Sale label =="
+      },
+      {
+        "type": "color",
+        "id": "color_sale_label",
+        "label": "Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "bg_sale_label",
+        "label": "Background",
+        "default": "#D73F0F"
+      },
+      {
+        "type": "paragraph",
+        "content": "== Pre-order label =="
+      },
+      {
+        "type": "color",
+        "id": "color_pre_order_label",
+        "label": "Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "bg_pre_order_label",
+        "label": "Background",
+        "default": "#177983"
+      },
+      {
+        "type": "paragraph",
+        "content": "== Sold-out label =="
+      },
+      {
+        "type": "color",
+        "id": "color_sold_out_label",
+        "label": "Color",
+        "default": "#ffffff"
+      },
+      {
+        "type": "color",
+        "id": "bg_sold_out_label",
+        "label": "Background",
+        "default": "#757575"
+      },
+      {
+        "type": "header",
         "content": "Badges"
       },
       {
@@ -1528,6 +1777,26 @@
         "id": "enable_sold_out",
         "label": "Show sold out badge",
         "default": true
+      },
+      {
+        "type": "select",
+        "id": "product_label_sale_type",
+        "label": "Sale label type",
+        "default": "percent",
+        "options": [
+          {
+            "value": "text",
+            "label": "Text sale"
+          },
+          {
+            "value": "percent",
+            "label": "By percent (%)"
+          },
+          {
+            "value": "price",
+            "label": "By price ($)"
+          }
+        ]
       },
       {
         "type": "select",
@@ -1648,6 +1917,18 @@
         "info": "You can hide \"Add to cart\" buttons."
       },
       {
+        "type": "checkbox",
+        "id": "hidden_button_add_to_cart",
+        "label": "Hidden add to cart button",
+        "default": false
+      },
+      {
+        "type": "checkbox",
+        "id": "hidden_price",
+        "label": "Hidden price",
+        "default": false
+      },
+      {
         "type": "header",
         "content": "Color swatches"
       },
@@ -1746,10 +2027,18 @@
         "content": "Option name"
       },
       {
-        "type": "text",
+        "type": "textarea",
         "id": "option_name_color",
         "label": "Color",
-        "default": "Color"
+        "default": "Color,Colour",
+        "info": "Define the name of color option. Separate by a comma. Eg. Color,Colour"
+      },
+      {
+        "type": "textarea",
+        "id": "option_name_size",
+        "label": "Size",
+        "default": "Size,Taglia",
+        "info": "Define the name of size option. Separate by a comma. Eg. Size,Taglia"
       }
     ]
   },

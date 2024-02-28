@@ -55,7 +55,7 @@
     assign grid_class = 'bls__grid {{ product_style }}'
   endif
   assign has_bg = ''
-  assign bg_color = st.bg_color | default: "transparent"
+  assign bg_color = st.bg_color | default: 'transparent'
   if bg_color != blank
     assign has_bg = ' has-bg'
   endif
@@ -65,14 +65,13 @@
   --section-padding-top: {{ st.padding_top }}px; --section-padding-bottom: {{ st.padding_bottom }}px;
 {%- endcapture -%}
 <section
-  class="color-{{ color_scheme }} gradient bls__section {{ has_bg }} {{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }} bls__product bls__tab{{ reset_spacing }} {{ more_row }}"
+  class="color-{{ color_scheme }} gradient bls__section {{ has_bg }} {{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }} bls__product bls__tab{{ reset_spacing }} {{ more_row }} {% if section.settings.container == "full-width" or section.settings.column_gap == 0 %} not-radius {% endif %}"
   style="{{ style | strip | strip_newlines }}"
   id="{{ section.id }}"
-  data
-  -id="{{ section.id }}"
+  data-id="{{ section.id }}"
   data-type="product_grid"
 >
-  <div class=" {{ container }} ">
+  <div class=" {{ container }} section-full">
     {%- if heading != blank or description != blank or heading_logo != blank or heading_logo_svg != blank -%}
       <div class="bls__section-header {{ text_align }} {% if tab_style == 'tab_desgin_4' %}d-none{% endif %}">
         {%- if heading_logo_svg != blank -%}
@@ -223,6 +222,9 @@
 {% schema %}
 {
   "name": "Collection tab",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
   "settings": [
     {
       "type": "header",
@@ -286,6 +288,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

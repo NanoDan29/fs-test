@@ -58,7 +58,6 @@ var BlsWishlistPageShopify = (function() {
                         BlsColorSwatchesShopify.init();
                         BlsSubActionProduct.handleInitQuickviewAction();
                         BlsSubActionProduct.init();
-                        BlsSectionProductAddCart.init();
                         BlsLazyloadImg.init();
                     })
                 }

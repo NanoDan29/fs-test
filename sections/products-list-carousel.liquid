@@ -4,6 +4,8 @@
   assign st = section.settings
   assign show_product_type = th_st.show_product_type
   assign show_review = th_st.show_review
+  assign hidden_price = th_st.hidden_price
+  assign sale_type = th_st.product_label_sale_type
   assign container = st.container
   assign color_scheme = st.color_scheme
   assign text_align = st.text_alignment
@@ -54,7 +56,6 @@
     assign has_bg = ' has-bg'
   endif
   assign collection = collections[cls]
-  assign jm_style = st.jm_style | default: 'default_style'
 -%}
 
 {%- capture style -%}
@@ -64,12 +65,12 @@
 --section-padding-top: {{ st.padding_top }}px; --section-padding-bottom: {{ st.padding_bottom }}px; --bls_product-item-vertical-space: 0px;
 {%- endcapture -%}
 <section
-  class="color-{{ color_scheme }} gradient bls__section bls__section-list-products {{ has_bg }}{{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }} bls__product{{ reset_spacing }}"
+  class="color-{{ color_scheme }} gradient bls__section bls__section-list-products {{ has_bg }}{{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }} bls__product{{ reset_spacing }} {% if section.settings.container == "full-width" %} not-radius {% endif %}"
   style="{{ style | strip | strip_newlines }}"
   data-id="{{ section.id }}"
   data-type="product_list_carousel"
 >
-  <div class=" {{ container }} ">
+  <div class=" {{ container }} section-full">
     {%- if heading != blank or description != blank or heading_logo != blank or heading_logo_svg != blank -%}
       <div class="bls__section-header {{ text_align }} {% if text_view_all -%}text-view-all{% endif %}">
         {%- if heading_logo_svg != blank -%}
@@ -143,8 +144,8 @@
         {%- if collection.products.size == 0 -%}
           {%- for i in (1..limit_products) -%}
             <div class="swiper-slide">
-              <div class="bls__product-item flex flex-nowrap mb-15">
-                <div class="bls__product-img overflow-hidden relative col-3 mr-15 border mw-100">
+              <div class="bls__product-item item-product-list flex flex-nowrap mb-15">
+                <div class="bls__product-img overflow-hidden relative col-3 mr-15 mw-100">
                   <a role="link" aria-disabled="true">
                     {%- render 'placeholder-render' | type: 'product' -%}
                   </a>
@@ -250,16 +251,14 @@
               endif
 
               assign label = false
-              if sold_out == true or sale == true or pre_order == true
+              assign subscription = product.selling_plan_groups.size
+              if sold_out == true or sale == true or pre_order == true or subscription > 0
                 assign label = true
               endif
               assign p = compare_at_price | minus: price
-              if p > 0
-                assign p = p | times: 100.0 | divided_by: compare_at_price | round
-              endif
             -%}
             <div class="swiper-slide">
-              <div class="bls__product-item {% if bg_color != blank %}item-product-list{% endif %} flex flex-nowrap mb-20 last-0">
+              <div class="bls__product-item item-product-list flex flex-nowrap mb-20 last-0">
                 <div class="bls__product-img overflow-hidden relative col-3 mr-15">
                   <a href="{{ product.url | within: collection }}">
                     {%- if product.featured_image != blank -%}
@@ -272,11 +271,25 @@
                 <div class="bls__product-details flex-1 d-flex flex-column justify-content-center">
                   {%- if label -%}
                     <div class="bls__product-label fs-12 pointer-events-none absolute">
+                      {% if subscription > 0 %}
+                        <div class="bls__selling_plan-label">
+                          {{- 'products.product.label.subscription' | t -}}
+                        </div>
+                      {% endif %}
                       {%- if compare_at_price > price and compare_at_price != blank -%}
                         <div class="bls__sale-label">
-                          -
-                          {{- p -}}
-                          %
+                          {%- if sale_type == 'text' -%}
+                            {{- 'products.product.label.sale' | t -}}
+                          {% elsif sale_type == 'percent' %}
+                            {%- if p > 0 -%}
+                              {%- assign p = p | times: 100.0 | divided_by: compare_at_price | round -%}
+                            {%- endif -%}
+                            -
+                            {{- p -}}
+                            %
+                          {% elsif sale_type == 'price' %}
+                            - {{ p | money }}
+                          {% endif %}
                         </div>
                       {%- endif -%}
                       {%- if sold_out -%}
@@ -306,22 +319,13 @@
                     <a href="{{ product.url | within: collection }}">{{ product.title }}</a>
                   </h3>
                   {%- if show_review -%}
-                    {%- if product.metafields.judgeme.badge -%}
-                      <div
-                        style="{{ jm_style }}"
-                        class="jdgm-widget jdgm-preview-badge bls__pro-reviews no-js-hidden mt-5"
-                        data-id="{{ product.id }}"
-                      >
-                        {{ product.metafields.judgeme.badge }}
-                      </div>
-                    {% endif %}
-                    {%- if product.metafields.spr.reviews -%}
-                      <span class="shopify-product-reviews-badge" data-id="{{ product.id }}"></span>
-                    {% endif %}
+                    {% render 'product-review' | review_star: true | product: product %}
                   {%- endif -%}
-                  <div class="bls__product-price mt-7">
-                    {%- render 'price', product: product, use_variant: true, price_class: 'price--large' -%}
-                  </div>
+                  {% if hidden_price == false %}
+                    <div class="bls__product-price mt-7">
+                      {%- render 'price', product: product, use_variant: true, price_class: 'price--large' -%}
+                    </div>
+                  {% endif %}
                 </div>
               </div>
             </div>
@@ -343,6 +347,9 @@
 {% schema %}
 {
   "name": "Products list carousel",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
   "settings": [
     {
       "type": "header",
@@ -407,6 +414,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

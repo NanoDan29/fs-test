@@ -24,15 +24,34 @@
     position: relative;
 }
 
+.bls__banner-text--content-inner.content-bg {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
 @media (min-width: 768px) {
-    .bls__banner-text--content-inner {
+    .bls__banner-text--content-inner:not(.content-full-with) {
         width: var(--content-width);
+    }
+
+    .bls__banner-text--grid>* {
+        position: sticky;
+        top: 93px;
+    }
+
+    .bls__banner-text--content-inner.content-bg {
+        padding-left: 3rem;
+        padding-right: 3rem;
     }
 }
 
-.text-center .bls__banner-text--content-inner {
-    padding: 0 2rem;
+@media (min-width: 1025px) {
+    .bls__banner-text--grid>* {
+        top: var(--height-header);
+    }
 }
+
+
 
 .content-horizontal-position-left .bls__banner-text--content-inner {
     margin-right: auto;
@@ -63,6 +82,7 @@
 
 .bg-text-column {
     background-color: var(--content-bg);
+    background-image: var(--content-bg);
 }
 
 .bg-overlay--content-inner::before {
@@ -78,6 +98,7 @@
     pointer-events: none;
     z-index: -1;
     background-color: var(--content-bg);
+    background-image: var(--content-bg);
 }
 
 .content-position-center {
@@ -141,6 +162,11 @@
     margin-bottom: var(--b-mb);
 }
 
+.bls__banner-text--html {
+    margin-top: var(--html-mt);
+    margin-bottom: var(--html-mb);
+}
+
 .bls__banner-text--des p {
     color: rgb(var(--base-color));
     font-size: var(--text-font-size);
@@ -156,6 +182,29 @@
 .bls__banner-subtext .mb-10 {
     margin-bottom: 1rem;
     line-height: 1;
+}
+
+.faq-content {
+    margin-top: var(--faq-mt);
+    margin-bottom: var(--faq-mb);
+}
+
+.faq-content .bls__page-faq-items .bls__page-faq-title {
+    color: var(--heading-color);
+    font-size: var(--title-faq-font-size);
+    font-weight: var(--title-faq-font-weight, var(--heading-font-weight));
+    text-transform: var(--title-faq-transform);
+    cursor: pointer;
+}
+
+.bls__page-faq-items .bls__page-faq-title .open-children-toggle {
+    right: -15px;
+}
+
+.faq-content .bls__page-faq-items .bls__page-faq-content {
+    font-size: var(--text-faq-font-size);
+    font-weight: var(--text-faq-font-weight);
+    text-transform: var(--text-faq-transform);
 }
 
 .bls__banner-text--content.text-center .timer-banner {
@@ -362,7 +411,7 @@
         height: var(--mobile-height);
     }
 
-    .bls__banner-with-text .bls__banner-text--grid .bls__banner-text--content-inner {
+    .bls__banner-with-text .bls__banner-text--grid .bls__banner-text--content-inner:not(.content-bg) {
         padding-right: calc(var(--bs-gutter-x) * .5);
         padding-left: calc(var(--bs-gutter-x) * .5);
     }

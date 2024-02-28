@@ -4,7 +4,7 @@
   assign product_style = th_st.product_style
   assign st = section.settings
   assign cls = st.collection
-  assign bl = section.settings.bl | default: ""
+  assign bl = section.settings.bl | default: ''
   if bl != blank
     assign cls = bl
   endif
@@ -85,14 +85,12 @@
   endif
 
   assign has_bg = ''
-  assign bg_color = st.bg_color | default: "transparent"
+  assign bg_color = st.bg_color | default: 'transparent'
   if bg_color != blank
     assign has_bg = ' has-bg'
   endif
 
   assign collection = collections[cls]
-  assign banner_type = section.settings.banner_type | default: "default_type"
-  
 -%}
 
 {%- capture style -%}
@@ -100,13 +98,13 @@
   : {{ bg_color }}{%- endif -%}
 {%- endcapture -%}
 <section
-  class="color-{{ color_scheme }} gradient bls__section {{ has_bg }}{{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }} bls__product{{ reset_spacing }} {{ more_row }}"
+  class="color-{{ color_scheme }} gradient bls__section {{ has_bg }}{{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }} bls__product{{ reset_spacing }} {{ more_row }} {% if section.settings.container == "full-width" or section.settings.column_gap == 0 %} not-radius {% endif %}"
   style="{{ style | strip | strip_newlines }}"
   id="{{ section.id }}"
   data-id="{{ section.id }}"
   data-type="product_grid"
 >
-  <div class=" {{ container }} ">
+  <div class=" {{ container }} section-full">
     {%- if heading != blank or description != blank or heading_logo != blank or heading_logo_svg != blank -%}
       <div class="bls__section-header {{ text_align }} {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}">
         {%- if heading_logo_svg != blank -%}
@@ -131,6 +129,7 @@
               loading="lazy"
               width="{{ heading_logo.width }}"
               height="{{ heading_logo.height }}"
+              style="--point:{{ heading_logo.presentation.focal_point }}"
             >
           </div>
         {%- endif -%}
@@ -163,7 +162,7 @@
         style="--product-banner-width: {{ banner_width }}%;"
       >
         {%- if enable_banner -%}
-          <div class="bls__product-banner relative d-none d-xl-block {{ show_sticky_banner }} {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %} {% if banner_type == 'video' %} type-video {% endif %} {% if banner_type == 'image' %} type-banner {% endif %}">
+          <div class="bls__product-banner relative d-none d-xl-block {{ show_sticky_banner }} {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}">
             {%- case st.banner_type -%}
               {%- when 'video' -%}
                 {%- if video_local == blank -%}
@@ -231,6 +230,9 @@
 {% schema %}
 {
   "name": "Products grid",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
   "settings": [
     {
       "type": "header",
@@ -295,6 +297,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",
@@ -386,10 +392,7 @@
       "id": "video_url",
       "type": "video_url",
       "label": "Video url",
-      "accept": [
-        "youtube",
-        "vimeo"
-      ],
+      "accept": ["youtube", "vimeo"],
       "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
     },
     {

@@ -2,17 +2,12 @@
   assign th_st = settings
   assign option_name = 'Color'
   if th_st.option_name_color != blank
-    assign option_name = th_st.option_name_color
+    assign option_name = th_st.option_name_color | split: ','
   endif
   assign color_swatches_size = th_st.color_swatches_size
   assign color_swatches_style = th_st.color_swatches_style
-  assign enable_catalog_mode = th_st.enable_catalog_mode
-  for option in product.options
-    case option
-      when option_name
-      when 'Size'
-    endcase
-  endfor
+  assign hidden_button_add_to_cart = th_st.hidden_button_add_to_cart
+  assign hidden_price = th_st.hidden_price
 -%}
 <div id="product-form-quick-edit" data-template-quick-cart-edit>
   <product-form-quick-edit class="product-form">
@@ -45,52 +40,56 @@
             <h1 class="bls__product-title mb-5 fs-16 ">
               {{ product.title }}
             </h1>
-            <div class="product__price price mb-15">
-              {%- render 'price', product: product, use_variant: true, price_class: 'price--large' -%}
-            </div>
-            <div class="product-form__input product-form__quantity mb-15">
-              <quantity-input class="quantity rounded-5 border bg-grey d-inline-flex align-items-center text-center mr-20">
-                <button
-                  class="btn-reset flex justify-content-center align-items-center quantity__button no-js-hidden width-35"
-                  name="minus"
-                  type="button"
-                >
-                  <svg
-                    width="11"
-                    height="12"
-                    viewBox="0 0 11 2"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+            {% if hidden_price == false %}
+              <div class="product__price price mb-15">
+                {%- render 'price', product: product, use_variant: true, price_class: 'price--large' -%}
+              </div>
+            {% endif %}
+            {%- if hidden_button_add_to_cart == false -%}
+              <div class="product-form__input product-form__quantity mb-15">
+                <quantity-input class="quantity rounded-5 border bg-grey d-inline-flex align-items-center text-center mr-20">
+                  <button
+                    class="btn-reset flex justify-content-center align-items-center quantity__button no-js-hidden width-35"
+                    name="minus"
+                    type="button"
                   >
-                    <path d="M11 0.5L11 1.5L-4.37114e-08 1.5L0 0.5L11 0.5Z" fill="#111111"/>
-                  </svg>
-                </button>
-                <input
-                  class="quantity__input bg-unset border-none text-center width-50 appearance-none p-0-important"
-                  type="number"
-                  name="quantity"
-                  id="Quantity-{{ section.id }}"
-                  min="1"
-                  value="1"
-                  form="{{ product_form_id }}"
-                >
-                <button
-                  class="btn-reset flex justify-content-center align-items-center quantity__button no-js-hidden width-35"
-                  name="plus"
-                  type="button"
-                >
-                  <svg
-                    width="11"
-                    height="12"
-                    viewBox="0 0 11 12"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
+                    <svg
+                      width="11"
+                      height="12"
+                      viewBox="0 0 11 2"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path d="M11 0.5L11 1.5L-4.37114e-08 1.5L0 0.5L11 0.5Z" fill="#111111"/>
+                    </svg>
+                  </button>
+                  <input
+                    class="quantity__input bg-unset border-none text-center width-50 appearance-none p-0-important"
+                    type="number"
+                    name="quantity"
+                    id="Quantity-{{ section.id }}"
+                    min="1"
+                    value="1"
+                    form="{{ product_form_id }}"
                   >
-                    <path fill-rule="evenodd" clip-rule="evenodd" d="M5 11.5H6L6 6.5H11V5.5H6L6 0.5H5L5 5.5H0V6.5H5L5 11.5Z" fill="#111111"/>
-                  </svg>
-                </button>
-              </quantity-input>
-            </div>
+                  <button
+                    class="btn-reset flex justify-content-center align-items-center quantity__button no-js-hidden width-35"
+                    name="plus"
+                    type="button"
+                  >
+                    <svg
+                      width="11"
+                      height="12"
+                      viewBox="0 0 11 12"
+                      fill="none"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path fill-rule="evenodd" clip-rule="evenodd" d="M5 11.5H6L6 6.5H11V5.5H6L6 0.5H5L5 5.5H0V6.5H5L5 11.5Z" fill="#111111"/>
+                    </svg>
+                  </button>
+                </quantity-input>
+              </div>
+            {%- endif -%}
           </div>
         </div>
         <div class="product-quick-edit-right">
@@ -102,7 +101,15 @@
               data-url="{{ product.url }}"
             >
               {%- for option in product.options_with_values -%}
-                <fieldset class="js product-form__input flex flex-wrap mb-10 {% if option.name == option_name %}color{% endif %}">
+                {%- liquid
+                  assign isColorOption = false
+                  for colorItem in option_name
+                    if option.name == colorItem
+                      assign isColorOption = true
+                    endif
+                  endfor
+                -%}
+                <fieldset class="js product-form__input flex flex-wrap mb-10 {% if isColorOption %}color{% endif %}">
                   <legend class="form__label mb-8">
                     <span class="swatch-attribute-label">{{ option.name }}:</span>
                     <span class="swatch-selected-value heading-weight heading-color">
@@ -111,13 +118,13 @@
                   </legend>
                   {%- for value in option.values -%}
                     <div
-                      class="{% if option.name == option_name %}bls__product-color-swatches {% endif %}bls__option-swatch bls_tooltip relative mr-10 mb-5 {{ color_swatches_style }} {{ color_swatches_size }} bls__{{ value | downcase | replace: ' ', '-' }}{% if option.selected_value == value %} active{% endif %}"
-                      data-value="{% if option.name == option_name %}{{ value }}{% else %}{{ value | escape }}{% endif %}"
+                      class="{% if isColorOption %}bls__product-color-swatches {% endif %}bls__option-swatch bls_tooltip relative mr-10 mb-5 {{ color_swatches_style }} {{ color_swatches_size }} bls__{{ value | downcase | replace: ' ', '-' }}{% if option.selected_value == value %} active{% endif %}"
+                      data-value="{% if isColorOption %}{{ value }}{% else %}{{ value | escape }}{% endif %}"
                       data-color="{{ value | downcase }}"
                       data-image="{{ product.variants[forloop.index0].featured_image | image_url: width: 100, height: 100 }}"
                       style="background-color: {{ value | downcase }};"
                     >
-                      {% if option.name == option_name %}
+                      {% if isColorOption %}
                         <label
                           class="bls__product-swatches"
                         >
@@ -142,7 +149,7 @@
           {%- endunless -%}
         </div>
       </div>
-      {%- if enable_catalog_mode == false -%}
+      {%- if hidden_button_add_to_cart == false -%}
         <div class="product-form__buttons flex flex-wrap">
           <div class="bls__product-add-cart flex flex-1">
             <button

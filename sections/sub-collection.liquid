@@ -14,6 +14,7 @@
   assign loop = st.loop
   assign autoplay = st.autoplay
   assign carousel_pagination = st.carousel_pagination
+  assign show_arrow = st.show_arrow
   assign reveal_on_scroll = st.reveal_on_scroll
   assign column_gap = st.column_gap
   assign media_aspect_ratio = st.image_ratio
@@ -23,11 +24,13 @@
   assign width_image = st.width_image
   assign images_style = st.images_style
   assign sub_collection = collection.metafields.bls.sub_collections | split: ','
+
   assign collection_font_size = st.collection_font_size
   assign collection_font_weight = st.collection_font_weight
   assign collection_spacing = st.collection_spacing
   assign count_font_size = st.count_font_size
   assign count_font_weight = st.count_font_weight
+
   assign categories_item = ''
   if item_desktop > 5
     assign categories_item = ' more-categories'
@@ -160,11 +163,7 @@
                 {% endif %}
               {%- endfor -%}
             </div>
-            {%
-              render 'swiper-control',
-              show_arrow: st.show_arrow,
-              carousel_pagination: carousel_pagination,
-            %}
+            {% render 'swiper-control', show_arrow: show_arrow, carousel_pagination: carousel_pagination %}
           </div>
         {%- else -%}
           <div class="bls__collection-grid">
@@ -264,6 +263,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

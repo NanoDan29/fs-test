@@ -1,14 +1,12 @@
+{% assign hidden_price = settings.hidden_price %}
 <div
   id="bls__sticky-addcart"
   class="bls__sticky-addcart{% if st.sticky_mode == '1' %} only-show-desktop d-none d-lg-block{% endif %} gradient color-default-color-scheme z-4 fixed inset-x-0 bottom-0 py-15 box-shadow-top"
 >
   <div class="sticky-addcart flex justify-content-center justify-content-between-lg align-items-center container">
     <div class="sticky-addcart-product flex-nowrap d-none d-lg-flex align-items-center d-none d-lg-block">
-      {% liquid
-        assign image = current_variant.featured_image | default: product.featured_image
-      %}
-      <div class="sticky-addcart-img mr-15 width-60" {{ image }}>
-        {%- render 'responsive-image' | image: image | type: 'product' | cls: 'bls__product-grid bls__product-img-sw' -%}
+      <div class="sticky-addcart-img mr-15 width-60">
+        {%- render 'responsive-image' | image: current_variant.featured_image | type: 'product' | cls: 'bls__product-grid bls__product-img-sw' -%}
       </div>
       <div class="sticky-addcart-infos">
         {%- if settings.show_vendors -%}
@@ -17,9 +15,11 @@
           </div>
         {%- endif -%}
         <div class="heading-color heading-weight">{{ product.title }}</div>
-        <div class="price heading-weight fs-small mt-5">
-          {%- render 'price', product: product, use_variant: true, price_class: 'price--large' -%}
-        </div>
+        {% if hidden_price == false %}
+          <div class="price heading-weight fs-small mt-5">
+            {%- render 'price', product: product, use_variant: true, price_class: 'price--large' -%}
+          </div>
+        {% endif %}
       </div>
     </div>
     <div class="sticky-addcart-product-form">
@@ -37,11 +37,17 @@
               <select name="id" class="sticky-addcart-opstion mr-10 mr-lg-20 btn-radius">
                 {% for variant in product.variants %}
                   {% assign selected = false %}
+                  {% assign quantity = variant.inventory_quantity %}
+                  {%- if quantity < 1 and variant.available == false -%}
+                    {% continue %}
+                  {%- endif -%}
                   {%- if variant.id == product.selected_or_first_available_variant.id -%}
                     {% assign selected = true %}
                   {%- endif -%}
+                  {% assign option = variant.title %}
                   <option
                     value="{{ variant.id }}"
+                    data-option="{{ option }}"
                     {% if selected %}
                       selected="true"
                     {% endif %}

@@ -14,7 +14,6 @@
   assign video_local = st.video_local
   assign text_position = st.text_position
   assign text_content = st.text_content
-  assign video_style = st.video_style
   assign aspect_ratio = st.aspect_ratio
   assign custom_ratio = st.custom_ratio
   assign video_type = st.video_type
@@ -75,13 +74,13 @@
   --section-padding-bottom: {{ st.padding_bottom }}px;
 {%- endcapture -%}
 <section
-  class="bls__section bls__video {{ video_style }} {{ reset_spacing }} color-{{ color_scheme }} gradient {{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }}"
+  class="bls__section bls__video {% if settings.image_style != blank and section.settings.container != "full-width" %} radius {% endif %} {{ reset_spacing }} color-{{ color_scheme }} gradient {{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }}"
   style="{{ style | strip | strip_newlines }}"
 >
   <div class="{{ container }} section-full">
     <div class="bls__video-content {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %} overflow-hidden relative {% if video_type == 'popup' %}bls__video-popup {% endif %}">
       {%- if video_type == 'popup' -%}
-        <div class="bls__video-thumb">
+        <div class="bls__video-thumb {% if st.image_behavior != 'none' %} animate--{{ st.image_behavior }}{% endif %}">
           {%- if thumbnail == blank -%}
             {%- render 'responsive-image', type: 'lifestyle', cls: 'bls__placeholder' -%}
           {%- else -%}
@@ -226,6 +225,9 @@
 {% schema %}
 {
   "name": "Video",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
   "settings": [
     {
       "type": "header",
@@ -244,6 +246,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",
@@ -280,10 +286,7 @@
       "id": "video_url",
       "type": "video_url",
       "label": "Video url",
-      "accept": [
-        "youtube",
-        "vimeo"
-      ],
+      "accept": ["youtube", "vimeo"],
       "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
     },
     {
@@ -302,6 +305,30 @@
       "id": "image_thumbnail",
       "label": "Thumbnail image",
       "info": "1920 x 700px recommended"
+    },
+    {
+      "type": "select",
+      "id": "image_behavior",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "ambient",
+          "label": "Ambient movement"
+        },
+        {
+          "value": "fixed",
+          "label": "Fixed background position"
+        },
+        {
+          "value": "zoom-in",
+          "label": "Zoom in on scroll"
+        }
+      ],
+      "default": "none",
+      "label": "Image behavior"
     },
     {
       "type": "select",
@@ -366,8 +393,8 @@
     {
       "type": "range",
       "id": "desktop_height",
-      "min": 600,
-      "max": 1100,
+      "min": 400,
+      "max": 900,
       "step": 5,
       "unit": "px",
       "label": "Desktop height",
@@ -536,22 +563,6 @@
           "label": "Right"
         }
       ]
-    },
-    {
-      "type": "select",
-      "id": "video_style",
-      "label": "Video style",
-      "options": [
-        {
-          "value": "default",
-          "label": "Square"
-        },
-        {
-          "value": "radius",
-          "label": "Radius"
-        }
-      ],
-      "default": "default"
     },
     {
       "type": "header",

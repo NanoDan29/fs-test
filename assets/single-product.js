@@ -109,7 +109,16 @@ class VariantRadiosProductSingle extends HTMLElement {
                 if (sale && sold_out == false) {
                     var element_sale = document.createElement('div');
                     element_sale.classList.add('bls__sale-label');
-                    element_sale.innerText = -percent.toFixed(0)+'%';
+                    if (window.productLabel.saleType == 'price') {
+                        element_sale.innerText = "- " + Shopify.formatMoney(
+                          (compare_at_price - price),
+                          cartStrings.money_format
+                        );
+                    } else if (window.productLabel.saleType == 'text') {
+                    element_sale.innerText = window.productLabel.saleLabel;
+                    } else {
+                    element_sale.innerText = -percent.toFixed(0) + "%";
+                    }
                     label.appendChild(element_sale);
                 } 
                 if (pre_order) {
@@ -139,8 +148,9 @@ class VariantRadiosProductSingle extends HTMLElement {
                 product.querySelector('.bls__product-main-img img').setAttribute('src', this.currentVariant.featured_media.preview_image.src);
             }, 500);
         }
-
+        if (product.querySelector('.bls__product-sku-value')) {
         product.querySelector('.bls__product-sku-value').textContent = this.currentVariant.sku && this.currentVariant.sku != "" ? this.currentVariant.sku : "N/A";
+        }
         const price_format = Shopify.formatMoney(this.currentVariant.price, cartStrings.money_format);
         product.querySelector('.price__regular .price').innerHTML = price_format;
         const bls__price = product.querySelector('.bls__price');
@@ -167,10 +177,14 @@ class VariantRadiosProductSingle extends HTMLElement {
         const buttonPayment = productForm.querySelector('.bls__product-dynamic-checkout');
         if (!addButton) return;
         if (disable) {
-            buttonPayment.style.display = 'none';
+            if (buttonPayment) {
+                buttonPayment.style.display = 'none';
+            }
             addButton.setAttribute('disabled', 'disabled');
         } else {
+            if (buttonPayment) {
             buttonPayment.style.display = 'block';
+            }
             addButton.removeAttribute('disabled');
         }
         if (text) addButtonText.textContent = text;
@@ -270,7 +284,11 @@ class VariantRadiosProductSingle extends HTMLElement {
                     .then(res => res.json())
                     .then(cart => {
                         document.querySelectorAll(".cart-count").forEach(el => {
-                            el.innerHTML = cart.item_count;
+                            if (el.classList.contains('cart-count-drawer')) {
+                                el.innerHTML = `(${cart.item_count})`;
+                                }else{
+                                el.innerHTML = cart.item_count;
+                                }
                         });
                         const cart_free_ship = document.querySelector("free-ship-progress-bar");
                         if (cart_free_ship) {
@@ -489,7 +507,11 @@ var BlsEventGroup = (function () {
                         .then(res => res.json())
                         .then(cart => {
                             document.querySelectorAll(".cart-count").forEach(el => {
-                                el.innerHTML = cart.item_count;
+                                if (el.classList.contains('cart-count-drawer')) {
+                                    el.innerHTML = `(${cart.item_count})`;
+                                    }else{
+                                    el.innerHTML = cart.item_count;
+                                    }
                             });
                             const cart_free_ship = document.querySelector("free-ship-progress-bar");
                             if (cart_free_ship) {

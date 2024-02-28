@@ -15,7 +15,6 @@
   assign enabled_animations = th_st.animations_enabled
   assign reveal_on_scroll = st.reveal_on_scroll
   assign carousel_pagination = st.carousel_pagination
-
 -%}
 <div
   class="swiper bls__swiper grid-{{ product_style }} hover__show-nav {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}  {% if reveal_on_scroll %}reveal_on_scroll{% endif %}"
@@ -68,7 +67,12 @@
       {%- endfor -%}
     {%- endif -%}
   </div>
-  {%- if carousel_pagination == 'carousel_bullets' or carousel_pagination == 'show_bullet_mobile' or carousel_pagination == 'carousel_pagination_progress' -%}
-    <div class="swiper-pagination {% if carousel_pagination == 'show_bullet_mobile' %} show-on-mobile {% endif %} {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"></div>
+  {%- if carousel_pagination == 'carousel_bullets'
+    or carousel_pagination == 'show_bullet_mobile'
+    or carousel_pagination == 'carousel_pagination_progress'
+  -%}
+    <div
+      class="swiper-pagination {% if carousel_pagination == 'show_bullet_mobile' %} show-on-mobile {% endif %} {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
+    ></div>
   {%- endif -%}
 </div>

@@ -9,6 +9,7 @@
     assign gift_pr_price = gift_wrap_pr.selected_or_first_available_variant.price | money
   endif
   assign cart_shipping_rates_calculator = th_st.cart_shipping_rates_calculator
+  assign cart_shipping_rates_days = th_st.cart_shipping_rates_days
   assign cart_note = th_st.cart_note
 -%}
 
@@ -91,7 +92,7 @@
           class="bls__add-giftwrap btn w-full relative"
         >
           <span>{{ 'general.cart.gift.button_text' | t }}</span>
-          <span class="loader-icon"></span>  
+          <span class="loader-icon"></span>
         </a>
       </div>
       <div class="bls__addon-actions">
@@ -149,6 +150,11 @@
       </button>
       <button type="button" class="btn-cancel btn-secondary">{{ 'general.cart.cancel' | t }}</button>
     </div>
-    <div class="bls__addon-message"></div>
+    <div
+      class="bls__addon-message"
+      data-show-delivery-days="{{ cart_shipping_rates_days }}"
+      data-delivery-day-one="{{ 'general.cart.delivery_days.one' | t }}"
+      data-delivery-days-other="{{ 'general.cart.delivery_days.other' | t }}"
+    ></div>
   </div>
 {%- endif -%}

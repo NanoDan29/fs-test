@@ -105,6 +105,7 @@
             assign count_product = link_collection.all_products_count | default: 0
           -%}
           <div
+            {{ block.shopify_attributes }}
             class="bls__collection-links d-inline-flex  {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
             {% if enabled_animations %}
               data-cascade
@@ -142,6 +143,12 @@
 {% schema %}
 {
   "name": "Collection link",
+  "disabled_on": {
+    "groups": [
+      "header",
+      "footer"
+    ]
+  },
   "settings": [
     {
       "type": "header",
@@ -205,6 +212,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

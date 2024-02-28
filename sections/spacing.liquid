@@ -1,8 +1,14 @@
-<div class="bls__spacing" style="--height-desktop: {{ section.settings.spacing_desktop }}px; --height-mobile: {{ section.settings.spacing_moible }}px;"></div>
+<div
+  class="bls__spacing"
+  style="--height-desktop: {{ section.settings.spacing_desktop }}px; --height-mobile: {{ section.settings.spacing_moible }}px;"
+></div>
 {% schema %}
 {
   "name": "Spacing",
   "tag": "section",
+  "disabled_on": {
+    "groups": ["footer"]
+  },
   "settings": [
     {
       "type": "range",

@@ -35,7 +35,7 @@
       class="color-{{ section.settings.color_scheme }} gradient announcement-bar relative active{% if show_mobile == blank %} d-none d-sm-block {% endif %}"
       style="{{ style | strip | strip_newlines }}"
     >
-      <div class="{{ container }}">
+      <div class="{{ container }} section-full">
         {% if sec_blocks.size > 1 and st.text_action == 'marquee' %}
           <div class="marquee d-flex overflow-hidden">
         {% endif %}
@@ -52,7 +52,7 @@
                             assign blo_settings = block.settings
                           -%}
                           {%- if blo_settings.text != blank -%}
-                            <div class="swiper-slide">
+                            <div {{ block.shopify_attributes }} class="swiper-slide">
                               <div class="d-flex flex-wrap align-items-center announcement-bar-content justify-content-center text-center py-10 px-15 {% if bar_uppercase %}uppercase{% endif %}">
                                 {{ blo_settings.text }}
                                 {% if blo_settings.countdown_deadline != blank %}
@@ -108,7 +108,10 @@
                         assign blo_settings = block.settings
                       -%}
                       {%- if blo_settings.text != blank -%}
-                        <div class="d-flex flex-wrap align-items-center announcement-bar-content justify-content-center text-center py-10 px-15 {% if bar_uppercase %}uppercase{% endif %}">
+                        <div
+                          {{ block.shopify_attributes }}
+                          class="d-flex flex-wrap align-items-center announcement-bar-content justify-content-center text-center py-10 px-15 {% if bar_uppercase %}uppercase{% endif %}"
+                        >
                           {{ blo_settings.text }}
                           {% if blo_settings.countdown_deadline != blank %}
                             <div
@@ -149,7 +152,10 @@
                   assign blo_settings = block.settings
                 -%}
                 {%- if blo_settings.text != blank -%}
-                  <div class="d-flex flex-wrap align-items-center justify-content-center announcement-bar-content text-center py-10 px-15  {% if bar_uppercase %}uppercase{% endif %}">
+                  <div
+                    {{ block.shopify_attributes }}
+                    class="d-flex flex-wrap align-items-center justify-content-center announcement-bar-content text-center py-10 px-15  {% if bar_uppercase %}uppercase{% endif %}"
+                  >
                     {{ blo_settings.text }}
                     {% if blo_settings.countdown_deadline != blank %}
                       <div
@@ -215,6 +221,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

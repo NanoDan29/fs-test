@@ -2,7 +2,7 @@
 {%- liquid
   assign th_st = settings
   assign header_layout = th_st.header_layout
-  assign enable_catalog_mode = th_st.enable_catalog_mode
+  assign hidden_button_add_to_cart = th_st.hidden_button_add_to_cart
   assign free_shipping = th_st.free_shipping_progress_bar
   assign shipping_rate = th_st.shipping_rate | times: 100 | default: 0
   assign shipping_rate_price = shipping_rate | money
@@ -43,10 +43,15 @@
         <div class="cart-count h-count">{{ cart.item_count }}</div>
       </a>
       {% if template != 'cart' %}
-        <div class="bls-minicart-wrapper bls__canvas bls__canvas-right">
+        <div class="bls-minicart-wrapper bls__canvas bls__canvas-right {% if settings.option_show_minicart == 'beside' %}minicart-beside{% endif %}">
           <div class="bls-minicart-content color-default-color-scheme gradient">
             <div class="bls-minicart-header d-flex align-items-center justify-content-between">
-              <h4 class="bls-minicart-heading  m-0">{{ 'general.cart.title' | t }}</h4>
+              <div class="d-flex align-items-center">
+                <h4 class="bls-minicart-heading  m-0">{{ 'general.cart.title' | t }}</h4>
+                <span class="cart-count cart-count-drawer ml-5 heading-weight heading-color fs-18">
+                  ({{ cart.item_count }})
+                </span>
+              </div>
               <button class="button-close close-button">
                 <i class="icon-x"></i>
               </button>
@@ -108,41 +113,144 @@
                     {% for item in cart.items %}
                       {%- render 'cart-item', item: item -%}
                     {% endfor %}
+                    {% if settings.option_show_minicart == 'inside' %}
+                      {%- if settings.recommendation_product_type == 'auto' -%}
+                        <minicart-recommendations
+                          data-url="{{ routes.product_recommendations_url }}?product_id={{ cart.items.first.product_id }}&limit=6&section_id=cart-upsell"
+                          class="cart-recomment pt-10 d-block mt-auto{% if settings.recommendation_product_type == 'auto' %} no-js-hidden{% endif %}"
+                        >
+                      {%- else -%}
+                        <div
+                          class="cart-recomment pt-10 d-block mt-auto{% if settings.select_product_recommendation == blank %} d-none{% endif %}"
+                        >
+                      {%- endif -%}
+                      {%- if settings.product_recommendations_heading -%}
+                        <h4 class="bls-minicart-heading mb-15">
+                          {{ settings.product_recommendations_heading }}
+                        </h4>
+                      {%- endif -%}
+                      <div
+                        class="swiper bls__swiper bls-swiper-cart-upsell"
+                        id="bls__swiper-cart-upsell"
+                        data-section-id="cart-upsell"
+                        data-autoplay="false"
+                        data-loop="false"
+                        data-mobile="1"
+                        data-tablet="1"
+                        data-desktop="1"
+                        data-item-mobile="1"
+                        data-spacing="5"
+                      >
+                        <div class="swiper-wrapper">
+                          {%- if settings.recommendation_product_type != 'auto' -%}
+                            {%- for item in settings.select_product_recommendation -%}
+                              <div class="swiper-slide">
+                                {%- render 'product-popular-list-item' | product: item | template_cart: true -%}
+                              </div>
+                            {%- endfor -%}
+                          {%- endif -%}
+                        </div>
+                        <div class="swiper-pagination"></div>
+                      </div>
+                      {%- if settings.recommendation_product_type == 'auto' -%}
+                        </minicart-recommendations>
+                      {%- else -%}
+                        </div>
+                      {%- endif -%}
+                    {% endif %}
+                    {% if settings.option_show_minicart == 'beside' %}
+                      {%- if settings.recommendation_product_type == 'auto' -%}
+                        <minicart-recommendations-beside
+                          data-url="{{ routes.product_recommendations_url }}?product_id={{ cart.items.first.product_id }}&limit=6&section_id=cart-upsell"
+                          class="cart-recomment hidden-desktop pt-10 d-block mt-auto{% if settings.recommendation_product_type == 'auto' %} no-js-hidden{% endif %}"
+                        >
+                      {%- else -%}
+                        <div
+                          class="cart-recomment cart-recomment-beside-mobile hidden-desktop pt-10 d-block mt-auto{% if settings.select_product_recommendation == blank %} d-none{% endif %}"
+                        >
+                      {%- endif -%}
+                      {%- if settings.product_recommendations_heading -%}
+                        <h4 class="bls-minicart-heading mb-15">
+                          {{ settings.product_recommendations_heading }}
+                        </h4>
+                      {%- endif -%}
+                      <div
+                        class="swiper bls__swiper bls-swiper-cart-upsell"
+                        id="bls__swiper-cart-upsell-beside"
+                        data-section-id="cart-upsell-beside"
+                        data-autoplay="false"
+                        data-loop="false"
+                        data-mobile="1"
+                        data-tablet="1"
+                        data-desktop="1"
+                        data-item-mobile="1"
+                        data-spacing="5"
+                      >
+                        <div class="swiper-wrapper">
+                          {%- if settings.recommendation_product_type != 'auto' -%}
+                            {%- for item in settings.select_product_recommendation -%}
+                              {% liquid
+                                assign hidden = false
+                                for itemcart in cart.items
+                                  if itemcart.product_id == item.id
+                                    assign hidden = true
+                                  endif
+                                endfor
+                              %}
+                              {% if hidden == false %}
+                                <div class="swiper-slide bls-cart-upsell-item">
+                                  {%- render 'product-popular-list-item' | product: item | template_cart: true -%}
+                                </div>
+                              {% endif %}
+                            {%- endfor -%}
+                          {%- endif -%}
+                        </div>
+                        <div class="swiper-pagination"></div>
+                      </div>
+                      {%- if settings.recommendation_product_type == 'auto' -%}
+                        </minicart-recommendations-beside>
+                      {%- else -%}
+                        </div>
+                      {%- endif -%}
+                    {% endif %}
                   </div>
                 </div>
+
                 <div class="bls-cart-footer gradient">
                   {%- render 'cart-addons' -%}
-                  <div class="bls-cart-summary" data-cart-summary>
-                    <div data-discounts>
-                      <ul class="bls-cart-discounts" data-discounts-list>
-                        {% unless cart.cart_level_discount_applications.size == 0 %}
-                          {% for discount in cart.cart_level_discount_applications %}
-                            <li>
-                              <span>
-                                {% if settings.currency_code_enabled %}
-                                  {{- discount.title | upcase }}&nbsp;(-
-                                  {{- discount.total_allocated_amount | money_with_currency -}}
-                                  )
-                                {% else %}
-                                  {{- discount.title | upcase }}&nbsp;(-{{ discount.total_allocated_amount | money }})
-                                {% endif %}
-                              </span>
-                            </li>
-                          {% endfor %}
-                        {% endunless %}
-                      </ul>
+                  {% if settings.hidden_price == false %}
+                    <div class="bls-cart-summary" data-cart-summary>
+                      <div data-discounts>
+                        <ul class="bls-cart-discounts" data-discounts-list>
+                          {% unless cart.cart_level_discount_applications.size == 0 %}
+                            {% for discount in cart.cart_level_discount_applications %}
+                              <li>
+                                <span>
+                                  {% if settings.currency_code_enabled %}
+                                    {{- discount.title | upcase }}&nbsp;(-
+                                    {{- discount.total_allocated_amount | money_with_currency -}}
+                                    )
+                                  {% else %}
+                                    {{- discount.title | upcase }}&nbsp;(-{{ discount.total_allocated_amount | money }})
+                                  {% endif %}
+                                </span>
+                              </li>
+                            {% endfor %}
+                          {% endunless %}
+                        </ul>
+                      </div>
+                      <div class="bls-subtotal" data-cart-subtotal>
+                        <span class="heading-color">{{ 'general.cart.subtotal' | t }}</span>
+                        <span class="bls-subtotal-price heading-color" data-cart-subtotal-price>
+                          {% if settings.currency_code_enabled %}
+                            {{ cart.total_price | money_with_currency }}
+                          {% else %}
+                            {{ cart.total_price | money }}
+                          {% endif %}
+                        </span>
+                      </div>
                     </div>
-                    <div class="bls-subtotal" data-cart-subtotal>
-                      <span class="heading-color">{{ 'general.cart.subtotal' | t }}</span>
-                      <span class="bls-subtotal-price heading-color" data-cart-subtotal-price>
-                        {% if settings.currency_code_enabled %}
-                          {{ cart.total_price | money_with_currency }}
-                        {% else %}
-                          {{ cart.total_price | money }}
-                        {% endif %}
-                      </span>
-                    </div>
-                  </div>
+                  {% endif %}
                   <div class="bls-drawer-bottom">
                     {% if settings.agree_text != blank and settings.show_agree_on_cart %}
                       <div class="agree-terms">
@@ -169,7 +277,7 @@
                         </label>
                       </div>
                     {%- endif -%}
-                    {%- if enable_catalog_mode == false -%}
+                    {%- if hidden_button_add_to_cart == false -%}
                       <a class="action btn btn-secondary viewcart" href="{{ routes.cart_url }}">
                         <span>{{ 'general.cart.viewcart' | t }}</span>
                       </a>
@@ -211,6 +319,64 @@
               {%- endif -%}
             </form>
           </div>
+          {% if settings.option_show_minicart == 'beside' %}
+            <div class="bls-recommendations-beside hidden-mobile {% if settings.recommendation_product_type == 'auto' %}auto-beside{% endif %}">
+              {%- if cart.items.size > 0 -%}
+                {%- if settings.recommendation_product_type == 'auto' -%}
+                  <minicart-recommendations-beside
+                    data-url="{{ routes.product_recommendations_url }}?product_id={{ cart.items.first.product_id }}&limit=6&section_id=cart-upsell"
+                    class="cart-recomment pt-10 d-block mt-auto{% if settings.recommendation_product_type == 'auto' %} no-js-hidden{% endif %}"
+                  >
+                {%- else -%}
+                  <div
+                    class="cart-recomment bls-recommendations-beside-selected pt-10 d-block mt-auto{% if settings.select_product_recommendation == blank %} d-none{% endif %}"
+                  >
+                {%- endif -%}
+
+                {%- if settings.product_recommendations_heading -%}
+                  <minicart-recommendations-heading class="bls-recommendations-heading relative">
+                    <h4 class="bls-minicart-heading mb-15">
+                      {{ settings.product_recommendations_heading }}
+                    </h4>
+                    <button class="button-close-beside">
+                      <i class="icon-x"></i>
+                    </button>
+                  </minicart-recommendations-heading>
+                {%- endif -%}
+
+                <div
+                  class="bls-cart-upsell"
+                >
+                  <div class="bls-cart-upsell-wrapper">
+                    {%- if settings.recommendation_product_type != 'auto' -%}
+                      {%- for item in settings.select_product_recommendation -%}
+                        {% liquid
+                          assign hidden = false
+                          for itemcart in cart.items
+                            if itemcart.product_id == item.id
+                              assign hidden = true
+                            endif
+                          endfor
+                        %}
+                        {% if hidden == false %}
+                          <div class="bls-cart-upsell-item">
+                            {%- render 'product-popular-list-item' | product: item | template_cart: true -%}
+                          </div>
+                        {% endif %}
+                      {%- endfor -%}
+                    {%- else -%}
+                      <div class="loader-icon"></div>
+                    {%- endif -%}
+                  </div>
+                </div>
+                {%- if settings.recommendation_product_type == 'auto' -%}
+                  </minicart-recommendations-beside>
+                {%- else -%}
+                  </div>
+                {%- endif -%}
+              {%- endif -%}
+            </div>
+          {% endif %}
         </div>
       {% endif %}
     </div>

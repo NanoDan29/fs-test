@@ -13,7 +13,7 @@
   assign heading_logo_svg = st.heading_logo_svg
   assign column_gap = st.column_gap
   assign item_desktop = st.slider_lookbook_items
-  assign ins_images_style = st.ins_images_style
+  assign show_arrow = st.show_arrow
   assign carousel_pagination = st.carousel_pagination
   assign loop = st.loop
   assign autoplay = st.autoplay
@@ -59,12 +59,12 @@
     assign spb_mobile = ' spb-mobile'
   endif
 
-  assign has_bg = ''
-  assign bg_color = st.bg_color | default: "transparent"
-  if bg_color != blank
-    assign has_bg = ' has-bg'
+  assign bg_color = st.bg_color | default: 'transparent'
+
+  assign ins_images_style = ''
+  if settings.image_style != blank and section.settings.column_gap != 0 and section.settings.container != 'full-width'
+    assign ins_images_style = ' radius'
   endif
- 
 
   assign ratio = ''
   if th_st.product_aspect_ratio != 'custom'
@@ -81,8 +81,8 @@
   {{ column_gap }}px;
 {%- endcapture -%}
 <section
-  class="123456 bls__section color-{{ color_scheme }} gradient {{ has_bg }}{{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }} bls__lookbook-instagram {{ reset_spacing }}"
-  style="{{ style | strip | strip_newlines }}"
+  class="bls__section color-{{ color_scheme }} gradient {{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }}{{ column_gap_tablet }}{{ column_gap_mobile }} bls__lookbook-instagram {{ reset_spacing }}"
+  style="{{ style | strip | strip_newlines }};--bs-gutter-x: {{ column_gap }}px;"
 >
   <instagram-shop
     id="{{ section.id }}"
@@ -143,6 +143,7 @@
             <div class="swiper-wrapper">
               {%- for block in section.blocks -%}
                 <div
+                  {{ block.shopify_attributes }}
                   class="swiper-slide {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
                   style="transform: unset; {% if enabled_animations %}--animation-order: {{ forloop.index }};{% endif %}"
                   {% if enabled_animations %}
@@ -159,11 +160,7 @@
                 </div>
               {%- endfor -%}
             </div>
-            {%
-              render 'swiper-control',
-              show_arrow: st.show_arrow,
-              carousel_pagination: carousel_pagination,
-            %}
+            {% render 'swiper-control', show_arrow: show_arrow, carousel_pagination: carousel_pagination %}
           </div>
         {%- else -%}
           <div
@@ -172,6 +169,7 @@
           >
             {%- for block in section.blocks -%}
               <div
+                {{ block.shopify_attributes }}
                 class="{{ responsive_column }} {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
                 {% if enabled_animations %}
                   data-cascade
@@ -291,6 +289,9 @@
 {% schema %}
 {
   "name": "Instagram shop",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
   "settings": [
     {
       "type": "header",
@@ -357,24 +358,12 @@
           "label": "Fluid container"
         },
         {
-          "value": "full-width",
-          "label": "Full width"
-        }
-      ]
-    },
-    {
-      "type": "select",
-      "id": "ins_images_style",
-      "label": "Images style",
-      "default": "square",
-      "options": [
-        {
-          "value": "square",
-          "label": "Square"
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
-          "value": "radius",
-          "label": "Radius"
+          "value": "full-width",
+          "label": "Full width"
         }
       ]
     },

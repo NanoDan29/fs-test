@@ -12,7 +12,7 @@
 -%}
 <script src="{{ 'blog.js' | asset_url }}" defer="defer"></script>
 <section id="pageContent" class="main-article-portfolio">
-  <div class="{{ st.container }} clearfix">
+  <div class="{{ st.container }} section-full clearfix">
     <div class="row">
       <div class="col-blog-contents">
         <article class="article-template" itemscope itemtype="http://schema.org/BlogPosting">
@@ -523,6 +523,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

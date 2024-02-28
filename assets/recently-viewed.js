@@ -62,7 +62,6 @@ var BlsRVPageShopify = (function() {
                     BlsColorSwatchesShopify.init();
                     BlsSubActionProduct.handleInitQuickviewAction();
                     BlsSubActionProduct.init();
-                    BlsSectionProductAddCart.init();
                     BlsLazyloadImg.init();
                     BlsRVPageShopify.clearAll();
                 })   

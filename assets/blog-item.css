@@ -73,6 +73,10 @@
     -webkit-transform: translate3d(0, 0, 0);
 }
 
+.bls__blog-articles-portfolio .hover-effect.radius~.blos__blog-posts-info {
+    border-radius: 0 0 var(--base-border-radius) var(--base-border-radius);
+}
+
 .bls__blog-articles-portfolio .blos__blog-posts-info,
 .hover-text_overlay .blos__blog-posts-info {
     --transition-popup: all 0.4s;

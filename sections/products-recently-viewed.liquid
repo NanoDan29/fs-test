@@ -40,21 +40,19 @@
     assign spb_mobile = ' spb-mobile'
   endif
   assign has_bg = ''
-  assign bg_color = st.bg_color | default: "transparent"
+  assign bg_color = st.bg_color | default: 'transparent'
   if bg_color != blank
     assign has_bg = ' has-bg'
   endif
-  
 -%}
 {%- capture style -%}
   {%- if bg_color != blank -%}
     --section-bg-color: {{ bg_color }};
   {%- endif -%}
-  --section-padding-top: {{ st.padding_top }}px; --section-padding-bottom: {{ st.padding_bottom }}px;--bls-gutter-x:
-  {{ column_gap }}px; --bls_product-item-vertical-space: 0px;
+  --section-padding-top: {{ st.padding_top }}px; --section-padding-bottom: {{ st.padding_bottom }}px;--bls_product-item-vertical-space: 0px;
 {%- endcapture -%}
 <section
-  class="color-{{ color_scheme }} gradient bls__section {{ has_bg }}{{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }} bls__product bls__product-recently-viewed-section{{ reset_spacing }}"
+  class="color-{{ color_scheme }} gradient bls__section {{ has_bg }}{{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }} bls__product bls__product-recently-viewed-section{{ reset_spacing }} {% if section.settings.container == "full-width" or section.settings.column_gap == 0 %} not-radius {% endif %}"
   style="{{ style | strip | strip_newlines }}"
   id="{{ section.id }}"
   data-id="{{ section.id }}"
@@ -62,7 +60,7 @@
   data-limit="{{ section.settings.limit_products }}"
   data-url="{{ routes.search_url }}?section_id={{ section.id }}"
 >
-  <div class="{{ container }}">
+  <div class="{{ container }} section-full">
     {%- if heading != blank or description != blank or heading_logo != blank or heading_logo_svg != blank -%}
       <div class="bls__section-header {{ text_align }}">
         {%- if heading_logo_svg != blank -%}
@@ -219,7 +217,6 @@
           .finally((e) => {
             BlsColorSwatchesShopify.init();
             BlsSubActionProduct.init();
-            BlsSectionProductAddCart.updateBtnAdd();
             BlsLazyloadImg.init();
           });
       },
@@ -231,6 +228,9 @@
 {% schema %}
 {
   "name": "Products recently viewed",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
   "settings": [
     {
       "type": "header",
@@ -295,6 +295,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

@@ -72,7 +72,7 @@
         {%- assign bl_st = block.settings -%}
         {%- case block.type -%}
           {%- when 'categories' -%}
-            <div class="sidebar-item active">
+            <div {{ block.shopify_attributes }} class="sidebar-item active">
               {%- if bl_st.title != blank -%}
                 <h4 class="sidebar-title fs-18 mb-20">
                   {{ bl_st.title | escape }}
@@ -88,7 +88,7 @@
               </div>
             </div>
           {%- when 'text' -%}
-            <div class="sidebar-item active">
+            <div {{ block.shopify_attributes }} class="sidebar-item active">
               {%- if bl_st.title != blank -%}
                 <h4 class="sidebar-title fs-18 mb-20">
                   {{ bl_st.title | escape }}
@@ -100,7 +100,7 @@
               </div>
             </div>
           {%- when 'shipping' -%}
-            <div class="sidebar-item active">
+            <div {{ block.shopify_attributes }} class="sidebar-item active">
               {%- if bl_st.title != blank -%}
                 <h4 class="sidebar-title fs-18 mb-20">
                   {{ bl_st.title | escape }}
@@ -151,7 +151,7 @@
               </div>
             </div>
           {%- when 'instagram' -%}
-            <div class="sidebar-item active">
+            <div {{ block.shopify_attributes }} class="sidebar-item active">
               {%- if bl_st.title != blank -%}
                 <h4 class="sidebar-title fs-18 mb-20">
                   {{ bl_st.title | escape }}
@@ -162,7 +162,6 @@
                 {% liquid
                   assign ig_ac = bl_st.ig_ac
                   assign items_to_show = bl_st.ig_num_imgs
-                  assign ins_images_style = bl_st.ins_images_style
                   assign column_gap = bl_st.space_column
                 %}
                 <div
@@ -180,7 +179,7 @@
                     >
                       {%- if ig_ac == blank -%}
                         {%- for i in (1..items_to_show) -%}
-                          <div class="bls__instagram-item ins-{{ ins_images_style }}">
+                          <div class="bls__instagram-item {% if settings.image_style != blank and column_gap != 0 %} ins-radius {% endif %}">
                             <a href="#">
                               {%- render 'responsive-image' | type: image | cls: 'bls_instagram-image' -%}
                               <span class="bls__instagram-icon"></span>
@@ -194,7 +193,7 @@
               </div>
             </div>
           {%- when 'gallery' -%}
-            <div class="sidebar-item active">
+            <div {{ block.shopify_attributes }} class="sidebar-item active">
               {%- if bl_st.title != blank -%}
                 <h4 class="sidebar-title fs-18 mb-20">
                   {{ bl_st.title | escape }}
@@ -250,7 +249,7 @@
               </div>
             </div>
           {%- when 'collection' -%}
-            <div class="sidebar-item active">
+            <div {{ block.shopify_attributes }} class="sidebar-item active">
               {%- if bl_st.title != blank -%}
                 <h4 class="sidebar-title fs-18 mb-20">
                   {{ bl_st.title | escape }}
@@ -296,7 +295,7 @@
               </div>
             </div>
           {%- when 'social' -%}
-            <div class="sidebar-item active">
+            <div {{ block.shopify_attributes }} class="sidebar-item active">
               {%- if bl_st.title != blank -%}
                 <h4 class="sidebar-title fs-18 mb-20">
                   {{ bl_st.title | escape }}
@@ -598,22 +597,6 @@
         {
           "type": "header",
           "content": "Instagram settings"
-        },
-        {
-          "type": "select",
-          "id": "ins_images_style",
-          "label": "Images style",
-          "default": "square",
-          "options": [
-            {
-              "value": "square",
-              "label": "Square"
-            },
-            {
-              "value": "radius",
-              "label": "Radius"
-            }
-          ]
         },
         {
           "type": "textarea",

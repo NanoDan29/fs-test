@@ -158,7 +158,7 @@
           {%- endfor -%}
         </div>
         <div class="bls__before-product-bottom">
-          <a href="/collections" class="btn btn-primary btn-before-bottom">
+          <a href="{{ routes.collections_url }}" class="btn btn-primary btn-before-bottom">
             {{ 'general.continue_shopping' | t }}
           </a>
         </div>
@@ -172,56 +172,44 @@
           this.showPopup();
         },
         showPopup: function () {
-          const id = document.querySelector("#BlsBefore");
+          const id = document.querySelector('#BlsBefore');
           const delay = id?.dataset.timeDelay;
           var action = 0;
-    
+
           if (id !== null) {
             var getPopup = setTimeout(() => {
               getTimeOut();
             }, delay * 1000);
-    
-            const addMultipleListeners = (
-              el,
-              types,
-              listener,
-              options,
-              useCapture
-            ) => {
-              types.forEach((type) =>
-                el.addEventListener(type, listener, options, useCapture)
-              );
+
+            const addMultipleListeners = (el, types, listener, options, useCapture) => {
+              types.forEach((type) => el.addEventListener(type, listener, options, useCapture));
             };
-    
-            addMultipleListeners(
-              document.querySelector("body"),
-              ["scroll", "click", "mousemove", "keydown"],
-              () => {
-                setAction();
-              }
-            );
-            const closeBefore = document.querySelector(".close-before");
+
+            addMultipleListeners(document.querySelector('body'), ['scroll', 'click', 'mousemove', 'keydown'], () => {
+              setAction();
+            });
+            const closeBefore = document.querySelector('.close-before');
             if (closeBefore) {
-              closeBefore.addEventListener("click", () => {
+              closeBefore.addEventListener('click', () => {
                 clearTimeout(getPopup);
-                const bov = document.querySelector(".bls__overlay");
+                const bov = document.querySelector('.bls__overlay');
                 if (bov) {
-                  bov.classList.add("d-none-overlay");
+                  bov.classList.add('d-none-overlay');
                 }
-                document.documentElement.classList.remove("hside_opened");
-                id.classList.remove("bls__opend-popup");
+                document.documentElement.classList.remove('hside_opened');
+                id.classList.remove('bls__opend-popup');
               });
             }
-    
+
             function getTimeOut() {
               action = action + 1;
               if (action >= 1) {
-                const bov = document.querySelector(".bls__overlay");
+                const bov = document.querySelector('.bls__overlay');
                 if (bov) {
-                  bov.classList.remove("d-none-overlay");
+                  bov.classList.remove('d-none-overlay');
                 }
-                document.documentElement.classList.add("hside_opened");
-                id.classList.add("bls__opend-popup");
+                document.documentElement.classList.add('hside_opened');
+                id.classList.add('bls__opend-popup');
                 BlsPopup.copyPromotion();
               }
             }

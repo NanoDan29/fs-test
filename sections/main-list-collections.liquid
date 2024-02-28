@@ -114,7 +114,7 @@
                 assign hide = ' d-none'
               endif
             -%}
-            <div class="collection-list__item grid__item{{ hide }}">
+            <div {{ block.shopify_attributes }} class="collection-list__item grid__item{{ hide }}">
               {%- if layout == 'layout-1' -%}
                 {% render 'list-collection-item',
                   collection_item: collection,
@@ -170,6 +170,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

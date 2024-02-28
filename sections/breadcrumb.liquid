@@ -1,11 +1,11 @@
 {%- liquid
   assign st = section.settings
 -%}
-  <section class="breadcrumbs color-{{ section.settings.color_scheme }} gradient {{ st.postion }} py-25 fs-small">
-    <div class="{{ st.layout }}">
-      {% render 'breadcrumbs' %}
-    </div>
-  </section>
+<section class="breadcrumbs color-{{ section.settings.color_scheme }} gradient {{ st.postion }} py-25 fs-small">
+  <div class="{{ st.layout }}">
+    {% render 'breadcrumbs' | next_prev: st.next_prev %}
+  </div>
+</section>
 {% schema %}
 {
   "name": "Breadcrumbs",
@@ -23,6 +23,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",
@@ -54,6 +58,12 @@
           "value": "text-right"
         }
       ]
+    },
+    {
+      "type": "checkbox",
+      "id": "next_prev",
+      "label": "Show next prev product",
+      "default": false
     }
   ]
 }

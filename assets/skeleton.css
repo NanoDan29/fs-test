@@ -13,6 +13,9 @@
 .skeleton-product-detail .bls__template-product .price__regular::before,
 .skeleton-product-detail .bls__template-product .price__sale::before,
 .skeleton-product-detail .bls__template-product .bls__sale-label::before,
+.skeleton-product-detail .bls__template-produc .appstle_sub_widget::before,
+.skeleton-product-detail .bls__template-product .bls__selling_plan-label::before,
+.skeleton-product-detail .bls__template-product .quantity__label::before,
 .skeleton-product-detail .bls__template-product .bls__visitors::before,
 .skeleton-product-detail .bls__template-product #variant-radios .form__label::before,
 .skeleton-product-detail .bls__template-product .bls__option-swatch::before,
@@ -38,7 +41,9 @@
 .skeleton-product-detail skeleton-page .bls__product-name::before,
 .skeleton-product-detail skeleton-page .bls__product-color-swatches::before,
 .skeleton-product-detail .bls__template-product .bls__color-dropdown::before,
-.skeleton-product-detail .bls__template-product .bls__product-vendors a::before {
+.skeleton-product-detail .bls__template-product .bls__product-vendors a::before,
+.skeleton-product-detail .bls__template-product .more-colors .swatch-selected-value::before,
+.skeleton-product-detail .bls__template-product .more-colors .more-colors-product_link::before {
   content: '';
   position: absolute;
   inset: -2px !important;
@@ -73,6 +78,9 @@
 .skeleton-product-detail .bls__template-product .price__regular::after,
 .skeleton-product-detail .bls__template-product .price__sale::after,
 .skeleton-product-detail .bls__template-product .bls__sale-label::after,
+.skeleton-product-detail .bls__template-produc .appstle_sub_widget::after,
+.skeleton-product-detail .bls__template-product .bls__selling_plan-label::after,
+.skeleton-product-detail .bls__template-product .quantity__label::after,
 .skeleton-product-detail .bls__template-product .bls__visitors::after,
 .skeleton-product-detail .bls__template-product #variant-radios .form__label:after,
 .skeleton-product-detail .bls__template-product .bls__product-addons::after,
@@ -96,7 +104,9 @@
 .skeleton-product-detail skeleton-page .bls__product-img::after,
 .skeleton-product-detail skeleton-page .bls__product-name::after,
 .skeleton-product-detail .bls__template-product .bls__color-dropdown::after,
-.skeleton-product-detail .bls__template-product .bls__product-vendors a:after {
+.skeleton-product-detail .bls__template-product .bls__product-vendors a:after,
+.skeleton-product-detail .bls__template-product .more-colors .swatch-selected-value::after,
+.skeleton-product-detail .bls__template-product .more-colors .more-colors-product_link::after {
   content: '';
   position: absolute;
   inset: -2px !important;
@@ -184,6 +194,9 @@
 .skeleton-product-detail .bls__template-product .price__regular,
 .skeleton-product-detail .bls__template-product .price__sale,
 .skeleton-product-detail .bls__template-product .bls__sale-label,
+.skeleton-product-detail .bls__template-produc .appstle_sub_widget,
+.skeleton-product-detail .bls__template-product .bls__selling_plan-label,
+.skeleton-product-detail .bls__template-product .quantity__label,
 .skeleton-product-detail .bls__template-product .bls__visitors,
 .skeleton-product-detail .bls__template-product #variant-radios .form__label,
 .skeleton-product-detail .bls__template-product .bls__option-swatch,
@@ -204,11 +217,15 @@
 .skeleton-product-detail skeleton-page .bls__product-img,
 .skeleton-product-detail skeleton-page .bls__product-name,
 .skeleton-product-detail .bls__template-product .bls__color-dropdown,
-.skeleton-product-detail .bls__template-product .bls__product-vendors a {
+.skeleton-product-detail .bls__template-product .bls__product-vendors a,
+.skeleton-product-detail .bls__template-product .more-colors .swatch-selected-value,
+.skeleton-product-detail .bls__template-product .more-colors .more-colors-product_link {
   position: relative;
 }
 
-.skeleton-product-detail .bls__template-product .bls__product-vendors a {
+.skeleton-product-detail .bls__template-product .bls__product-vendors a,
+.skeleton-product-detail .bls__template-product .more-colors .swatch-selected-value,
+.skeleton-product-detail .bls__template-product .quantity__label {
   display: inline-block;
 }
 

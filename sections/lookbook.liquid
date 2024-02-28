@@ -12,6 +12,7 @@
   assign heading_logo_svg = st.heading_logo_svg
   assign column_gap = st.column_gap
   assign item_desktop = st.slider_lookbook_items
+  assign show_arrow = st.show_arrow
   assign carousel_pagination = st.carousel_pagination
   assign loop = st.loop
   assign autoplay = st.autoplay
@@ -59,7 +60,7 @@
   endif
 
   assign has_bg = ''
-  assign bg_color = st.bg_color | default: "tranparent"
+  assign bg_color = st.bg_color | default: 'tranparent'
   if bg_color != blank
     assign has_bg = ' has-bg'
   endif
@@ -102,6 +103,7 @@
               loading="lazy"
               width="{{ heading_logo.width }}"
               height="{{ heading_logo.height }}"
+              style="--point:{{ heading_logo.presentation.focal_point }}"
             >
           </div>
         {%- endif -%}
@@ -134,6 +136,7 @@
           <div class="swiper-wrapper">
             {%- for block in section.blocks -%}
               <div
+                {{ block.shopify_attributes }}
                 class="swiper-slide {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
                 style="transform: unset;{% if enabled_animations %}--animation-order: {{ forloop.index }}{% endif %}"
                 {% if enabled_animations %}
@@ -144,11 +147,7 @@
               </div>
             {%- endfor -%}
           </div>
-          {%
-            render 'swiper-control',
-            show_arrow: st.show_arrow,
-            carousel_pagination: carousel_pagination,
-          %}
+          {% render 'swiper-control', show_arrow: show_arrow, carousel_pagination: carousel_pagination %}
         </div>
       {%- else -%}
         <div
@@ -157,6 +156,7 @@
         >
           {%- for block in section.blocks -%}
             <div
+              {{ block.shopify_attributes }}
               class="{{ responsive_column }} {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
               {% if enabled_animations %}
                 data-cascade
@@ -175,6 +175,9 @@
 {% schema %}
 {
   "name": "Lookbook",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
   "settings": [
     {
       "type": "header",
@@ -239,6 +242,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

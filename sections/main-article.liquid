@@ -12,16 +12,19 @@
 -%}
 <script src="{{ 'blog.js' | asset_url }}" defer="defer"></script>
 <section id="pageContent">
-  <div class="{{ st.container }} clearfix">
+  <div class="{{ st.container }} section-full clearfix">
     <div class="row">
       <div class="col-blog-contents">
-        <article class="article-template" itemscope itemtype="http://schema.org/BlogPosting">
+        <article
+          class="article-template {% if settings.image_style != blank and section.settings.container != "full-width" %} radius {% endif %}"
+          itemscope
+          itemtype="http://schema.org/BlogPosting"
+        >
           {%- if article.image -%}
             <div class="article-template__hero-container">
               <div
                 class="article-template__hero- media"
                 itemprop="image"
-                
               >
                 <img
                   srcset="
@@ -366,7 +369,7 @@
                         class="article-template__comments-fields"
                       {% endif %}
                     >
-                      <div class="article-template__comment-fields row row-cols-md-2">
+                      <div class="article-template__comment-fields row row-cols-md-2" style="--bs-gutter-x: 2rem">
                         <div class="field field--with-error mb-30">
                           <label class="field__label" for="CommentForm-author">
                             {{- 'blogs.article.name' | t }}
@@ -531,6 +534,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

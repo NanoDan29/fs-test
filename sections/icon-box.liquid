@@ -66,7 +66,7 @@
     assign spb_mobile = ' spb-mobile'
   endif
   assign has_bg = ''
-  assign bg_color = st.bg_color | default: "transparent"
+  assign bg_color = st.bg_color | default: 'transparent'
   if bg_color != blank
     assign has_bg = ' has-bg'
   endif
@@ -83,7 +83,7 @@
   class="color-{{ color_scheme }} gradient bls__section {{ has_bg }}{{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }} bls__shipping{{ reset_spacing }}"
   style="{{ style | strip | strip_newlines }}"
 >
-  <div class="{{ container }}">
+  <div class="{{ container }} section-full">
     {%- if heading != blank or description != blank or heading_logo != blank or heading_logo_svg != blank -%}
       <div class="bls__section-header {{ text_align }} {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}">
         {%- if heading_logo_svg != blank -%}
@@ -166,6 +166,11 @@
 {
   "name": "Image box",
   "class": "bls__image-box",
+  "disabled_on": {
+    "groups": [
+      "footer"
+    ]
+  },
   "settings": [
     {
       "type": "header",
@@ -229,6 +234,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

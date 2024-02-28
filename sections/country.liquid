@@ -4,7 +4,7 @@
   assign product_style = th_st.product_style
   assign show_country = th_st.show_country
   assign show_language = th_st.show_language
-  assign menu_title = section.settings.menu_title | default: 'Menu'
+  assign menu_title = st.menu_title | default: 'Menu'
 -%}
 {%- if section.blocks.size > 0 -%}
   <nav

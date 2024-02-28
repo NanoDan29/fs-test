@@ -292,8 +292,12 @@ shop-the-look .bls__shop-lookbook-content .swiper .swiper-pagination {
     pointer-events: none;
 }
 
-.bls__lookbook-instagram .bls__lookbook-items .bls__responsive-image.radius {
+.bls__lookbook-items .bls__lookbook-image.radius {
     border-radius: var(--base-border-radius);
+    overflow: hidden;
+    position: relative;
+    display: block;
+    will-change: transform;
 }
 
 .bls__lookbook-items .bls__lookbook-image img,

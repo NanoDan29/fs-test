@@ -12,10 +12,10 @@
   assign column_gap = st.column_gap
   assign hover_effect = st.hover_effect
   assign img_position = st.img_position
-  assign image_style = st.image_style
   assign banner_width = st.banner_width
   assign content_width = st.content_width
   assign content_bg_color = st.content_bg_color
+  assign background_gradient = st.background_gradient
   assign banner_height = st.banner_height
   assign height_dk = st.height_dk
   assign height_tb = st.height_tb
@@ -58,7 +58,7 @@
   endif
 
   assign has_bg = ''
-  assign background_color = section.settings.background_color | default: "trasnsparent"
+  assign background_color = st.background_color | default: 'trasnsparent'
   if background_color != blank
     assign has_bg = ' has-bg'
   endif
@@ -67,7 +67,7 @@
   if st.img_position == 'left'
     assign img_position = ''
   elsif st.img_position == 'right'
-    assign img_position = ' flex-column-reverse flex-md-row-reverse'
+    assign img_position = 'flex-md-row-reverse'
   endif
   assign content_position = ''
   if bn_design == 'text_overlay'
@@ -100,7 +100,7 @@
   --section-padding-top: {{ st.padding_top }}px; --section-padding-bottom: {{ st.padding_bottom }}px;
 {%- endcapture -%}
 <section
-  class="color-{{ color_scheme }} gradient bls__section{{ has_bg }}{{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }} bls__banner-with-text {{ reset_spacing }} {% if bn_design == 'text_overlay' %}bls__banner-with-text-overlay bls__banner-with-text-overlay-{{ image_style }}{% endif %}"
+  class="color-{{ color_scheme }} gradient bls__section{{ has_bg }}{{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }} bls__banner-with-text {{ reset_spacing }} {% if bn_design == 'text_overlay' %}bls__banner-with-text-overlay  {% if settings.image_style != blank and section.settings.column_gap != 0 and section.settings.container != "full-width" %} bls__banner-with-text-overlay-radius {% endif %}{% endif %}"
   style="{{ style | strip | strip_newlines }}"
 >
   <div class="{{ container }} section-full ">
@@ -117,7 +117,7 @@
       "
     >
       <div
-        class="{% if height_full %}height-full{% endif %} {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %} {% if banner_type == 'video' %} type-video {% endif %} {% if banner_type == 'image' %} type-banner {% endif %} bls__banner-text--media {{ banner_width }} {% if bn_design == 'text_overlay' %} {{ banner_height }} {% if banner_height == 'depend-image' %}h-full absolute static-xl inset-0{% else %}static{% endif %} overflow-hidden{% endif %}"
+        class="{% if height_full %}height-full{% endif %} {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %} {% if banner_type == 'video' %} type-video {% endif %} {% if banner_type == 'image' %} type-banner {% endif %} bls__banner-text--media {{ banner_width }} {{ banner_height }} {% if bn_design == 'text_overlay' %} {% if banner_height == 'depend-image' %}h-full absolute static-xl inset-0{% else %}static{% endif %} overflow-hidden{% endif %}  {% if bn_design == 'text_column' %} align-self-start {% endif %} "
         {% if height_full == blank %}
           style="--desktop-height:{{ height_dk }}px;--tablet-height:{{ height_tb }}px;--mobile-height:{{ height_mb }}px;"
         {% endif %}
@@ -125,7 +125,7 @@
         {%- case banner_type -%}
           {%- when 'video' -%}
             {%- if video_local == blank -%}
-              <div class="video-container video-banner {{ banner_height }} column-{{ image_style }}">
+              <div class="video-container video-banner {{ banner_height }}  {% if settings.image_style != blank and section.settings.column_gap != 0 and section.settings.container != "full-width" %} column-radius {% endif %}">
                 <div class="video-foreground">
                   {%- if video_url.type == 'youtube' -%}
                     <video-youtube>
@@ -145,7 +145,7 @@
                 </div>
               </div>
             {%- else -%}
-              <div class="{% if banner_height == 'custom-height' %}local-video{% endif %} video-banner {{ banner_height }} column-{{ image_style }}">
+              <div class="{% if banner_height == 'custom-height' %}local-video{% endif %} video-banner {{ banner_height }}  {% if settings.image_style != blank and section.settings.column_gap != 0 and section.settings.container != "full-width" %} column-radius {% endif %}">
                 <video
                   controls="true"
                   loop="true"
@@ -160,7 +160,7 @@
             {%- endif -%}
           {%- when 'image' -%}
             <a
-              class="hover-effect hover-{{ hover_effect }} {{ image_style }}"
+              class="{% if st.image_behavior == 'fixed' %} animate-fixed-parent{% endif %} hover-effect hover-{{ hover_effect }} {% if settings.image_style != blank and section.settings.column_gap != 0 and section.settings.container != "full-width" %} radius {% endif %} {% if settings.image_style != blank and bn_design == 'text_overlay' and section.settings.container != "full-width" %} radius {% endif %}"
               {% if link == blank %}
                 role="link"
                 aria-disabled="true"
@@ -175,17 +175,17 @@
               {%- endif -%}
             >
               {%- if st.image != blank -%}
-                <div class="desktop {% if image_mobile != blank %}medium-hide{% endif %}">
-                  {% render 'responsive-image', image: st.image | width: "100vw" %}
+                <div class="desktop {% if st.image_behavior != 'none' %} animate--{{ st.image_behavior }}{% endif %} {% if image_mobile != blank %}medium-hide{% endif %}">
+                  {% render 'responsive-image', image: st.image | width: "100vw" | image_behavior: st.image_behavior %}
                 </div>
               {%- else -%}
-                <div class="desktop {% if image_mobile != blank %}medium-hide{% endif %}">
-                  {%- render 'responsive-image' -%}
+                <div class="desktop {% if st.image_behavior != 'none' %} animate--{{ st.image_behavior }}{% endif %} {% if image_mobile != blank %}medium-hide{% endif %}">
+                  {%- render 'responsive-image' | image_behavior: st.image_behavior -%}
                 </div>
               {%- endif -%}
               {%- if image_mobile != blank -%}
-                <div class="mobile d-block d-md-none">
-                  {% render 'responsive-image', image: st.image_mobile | width: "100vw" %}
+                <div class="mobile {% if st.image_behavior != 'none' %} animate--{{ st.image_behavior }}{% endif %} d-block d-md-none">
+                  {% render 'responsive-image', image: st.image_mobile | width: "100vw" | image_behavior: st.image_behavior %}
                 </div>
               {%- endif -%}
             </a>
@@ -193,14 +193,14 @@
       </div>
       {%- if bn_design == 'text_column' -%}<div class="d-flex flex-direction align-self-stretch flex-1">{%- endif -%}
       <div
-        class="{% if bn_design == 'text_column' %}column-{{ image_style }} bg-text-column{% endif %}{% if bn_design == 'text_overlay' %}{{ container-box }} {{ banner_height }} {% if banner_height == 'depend-image' %}static absolute-xl inset-0{% else %}absolute inset-0{% endif %} {% if content_bg_color != blank %} has-bg{% endif %}{% endif %} bls__banner-text--content {{ content_position }} {{ st.text_align }} content-position-{{ text_position }} content-horizontal-position-{{ text_horizontal_position }}"
+        class="{% if bn_design == 'text_column' %} {% if settings.image_style != blank and section.settings.column_gap != 0 and section.settings.container != "full-width" %} column-radius {% endif %} bg-text-column{% endif %}{% if bn_design == 'text_overlay' %}{{ container-box }} {{ banner_height }} {% if banner_height == 'depend-image' %}static absolute-xl inset-0{% else %}absolute inset-0{% endif %} {%- if content_bg_color != blank or background_gradient != empty -%} has-bg{% endif %}{% endif %} bls__banner-text--content {{ content_position }} {{ st.text_align }} content-position-{{ text_position }} content-horizontal-position-{{ text_horizontal_position }}"
         {% if bn_design == 'text_column' %}
-          style="{%- if content_bg_color != blank -%}--content-bg: {{ content_bg_color }};{%- endif -%}"
+          style="{%- if content_bg_color != blank or background_gradient != empty -%}{%- if background_gradient != empty -%} --content-bg: {{ background_gradient }}; {% else %} --content-bg: {{ content_bg_color }};{%- endif -%} {%- endif -%}"
         {% endif %}
       >
         <div
-          class="bls__banner-text--content-inner {% if bn_design == 'text_overlay' %}bg-overlay--content-inner{% endif %}"
-          style="--content-width:{{ content_width }}%;{%- if content_bg_color != blank -%}--content-bg: {{ content_bg_color }};{%- endif -%}--content-opacity:{{ bg_opacity }}%; --bs-gutter-x: {{ column_gap }}px;"
+          class="bls__banner-text--content-inner {% if bn_design == 'text_overlay' %}bg-overlay--content-inner{% endif %} {% if content_width > 99 %}content-full-with{% endif %} {%- if content_bg_color != blank -%}content-bg{%- endif -%}"
+          style="--content-width:{{ content_width }}%;{%- if content_bg_color != blank or background_gradient != empty -%}{%- if background_gradient != empty -%} --content-bg: {{ background_gradient }}; {% else %} --content-bg: {{ content_bg_color }};{%- endif -%}{%- endif -%}--content-opacity:{{ bg_opacity }}%; --bs-gutter-x: {{ column_gap }}px;"
         >
           {%- for block in section.blocks -%}
             {%- liquid
@@ -229,6 +229,17 @@
               assign b_mt = bs.b_mt
               assign b_mb = bs.b_mb
 
+              assign faq_fs = bs.faq_fs
+              assign faq_fw = bs.faq_fw
+              assign faq_tf = bs.faq_tf
+              assign faq_desc_fs = bs.faq_desc_fs
+              assign faq_desc_fw = bs.faq_desc_fw
+              assign faq_desc_tf = bs.faq_desc_tf
+              assign faq_mt = bs.faq_mt
+              assign faq_mb = bs.faq_mb
+              assign html_mt = bs.html_mt
+              assign html_mb = bs.html_mb
+
               assign countdown_design = bs.countdown_design
               assign bn_end_time = bs.bn_end_time
               assign bn_txt_color = bs.bn_txt_color
@@ -242,6 +253,7 @@
             {% case block.type %}
               {%- when 'image_picker' -%}
                 <div
+                  {{ block.shopify_attributes }}
                   class="bls__banner-text--img {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
                   style="width: {{ block.settings.icon_width_block }}px; --img-max-width: {{ block.settings.icon_max_width_block }}%; --img-mt: {{ img_mt }}px; --img-mb: {{ img_mb }}px;"
                 >
@@ -253,6 +265,7 @@
                 </div>
               {%- when 'subheading' -%}
                 <div
+                  {{ block.shopify_attributes }}
                   class="h4 bls__banner-text--subheading color-{{ block.settings.color_scheme_subheading }} {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
                   style="--text-subheading-font-size: {{ subheading_fs }}px; {% if subheading_fw != 'default' %}--text-subheading-font-weight: {{ subheading_fw }};{% endif %} --text-subheading-color: {{ subheading_color }}; --text-subheading-transform: {{ subheading_tf }}; --text-subheading-mt: {{ subheading_mt }}px; --text-subheading-mb: {{ subheading_mb }}px;"
                 >
@@ -260,6 +273,7 @@
                 </div>
               {%- when 'heading' -%}
                 <h2
+                  {{ block.shopify_attributes }}
                   class="bls__banner-text--heading color-{{ block.settings.color_scheme_heading }} {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
                   style="--text-heading-font-size: {{ heading_fs }}px; {% if heading_fw != 'default' %}--text-heading-font-weight: {{ heading_fw }};{% endif %} --text-heading-color: {{ heading_color }}; --text-heading-transform: {{ heading_tf }}; --text-heading-mt: {{ heading_mt }}px; --text-heading-mb: {{ heading_mb }}px;"
                 >
@@ -267,6 +281,7 @@
                 </h2>
               {%- when 'text' -%}
                 <div
+                  {{ block.shopify_attributes }}
                   class="bls__banner-text--des color-{{ block.settings.color_scheme_txt }} {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
                   style="--text-font-size: {{ txt_fs }}px;{%- if txt_color != blank -%} --text-color: {{ txt_color }};{%- endif -%} {% if txt_fw != 'default' %}--text-font-weight: {{ txt_fw }};{% endif %} --text-transform: {{ txt_tf }}; --text-mt: {{ txt_mt }}px; --text-mb: {{ txt_mb }}px;"
                 >
@@ -275,6 +290,7 @@
               {%- when 'buttons' -%}
                 {%- if block.settings.btn_content != blank -%}
                   <a
+                    {{ block.shopify_attributes }}
                     {% if block.settings.button_link == blank %}
                       role="link"
                       aria-disabled="true"
@@ -293,9 +309,20 @@
                     {{ block.settings.btn_content | escape }}
                   </a>
                 {%- endif -%}
+              {%- when 'html' -%}
+                {% if block.settings.content_html != blank %}
+                  <div
+                    {{ block.shopify_attributes }}
+                    class="bls__banner-text--html color-{{ block.settings.color_scheme_txt }} {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
+                    style="--html-mt: {{ html_mt }}px; --html-mb: {{ html_mb }}px;"
+                  >
+                    {{ block.settings.content_html }}
+                  </div>
+                {% endif %}
               {%- when 'countdown_bn' -%}
                 {% if bn_end_time != blank %}
                   <div
+                    {{ block.shopify_attributes }}
                     class="{{ countdown_design }} {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %} bls__timer"
                     data-timer="{{ bn_end_time }}"
                   >
@@ -324,6 +351,95 @@
                     </div>
                   </div>
                 {% endif %}
+              {%- when 'faq' -%}
+                <div
+                  class="faq-content"
+                  style="--title-faq-font-size: {{ faq_fs }}px; {% if faq_fw != 'default' %}--title-faq-font-weight: {{ faq_fw }};{% endif %}; --title-faq-transform: {{ faq_tf }};--text-faq-font-size: {{ faq_desc_fs }}px; {% if faq_desc_fw != 'default' %}--text-faq-font-weight: {{ faq_desc_fw }};{% endif %} --text-faq-transform: {{ faq_desc_tf }};--faq-mt: {{ faq_mt }}px; --faq-mb: {{ faq_mb }}px;"
+                >
+                  <div
+                    {{ block.shopify_attributes }}
+                    class="bls__page-faq-items bls-toggle relative {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
+                  >
+                    {%- if block.settings.faq_title_1 != blank -%}
+                      <h4 class="bls__page-faq-title border-bottom py-20 mb-0 relative">
+                        {{ block.settings.faq_title_1 }}
+                        <span class="open-children-toggle d-block-important"></span>
+                      </h4>
+                    {%- endif -%}
+                    {%- if block.settings.faq_content_1 != blank -%}
+                      <div class="bls__page-faq-content overflow-hidden py-20" style="display: none">
+                        {{ block.settings.faq_content_1 }}
+                      </div>
+                    {%- endif -%}
+                  </div>
+                  <div
+                    {{ block.shopify_attributes }}
+                    class="bls__page-faq-items bls-toggle relative {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
+                  >
+                    {%- if block.settings.faq_title_2 != blank -%}
+                      <h4 class="bls__page-faq-title border-bottom py-20 mb-0 relative">
+                        {{ block.settings.faq_title_2 }}
+                        <span class="open-children-toggle d-block-important"></span>
+                      </h4>
+                    {%- endif -%}
+                    {%- if block.settings.faq_content_2 != blank -%}
+                      <div class="bls__page-faq-content overflow-hidden py-20" style="display: none">
+                        {{ block.settings.faq_content_2 }}
+                      </div>
+                    {%- endif -%}
+                  </div>
+
+                  <div
+                    {{ block.shopify_attributes }}
+                    class="bls__page-faq-items bls-toggle relative {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
+                  >
+                    {%- if block.settings.faq_title_3 != blank -%}
+                      <h4 class="bls__page-faq-title border-bottom py-20 mb-0 relative">
+                        {{ block.settings.faq_title_3 }}
+                        <span class="open-children-toggle d-block-important"></span>
+                      </h4>
+                    {%- endif -%}
+                    {%- if block.settings.faq_content_3 != blank -%}
+                      <div class="bls__page-faq-content overflow-hidden py-20" style="display: none">
+                        {{ block.settings.faq_content_3 }}
+                      </div>
+                    {%- endif -%}
+                  </div>
+
+                  <div
+                    {{ block.shopify_attributes }}
+                    class="bls__page-faq-items bls-toggle relative {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
+                  >
+                    {%- if block.settings.faq_title_4 != blank -%}
+                      <h4 class="bls__page-faq-title border-bottom py-20 mb-0 relative">
+                        {{ block.settings.faq_title_4 }}
+                        <span class="open-children-toggle d-block-important"></span>
+                      </h4>
+                    {%- endif -%}
+                    {%- if block.settings.faq_content_4 != blank -%}
+                      <div class="bls__page-faq-content overflow-hidden py-20" style="display: none">
+                        {{ block.settings.faq_content_4 }}
+                      </div>
+                    {%- endif -%}
+                  </div>
+
+                  <div
+                    {{ block.shopify_attributes }}
+                    class="bls__page-faq-items bls-toggle relative {% if enabled_animations %}scroll-trigger animate--slide-in{% endif %}"
+                  >
+                    {%- if block.settings.faq_title_5 != blank -%}
+                      <h4 class="bls__page-faq-title border-bottom py-20 mb-0 relative">
+                        {{ block.settings.faq_title_5 }}
+                        <span class="open-children-toggle d-block-important"></span>
+                      </h4>
+                    {%- endif -%}
+                    {%- if block.settings.faq_content_5 != blank -%}
+                      <div class="bls__page-faq-content overflow-hidden py-20" style="display: none">
+                        {{ block.settings.faq_content_5 }}
+                      </div>
+                    {%- endif -%}
+                  </div>
+                </div>
             {%- endcase -%}
           {%- endfor -%}
         </div>
@@ -336,6 +452,9 @@
 {% schema %}
 {
   "name": "Banner with text",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
   "settings": [
     {
       "type": "header",
@@ -356,6 +475,10 @@
           "label": "Fluid container"
         },
         {
+          "label": "Stretch width",
+          "value": "strecth-width"
+        },
+        {
           "value": "full-width",
           "label": "Full width"
         }
@@ -365,6 +488,34 @@
       "type": "color_scheme",
       "id": "color_scheme",
       "label": "Color schema"
+    },
+    {
+      "type": "header",
+      "content": "Animations"
+    },
+    {
+      "type": "select",
+      "id": "image_behavior",
+      "options": [
+        {
+          "value": "none",
+          "label": "None"
+        },
+        {
+          "value": "ambient",
+          "label": "Ambient movement"
+        },
+        {
+          "value": "fixed",
+          "label": "Fixed background position"
+        },
+        {
+          "value": "zoom-in",
+          "label": "Zoom in on scroll"
+        }
+      ],
+      "default": "none",
+      "label": "Image behavior"
     },
     {
       "type": "select",
@@ -398,10 +549,7 @@
       "id": "video_url",
       "type": "video_url",
       "label": "Video url",
-      "accept": [
-        "youtube",
-        "vimeo"
-      ],
+      "accept": ["youtube", "vimeo"],
       "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
     },
     {
@@ -512,25 +660,15 @@
       ]
     },
     {
-      "type": "select",
-      "id": "image_style",
-      "label": "Image style",
-      "options": [
-        {
-          "value": "default",
-          "label": "Square"
-        },
-        {
-          "value": "radius",
-          "label": "Radius"
-        }
-      ],
-      "default": "default"
-    },
-    {
       "type": "color",
       "id": "content_bg_color",
       "label": "Content background color"
+    },
+    {
+      "type": "color_background",
+      "id": "background_gradient",
+      "label": "Background gradient",
+      "info": "Background gradient replaces background where possible."
     },
     {
       "type": "range",
@@ -1266,6 +1404,303 @@
           "step": 1,
           "unit": "px",
           "default": 25,
+          "label": "Bottom"
+        }
+      ]
+    },
+    {
+      "type": "html",
+      "name": "Html",
+      "settings": [
+        {
+          "type": "html",
+          "id": "content_html",
+          "label": "Content",
+          "default": "<div class=\"text-center py-10 px-15 border\" style=\"color: #111;\">This is Custom HTML section</div>"
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "html_mt",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 0,
+          "label": "Top"
+        },
+        {
+          "type": "range",
+          "id": "html_mb",
+          "min": 0,
+          "max": 100,
+          "step": 1,
+          "unit": "px",
+          "default": 25,
+          "label": "Bottom"
+        }
+      ]
+    },
+    {
+      "type": "faq",
+      "name": "Faq",
+      "settings": [
+        {
+          "type": "header",
+          "content": "FAQ 1"
+        },
+        {
+          "type": "text",
+          "id": "faq_title_1",
+          "label": "Title",
+          "default": "Frequently Asked Questions?"
+        },
+        {
+          "type": "richtext",
+          "id": "faq_content_1",
+          "label": "Content",
+          "default": "<p>Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>"
+        },
+        {
+          "type": "header",
+          "content": "FAQ 2"
+        },
+        {
+          "type": "text",
+          "id": "faq_title_2",
+          "label": "Title",
+          "default": "Frequently Asked Questions?"
+        },
+        {
+          "type": "richtext",
+          "id": "faq_content_2",
+          "label": "Content",
+          "default": "<p>Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>"
+        },
+        {
+          "type": "header",
+          "content": "FAQ 3"
+        },
+        {
+          "type": "text",
+          "id": "faq_title_3",
+          "label": "Title",
+          "default": "Frequently Asked Questions?"
+        },
+        {
+          "type": "richtext",
+          "id": "faq_content_3",
+          "label": "Content",
+          "default": "<p>Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>"
+        },
+        {
+          "type": "header",
+          "content": "FAQ 4"
+        },
+        {
+          "type": "text",
+          "id": "faq_title_4",
+          "label": "Title",
+          "default": "Frequently Asked Questions?"
+        },
+        {
+          "type": "richtext",
+          "id": "faq_content_4",
+          "label": "Content",
+          "default": "<p>Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>"
+        },
+        {
+          "type": "header",
+          "content": "FAQ 5"
+        },
+        {
+          "type": "text",
+          "id": "faq_title_5",
+          "label": "Title",
+          "default": "Frequently Asked Questions?"
+        },
+        {
+          "type": "richtext",
+          "id": "faq_content_5",
+
+          "label": "Content",
+          "default": "<p>Lorem ipsum dolor sit amet conse ctetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore.</p>"
+        },
+        {
+          "type": "header",
+          "content": "Typography"
+        },
+        {
+          "type": "paragraph",
+          "content": "== Title =="
+        },
+        {
+          "type": "range",
+          "id": "faq_fs",
+          "label": "Font size",
+          "min": 10,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "default": 14
+        },
+        {
+          "type": "select",
+          "id": "faq_fw",
+          "label": "Font weight",
+          "default": "default",
+          "options": [
+            {
+              "label": "Default",
+              "value": "default"
+            },
+            {
+              "label": "300",
+              "value": "300"
+            },
+            {
+              "label": "400",
+              "value": "400"
+            },
+            {
+              "label": "500",
+              "value": "500"
+            },
+            {
+              "label": "600",
+              "value": "600"
+            },
+            {
+              "label": "700",
+              "value": "700"
+            },
+            {
+              "label": "800",
+              "value": "800"
+            },
+            {
+              "label": "900",
+              "value": "900"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "faq_tf",
+          "label": "Text transform",
+          "options": [
+            {
+              "value": "unset",
+              "label": "Unset"
+            },
+            {
+              "value": "capitalize",
+              "label": "Capitalize"
+            },
+            {
+              "value": "uppercase",
+              "label": "Uppercase"
+            }
+          ]
+        },
+        {
+          "type": "paragraph",
+          "content": "== Content =="
+        },
+        {
+          "type": "range",
+          "id": "faq_desc_fs",
+          "label": "Font size",
+          "min": 10,
+          "max": 20,
+          "step": 1,
+          "unit": "px",
+          "default": 14
+        },
+        {
+          "type": "select",
+          "id": "faq_desc_fw",
+          "label": "Font weight",
+          "default": "default",
+          "options": [
+            {
+              "label": "Default",
+              "value": "default"
+            },
+            {
+              "label": "300",
+              "value": "300"
+            },
+            {
+              "label": "400",
+              "value": "400"
+            },
+            {
+              "label": "500",
+              "value": "500"
+            },
+            {
+              "label": "600",
+              "value": "600"
+            },
+            {
+              "label": "700",
+              "value": "700"
+            },
+            {
+              "label": "800",
+              "value": "800"
+            },
+            {
+              "label": "900",
+              "value": "900"
+            }
+          ]
+        },
+        {
+          "type": "select",
+          "id": "faq_desc_tf",
+          "label": "Text transform",
+          "options": [
+            {
+              "value": "unset",
+              "label": "Unset"
+            },
+            {
+              "value": "capitalize",
+              "label": "Capitalize"
+            },
+            {
+              "value": "uppercase",
+              "label": "Uppercase"
+            }
+          ]
+        },
+        {
+          "type": "header",
+          "content": "Spacing"
+        },
+        {
+          "type": "range",
+          "id": "faq_mt",
+          "min": 0,
+          "max": 60,
+          "step": 1,
+          "unit": "px",
+          "default": 0,
+          "label": "Top"
+        },
+        {
+          "type": "range",
+          "id": "faq_mb",
+          "min": 0,
+          "max": 60,
+          "step": 1,
+          "unit": "px",
+          "default": 10,
           "label": "Bottom"
         }
       ]

@@ -17,6 +17,8 @@
 .bls__product-text-scrolling .bls__product-text-scrolling-content {
     background: var(--bg-text-sale-scrolling);
     color: var(--s-text-color);
+    font-size: var(--text-font-size);
+    font-weight: var(--text-font-weight);
 }
 
 .scroll-text-title {
@@ -77,4 +79,5 @@
 .bls__product-text-scrolling {
     background-color: var(--bg-text-sale-scrolling);
     padding: 0.5rem 0;
+
 }

@@ -1,4 +1,36 @@
 {
+  "recipient": {
+    "form": {
+      "checkbox": "I want to send this as a gift",
+      "expanded": "Gift card recipient form expanded",
+      "collapsed": "Gift card recipient form collapsed",
+      "email_label": "Recipient email...",
+      "email_label_optional_for_no_js_behavior": "Recipient email (optional)",
+      "email": "Email",
+      "name_label": "Recipient name (optional)...",
+      "name": "Name",
+      "message_label": "Message (optional)...",
+      "message": "Message",
+      "max_characters": "{{ max_chars }} characters max",
+      "send_on": "YYYY-MM-DD",
+      "send_on_label": "Send on (optional)"
+    }
+  },
+  "page_sale": {
+    "use_code": "Use code:"
+  },
+  "brands": {
+    "all": "Show All"
+  },
+  "carrer": {
+    "location": "Location:",
+    "date": "Date:",
+    "income": "Income:",
+    "loadmore": "Load more",
+    "showing": "Showing",
+    "of": "of",
+    "carrer": "careers"
+  },
   "customer_accounts": {
     "payment_method_brands": {
       "paypal": "Pay Pal",
@@ -832,6 +864,101 @@
       "retry_action_label": "Recommencez"
     }
   },
+  "sections": {
+    "custom_content_readmore": "Read more",
+    "shopable_video": {
+      "default_content": "Please upload the video and associate it with a specific product."
+    },
+    "header": {
+      "announcement": "",
+      "menu": "",
+      "cart_count": {
+        "one": "",
+        "other": ""
+      }
+    },
+    "cart": {
+      "title": "",
+      "caption": "",
+      "remove_title": "",
+      "subtotal": "",
+      "new_subtotal": "",
+      "note": "",
+      "security_image": "",
+      "checkout": "",
+      "empty": "",
+      "cart_error": "",
+      "cart_quantity_error_html": "",
+      "taxes_and_shipping_policy_at_checkout_html": "",
+      "taxes_included_but_shipping_at_checkout": "",
+      "taxes_included_and_shipping_policy_html": "",
+      "taxes_and_shipping_at_checkout": "",
+      "no_shipping": "",
+      "shipping_rate": "",
+      "quick_edit": "",
+      "headings": {
+        "product": "",
+        "price": "",
+        "total": "",
+        "quantity": "",
+        "image": ""
+      },
+      "add_cart_error": "",
+      "add_gift_card_error": "Recipient email can't be blank.",
+      "add_gift_card_day_error": "Send on must be within 90 days from now",
+      "update": "",
+      "login": {
+        "title": "",
+        "paragraph_html": ""
+      }
+    },
+    "footer": {
+      "payment": ""
+    },
+    "featured_blog": {
+      "view_all": "",
+      "onboarding_title": "",
+      "onboarding_content": ""
+    },
+    "featured_collection": {
+      "view_all": "",
+      "view_all_label": "",
+      "slider": ""
+    },
+    "collection_list": {
+      "view_all": ""
+    },
+    "collection_template": {
+      "empty": "",
+      "title": "",
+      "use_fewer_filters_html": ""
+    },
+    "video": {
+      "load_video": ""
+    },
+    "slideshow": {
+      "load_slide": "",
+      "previous_slideshow": "",
+      "next_slideshow": "",
+      "pause_slideshow": "",
+      "play_slideshow": "",
+      "carousel": "",
+      "slide": ""
+    },
+    "times_bn": {
+      "days": "",
+      "hour": "",
+      "mins": "",
+      "secs": ""
+    },
+    "page": {
+      "title": ""
+    },
+    "button_comparison": {
+      "before": "",
+      "after": ""
+    }
+  },
   "general": {
     "password_page": {
       "login_form_heading": "",
@@ -923,7 +1050,7 @@
       },
       "gift": {
         "title": "Aggiungi regalo",
-        "gift_wrap_html": "<span class=\"cd\">Vuoi una confezione regalo?<\/span> Solo {{ price }}",
+        "gift_wrap_html": "Please wrap the product carefully. Fee is only <span class=\"price\">{{ price }}<\/span>. (You can choose or not)",
         "button_text": "Aggiungi una confezione regalo"
       },
       "shipping": {
@@ -950,22 +1077,9 @@
     "product_name": "FS by Sobel Westex",
     "accessibility": {
       "unit_price_separator": "FARE"
-    }
-  },
-  "brands": {
-    "all": "Show All"
-  },
-  "carrer": {
-    "location": "Location:",
-    "date": "Date:",
-    "income": "Income:",
-    "loadmore": "Load more",
-    "showing": "Showing",
-    "of": "of",
-    "carrer": "careers"
-  },
-  "page_sale": {
-    "use_code": "Use code:"
+    },
+    "show_all": "Show all",
+    "show_less": "Show less"
   },
   "newsletter": {
     "label": "E-mail",
@@ -1051,7 +1165,7 @@
   "products": {
     "product": {
       "product_placeholder": "Il nome del tuo prodotto",
-      "product_placeholder_short_desc": "Use this section to provide a concise description of your product's details. Share information about its appearance, materials, colors, sizing options, and manufacturing origin. Highlight its visual appeal, tactile qualities, and unique design features.      ",
+      "product_placeholder_short_desc": "Use this section to provide a concise description of your product's details. Share information about its appearance, materials, colors, sizing options, and manufacturing origin. Highlight its visual appeal, tactile qualities, and unique design features.",
       "add_to_cart": "Add to cart",
       "choose_options": "Scegli le opzioni",
       "choose_product_options": "Scegli le opzioni per {{ product_name }}",
@@ -1070,6 +1184,8 @@
       "hurry_up_message": "Affrettarsi! La vendita termina tra",
       "unit_price_label": "Prezzo unitario",
       "view_in_space": "Visualizza nel tuo spazio",
+      "back_to_product": "Back to products",
+      "more_info": "View detail",
       "view_in_space_label": "Visualizza nel tuo spazio, carica l'oggetto nella finestra della realtà aumentata",
       "media": {
         "gallery_viewer": "Visualizzatore della galleria",
@@ -1081,11 +1197,20 @@
         "play_model": "Avvia Visualizzatore 3D",
         "play_video": "Riproduci video"
       },
+      "label": {
+        "subscription": "Subscription",
+        "sale": "Sale"
+      },
       "quantity": {
         "label": "Quantità",
         "input_label": "Quantità per {{ product }}",
         "increase": "Aumenta la quantità per {{ product }}",
-        "decrease": "Riduci la quantità per {{ product }}"
+        "decrease": "Riduci la quantità per {{ product }}",
+        "minimum_of": "Minimum of {{ quantity }}",
+        "maximum_of": "Maximum of {{ quantity }}",
+        "multiples_of": "Increments of {{ quantity }}",
+        "in_cart_html": "<span class=\"quantity-cart\">{{ quantity }}</span> products in cart",
+        "note": "View quantity rules"
       },
       "pickup_availability": {
         "view_store_info": "Visualizza le informazioni del negozio",
@@ -1130,6 +1255,7 @@
       "size": "Misurare",
       "color": "Colore",
       "review": "Revisione",
+      "review_app": "Customer Reviews",
       "instock": "in magazzino",
       "size_guide": "Guida alle taglie",
       "askquestion": "Fai una domanda",
@@ -1211,21 +1337,27 @@
       },
       "title": "",
       "search_for_html": "",
-      "search_empty_html": ""
+      "search_empty_html": "",
+      "suggestions": "Suggestions",
+      "pages": "Page",
+      "article": "Article"
     },
     "cart": {
       "cart": ""
     },
     "rvp": {
       "title": "Recently Viewed",
-      "rvp": "Recently Viewed Products",
-      "no_product": "No products were in recently viewed page.",
-      "redirect": "Back to shopping"
+      "rvp": "",
+      "no_product": "",
+      "redirect": ""
     },
     "wishlist": {
       "wishlist": "",
       "no_product": "",
-      "redirect": ""
+      "redirect": "",
+      "title_remove": "Add to wishlist before remove?",
+      "action_yes": "Yes",
+      "action_no": "No"
     },
     "compare": {
       "no_product": "",
@@ -1256,97 +1388,6 @@
       "subtext": ""
     }
   },
-  "sections": {
-    "header": {
-      "announcement": "",
-      "menu": "",
-      "cart_count": {
-        "one": "",
-        "other": ""
-      }
-    },
-    "cart": {
-      "title": "",
-      "caption": "",
-      "remove_title": "",
-      "subtotal": "",
-      "new_subtotal": "",
-      "note": "",
-      "security_image": "",
-      "checkout": "",
-      "empty": "",
-      "cart_error": "",
-      "cart_quantity_error_html": "",
-      "taxes_and_shipping_policy_at_checkout_html": "",
-      "taxes_included_but_shipping_at_checkout": "",
-      "taxes_included_and_shipping_policy_html": "",
-      "taxes_and_shipping_at_checkout": "",
-      "no_shipping": "",
-      "shipping_rate": "",
-      "quick_edit": "",
-      "headings": {
-        "product": "",
-        "price": "",
-        "total": "",
-        "quantity": "",
-        "image": ""
-      },
-      "add_cart_error": "Sorry! Products are not enough.",
-      "add_gift_card_error": "Recipient email can't be blank.",
-      "add_gift_card_day_error": "Send on must be within 90 days from now",
-      "update": "Update",
-      "login": {
-        "title": "Have an account?",
-        "paragraph_html": "<a href=\"{{ link }}\" class=\"link underlined-link\">Log in<\/a> to check out faster."
-      }
-    },
-    "footer": {
-      "payment": ""
-    },
-    "featured_blog": {
-      "view_all": "",
-      "onboarding_title": "",
-      "onboarding_content": ""
-    },
-    "featured_collection": {
-      "view_all": "",
-      "view_all_label": "",
-      "slider": ""
-    },
-    "collection_list": {
-      "view_all": ""
-    },
-    "collection_template": {
-      "empty": "",
-      "title": "",
-      "use_fewer_filters_html": ""
-    },
-    "video": {
-      "load_video": ""
-    },
-    "slideshow": {
-      "load_slide": "",
-      "previous_slideshow": "",
-      "next_slideshow": "",
-      "pause_slideshow": "",
-      "play_slideshow": "",
-      "carousel": "",
-      "slide": ""
-    },
-    "times_bn": {
-      "days": "",
-      "hour": "",
-      "mins": "",
-      "secs": ""
-    },
-    "page": {
-      "title": ""
-    },
-    "button_comparison": {
-      "before": "",
-      "after": ""
-    }
-  },
   "localization": {
     "country_label": "",
     "language_label": "",
@@ -1355,128 +1396,128 @@
   },
   "customer": {
     "account": {
-      "title": "Account",
-      "dashboard": "Dashboard",
-      "details": "Account details",
-      "view_addresses": "View addresses",
-      "your_addresses": "Your addresses",
-      "your_wishlist": "Your Wishlist",
-      "return": "Return to Account details",
-      "welcome": "Welcome",
-      "no": "Not?"
+      "title": "",
+      "dashboard": "",
+      "details": "",
+      "view_addresses": "",
+      "your_addresses": "",
+      "your_wishlist": "",
+      "return": "",
+      "welcome": "",
+      "no": ""
     },
-    "account_fallback": "Account",
+    "account_fallback": "",
     "activate_account": {
-      "title": "Activate account",
-      "subtext": "Create your password to activate your account.",
-      "password": "Password",
-      "password_confirm": "Confirm password",
-      "submit": "Activate account",
-      "cancel": "Decline invitation",
-      "or": "or"
+      "title": "",
+      "subtext": "",
+      "password": "",
+      "password_confirm": "",
+      "submit": "",
+      "cancel": "",
+      "or": ""
     },
     "addresses": {
-      "title": "Addresses",
-      "default": "Default addresses",
-      "add_new": "Add a new address",
-      "edit_address": "Edit address",
-      "first_name": "First name",
-      "last_name": "Last name",
-      "company": "Company",
-      "address1": "Address 1",
-      "address2": "Address 2",
-      "city": "City",
-      "country": "Country\/region",
-      "province": "Province",
-      "zip": "Postal\/ZIP code",
-      "phone": "Phone",
-      "set_default": "Set as default address",
-      "add": "Add address",
-      "update": "Update address",
-      "cancel": "Cancel",
-      "edit": "Edit",
-      "delete": "Delete",
-      "delete_confirm": "Are you sure you wish to delete this address?",
-      "name": "Name",
-      "email": "Email"
+      "title": "",
+      "default": "",
+      "add_new": "",
+      "edit_address": "",
+      "first_name": "",
+      "last_name": "",
+      "company": "",
+      "address1": "",
+      "address2": "",
+      "city": "",
+      "country": "",
+      "province": "",
+      "zip": "",
+      "phone": "",
+      "set_default": "",
+      "add": "",
+      "update": "",
+      "cancel": "",
+      "edit": "",
+      "delete": "",
+      "delete_confirm": "",
+      "name": "",
+      "email": ""
     },
-    "log_in": "Log in",
-    "log_out": "Log out",
+    "log_in": "",
+    "log_out": "",
     "login_menu_mobile": "Login \/ Register",
     "login_page": {
-      "cancel": "Cancel",
-      "create_account": "Create account",
-      "email": "Email",
-      "forgot_password": "Forgot your password?",
-      "guest_continue": "Continue",
-      "guest_title": "Continue as a guest",
-      "password": "Password",
-      "title": "Login",
-      "sign_in": "Sign in",
-      "submit": "Submit",
-      "placeholder_email": "Your email*",
-      "placeholder_pass": "Password*"
+      "cancel": "",
+      "create_account": "",
+      "email": "",
+      "forgot_password": "",
+      "guest_continue": "",
+      "guest_title": "",
+      "password": "",
+      "title": "",
+      "sign_in": "",
+      "submit": "",
+      "placeholder_email": "",
+      "placeholder_pass": ""
     },
     "order": {
-      "title": "Order {{ name }}",
-      "date_html": "Placed on {{ date }}",
-      "cancelled_html": "Order Cancelled on {{ date }}",
-      "cancelled_reason": "Reason: {{ reason }}",
-      "billing_address": "Billing Address",
-      "payment_status": "Payment Status",
-      "shipping_address": "Shipping Address",
-      "fulfillment_status": "Fulfillment Status",
-      "discount": "Discount",
-      "shipping": "Shipping",
-      "tax": "Tax",
-      "product": "Product",
-      "sku": "SKU",
-      "price": "Price",
-      "quantity": "Quantity",
-      "total": "Total",
-      "fulfilled_at_html": "Fulfilled {{ date }}",
-      "track_shipment": "Track shipment",
-      "tracking_url": "Tracking link",
-      "tracking_company": "Carrier",
-      "tracking_number": "Tracking number",
-      "subtotal": "Subtotal",
-      "total_duties": "Duties"
+      "title": "",
+      "date_html": "",
+      "cancelled_html": "",
+      "cancelled_reason": "",
+      "billing_address": "",
+      "payment_status": "",
+      "shipping_address": "",
+      "fulfillment_status": "stato di adempimento",
+      "discount": "Sconto",
+      "shipping": "Spedizione",
+      "tax": "Imposta",
+      "product": "Prodotto",
+      "sku": "",
+      "price": "Prezzo",
+      "quantity": "Quantità",
+      "total": "Totale",
+      "fulfilled_at_html": "Eseguito {{ date }}",
+      "track_shipment": "Tracciare la spedizione",
+      "tracking_url": "Collegamento di tracciamento",
+      "tracking_company": "Vettore",
+      "tracking_number": "Numero di identificazione",
+      "subtotal": "totale parziale",
+      "total_duties": "Doveri"
     },
     "orders": {
-      "title": "Order history",
-      "order_number": "Order",
-      "order_number_link": "Order number {{ number }}",
-      "date": "Date",
-      "payment_status": "Payment status",
-      "fulfillment_status": "Fulfillment status",
-      "total": "Total",
-      "make": "Make your first order.",
-      "none": "You haven't placed any orders yet."
+      "title": "Cronologia ordini",
+      "order_number": "Ordine",
+      "order_number_link": "Numero ordine {{ number }}",
+      "date": "Data",
+      "payment_status": "Stato del pagamento",
+      "fulfillment_status": "Stato di adempimento",
+      "total": "Totale",
+      "make": "Fai il tuo primo ordine.",
+      "none": "Non hai ancora effettuato alcun ordine."
     },
     "recover_password": {
-      "title": "Forgot Password",
-      "email": "Email",
-      "submit": "Reset password",
-      "subtext": "Lost your password? Please enter your email address. You will receive a link to create a new password via email.",
-      "success": "We've sent you an email with a link to update your password."
+      "title": "Ha dimenticato la password",
+      "email": "E-mail",
+      "submit": "Resetta la password",
+      "subtext": "Hai perso la password? Inserisci il tuo indirizzo email. Riceverai un link per creare una nuova password via e-mail.",
+      "success": "Ti abbiamo inviato un'email con un link per aggiornare la tua password."
     },
     "register": {
-      "title": "Create Account",
-      "first_name": "First name",
-      "last_name": "Last name",
-      "email": "Email",
-      "password": "Password",
-      "submit": "Create Account",
-      "title_content": "New Customer",
-      "content": "Sign up for early Sale access plus tailored new arrivals, trends and promotions. To opt out, click unsubscribe in our emails.",
-      "content_form": "Your personal data will be used to support your experience throughout this website, to manage access to your account and for other purposes described in our privacy policy."
+      "title": "Creare un account",
+      "first_name": "Nome di battesimo",
+      "last_name": "Cognome",
+      "email": "E-mail",
+      "password": "Parola d'ordine",
+      "submit": "Creare un account",
+      "title_content": "Nuovo cliente",
+      "content": "Iscriviti per l'accesso anticipato ai saldi oltre a nuovi arrivi, tendenze e promozioni su misura. Per annullare l'iscrizione, fai clic su Annulla iscrizione nelle nostre e-mail.",
+      "content_form": "I tuoi dati personali verranno utilizzati per supportare la tua esperienza in questo sito Web, per gestire l'accesso al tuo account e per altri scopi descritti nella nostra politica sulla privacy."
     },
     "reset_password": {
-      "title": "Reset account password",
-      "subtext": "Enter a new password",
-      "password": "Password",
-      "password_confirm": "Confirm password",
-      "submit": "Reset password"
+      "title": "Reimposta la password dell'account",
+      "subtext": "Inserire una nuova password",
+      "password": "Parola d'ordine",
+      "password_confirm": "Conferma password",
+      "submit": "Resetta la password"
     }
   },
   "gift_cards": {
@@ -1492,23 +1533,6 @@
       "expired": "Scaduto",
       "copy_code_success": "Codice copiato con successo",
       "print_gift_card": "Stampa"
-    }
-  },
-  "recipient": {
-    "form": {
-      "checkbox": "I want to send this as a gift",
-      "expanded": "Gift card recipient form expanded",
-      "collapsed": "Gift card recipient form collapsed",
-      "email_label": "Recipient email...",
-      "email_label_optional_for_no_js_behavior": "Recipient email (optional)",
-      "email": "Email",
-      "name_label": "Recipient name (optional)...",
-      "name": "Name",
-      "message_label": "Message (optional)...",
-      "message": "Message",
-      "max_characters": "{{ max_chars }} characters max",
-      "send_on": "YYYY-MM-DD",
-      "send_on_label": "Send on (optional)"
     }
   },
   "main_menu": {

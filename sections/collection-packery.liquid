@@ -6,7 +6,6 @@
   assign heading = st.heading
   assign description = st.description
   assign color_scheme = st.color_scheme
-  assign images_style = st.images_style
   assign media_aspect_ratio = st.image_ratio
   assign custom_ratio = st.custom_ratio
   assign heading_logo = st.heading_logo
@@ -58,7 +57,7 @@
 {%- endcapture -%}
 <section
   class="color-{{ color_scheme }} gradient bls__section {{ has_bg }}{{ spt_tablet }}{{ spb_tablet }}{{ spt_mobile }}{{ spb_mobile }} bls__collection-packery {{ reset_spacing }} {{ column_gap_tablet }}{{ column_gap_mobile }}"
-  style="{{ style | strip | strip_newlines }}"
+  style="{{ style | strip | strip_newlines }};--bs-gutter-x: {{ column_gap }}px;"
 >
   <div class="{{ container }} section-full">
     {%- if heading != blank or description != blank or heading_logo != blank or heading_logo_svg != blank -%}
@@ -100,7 +99,7 @@
         {%- endif -%}
       </div>
     {%- endif -%}
-    <div class="bls__collection-packery-content {{ images_style }}">
+    <div class="bls__collection-packery-content{% if settings.image_style != blank and section.settings.container != "full-width" and section.settings.column_gap != 0 %} radius {% endif %}">
       <div
         class="row d-grid {{ column_gap_tablet }}{{ column_gap_mobile }} grid-{{ se_size }}"
         style="--bs-gutter-x: {{ column_gap }}px;"
@@ -136,6 +135,9 @@
 {% schema %}
 {
   "name": "Collection packery",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
   "settings": [
     {
       "type": "header",
@@ -201,6 +203,10 @@
           "label": "Fluid container"
         },
         {
+          "label": "Stretch width",
+          "value": "strecth-width"
+        },
+        {
           "value": "full-width",
           "label": "Full width"
         }
@@ -244,22 +250,6 @@
       "id": "show_count_product",
       "label": "Show count product",
       "default": true
-    },
-    {
-      "type": "select",
-      "id": "images_style",
-      "label": "Images style",
-      "default": "square",
-      "options": [
-        {
-          "value": "square",
-          "label": "Square"
-        },
-        {
-          "value": "radius",
-          "label": "Radius"
-        }
-      ]
     },
     {
       "type": "select",

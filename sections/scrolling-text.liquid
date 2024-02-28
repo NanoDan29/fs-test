@@ -31,11 +31,10 @@
     assign spb_mobile = ' spb-mobile'
   endif
   assign has_bg = ''
-   assign bg_color = st.bg_color | default: "transparent"
-  if bg_color != blank
+  assign bg_color = st.bg_color | default: 'transparent'
+  if bg_color
     assign has_bg = ' has-bg'
   endif
-  
 -%}
 
 {%- capture style -%}
@@ -62,6 +61,7 @@
         <div class=" d-flex align-items-center {% if text_title %}scroll-text-title{% endif %}">
           {%- for block in section.blocks -%}
             <a
+              {{ block.shopify_attributes }}
               aria-label="{{ block.settings.content }}"
               {% if block.settings.text_link != blank %}
                 href="{{ block.settings.text_link }}"
@@ -92,6 +92,9 @@
 {% schema %}
 {
   "name": "Scrolling text",
+  "disabled_on": {
+    "groups": ["footer"]
+  },
   "settings": [
     {
       "type": "header",
@@ -110,6 +113,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",

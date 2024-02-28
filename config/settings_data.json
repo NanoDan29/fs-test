@@ -31,6 +31,7 @@
     "fnt_headings_sp": "futura_n4",
     "fnt_headings_gg": "Jost",
     "headings_font_size_h2": 45,
+    "headings_font_size_h1": 45,
     "headings_font_weight": 400,
     "sub_headings_font_weight": 400,
     "font_source_menu": "2",
@@ -95,6 +96,7 @@
       "dream-set",
       "hooded-robe"
     ],
+    "show_newsletter": "hide_newsletter",
     "newsletter_width": 530,
     "show_promotion": false,
     "show_promotion_mobile": true,
@@ -260,6 +262,7 @@
         "block_order": [
           "fd8c507a-a402-4ccc-b440-8e60e259f0f1"
         ],
+        "custom_css": [],
         "settings": {
           "container": "full-width",
           "show_announcement": true,
@@ -278,7 +281,7 @@
       "top-bar": {
         "type": "top-bar",
         "custom_css": [
-
+          
         ],
         "settings": {
           "container": "full-width",

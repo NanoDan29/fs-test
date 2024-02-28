@@ -47,11 +47,11 @@
 {%- if section.blocks.size > 0 -%}
   <div
     id="{{ section.id }}"
-    class="bls__section color-{{ section.settings.color_scheme }} gradient {{ reset_spacing }} {{ custom_class }} bls__product-tabs design-{{design}}{% if design == 'accordition' and position == '2' %} inside-product-main-infomation d-none{% endif %}"
+    class="bls__section color-{{ section.settings.color_scheme }} gradient {{ reset_spacing }} {{ custom_class }} bls__product-tabs design-{{design}}{% if design == 'accordition' and position == '2' %} inside-product-main-infomation d-none{% endif %} {% if design == 'show_all' and st.show_two_column %}show-two-column{% endif %}"
     data-section-type="tabs"
     data-section-id="{{ section.id }}"
   >
-    <div class="{{ st.layout }}">
+    <div class="{{ st.layout }} section-full">
       <div class="product info detailed">
         <div class="product data items">
           {%- if design == 'tab' or design == 'accordition' -%}
@@ -68,10 +68,13 @@
                       {%- if block.type == 'review' -%}
                         tab-review
                       {%- endif -%}
+                      {%- if block.type == '@app' -%}
+                        tab-review-app
+                      {%- endif -%}
                     >
                       {{- bk_st.title -}}
                       {%- if block.type == '@app' -%}
-                        {{ 'products.product.review' | t }}
+                        {{ 'products.product.review_app' | t }}
                       {%- endif -%}
                     </a>
                   </li>
@@ -95,11 +98,14 @@
                       {%- if block.type == 'review' -%}
                         tab-review
                       {%- endif -%}
+                      {%- if block.type == '@app' -%}
+                        tab-review-app
+                      {%- endif -%}
                     >
                       <span class="txt_h_tab d-blokc w-full heading-color heading-weight">
                         {{- bk_st.title -}}
                         {%- if block.type == '@app' -%}
-                          {{ 'products.product.review' | t }}
+                          {{ 'products.product.review_app' | t }}
                         {%- endif -%}
                       </span>
                       <span class="open-children-toggle"></span>
@@ -153,10 +159,16 @@
                 {%- if block.type == 'review' -%}
                   tab-review
                 {%- endif -%}
+                {%- if block.type == '@app' -%}
+                  tab-review-app
+                {%- endif -%}
               >
                 <div class="data item title" id="tab-label-{{ bk_id }}">
                   <h4 id="tab-label-{{ bk_id }}-title">
                     {{ bk_st.title }}
+                    {%- if block.type == '@app' -%}
+                      {{ 'products.product.review_app' | t }}
+                    {%- endif -%}
                   </h4>
                 </div>
                 <div class="tab-panel">
@@ -167,6 +179,8 @@
                       <div id="shopify-product-reviews" data-id="{{ product.id }}">
                         {{ product.metafields.spr.reviews }}
                       </div>
+                    {%- when '@app' -%}
+                      {% render block %}
                     {%- when 'custom_tab' -%}
                       {% assign tab_content = bk_st.tab_content %}
                       {%- case tab_content -%}
@@ -207,6 +221,10 @@
         {
           "value": "container-fluid",
           "label": "Fluid container"
+        },
+        {
+          "label": "Stretch width",
+          "value": "strecth-width"
         },
         {
           "value": "full-width",
@@ -261,6 +279,13 @@
       "label": "Enable auto open first tab",
       "info": "Only working with layout 'Accordion'",
       "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_two_column",
+      "label": "Enable show two column",
+      "info": "Only working with layout 'Show open all'",
+      "default": false
     },
     {
       "type": "text",
