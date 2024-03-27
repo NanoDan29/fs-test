@@ -8,7 +8,7 @@
           <label class="field__label field__label--visible" for="checkout_security_code">{{ 'shopify.checkout.order_summary.gift_card_pin_prompt' | t }}</label>
           <input placeholder="{{ 'shopify.checkout.order_summary.gift_card_pin_prompt' | t }}" class="field__input" autocomplete="off" aria-required="true" size="4" type="text" name="checkout[security_code]" id="checkout_security_code" />
         </div>
-  
+
         <button type="button" class="field__input-btn field__input-btn--spacer btn btn--disabled" disabled="disabled">
           <span class="btn__content visually-hidden-on-mobile">{{ 'shopify.checkout.order_summary.apply_discount_button_label' | t }}</span>
           <i class="btn__content shown-on-mobile icon icon--arrow"></i>
@@ -17,12 +17,12 @@
       </div>
     </div>
   </div>
-  {%- endcapture -%}
+{%- endcapture -%}
 
   {%- capture HTML_TEMPLATE_GIFTCARD_MESSAGE -%}
   <div class="gift-card-message">
     <p>
-      {{ 'checkout.gift_cards.prevent_giftcard_message' | t }}
+     {{ 'checkout.gift_cards.prevent_giftcard_message' | t }}
     </p>
   </div>
   {%- endcapture -%}
@@ -32,17 +32,17 @@
     <div class="radio__input">
       <input class="input-radio" id="checkout_payment_gateway_givex" data-backup="payment_gateway_givex" aria-describedby="payment_gateway_givex_description" aria-expanded="false" aria-controls="payment-gateway-subfields-givex" type="radio" value="givex" name="checkout[payment_gateway]" />
     </div>
-  
+
     <div class="radio__label payment-method-wrapper ">
       <label for="checkout_payment_gateway_givex" class="radio__label__primary content-box__emphasis">
         {{ 'shopify.checkout.payment.gift_card_method_title' | t }}
       </label>
     </div>
   </div>
-  
+
   <div class="radio-wrapper content-box__row content-box__row--secondary hidden" data-subfields-for-gateway="givex" id="payment-gateway-subfields-givex">
     <div class="fieldset">
-  
+
       <div class="{%- if settings.givex_pin_required -%}field--two-thirds{%- endif -%} field field--required">
         <div class="field__input-wrapper">
           <label class="field__label field__label--visible" for="givex-gift-card-number">
@@ -52,16 +52,16 @@
         </div>
         <p id="givex-gift-card-error" class="field__message field__message--error"></p>
       </div>
-  
+
       {%- if settings.givex_pin_required -%}
       <div class="field--third field field--required">
         <div class="field__input-wrapper field__input-wrapper--icon-right">
           <label class="field__label field__label--visible" for="givex-gift-card-security-code">
             {{ 'shopify.checkout.payment.gift_card_security_code_label' | t }}
           </label>
-  
+
           <input id="givex-gift-card-security-code" type="tel" class="field__input" placeholder="{{ 'shopify.checkout.payment.gift_card_security_code_label' | t }}" />
-  
+
           <div id="credit_card_verification_value_tooltip" role="tooltip" class="field__icon has-tooltip">
             <span id="tooltip-for-verification_value" class="tooltip">
               <span>
@@ -77,10 +77,10 @@
         </div>
       </div>
       {%- endif -%}
-  
+
     </div>
   </div>
-  {%- endcapture -%}
+{%- endcapture -%}
 
   <!-- Initialise custom checkout. -->
   <script type="text/javascript">
