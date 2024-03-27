@@ -334,10 +334,7 @@
   "name": "Banner image",
   "class": "bls__banner-image",
   "disabled_on": {
-    "groups": [
-      "header",
-      "footer"
-    ]
+    "groups": ["header", "footer"]
   },
   "settings": [
     {
@@ -864,13 +861,10 @@
           "info": "Leave blank to inherit from desktop (430 x 245px recommended)"
         },
         {
-          "id": "video_url",
           "type": "video_url",
+          "id": "video_url",
           "label": "Video url",
-          "accepts": [
-            "youtube",
-            "vimeo"
-          ],
+          "accept": ["youtube", "vimeo"],
           "default": "https://www.youtube.com/watch?v=_9VUPq3SxOc"
         },
         {
@@ -958,15 +952,7 @@
   ],
   "presets": [
     {
-      "name": "Banner image",
-      "blocks": [
-        {
-          "type": "image_banner"
-        },
-        {
-          "type": "image_banner"
-        }
-      ]
+      "name": "Banner image"
     }
   ]
 }

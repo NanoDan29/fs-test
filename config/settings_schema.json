@@ -309,7 +309,7 @@
       {
         "type": "select",
         "id": "general_layout",
-        "label":"",
+        "label":"General layout",
         "options": [
           {
             "value": "default",
@@ -737,7 +737,6 @@
       {
         "type": "color_scheme_group",
         "id": "color_schemes",
-        "label":"",
         "definition": [
           {
             "type": "header",

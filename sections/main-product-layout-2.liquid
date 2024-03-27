@@ -231,44 +231,6 @@
                       {% endif %}
                     </div>
                   {%- when 'product_vendor' -%}
-                    {% if product.vendor != blank %}
-                      {%- liquid
-                        assign links_vendor = linklists['umino-image-vendor'].links
-                        assign img_vendor = links_vendor | where: 'title', product.vendor | first
-                        assign name_img_vendor = img_vendor.url | split: '?' | first | split: '/' | last
-                        assign image = images[name_img_vendor]
-                        assign pr_vendor_handle = product.vendor | handle
-                        assign collection_vendor = collections[pr_vendor_handle]
-                        assign pr_vendor_url = product.vendor | url_for_vendor
-                        assign pr_vendor_url = collection_vendor.url | default: pr_vendor_url
-                      -%}
-                      <div class="bls__product-vendors mb-15">
-                        <a href="{{ pr_vendor_url }}">
-                          {%- if image != blank -%}
-                            <img
-                              srcset="
-                                {%- if image.width >= 165 -%}{{ image | image_url: width: 165 }} 165w,{%- endif -%}
-                                {%- if image.width >= 330 -%}{{ image | image_url: width: 330 }} 330w,{%- endif -%}
-                                {%- if image.width >= 535 -%}{{ image | image_url: width: 535 }} 535w,{%- endif -%}
-                                {%- if image.width >= 750 -%}{{ image | image_url: width: 750 }} 750w,{%- endif -%}
-                                {%- if image.width >= 1000 -%}{{ image | image_url: width: 1000 }} 1000w,{%- endif -%}
-                                {%- if image.width >= 1500 -%}{{ image | image_url: width: 1500 }} 1500w,{%- endif -%}
-                                {%- if image.width >= 3000 -%}{{ image | image_url: width: 3000 }} 3000w,{%- endif -%}
-                                {{ image | image_url }} {{ image.width }}w
-                              "
-                              src="{{ image | image_url: '80x' }}"
-                              loading="lazy"
-                              sizes="(min-width: {{ container_width }}px) {{ container_width | minus: 130 | divided_by: 4 }}px, (min-width: 990px) calc((100vw - 130px) / 4), (min-width: 750px) calc((100vw - 120px) / 3), calc((100vw - 35px) / 2)"
-                              alt="{{ product.vendor | escape }}"
-                              width="{{ block.settings.image_vendor_width }}"
-                              height="auto"
-                            >
-                          {%- else -%}
-                            {{ product.vendor | escape }}
-                          {%- endif -%}
-                        </a>
-                      </div>
-                    {% endif %}
                   {%- when 'product_title' -%}
                     <h1 class="bls__product-title mb-5" style="--bls__product-title-size:{{ bk_st.font_size }}px;">
                       {{ product.title }}
@@ -1978,7 +1940,7 @@
       "type": "checkbox",
       "id": "use_variants_group",
       "label": "Use variants image group",
-      "info": "Follow this guide to know how is [variants image group](https://blueskytechcos-organization.gitbook.io/umino-shopify/product-settings/variant-image-grouped) and how to setup it ",
+      "info": "Follow this guide to know how is [variants image group](https://sobelwestex.atlassian.net/servicedesk/customer/kb/view/3113294) and how to setup it ",
       "default": false
     },
     {
@@ -2009,7 +1971,7 @@
       "type": "checkbox",
       "id": "bought_together",
       "label": "Show product bought together",
-      "info": "Follow this guide to know how to setup [Product bought together](https://blueskytechcos-organization.gitbook.io/umino-shopify/product-settings/setup-frequently-bought-together)",
+      "info": "Follow this guide to know how to setup [Product bought together](https://sobelwestex.atlassian.net/servicedesk/customer/kb/view/6554193)",
       "default": true
     },
     {
@@ -2089,7 +2051,7 @@
       "settings": [
         {
           "type": "paragraph",
-          "content": "Follow this guide to know how is Product [review & sold](https://blueskytechcos-organization.gitbook.io/umino-shopify/product-settings/product-summary/product-review-and-sold) and how to setup it"
+          "content": "Follow this guide to know how is Product [review & sold](https://sobelwestex.atlassian.net/servicedesk/customer/kb/view/3211968) and how to setup it"
         },
         {
           "type": "header",
@@ -2140,7 +2102,7 @@
       "settings": [
         {
           "type": "paragraph",
-          "content": "Follow this guide to know how to setup [countdown timer](https://blueskytechcos-organization.gitbook.io/umino-shopify/product-settings/product-summary/countdown-timer)"
+          "content": "Follow this guide to know how to setup [countdown timer](https://sobelwestex.atlassian.net/servicedesk/customer/kb/view/3113765)"
         },
         {
           "type": "checkbox",

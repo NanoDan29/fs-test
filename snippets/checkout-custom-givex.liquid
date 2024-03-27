@@ -1,0 +1,427 @@
+{%- if settings.givex_in_checkout_enabled -%}
+  <!-- Custom checkout HTML templates. -->
+  {%- capture HTML_TEMPLATE_SECURITY_CODE -%}
+  <div class="fieldset fieldset--security-code">
+    <div class="field">
+      <div class="field__input-btn-wrapper">
+        <div class="field__input-wrapper">
+          <label class="field__label field__label--visible" for="checkout_security_code">{{ 'shopify.checkout.order_summary.gift_card_pin_prompt' | t }}</label>
+          <input placeholder="{{ 'shopify.checkout.order_summary.gift_card_pin_prompt' | t }}" class="field__input" autocomplete="off" aria-required="true" size="4" type="text" name="checkout[security_code]" id="checkout_security_code" />
+        </div>
+  
+        <button type="button" class="field__input-btn field__input-btn--spacer btn btn--disabled" disabled="disabled">
+          <span class="btn__content visually-hidden-on-mobile">{{ 'shopify.checkout.order_summary.apply_discount_button_label' | t }}</span>
+          <i class="btn__content shown-on-mobile icon icon--arrow"></i>
+          <i class="btn__spinner icon icon--button-spinner"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  {%- endcapture -%}
+
+  {%- capture HTML_TEMPLATE_GIFTCARD_MESSAGE -%}
+  <div class="gift-card-message">
+    <p>
+      {{ 'checkout.gift_cards.prevent_giftcard_message' | t }}
+    </p>
+  </div>
+  {%- endcapture -%}
+
+  {%- capture HTML_TEMPLATE_GIVEX_PAYMENT_METHOD -%}
+  <div class="radio-wrapper content-box__row " data-gateway-group="givex" data-select-gateway="givex">
+    <div class="radio__input">
+      <input class="input-radio" id="checkout_payment_gateway_givex" data-backup="payment_gateway_givex" aria-describedby="payment_gateway_givex_description" aria-expanded="false" aria-controls="payment-gateway-subfields-givex" type="radio" value="givex" name="checkout[payment_gateway]" />
+    </div>
+  
+    <div class="radio__label payment-method-wrapper ">
+      <label for="checkout_payment_gateway_givex" class="radio__label__primary content-box__emphasis">
+        {{ 'shopify.checkout.payment.gift_card_method_title' | t }}
+      </label>
+    </div>
+  </div>
+  
+  <div class="radio-wrapper content-box__row content-box__row--secondary hidden" data-subfields-for-gateway="givex" id="payment-gateway-subfields-givex">
+    <div class="fieldset">
+  
+      <div class="{%- if settings.givex_pin_required -%}field--two-thirds{%- endif -%} field field--required">
+        <div class="field__input-wrapper">
+          <label class="field__label field__label--visible" for="givex-gift-card-number">
+            {{ 'shopify.checkout.payment.gift_card_code_label' | t }}
+          </label>
+          <input id="givex-gift-card-number" type="tel" placeholder="{{ 'shopify.checkout.payment.gift_card_code_label' | t }}" class="field__input" />
+        </div>
+        <p id="givex-gift-card-error" class="field__message field__message--error"></p>
+      </div>
+  
+      {%- if settings.givex_pin_required -%}
+      <div class="field--third field field--required">
+        <div class="field__input-wrapper field__input-wrapper--icon-right">
+          <label class="field__label field__label--visible" for="givex-gift-card-security-code">
+            {{ 'shopify.checkout.payment.gift_card_security_code_label' | t }}
+          </label>
+  
+          <input id="givex-gift-card-security-code" type="tel" class="field__input" placeholder="{{ 'shopify.checkout.payment.gift_card_security_code_label' | t }}" />
+  
+          <div id="credit_card_verification_value_tooltip" role="tooltip" class="field__icon has-tooltip">
+            <span id="tooltip-for-verification_value" class="tooltip">
+              <span>
+                {{ 'shopify.checkout.payment.gift_card_security_code_tooltip' | t }}
+              </span>
+            </span>
+            <div class="field__icon-svg">
+              <svg class="icon-svg icon-svg--color-adaptive-lighter icon-svg--size-16 icon-svg--block" aria-hidden="true" focusable="false">
+                <use xlink:href="#question"></use>
+              </svg>
+            </div>
+          </div>
+        </div>
+      </div>
+      {%- endif -%}
+  
+    </div>
+  </div>
+  {%- endcapture -%}
+
+  <!-- Initialise custom checkout. -->
+  <script type="text/javascript">
+    // Declare the GivexCheckout object, which includes functions common to all customisations.
+    var GivexCheckout = {
+
+      preauth: function($, $input, $securityCodeInput, callbacks) {
+        // Perform pre-auth API call.
+        var voucher_number = $input.val(),
+          voucher_amount = '{{ checkout.total_price | divided_by: 100 }}',
+          security_code = $securityCodeInput.val(),
+          url = '{{ shop.metafields.givex.api_url }}preauth.json?' + $.param({
+            shop: '{{ shop.permanent_domain }}',
+            voucher_number: voucher_number,
+            voucher_amount: voucher_amount,
+            security_code: security_code
+          });
+
+        $.ajax({
+          dataType: 'json',
+          url: url,
+          method: 'GET',
+          success: callbacks.success,
+          error: callbacks.error,
+          complete: callbacks.complete
+        });
+      }
+
+    };
+
+    /**
+     * GivexSidebarIntegration module.
+     *
+     * This module adds Givex integration functionality to the standard Shopify
+     * discount code/gift card input in the checkout sidebar.
+     */
+    GivexCheckout = (function(GivexCheckout, $) {
+
+      // Declare the GivexSidebarIntegration module.
+      var GivexSidebarIntegration = {
+        steps: ['contact_information', 'shipping_method', 'payment_method'],
+        name: 'givex-sidebar-integration',
+        section: '[data-reduction-form]'
+      };
+
+      // Local reference to the options hash.
+      var options = {};
+
+      // jQuery references.
+      var $form, $input, $button, $fieldset, $securityCodeInput;
+
+      // Constants
+      var GIFT_CARD_CODE_LENGTH = {{ shop.metafields.givex.gift_card_code_length | default: 20 | plus: 0 | json }},
+          GIFT_CARD_PIN_REQUIRED = {{ settings.givex_pin_required | json }},
+          GIFT_CARD_PRESENT = {{ gift_card | json }}; // Parsing liquid variable assigned above - json filter will interpret boolean
+
+      // Flags
+      var potentialGiftCardCode = false;
+
+      /**
+       * Initialisation method.
+       */
+      GivexSidebarIntegration.initialize = function(initializeOptions) {
+        options = initializeOptions;
+
+        // Set up jQuery references
+        $input = $('[data-discount-field="true"]');
+        $form = $input.closest('form');
+        $button = $form.find('[type="submit"]');
+        $fieldset = $input.closest('.fieldset');
+
+        // Insert the (hidden) HTML for the PIN input below the card/code input, if required.
+        if(GIFT_CARD_PIN_REQUIRED) {
+          $fieldset.after({{ HTML_TEMPLATE_SECURITY_CODE | json }});
+        }
+
+        // Insert the (hidden) HTML for the "can't purchase gift cards with gift cards" message.
+        $fieldset.after({{ HTML_TEMPLATE_GIFTCARD_MESSAGE | json }});
+
+        // New jQuery references.
+        $securityCodeInput = $form.find('[name="checkout[security_code]"]');
+
+        // Add keyup listener to the card/code input.
+        $input.on('keyup', handleKeyUp);
+
+        // Add submit listener to the form.
+        $form.on('submit', handleSubmit);
+
+        handleKeyUp();
+      };
+
+      /**
+       * Handle change in card/code input.
+       */
+      function handleKeyUp(e) {
+        potentialGiftCardCode = isPotentialGiftCardCode($input.val());
+        if (GIFT_CARD_PRESENT) {
+          $button.prop('disabled', potentialGiftCardCode);
+          $button.toggleClass('btn--disabled btn--disabled--extra', potentialGiftCardCode);
+          $form.toggleClass('prevent-gift-card-usage', potentialGiftCardCode)
+        } else {
+          $form.toggleClass('potential-gift-card-code', potentialGiftCardCode);
+        }
+      }
+
+      /**
+       * Handle submission of form.
+       */
+      function handleSubmit(e) {
+        // Don't block submission if no chance of a gift code here.
+        if(!potentialGiftCardCode) {
+          return true;
+        }
+
+        // Don't block if the force submit flag is set.
+        if($form.attr('data-force-submit') == 'yes') {
+          return true;
+        }
+
+        e.preventDefault();
+
+        // If there's no value for the security code and we require it, focus that field.
+        if(GIFT_CARD_PIN_REQUIRED) {
+          if($securityCodeInput.val().trim().length === 0) {
+            $securityCodeInput.focus();
+            return false;
+          }
+        }
+
+        // Add loading spinner and disable the button to prevent resubmission.
+        $button.addClass('btn--loading').prop('disabled', true);
+
+        // Perform the pre-auth call.
+        GivexCheckout.preauth($, $input, $securityCodeInput, {
+          success: function(result) {
+            $input.after('<input type="hidden" name="checkout[reduction_code]" value= "' + result.voucher_number + '" />');
+          },
+          complete: function(result) {
+            // Regardless of success or failure, re-submit the form.
+            $form.attr('data-force-submit', 'yes');
+            $form.submit();
+          }
+        });
+
+        return false;
+      }
+
+      /**
+       * Return true if the given value is a potential gift card code value - ie, it's >= GIFT_CARD_CODE_LENGTH digits long.
+       */
+      function isPotentialGiftCardCode(value) {
+        return value.length >= GIFT_CARD_CODE_LENGTH;
+      }
+
+      // Add the GivexSidebarIntegration module to our list of modules.
+      if(typeof GivexCheckout.modules === 'undefined') {
+        GivexCheckout.modules = [];
+      }
+      GivexCheckout.modules.push(GivexSidebarIntegration);
+      return GivexCheckout;
+
+    })(GivexCheckout || {}, jQuery || Checkout.jQuery);
+
+    /**
+     * GivexPaymentMethodIntegration module.
+     *
+     * This module adds Givex integration functionality to the list of payment
+     * methods presented by Shopify at the payment step in checkout.
+     */
+    GivexCheckout = (function(GivexCheckout, $) {
+
+      // Declare the GivexPaymentMethodIntegration module.
+      var GivexPaymentMethodIntegration = {
+        steps: ['payment_method'],
+        name: 'givex-payment-method-integration',
+        section: '[data-payment-method]'
+      };
+
+      // Local reference to the options hash.
+      var options = {};
+
+      // jQuery references.
+      var $paymentMethodSection, $paymentMethodForm, $sideBarInput, $sideBarForm, $button, $buttonLabel, $input, $securityCodeInput, $error;
+
+      // Constants
+      var GIFT_CARD_PIN_REQUIRED = {{ settings.givex_pin_required | json }},
+          PAYMENT_METHOD_INPUT_SELECTOR = '[name="checkout[payment_gateway]"]',
+          GIVEX_PAYMENT_METHOD_VALUE  = 'givex',
+          BUTTON_LABEL_COMPLETE_ORDER = "{{ 'shopify.checkout.general.complete_purchase_button_label' | t }}",
+          BUTTON_LABEL_APPLY_GIFT_CARD = "{{ 'shopify.checkout.order_summary.apply_gift_card_title' | t }}",
+          CODE_TO_ERROR_MAPPINGS = {
+            '400': "{{ 'shopify.checkout.payment.gift_card_error_invalid_security_code' | t }}",
+            '404': "{{ 'shopify.checkout.payment.gift_card_error_not_found' | t }}",
+            '422': "{{ 'shopify.checkout.payment.gift_card_error_balance_empty' | t }}",
+            '500': "{{ 'shopify.checkout.payment.gift_card_error_unknown' | t }}"
+          };
+
+      // Flags
+      var givexPaymentMethodSelected = false;
+
+      /**
+       * Initialisation method.
+       */
+      GivexPaymentMethodIntegration.initialize = function(initializeOptions) {
+        options = initializeOptions;
+
+        // Set up jQuery references
+        $paymentMethodSection = $('[data-payment-method]');
+        $paymentMethodForm = $paymentMethodSection.closest('form');
+        $button = $paymentMethodForm.find('button[type="submit"]');
+        $buttonLabel = $button.find('.btn__content');
+        $sideBarInput = $('[data-reduction-form] [data-discount-field="true"]').first();
+        $sideBarForm = $sideBarInput.closest('form');
+
+        // Insert the HTML for the Givex payment method.
+        $paymentMethodSection.find('[data-payment-subform] .content-box').append({{ HTML_TEMPLATE_GIVEX_PAYMENT_METHOD | json }});
+
+        // Fetch newly rendered jQuery references.
+        $input = $paymentMethodSection.find('#givex-gift-card-number');
+        $securityCodeInput = $('#givex-gift-card-security-code');
+        $error = $('#givex-gift-card-error');
+
+        $paymentMethodForm.on('submit', handleSubmit);
+        $paymentMethodForm.on('change', PAYMENT_METHOD_INPUT_SELECTOR, handlePaymentMethodChange);
+      };
+
+      /**
+       * Handle a change in the selected payment method.
+       */
+      function handlePaymentMethodChange(e) {
+        var selectedPaymentMethod = $paymentMethodForm.find(PAYMENT_METHOD_INPUT_SELECTOR + ':checked').val();
+        givexPaymentMethodSelected = (selectedPaymentMethod === GIVEX_PAYMENT_METHOD_VALUE);
+        $buttonLabel.text(givexPaymentMethodSelected ? BUTTON_LABEL_APPLY_GIFT_CARD : BUTTON_LABEL_COMPLETE_ORDER);
+      }
+
+      /**
+       * Handle submission of form.
+       */
+      function handleSubmit(e) {
+        // Don't block submission unless Givex payment method selected.
+        if(!givexPaymentMethodSelected) {
+          return true;
+        }
+
+        e.preventDefault();
+
+        // If there's no value for the input itself, focus that field.
+        if($input.val().trim().length === 0) {
+          $input.focus();
+          return false;
+        }
+
+        // If there's no value for the security code and we require it, focus that field.
+        if(GIFT_CARD_PIN_REQUIRED) {
+          if($securityCodeInput.val().trim().length === 0) {
+            $securityCodeInput.focus();
+            return false;
+          }
+        }
+
+        // Add loading spinner and disable the button to prevent resubmission.
+        $button.addClass('btn--loading').prop('disabled', true);
+
+        // Perform the pre-auth call.
+        GivexCheckout.preauth($, $input, $securityCodeInput, {
+          success: function(result) {
+            $sideBarInput.after('<input type="hidden" name="checkout[reduction_code]" value= "' + result.voucher_number + '" />');
+
+            $(document).one('page:change', function() {
+              $paymentMethodForm.find(PAYMENT_METHOD_INPUT_SELECTOR).first().prop('checked', true);
+              givexPaymentMethodSelected = false;
+            });
+
+            $sideBarForm.attr('data-force-submit', 'yes');
+            $sideBarForm.submit();
+          },
+          error: function(result) {
+            $error.text(CODE_TO_ERROR_MAPPINGS[result.responseJSON.response.code]);
+            $input.closest('.field').addClass('field--error');
+            $button.removeClass('btn--loading').prop('disabled', false);
+          },
+          complete: function(result) {}
+        });
+
+        return false;
+      }
+
+      // Add the GivexPaymentMethodIntegration module to our list of modules.
+      if(typeof GivexCheckout.modules === 'undefined') {
+        GivexCheckout.modules = [];
+      }
+      GivexCheckout.modules.push(GivexPaymentMethodIntegration);
+      return GivexCheckout;
+
+    })(GivexCheckout || {}, jQuery || Checkout.jQuery);
+
+    /**
+     * Custom checkout initialisation.
+     */
+    (function(GivexCheckout, $, Shopify) {
+
+      // Define options that will be passed to each module on initialization.
+      var options = {};
+
+      /**
+       * Initialize a specific module (if it hasn't already been initialized).
+       * This is a variation of the Plus.func pattern advocated by Shopify for
+       * checkout customisation.
+       */
+      function initializeModule(module, options) {
+        var $section = $(module.section);
+        if(!$section.hasClass(module.name)) {
+          $section.addClass(module.name);
+          module.initialize(options);
+        }
+      }
+
+      /**
+       * Whenever the page load/change event triggers, check for any modules that
+       * should be initialized at this step. When a match is found, pass along to
+       * initializeModule().
+       */
+      $(document).on('page:load', function() {
+          $("ul.policy-list").append('<li class="policy-list__item "><a href="/pages/contact-us">Contact Us</a></li>');
+
+        });
+      $(document).on('page:load page:change', function() {
+          $.each(GivexCheckout.modules || [], function(index, module) {
+          if(module.steps.indexOf(Shopify.Checkout.step) !== -1) {
+            // If on the shipping method page and rates haven't yet returned, do
+            // nothing.
+            if(Shopify.Checkout.step === 'shipping_method' && $('[data-poll-refresh]').length) {
+              return;
+            }
+
+            // Otherwise, initialise the module.
+            initializeModule(module, options);
+          }
+        });
+      });
+
+    })(GivexCheckout || {}, jQuery || Checkout.jQuery, Shopify || {});
+  </script>
+{%- endif -%}
